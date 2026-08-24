@@ -25,3 +25,66 @@ subscriptions:
     stage: A
     diff_threshold_pct: 15
   keyword_recall_mode: or
+  intent_profiles:
+    - tag: es
+      description: 帮我找关于电磁信号或者地磁信号采集的论文
+      enabled: true
+      paper_sources:
+        - arxiv
+      keywords:
+        - keyword: electromagnetic signal
+          keyword_cn: 电磁信号
+          query: electromagnetic signal properties and characteristics
+        - keyword: signal processing
+          keyword_cn: 信号处理
+          query: electromagnetic signal processing techniques
+        - keyword: electromagnetic signal acquisition
+          keyword_cn: 电磁信号采集
+          query: electromagnetic signal acquisition methods
+        - keyword: geomagnetic signal collection
+          keyword_cn: 地磁信号采集
+          query: geomagnetic signal collection techniques
+        - keyword: signal acquisition system
+          keyword_cn: 信号采集系统
+          query: signal acquisition system design for electromagnetic and geomagnetic
+        - keyword: geophysical data acquisition
+          keyword_cn: 地球物理数据采集
+          query: geophysical data acquisition for electromagnetic and magnetic surveys
+      intent_queries:
+        - query: how to detect electromagnetic signals using equipment
+          query_cn: 如何使用设备检测电磁信号
+          enabled: true
+          source: manual
+          note: ''
+        - query: factors affecting electromagnetic signal strength
+          query_cn: 影响电磁信号强度的因素
+          enabled: true
+          source: manual
+          note: ''
+        - query: How to acquire electromagnetic signals for scientific research
+          query_cn: 如何采集电磁信号用于科学研究
+          enabled: true
+          source: manual
+          note: ''
+        - query: Geomagnetic data acquisition techniques
+          query_cn: 地磁数据采集技术
+          enabled: true
+          source: manual
+          note: ''
+      updated_at: '2026-08-24T07:46:50.230Z'
+      paused: true
+source_backends:
+  arxiv:
+    papers_table: arxiv_papers
+    use_vector_rpc: true
+    vector_rpc: match_arxiv_papers
+    vector_rpc_exact: match_arxiv_papers_exact
+    use_bm25_rpc: true
+    bm25_rpc: match_arxiv_papers_bm25
+    sync_table: arxiv_sync_status
+    sync_success_value: success
+    schema: public
+    kind: supabase
+    enabled: true
+    url: https://lyucdwgefyfbmaiopjbk.supabase.co
+    anon_key: sb_publishable_lX-oi64Uxyd7SIVv3_w2Uw_MTOojeKq
