@@ -1,0 +1,149 @@
+Title: Development of Different Algorithms for Drone-Based Antenna Measurement Systems and Near-Field Error Analysis
+
+URL Source: https://arxiv.org/pdf/2608.16518v1
+
+Published Time: Tue, 18 Aug 2026 02:04:24 GMT
+
+Number of Pages: 4
+
+Markdown Content:
+# Development of Different Algorithms for Drone-Based Antenna Measurement Systems and Near-Field Error Analysis 
+
+Simranjit Singh 
+
+Indian Institute of Technology Delhi 
+
+New Delhi, India eee252834@iitd.ac.in Jaswant Sharma 
+
+Space Applications Centre, ISRO 
+
+Ahmedabad, India jaswantamd@sac.isro.gov.in Jigar M. Pandya 
+
+Space Applications Centre, ISRO 
+
+Ahmedabad, India jigar@sac.isro.gov.in 
+
+Abstract —Near-field antenna measurements underpin the characterization of electrically large apertures, yet the fidelity of the Near-Field to Far-Field (NF-FF) transformation depends on the reconstruction algorithm’s assumptions and robustness to real-world imperfections, including those from drone-based scanning platforms. Classical FFT-based modal expansion is efficient on uniformly sampled canonical grids but fails when phase-coherent acquisi-tion cannot be maintained. We address this via a phaseless NF-FF algorithm reconstructing the far field from amplitude-only data through iterative phase retrieval. When sampling becomes sparse or irregular, even amplitude-based methods break down, motivat-ing the Adaptive Sparse Inverse Radiation Estimator (ASPIRE), a full-complex inverse source framework that solves a Method-of-Moments problem over RWG basis functions via cascaded rSVD and regularized shrinkage. Mutual coupling between basis functions is explicitly resolved, improving reconstruction fidelity beyond coupling-agnostic inverse-source formulations. The solver is accelerated via a Multilevel Fast Multipole Method engine with Numba just-in-time compilation, achieving a 1.2× reduction in matrix-vector product time and up to 15 × lower memory usage relative to dense evaluation at N=100K. Across frequency bands and positioning/truncation error sce-narios, the pipeline sustains algorithmic stability and achieves sub-degree beamwidth reconstruction error. These results estab-lish an error-aware framework for algorithm selection across fixed and drone-based near-field measurement platforms. 
+
+Index Terms —Near-field to far-field transformation, ASPIRE, phaseless NF-FF transformation, inverse source reconstruction, mutual coupling, MLFMM, JIT acceleration, drone-based mea-surement, near-field error analysis, regularization 
+
+I. I NTRODUCTION 
+
+Accurate characterization of antenna radiation patterns is essential for communication and radar system deployment [2]. For electrically large apertures, direct far-field measurement demands prohibitively large separation distances, making near-field (NF) techniques the standard approach. Conventional NF-FF transformation relies on planar, cylindrical, or spherical scanning inside anechoic chambers with precision position-ers [2]. Such facilities are expensive, and the antenna size they can accommodate is physically constrained. Drone-based antenna measurement systems (DAMS) have emerged as a cost-effective alternative for outdoor near-field scanning [1]. By mounting a probe on a UAV equipped with RTK-GNSS positioning, NF data can be acquired over flexible scan surfaces without chamber infrastructure. However, drone platforms introduce error sources absent in chamber measure-ments: (i) positioning jitter from wind loading and flight-controller dynamics, (ii) scan-area truncation imposed by battery endurance, and (iii) potential loss of phase coherence between transmit reference and receive chains over extended flight durations. The classical FFT-modal approach [4], [5] assumes uni-form sampling on a canonical planar grid with full phase information. Under drone-induced positioning errors on the order of several millimeters, spectral leakage and aliasing degrade sidelobe reconstruction. Phaseless NF-FF methods based on Gerchberg–Saxton iteration [6], [7] relax the phase-coherence requirement by operating on amplitude-only data from two measurement planes but remain confined to uniform grids and are sensitive to plane separation. Inverse-source methods [11], [12] solve for equivalent currents on a Huygens surface enclosing the antenna under test (AUT), offering a more general framework. However, prior formulations typ-ically employ simplified coupling models, limiting fidelity at higher frequencies where mutual coupling between basis functions is significant. This paper presents the following contributions: 1) ASPIRE, a full-complex inverse-source solver using RWG basis functions with explicit mutual coupling; 2) A cascaded randomized SVD and ℓ1-regularized iter-ative shrinkage solver (ISS) with automatic rank and regularization parameter selection; 3) MLFMM acceleration with Numba JIT compilation, reducing memory by up to 15 × and enabling scaling to 10 5+ unknowns; 4) A comparative error analysis across FFT-modal, phase-less GS, and ASPIRE, demonstrating ASPIRE’s ≤ 0.3◦
+
+beamwidth error at C-band and X-band. II. R ELATED WORK AND DISTINCT CONTRIBUTIONS 
+
+Classical NF-FF transformation via FFT-based modal ex-pansion [4], [5] requires uniform sampling and full phase coherence-conditions frequently violated by drone platforms. While Newell [3] established standard error analysis for planar scanning, it assumes precision positioners rather than stochas-tic UAV jitter. Phaseless approaches based on Gerchberg– Saxton iteration [6], [19] and its antenna-specific variants [7]– [9] successfully relax phase-hardware requirements by re-arXiv:2608.16518v1 [eess.SP] 17 Aug 2026 covering phase from amplitude-only measurements on two planes. However, unlike our proposed approach, these meth-ods remain strictly bound to uniform canonical grids and suffer severe degradation under scan-area truncation. Inverse-source methods reconstruct equivalent currents on a closed surface enclosing the AUT [11], [12]. While Schnattinger et al. [10] successfully combined inverse-source reconstruc-tion with MLFMM acceleration for phaseless data, their formulation does not explicitly address the physical inter-element mutual coupling critical at higher frequencies, nor the unique truncation penalties of drone platforms. In our prior work [1], we introduced the physical drone measure-ment platform (DAMS) and demonstrated preliminary C-band results using an unaccelerated ASPIRE solver. The present paper distinctly shifts the contribution from mechanical positioning to algorithmic benchmarking and computational scaling. Specifically, this work provides a rigorous comparative error analysis across FFT-modal, phaseless GS, and ASPIRE under X-band UAV jitter conditions; integrates MLFMM with Numba JIT compilation for O(N log N ) scaling; and estab-lishes a formal algorithm selection framework for irregular near-field acquisitions. III. P ROBLEM FORMULATION AND ERROR MODEL 
+
+Consider a planar near-field scan at standoff distance z0
+
+from the AUT aperture. A drone-mounted probe traverses an L × L grid of M spatial points, recording the complex voltage at each position rm. In the inverse-source formulation, the AUT is enclosed by a Huygens surface S discretized into triangular facets carrying RWG basis functions [17]. The forward model relating the N unknown equivalent-current coefficients x ∈ CN to the measured voltages u ∈ CM is 
+
+u = G x + n, (1) where G ∈ CM ×N is the forward operator encoding the free-space dyadic Green’s function evaluated between each RWG basis function and each probe location, and n accounts for measurement noise and model mismatch. Because G is constructed from the full MoM impedance formulation, inter-element mutual coupling is inherently captured. Three error sources dominate drone-based NF measure-ments. Positioning jitter : deviations of the probe from its nominal grid position, characterized by lateral standard de-viation σxy and axial standard deviation σz . At X-band (λ = 31 .56 mm), typical drone jitter of σxy ≈ 3.8 mm and 
+
+σz ≈ 5.75 mm corresponds to 0.12 λ and 0.18 λ, respectively. 
+
+Truncation : the finite scan aperture excludes wide-angle radi-ation, producing Gibbs-type oscillations in the reconstructed pattern. Phase coherence : over extended acquisition times, the transmit–receive phase reference may drift, motivating phaseless formulations that operate on |u| alone. IV. P ROPOSED METHOD 
+
+A. Baseline Methods FFT-Modal. The classical NF-FF transformation computes the plane-wave spectrum via 2-D FFT of the uniformly sampled near-field data, applies a phase-correction propagator to remove the measurement-plane phase tilt, and evaluates the far-field pattern at the desired observation angles [5]. The method is computationally efficient ( O(M log M )) but requires uniform sampling, full phase data, and sufficient scan extent. 
+
+Phaseless GS. The Gerchberg–Saxton algorithm [19] recov-ers the near-field phase from amplitude measurements on two parallel planes separated by ∆z [6]. The field is iteratively propagated between planes via angular-spectrum propagation; at each plane, the measured amplitude is enforced while the phase evolves freely. Convergence depends on the plane separation ( ∆z = 3 λ is used here) and on the amplitude diversity between planes [18]. 
+
+B. ASPIRE Core 
+
+ASPIRE solves the underdetermined inverse problem (1) by exploiting the physical sparsity of equivalent currents-only conducting elements of the AUT carry significant current, while substrate and surrounding facets do not. The full pipeline is detailed in our prior work [1]; we summarize its two stages below. 
+
+Stage 1-Dimensionality reduction. A randomized SVD [14] of G identifies the numerical rank k via singular-value decay against the noise floor, projecting CN → Ck and suppressing noise amplification. 
+
+Stage 2-Sparse recovery. The reduced problem is solved via Iterative Shrinkage-Solver (ISS) [13]: 
+
+zt = xt − 1
+
+Llip 
+
+GH (Gx t − u) , (2) 
+
+x(i) 
+
+> t+1
+
+= z(i)
+
+> t
+
+z(i)
+
+> t
+
+max 
+
+
+
+z(i) 
+
+> t
+
+− λLlip 
+
+, 0
+
+
+
+, (3) where Llip is the Lipschitz constant of GH G and λ is chosen empirically; (3) zeros coefficients below λ/L lip , nullifying current on non-radiating elements. At C-band, FISTA acceleration [13] with Nesterov mo-mentum provides faster convergence. At X-band, the shorter wavelength increases the condition number of G, causing FISTA’s momentum term to overshoot and destabilize. The memoryless ISS variant (2)–(3) provides robust convergence in this regime. The recovered ˆx is debiased via least-squares on its support 
+
+S∗ = {i : |ˆxi| > 0} before far-field synthesis, EFF = Fˆx,
+
+F ∈ CP ×N .
+
+C. MLFMM Acceleration with JIT Compilation 
+
+The X-band forward operator ( 11 ,025 ×45 ,000 , ≈ 7.94 GB) requires one forward and one adjoint MVP per ISS iteration, making dense evaluation memory-prohibitive at larger N .We instead compute MVPs via a Multilevel Fast Multipole Method [15], [16] in O(N log N ) time and memory, replac-ing O(N 2) dense operations. The kernel is implemented in pure Python with Numba JIT compilation, avoiding Fortran/C dependencies while achieving near-native speed. V. R ESULTS AND DISCUSSION 
+
+A. Experimental Setup 
+
+Two AUT systems are used for validation: a C-band planar array at 6.7125 GHz [1] and an X-band planar array at 9.5 GHz. Table I summarizes the X-band system specifica-tions. Reference truth patterns are obtained from Compact Antenna Test Range (CATR) measurements.                                                                             
+
+> TABLE I SYSTEM SPECIFICATIONS AND UAV F LIGHT PARAMETERS FOR THE
+> X-B AND TESTING CAMPAIGN
+> Parameter Value AUT, Probe, and Huygens Surface
+> AUT X-band array, 370 ×370 mm aperture Frequency 9.5 GHz (Wavelength, λ= 31 .56 mm) Probe WR90 OEWG Huygens surface, S401 .6×401 .6×31 .6mm box Surface standoff λ/ 2from AUT aperture Mesh 30,001 triangles, 15,003 vertices RWG basis functions, N45,000 Near-Field Measurement Grid
+> Plane standoff, z150 mm Grid (extent, spacing) ±625 mm, ≈12 .02 mm ( 105 ×105 )Spatial points →MM = 11,025 (Single Polarization) Drone positioning jitter σxy = 3 .8mm and σz= 5 .75 mm
+> System Matrices Memory Footprint
+> Voltage vector, u∈CM11,025 elements ( ≈176 KB) Forward Operator, G∈CM×N11 ,025 ×45 ,000 (≈7.94 GB) Far-Field Map, F∈C8,406 ×N8,406 ×45 ,000 (≈6.05 GB)
+
+B. Far-Field Reconstruction Accuracy 
+
+Table II summarizes ∆BW across both bands and runtime for X-band. ASPIRE attains the lowest error at both frequen-cies ( −0.30 ◦ C-band, −0.20 ◦ X-band). The smaller absolute baseline errors at X-band reflect the array’s higher directivity (true BW = 4 .4◦), not improved robustness: relative to true BW, FFT-modal error rises from 5.9% to 6.8% , consistent with jitter forming a larger fraction of λ (0.08 λ → 0.12 λ). Phase-less GS shows the opposite trend ( 14 .1% → 6.8% ), which isolates scan-truncation-not jitter-as the dominant error source at C-band, since amplitude-only retrieval is disproportionately sensitive to abruptly clipped wide-angle energy. Fig. 1 shows this truncation effect at C-band. ASPIRE tracks CATR truth closely ( 3 dB BW: 18 .20 ◦ vs. 18 .50 ◦), while FFT-modal ( 17 .4◦) and GS ( 15 .9◦) narrow sharply. The array’s broad 18 .5◦ beam places significant energy at the drone grid’s edge; GS’s plane-to-plane angular-spectrum propagation is especially sensitive to this boundary, driving its 14 .1% error. ASPIRE’s ℓ1-regularized inverse-source formulation instead confines radiation to the Huygens surface, effectively extrap-olating the missing wide-angle data and avoiding truncation-induced narrowing. Fig. 2 shows the X-band pattern over ±70 ◦. ASPIRE best matches CATR truth (Pearson r = 0 .97 in dB), versus FFT-modal ( r = 0 .87 ) and GS ( r = 0 .82 ). The gap is largest beyond ±20 ◦, where the RWG forward model regularizes the                                        
+
+> TABLE II COMPARISON OF NF-FF M ETHODS
+> Method Phase Uniform C-Band X-Band Run-Req. Grid ∆BW ∆BW time
+> FFT-Modal Yes Yes −1.10 ◦+0 .30 ◦<1sPhaseless GS No Yes −2.60 ◦−0.30 ◦∼60 s
+> ASPIRE Yes No −0.30 ◦−0.20 ◦∼15 .2min Note: Runtimes evaluated on an Apple Silicon M-Series processor.
+> Fig. 1. C-band ( f= 6 .7125 GHz) main beam pattern comparison, φ=0◦(E-plane). The 3 dB beamwidths and deviations from CATR truth are annotated. ASPIRE reconstruction is performed with 0.1◦resolution, whereas the prior work [1] used a 5◦resolution.
+
+high-frequency spectral content that jitter otherwise amplifies in FFT-modal processing. 
+
+C. Computational Scaling 
+
+Fig. 3 shows the MVP execution time as a function of source unknowns N for both dense and MLFMM evaluation. The crossover point occurs near N ≈ 100 K, beyond which MLFMM provides both speed and memory advantages. Ta-ble III details the performance scaling benchmark. For the spe-cific X-band configuration evaluated in this study ( N = 45 K), the full ASPIRE pipeline required 15.2 minutes to run using the MLFMM engine. At N = 100 K, dense storage requires 48 GB of RAM, while MLFMM operates within 3.06 GB-a 
+
+15 .7× reduction that makes the solver practical on commodity hardware.                                                
+
+> TABLE III PERFORMANCE SCALING BENCHMARK : D ENSE VS . MLFMM
+> Scale ( N×M)17K ×6K 45K ×11K 100K ×30K Metric Dense FMM Dense* FMM Dense* FMM Setup Time (s) ∼020.0 ∼050.0 ∼0113.0 Forward MVP (s) 3.3 15.7 15.7 37.1 94.6 80.9 Adjoint MVP (s) 3.3 12.1 15.7 22.5 94.6 73.0 RAM Usage (GB) 1.67 0.2 7.95 1.05 48.0 3.06
+
+Fig. 2. X-band ( f = 9 .5 GHz) far-field pattern, φ = 0 ◦ (E-plane). ASPIRE (red) tracks the CATR truth (black) across the full ±70 ◦ range. 
+
+Fig. 3. Matrix-vector product time vs. number of source unknowns N .MLFMM (Numba JIT) scales as O(N log N ), crossing below the O(N 2)
+
+dense curve near N = 100 K. The large-scale dense performance and storage numbers are estimated assuming O(N 2) complexity. 
+
+D. Algorithm Selection Guidance 
+
+FFT-modal is appropriate when uniform sampling and phase coherence are maintained, such as in conventional cham-ber measurements. Phaseless GS is suitable when phase-measurement hardware is unavailable but uniform grids are feasible. ASPIRE is recommended for drone-based platforms where positioning jitter, scan truncation, or irregular sampling demand a robust inverse-source formulation with explicit coupling resolution. Consequently, when reliable phase data is available, the general performance hierarchy is ASPIRE ≫
+
+FFT-Modal > Phaseless GS. Conversely, when phase informa-tion is unavailable or degraded, FFT-modal and Phaseless GS switch order, making phase retrieval the preferable baseline. VI. C ONCLUSION 
+
+This paper compared three NF-FF transformation ap-proaches under drone-induced measurement errors at C-band and X-band. ASPIRE, a cascaded randomized SVD ℓ1-regularized inverse-source solver with RWG basis functions and explicit mutual coupling, achieves ≤ 0.3◦ beamwidth re-construction error across both frequency bands, outperforming FFT-modal and phaseless alternatives in sidelobe fidelity and main-beam accuracy. MLFMM acceleration with Numba JIT compilation provides up to 15 × memory reduction, enabling scaling to 10 5+ unknowns on commodity hardware. Future work includes incorporating controlled ablation studies to experimentally decouple the compounded penalties of posi-tioning jitter and scan-area truncation, and extension to higher frequency bands. REFERENCES [1] S. Singh, Jaswant, and J. M. Pandya, “Drone-based antenna measure-ment system with optimized positioning and ASPIRE-based NF-FF transformation,” arXiv preprint arXiv:2607.09361 , 2026. [2] A. D. Yaghjian, “An overview of near-field antenna measurements,” 
+
+IEEE Trans. Antennas Propag. , vol. 34, no. 1, pp. 30–45, Jan. 1986. [3] A. C. Newell, “Error analysis techniques for planar near-field measure-ments,” IEEE Trans. Antennas Propag. , vol. 36, no. 6, pp. 754–768, Jun. 1988. [4] D. M. Kerns, “Plane-wave scattering-matrix theory of antennas and antenna–antenna interactions,” Nat. Bureau Standards Monograph ,vol. 162, Jun. 1976. [5] E. B. Joy and D. T. Paris, “Spatial sampling and filtering in near-field measurements,” IEEE Trans. Antennas Propag. , vol. AP-20, no. 3, pp. 253–261, May 1972. [6] J. R. Fienup, “Phase retrieval algorithms: A comparison,” Appl. Opt. ,vol. 21, no. 15, pp. 2758–2769, Aug. 1982. [7] T. Isernia, G. Leone, and R. Pierri, “Radiation pattern evaluation from near-field intensities on planes,” IEEE Trans. Antennas Propag. , vol. 44, no. 5, pp. 701–710, May 1996. [8] R. G. Yaccarino and Y. Rahmat-Samii, “Phaseless bi-polar planar near-field measurements and diagnostics of array antennas,” IEEE Trans. Antennas Propag. , vol. 47, no. 3, pp. 574–583, Mar. 1999. [9] O. M. Bucci, G. D’Elia, and M. D. Migliore, “An effective near-field far-field transformation technique from truncated and inaccurate amplitude-only data,” IEEE Trans. Antennas Propag. , vol. 47, no. 9, pp. 1377–1385, Sep. 1999. [10] G. Schnattinger, C. Lopez, E. Kılıc ¸, and T. F. Eibert, “Fast near-field far-field transformation for phaseless and irregular antenna measurement data,” Adv. Radio Sci. , vol. 12, pp. 171–177, 2014. [11] T. K. Sarkar and A. Taaghol, “Near-field to near/far-field transformation for arbitrary near-field geometry utilizing an equivalent electric current and MoM,” IEEE Trans. Antennas Propag. , vol. 47, no. 3, pp. 566–573, Mar. 1999. [12] Y. ´ Alvarez, F. Las-Heras, and M. R. Pino, “Reconstruction of equivalent currents distribution over arbitrary three-dimensional surfaces based on integral equation algorithms,” IEEE Trans. Antennas Propag. , vol. 55, no. 12, pp. 3460–3468, Dec. 2007. [13] A. Beck and M. Teboulle, “A fast iterative shrinkage-thresholding algorithm for linear inverse problems,” SIAM J. Imag. Sci. , vol. 2, no. 1, pp. 183–202, 2009. [14] N. Halko, P. G. Martinsson, and J. A. Tropp, “Finding structure with randomness: Probabilistic algorithms for constructing approximate matrix decompositions,” SIAM Rev. , vol. 53, no. 2, pp. 217–288, 2011. [15] R. Coifman, V. Rokhlin, and S. Wandzura, “The fast multipole method for the wave equation: A pedestrian prescription,” IEEE Antennas Propag. Mag. , vol. 35, no. 3, pp. 7–12, Jun. 1993. [16] W. C. Chew, J.-M. Jin, E. Michielssen, and J. Song, Fast and Efficient Algorithms in Computational Electromagnetics . Boston, MA: Artech House, 2001. [17] S. M. Rao, D. R. Wilton, and A. W. Glisson, “Electromagnetic scattering by surfaces of arbitrary shape,” IEEE Trans. Antennas Propag. , vol. 30, no. 3, pp. 409–418, May 1982. [18] N. M´ ezi` eres and L. Le Coq, “Improvement of the Gerchberg–Saxton algorithm convergence in phaseless antenna measurements via spherical-wave filtering,” IEEE Trans. Antennas Propag. , vol. 71, no. 8, pp. 6913– 6918, Aug. 2023. [19] R. W. Gerchberg and W. O. Saxton, “A practical algorithm for the determination of phase from image and diffraction plane pictures,” Optik ,vol. 35, pp. 237–246, 1972.

@@ -1,0 +1,233 @@
+{
+  "date": "20260824",
+  "date_label": "",
+  "generated_at": "2026-08-24 19:55:44 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.16454v1",
+      "route": "202608/24/2608.16454v1-self-supervised-noise2noise-enhanced-denoising-for-continuous-scan-air-plasma-thz-spectroscopy",
+      "title": "Self-Supervised Noise2Noise-Enhanced Denoising for Continuous-Scan Air-Plasma THz Spectroscopy",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "es"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "提出学习式去噪，可从单次扫描恢复高质量太赫兹波形，提升采集效率",
+      "first_seen_at": "2026-08-24 19:55:44 UTC",
+      "updated_at": "2026-08-24 19:55:44 UTC"
+    },
+    {
+      "paper_id": "2608.16518v1",
+      "route": "202608/24/2608.16518v1-development-of-different-algorithms-for-drone-based-antenna-measurement-systems-and-near-field-error-analysis",
+      "title": "Development of Different Algorithms for Drone-Based Antenna Measurement Systems and Near-Field Error Analysis",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "es"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "近场天线测量采集及无相位与自适应近远场变换算法",
+      "first_seen_at": "2026-08-24 19:55:44 UTC",
+      "updated_at": "2026-08-24 19:55:44 UTC"
+    },
+    {
+      "paper_id": "2608.16705v1",
+      "route": "202608/24/2608.16705v1-real-time-symbol-domain-ofdm-radar-in-an-openairinterface-5g-base-station-with-o-ran-sensing-services",
+      "title": "Real-Time Symbol-Domain OFDM Radar in an OpenAirInterface 5G Base Station With O-RAN Sensing Services",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "es"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "在5G基站中实现实时OFDM雷达信号处理",
+      "first_seen_at": "2026-08-24 19:55:44 UTC",
+      "updated_at": "2026-08-24 19:55:44 UTC"
+    },
+    {
+      "paper_id": "2608.17216v1",
+      "route": "202608/24/2608.17216v1-multi-tag-collision-recovery-in-uhf-rfid-using-self-attention-decoding",
+      "title": "Multi-Tag Collision Recovery in UHF-RFID Using Self-Attention Decoding",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "es"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "通过自注意力解码从基带I/Q样本中恢复碰撞的RFID标签信号",
+      "first_seen_at": "2026-08-24 19:55:44 UTC",
+      "updated_at": "2026-08-24 19:55:44 UTC"
+    },
+    {
+      "paper_id": "2608.17400v1",
+      "route": "202608/24/2608.17400v1-quantum-sensors-that-compute-quantum-computational-magnetic-field-sensing-using-a-superconducting-qubit",
+      "title": "Quantum sensors that compute: quantum computational magnetic-field sensing using a superconducting qubit",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "es"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "利用超导量子比特进行量子计算磁场传感，实现磁信号采集",
+      "first_seen_at": "2026-08-24 19:55:44 UTC",
+      "updated_at": "2026-08-24 19:55:44 UTC"
+    },
+    {
+      "paper_id": "2608.17476v1",
+      "route": "202608/24/2608.17476v1-super-resolution-ranging-using-a-sub-terahertz-self-injection-locked-frequency-modulated-radar",
+      "title": "Super-resolution ranging using a sub-terahertz self-injection-locked frequency-modulated radar",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "es"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "亚太赫兹FMCW雷达超分辨测距涉及电磁信号获取与处理",
+      "first_seen_at": "2026-08-24 19:55:44 UTC",
+      "updated_at": "2026-08-24 19:55:44 UTC"
+    },
+    {
+      "paper_id": "2608.17497v1",
+      "route": "202608/24/2608.17497v1-channel-modeling-for-phase-based-ranging",
+      "title": "Channel Modeling for Phase-Based Ranging",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "es"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "建模了相位噪声、载波频偏、IQ失衡和干扰等影响信号强度的因素",
+      "first_seen_at": "2026-08-24 19:55:44 UTC",
+      "updated_at": "2026-08-24 19:55:44 UTC"
+    },
+    {
+      "paper_id": "2608.17769v1",
+      "route": "202608/24/2608.17769v1-electromagnetic-world-model-for-6g-a-unified-framework-for-joint-environment-reconstruction-and-channel-prediction",
+      "title": "Electromagnetic World Model for 6G: A Unified Framework for Joint Environment Reconstruction and Channel Prediction",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "es"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "用于信道预测与环境重建的电磁世界模型",
+      "first_seen_at": "2026-08-24 19:55:44 UTC",
+      "updated_at": "2026-08-24 19:55:44 UTC"
+    },
+    {
+      "paper_id": "2608.18348v1",
+      "route": "202608/24/2608.18348v1-the-atacama-cosmology-telescope-passband-measurements-with-an-analysis-of-systematic-errors",
+      "title": "The Atacama Cosmology Telescope: Passband Measurements with an Analysis of Systematic Errors",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "es"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "利用傅里叶变换光谱仪测量探测器阵列的通带频谱响应并分析系统误差",
+      "first_seen_at": "2026-08-24 19:55:44 UTC",
+      "updated_at": "2026-08-24 19:55:44 UTC"
+    },
+    {
+      "paper_id": "2608.19709v1",
+      "route": "202608/24/2608.19709v1-rfwm-physics-guided-world-model-for-dynamic-wireless-radiance-field-generation",
+      "title": "RFWM: Physics-Guided World Model for Dynamic Wireless Radiance Field Generation",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "es"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "射频场建模与无线信号预测",
+      "first_seen_at": "2026-08-24 19:55:44 UTC",
+      "updated_at": "2026-08-24 19:55:44 UTC"
+    },
+    {
+      "paper_id": "2608.19881v1",
+      "route": "202608/24/2608.19881v1-interpretable-feature-learning-for-rf-fingerprinting-via-polar-mkans",
+      "title": "Interpretable Feature Learning for RF Fingerprinting via Polar MKANs",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "es"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "基于Polar MKAN的射频指纹识别技术处理电磁信号以实现设备认证",
+      "first_seen_at": "2026-08-24 19:55:44 UTC",
+      "updated_at": "2026-08-24 19:55:44 UTC"
+    },
+    {
+      "paper_id": "2608.20240v1",
+      "route": "202608/24/2608.20240v1-quasar-a-quantum-classical-neural-network-for-sar-satellite-physical-layer-authentication",
+      "title": "QUASAR: A Quantum-Classical Neural Network for SAR Satellite Physical-Layer Authentication",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "es"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "量子-经典混合网络用于X波段SAR卫星信号的射频指纹识别",
+      "first_seen_at": "2026-08-24 19:55:44 UTC",
+      "updated_at": "2026-08-24 19:55:44 UTC"
+    },
+    {
+      "paper_id": "2608.20486v1",
+      "route": "202608/24/2608.20486v1-wireless-physical-layer-foundation-models-architectures-learning-paradigms-applications-and-deployment",
+      "title": "Wireless Physical-Layer Foundation Models: Architectures, Learning Paradigms, Applications, and Deployment",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "es"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "综述无线物理层基础模型，研究CSI、IQ样本、频谱图等电磁信号的通用表征与处理方法",
+      "first_seen_at": "2026-08-24 19:55:44 UTC",
+      "updated_at": "2026-08-24 19:55:44 UTC"
+    },
+    {
+      "paper_id": "2608.21108v1",
+      "route": "202608/24/2608.21108v1-remote-sensing-of-the-temporal-and-spatial-variability-of-atmospheric-refractivity-using-ads-b-interferometry-adsbi",
+      "title": "Remote sensing of the temporal and spatial variability of atmospheric refractivity using ADS-B interferometry (ADSBi)",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "es"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "利用干涉仪检测ADS-B无线电传输以感知大气折射率",
+      "first_seen_at": "2026-08-24 19:55:44 UTC",
+      "updated_at": "2026-08-24 19:55:44 UTC"
+    }
+  ]
+}

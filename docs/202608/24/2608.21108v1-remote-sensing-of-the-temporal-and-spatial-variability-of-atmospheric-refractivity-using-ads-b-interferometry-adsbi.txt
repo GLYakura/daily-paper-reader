@@ -1,0 +1,357 @@
+Title: Remote sensing of the temporal and spatial variability of atmospheric refractivity using ADS-B interferometry (ADSBi)
+
+URL Source: https://arxiv.org/pdf/2608.21108v1
+
+Published Time: Mon, 24 Aug 2026 00:52:27 GMT
+
+Number of Pages: 8
+
+Markdown Content:
+Quarterly Journal of the Royal Meteorological Society Q. J. R. Meteorol. Soc. 00: 1–8 (2013) 
+
+# Remote sensing of the temporal and spatial variability of atmospheric refractivity using ADS-B interferometry (ADSBi) 
+
+# Ollie Lewis 1∗, Chris Brunt 1, Malcolm Kitchen 1, Neill E. Bowler 2, Edmund K. Stone 2
+
+> 1
+
+Department of Physics and Astronomy, University of Exeter, Exeter, United Kingdom 
+
+> 2
+
+Met Office, Exeter, United Kingdom 
+
+> ∗
+
+Correspondence to: Ollie Lewis (now at MetDesk Ltd.): oliverlewis079@gmail.com 
+
+The extreme variability of humidity in the lower atmosphere over short spatial and temporal scales presents an enormous challenge for existing observing systems. Variations in humidity can be detected due to changes in the refractive properties of the atmosphere, which influence the propagation of electromagnetic radiation. We demonstrate the ability to retrieve high-resolution refractivity gradient measurements using an interferometer to measure the refraction of the Automatic Dependent Surveillance-Broadcast (ADS-B) radio transmission routinely broadcast by commercial aircraft. The ADS-B interferometry (ADSBi) technique is sensitive to small-scale spatial and temporal variability in the refractivity gradient due to changes in humidity. We demonstrate how the retrieval of refractivity profiles is possible exploiting the differences in the observed refraction of radio transmissions broadcast by aircraft at different distances and altitudes. 
+
+Key Words: Refractivity, humidity, interferometry 
+
+Received . . . 
+
+1. Introduction 
+
+Automatic Dependent Surveillance-Broadcast (ADS-B) interfer-ometry (ADSBi) is a novel remote sensing technique that has the potential to provide high-resolution refractivity information. The method aims to address a gap in accurate, high-resolution refrac-tivity observations in the lowest few kilometres of the atmosphere above the surface (Geer et al. 2017; Leuenberger et al. 2020). Variability in refractivity in the lower atmosphere is dominated by variations in water vapour, hence refractivity measurements can provide important humidity information for use in numerical weather prediction (NWP) models. There is increasing interest in novel and opportunistic remote sensing technologies to gather high-volume, low-cost atmospheric data. The ADSBi technique acts as an extension of existing systems used for gathering aircraft-derived observations. Meteorological parameters such as temperature (de Haan 2011; Stone and Kitchen 2015; Mirza et al. 2019) and wind (de Haan et al. 2013; Mirza et al. 2016) data have already been derived using ADS-B and Mode-Selective enhanced surveillance (Mode-S EHS) radio transmissions from commercial aircraft. In regions with high air traffic such as Europe, the impact of assimilating wind observations has already been realised by the United Kingdom (UK) Met Office (Stone and Pearce 2016; Stone 2018; Li 2021) and the Royal Netherlands Meteorological Institute (KNMI) (de Haan and Stoffelen 2012; de Haan et al. 2013). The ADSBi technique was first introduced by Lewis et al. (2023a) along with initial sensitivity tests using synthetic data. The potential to adapt the observation operator used in Global Navigation Satellite System (GNSS) radio occultation was described in Lewis et al. (2023b). Initial refractivity retrievals using real observational data and a novel adjoint model were explored in Lewis et al. (2024) and Lewis et al. (2025). The initial refractivity retrievals were impacted by significant observational noise, with the principal source of uncertainty being foreground reflections interfering with the direct ADS-B signal. This paper presents, for the first time, results from the analysis of data that shows good agreement with contemporary radiosonde profiles. The potential to retrieve useful refractivity information is demonstrated. In section 2 we present a brief description of the prototype ADS-B interferometer and the set up used in the latest field experiment. In section 3, the observation operator and adjoint model used to retrieve refractivity profiles is described. In section 4, the experimental results are presented alongside a description of the prevailing meteorological conditions. 
+
+2. ADSBi 
+
+The angle-of-arrival (AoA) of the ADS-B signal is the received elevation angle (angle measured upwards from the horizontal plane) and is determined through the use of a vertically-orientated, two-element interferometer. Atmospheric refraction causes radio signals to deflect and (usually) bend towards the surface, resulting in the apparent elevation of the aircraft to appear greater than its true elevation above the horizon (Lewis et al. 2023a). The AoA is determined by measuring the phase difference across the elements of the interferometer (for positive elevations, the signal is received at the upper element before the lower element). The phase difference is given by    
+
+> © 2013 Royal Meteorological Society Prepared using qjrms4.cls [Version: 2013/10/14 v1.1] arXiv:2608.21108v1 [physics.ao-ph] 21 Aug 2026
+
+2   
+
+> Figure 1. Geometry of the ADSBi observing system. The refracted path of the ADS-B radio signal is given by the solid line. The refracted angle is defined as the difference between the observed AoA ( β) and the LoS AoA ( β0). The vertically-orientated baseline vector is given by B(adapted with permission from Lewis et al. (2024) ) (© 2024 IEEE).
+
+ϕ = 2 π Bsin (β)
+
+λ , (1) where B is the magnitude of the separation vector between the interferometer elements, β is the observed AoA and λ is the wavelength of the ADS-B signal ( λ ≈ 0.275 m for a 1090 MHz signal ). The measured AoA of the ADS-B signal can be combined with the known position of the aircraft (information contained within the ADS-B message) to infer the total bending of the signal due to refraction. The interferometrically-derived observed AoA is dependent on the refracted ray path of the ADS-B radio signal. The line-of-sight (LoS) AoA, β0, is straight line AoA determined from the reported aircraft position. The difference between the observed and LoS AoA is given by the refracted angle (geometry shown in Fig. 1), which can be written as 
+
+∆β = β − β0. (2) The refracted angle is a function of the accumulated bending along the trajectory of the ray path and is highly sensitive to variations in atmospheric moisture content, particularly in the lower atmosphere (Sokolovskiy et al. 2001). 
+
+3. Methods 
+
+3.1. Observation operator 
+
+The observation operator allows observations to be estimated given an atmospheric state x. The mapping between state and observation space can be represented as 
+
+y = H[x], (3) where H is a (potentially non-linear) model that transforms the state vector into an equivalent vector of simulated observations y.There are two “observable” quantities obtained using the ADSBi technique: the interferometrically-measured AoA of the signal and the reported height of the aircraft (not directly measured, but extracted from the ADS-B transmission). The observed AoA is challenging to simulate, as it requires tracing a ray from the aircraft position to the receiver position. Two issues arise here: the emission angle of the signal is unknown, and the ray may not necessarily land at the receiver position when traced through a first-guess atmosphere. We instead choose the reported height of the aircraft as the “observable” to simulate. The reported aircraft height is simulated in a time-reversed frame: the observed AoA is used as the initial direction of the ray, which is then traced out to the reported distance of the aircraft. The height of the ray at this distance can then be compared to the reported height of the aircraft extracted from the ADS-B transmission. The observation operator that maps the state to a simulated ADS-B refraction observation is given by the second-order differential equation (SODE) ray tracer described by Zeng et al. (2014). It can be written as two coupled first-order differential equations given by dh
+
+dr = u, (4) du
+
+dr = (1 − u2)
+
+ d˜η
+
+dh + 1
+
+a + h
+
+
+
+, (5) where h, u and r are the height, direction and along-beam range of the ray respectively. The radius of curvature of the surface of the Earth and the natural logarithm of the refractive index are given by a and ˜η respectively. The refractive index of the atmosphere is dependent on the temperature, T [K], pressure, p [hPa] and the partial pressure of water vapour, e [hPa], and can be written as (Smith and Weintraub 1953) 
+
+η = 1 + 10 −6 
+
+k1
+
+pT + k2
+
+eT 2
+
+
+
+, (6) where k1 = 77 .6 K hPa −1 and k2 = 3 .73 × 10 5 K2hPa −1 are empirically derived constants. Other formulae exist for the calculation of refractivity (e.g. Aparicio and Laroche (2011); Healy (2011) ) but the simple form is still commonly used. Generally, the refractive index exceeds unity by only a few hundred parts-per-million (ppm), therefore refractivity is more frequently used to describe variations in the refractive index. Refractivity, N , is defined as 
+
+N = ( n − 1)10 6. (7) The total refractivity can be decomposed into a “dry” (hydrostatic), Ndry , and “wet”, Nwet , component, where 
+
+Ndry = k1
+
+pT , (8) 
+
+Nwet = k2
+
+eT 2 . (9) Adopting a similar optimisation approach as described in Lewis et al. (2025), the target quantity in ADS-B interferometry is the end point altitude of the traced ray from the observer to the distance of the reporting aircraft. The wet refractivity, Nwet , is linearly proportional to the partial pressure of water vapour at a given temperature, making it a direct and physically interpretable proxy for atmospheric humidity content. 
+
+3.2. Variational retrievals 
+
+The maximum likelihood state can be determined by minimising the cost function 
+
+J (x) = 12 (x − xb)TB−1(x − xb)+ 12 (yo − H [x]) TR−1(yo − H [x]) ,
+
+(10) with respect to the state vector x. The background state vector and observations are given by xb and yo respectively. The background and observation error covariance matrices are given by B and 
+
+R respectively. The optimum state can be determined using a gradient descent algorithm, which requires the gradient of J with respect to the state vector x. The gradient is given by   
+
+> © 2013 Royal Meteorological Society Prepared using qjrms4.cls
+
+3
+
+dJ (x)
+
+dx = B−1(x − xb) −
+
+ dH[x]
+
+dx
+
+T
+
+R−1(yo − H [x]) . (11) Introducing an additional constraint on the ray emission direction, the cost function described by (10) for a single aircraft radio transmission can be written as 
+
+j(˜ η) = 12 (˜ η − ˜ηb)TB−1(˜ η − ˜ηb)+ 12(ho − h[˜ η]) 2
+
+σ2
+
+> h
+
++ 12(u[˜ ηb] − u[˜ η]) 2
+
+σ2
+
+> u
+
+,
+
+(12) where σh and σu are the observation error uncertainties associated with the end height and direction for a single ray. The observation uncertainties are assumed to be uncorrelated, therefore off-diagonal elements of R are assumed to be zero (observational uncertainties may be correlated due to foreground reflections, although determining the exact nature of the observation error covariance matrix is beyond the scope of this study). Since the emission direction of the radio transmission from the aircraft is unknown, it is instead estimated from the background state as 
+
+u[˜ ηb] = sin 
+
+
+
+cos −1
+
+ η0(a + h0)cos (β)
+
+ηT(a + hT)
+
+ 
+
+, (13) where η0 and h0 are the refractive index and height of the ray at the location of the receiver. The refractive index, ηT, at the height of the aircraft, hT, is determined from the background state ηb. The cost function for a single ray defined by (14) can be augmented with the known physics of the forward operator in a Lagrange multiplier approach. The Lagrangian can be written in terms of the cost function as 
+
+L = j −
+
+Z rf
+
+> 0
+
+ψ( ˙h − u)dr
+
+−
+
+Z rf
+
+> 0
+
+μ
+
+
+
+˙u − (1 − u2)
+
+ d˜η
+
+dh + 1
+
+a + h
+
+ 
+
+dr, 
+
+(14) where the final two terms constrain the solution. The adjoint variables associated with h and u are given by ψ and μ
+
+respectively. The adjoint variables are initialised as 
+
+ψ = ∂j ∂h = (ho − h[˜ η]) 
+
+σ2
+
+> h
+
+, (15) 
+
+μ = ∂j ∂u = (˜ uo − u[˜ η]) 
+
+σ2
+
+> u
+
+. (16) The uncertainties in h and u are difficult to determine, since the ray path is a non-linear, integrated quantity that depends on the uncertainty in the observed AoA and the aircraft altitude reporting resolution. For this study, σh = 0 .1 km and σu = 0 .1
+
+are used respectively. More accurate values are a topic of further investigation. The variation of the cost function for a single ray is given by 
+
+δL = δ ˜ηB−1(˜ η − ˜ηb) + 
+
+Z rf
+
+> 0
+
+μ(1 − u2)
+
+ d(δ ˜η)
+
+dh
+
+
+
+dr, (17) representing the interpolated (log) refractive index as ˜η =[w0, w 1]T[ln (η0), ln (η1)] , the gradients of the Lagrangian with respect to the refractive index values η0 and η1 are given by dL
+
+d(ln (η0)) = w0 ˆB0 +
+
+Z rf
+
+> 0
+
+μ(1 − u2)
+
+ dw0
+
+dh
+
+
+
+dr, (18) dL
+
+d(ln (η1)) = w1 ˆB1 +
+
+Z rf
+
+> 0
+
+μ(1 − u2)
+
+ dw1
+
+dh
+
+
+
+dr, (19) where ˆB = B−1(˜ η − ˜ηb). The background state constrains the solution and prevents the retrieved refractive index deviating too strongly from the initial state. The gradients described by (18) and (19) are used to update the best estimate of the refractive index, η. However, attempting to retrieve a vertical refractivity profile using a single AoA measurement is an ill-posed problem, as there are numerous ray paths that satisfy a given AoA and ray end point. Instead, numerous ADS-B transmissions from multiple different aircraft in different locations are used to constrain the retrieved refractivity profile. Therefore, the total cost function, J is the sum of all the cost functions associated with individual AoA measurements, written as 
+
+J =
+
+> NB
+
+X
+
+> i
+
+ji, (20) where i is an index and NB is the total number of ADS-B AoA measurements used in the retrieval. A more detailed overview of the optimisation process is described in Lewis et al. (2025). The criteria used to stop the minimisation were: • Ji+1 −J i 
+
+> J0
+
+< 0.01 , where J0 is the initial value of the cost function, or; • number of iterations exceeds ten. With each iteration step, the initial refractivity profile is perturbed sequentially by the gradients given by equations (18) and (19) computed using each individual ray. The cost function for each iteration step is then computed by summing the individual cost functions for each ray, as given by equation (20). A more detailed description of the method is given by Lewis et al. (2025), and more generally for optimisation problems of this kind by Teh et al. (2022). 
+
+4. Analysis and results 
+
+Approximately 5 million ADS-B transmissions were received within an AoA of −0.6◦ and 3.0◦ between 09:00 UTC and 15:30 UTC on the 4 September 2024. Only ADS-B transmissions beyond 50 km distance from the receiver were used (uncertainty in the ADS-B reported position closer than this result in large errors in the LoS AoA, reducing the accuracy of the refracted angle measurement). The geographical distribution of ADS-B signals received by the interferometer is shown in Fig. 2. 
+
+4.1. Meteorological conditions 
+
+The synoptic pattern across the UK during the observation period on the 4 September 2024 is shown in Fig. 3. At 06:00 UTC an occluded front was present across central parts of the UK, which by 12:00 UTC moved eastwards, clearing into the North Sea. The occluded front then travelled across the observation region again between 12:00 UTC and 18:00 UTC. Winds were relatively light during this period, with slack isobars across the UK. Figure 4 shows the vertical refractivity profiles derived from data using various radiosonde launches at Watnall and Albemarle. Figure 4b shows the variability in the vertical refractivity profiles relative to the reference 11:00 UTC 4 September 2024 (04/09) radiosonde profile from Watnall. All profiles show a significant increase in refractivity relative to the 11:00 UTC 04/09 Watnall profile within the first kilometre above the surface. There is generally a decrease in refractivity above this altitude for the other profiles relative to the reference profile, with the 23:00 UTC 04/09 Watnall profile showing the largest decrease.   
+
+> © 2013 Royal Meteorological Society Prepared using qjrms4.cls
+
+4
+
+4.2. Refracted angle observations 
+
+The difference between the observed and modelled refracted angle as a function of time is shown in Fig. 5, where each point is an individual received ADS-B transmission. The reference vertical refractivity profile used to model the refraction was obtained using data from the 11:00 UTC 04/09 Watnall radiosonde launch. This was the radiosonde launch closest in time to the observation period. The observed minus model plot shows temporal variability, with refraction measurements early in the observation period showing the largest deviation from the reference model. There is also significant spatial variability, particularly within the first hour of observations. Aircraft with reported distances greater than 300 km show significantly stronger refraction than nearby aircraft early on in the observation period, before the deviation from the reference refraction model decreases for all reported distances later. The mean refracted angle difference shows significant spread, particularly at earlier times, perhaps indicating a complex refractivity field. The synoptic charts and refractivity profiles shown in Fig. 3 and 4 respectively show that an occluded front passed through the observation region during the morning, with an associated decrease in refractivity within the first kilometre altitude above the surface between the 23:00 UTC 03/09 and 11:00 UTC 04/09 Watnall radiosonde profiles (Fig. 4). This drop in surface refractivity was in agreement with in-situ measurements taken at the interferometer location. The passage of the occluded front perhaps resulted in a decrease in the vertical refractivity gradient, weakening the observed refraction.           
+
+> Figure 2. Distribution of the reported aircraft positions (latitude and longitude) extracted from the received ADS-B transmissions received throughout the observation period from 09:00 UTC to 15:30 UTC. The location of the ADS-B interferometer is indicated by the black star. The locations of the Watnall and Albemarle radiosonde launch station are indicated by the black circle and square respectively. Each reported position is colour-coded by the reported altitude. The dashed line shows the coordinates of the representative ray path from which the refractivity profile was extracted from the UKV model.
+> (a)
+> (b)
+> (c) Figure 3. Synoptic charts for the 4 September 2024 at (a) 06:00 UTC, (b) 12:00 UTC and (c) 18:00 UTC (© British Crown copyright 2026, the Met Office).
+
+4.3. Refractivity retrievals 
+
+Refractivity retrievals were performed for the wet component, 
+
+Nwet , rather than total refractivity, since the dry component, 
+
+Ndry , is well-constrained by the known pressure and temperature structure of the atmosphere and contributes little uncertainty to the retrieval. The wet refractivity is linearly proportional to the partial pressure of water vapour at a given temperature, making it a direct and physically interpretable proxy for atmospheric humidity content, and the primary source of variability in refractivity in the lower troposphere. The one-dimensional vertical wet refractivity profile was retrieved using the 04/09 observations in one-hour intervals. The retrievals used 5000 ADS-B transmission s received within an observed AoA of 0.0◦ to 2.0◦. As described in Section 3.2, retrievals using a single transmission are ill-posed, so the retrieval algorithm is run sequentially for the 5000 rays within a time window to return a refractivity profile that is best fit for the observed refraction of all rays within the time   
+
+> © 2013 Royal Meteorological Society Prepared using qjrms4.cls
+
+5 
+
+> Figure 4. (a) Vertical refractivity profiles obtained using data from various Watnall (WAT) and Albemarle (ALB) radiosonde launches for the 3 and 4 September 2024. (b) Difference between the vertical refractivity profiles and the 11:00 UTC refractivity profile obtained using data from the Watnall radiosonde launch on the 4 September 2024 (solid black in (a)).
+
+window. The spherical symmetry assumption is reasonable for ray tracing positive elevation rays in most cases, since the vertical variation in refractivity far dominates over horizontal variations. The azimuthal width of the observation sector was restricted to the central 20 ◦ for the retrievals. The difference between the observed and the simulated LoS AoA using the initial and retrieved refractivity profiles are shown in Fig. 6. The retrieved refractivity profile results in a shift in the mean difference towards 
+
+0◦ and a reduction in variance, reflecting internal consistency and indicating the retrieval method effectively reduces the difference between the simulated and observed refracted angle via the optimisation of the vertical refractivity profile. Refractivity profiles extracted from the Met Office’s United Kingdom Variable-resolution (UKV) model (Tang et al. 2013) along a representative ray (the latitude and longitude positions are shown by the dotted line in Fig. 2) for each of the six one-hour retrieval windows and are shown alongside the retrievals in Fig. 7 (solid blue line), providing an hourly high-resolution NWP comparison throughout the observation period. The retrievals were also assessed against a representative radiosonde sounding at 11:00 UTC from Watnall. Though the Watnall site is outside the observation region shown in Fig. 2, it was the closest available source of in-situ observations and was likely the most representative profile to assess against, particularly for the lowest few kilometres above the surface (the region of the atmosphere that the ADSBi technique is most sensitive to). To assess the humidity information content of the observations, the retrievals were performed by assigning an altitude-dependent weight to the background constraint introduced by (13). The error covariance σu decreased exponentially with altitude, constraining the emission direction of the ADS-B transmission at high altitudes (where the refractivity is dominated by the well-known dry density structure). The background contribution to the cost function described in (12) was set to zero (i.e. σb → ∞ ). The wet refractivity retrievals are shown in Fig. 7. The vertical refractivity profile was initialised as a simple exponential with the surface refractivity determined using in-situ measurements of temperature and humidity at the receiver location. At each iteration during the variational minimisation procedure the refractivity was clamped between the dry and saturated refractivity profiles (i.e. the relative humidity was fixed between a value of 0% and 100% ). The retrieved wet refractivity profiles show significant variability compared to the reference radiosonde and UKV profiles, with the 09:00 UTC retrieval showing the largest deviation. This coincides with the significant distance-dependent departure from the reference 11:00 UTC 04/09 Watnall refraction model shown in Fig. 5. The retrievals using later times show better agreement with the reference radiosonde and UKV profiles, particularly when capturing the steep gradient in wet refractivity at ∼ 3 km altitude. Despite this, the retrievals are relatively noisy with spurious refractivity structure near the surface and at ∼ 5
+
+km altitude using the 10:00-11:00 UTC and 14:00-15:00 UTC observational data. In this preliminary test, we have modelled the atmosphere using a one-dimensional refractivity profile, which is inadequate to represent the true three-dimensional structure of the refractivity field. Figure 5 shows that the refracted angle measurements are sensitive to spatial and temporal variability in the refractivity field, but obviously a one-dimensional retrieval cannot fully exploit this information. Consequently, refractivity variations in distance, transverse to the line-of-sight, and on timescales shorter than the one-hour sample window, will therefore manifest as ‘noise’ in the minimisation. Figure 4b shows that temporally-coincident wet refractivities from Albemarle and Watnall differ in complex ways by approximately 5-10 ppm, comparable to deviations between the 11:00 UTC 4 September Watnall profile and the temporally-coincident retrieval. 
+
+5. Discussion 
+
+The time series of refracted angle observations obtained using the ADS-B interferometer show detectable spatial and temporal variability in the refractivity environment over sub-hourly timescales. However, the retrievals are currently noisy, particularly during periods with complex distance-dependent structure in the refraction observations. A number of potential sources of uncertainty were explored in a previous investigation by Lewis et al. (2025). A potential source of observational uncertainty was the presence of frontal systems, which introduce significant horizontal gradients in refractivity. The ray tracing model developed by Zeng et al. (2014) assumes that the refractivity exhibits spherical symmetry (i.e. the refractivity field only varies radially). It was expected that this was generally a reasonable assumption when modelling the refraction of rays with a positive AoA. However, an occluded front passed through the observation region between 06:00 and 12:00 UTC (Fig. 3) which may have introduced more significant horizontal variability. The current validation uses (approximately) vertical radiosonde profiles versus ‘slant’ refraction-derived profiles (i.e. along the ADS-B signal propagation path). Ultimately, this is a limited approach, and future retrieval techniques must embrace the full three-dimensional information contained in the refracted angle measurements ( Figure 5 ). Potentially profitable envisioned development paths include: • development of a two-dimensional adjoint model to capture variations in refractivity with distance; • use of a second, transversely-oriented, ADSBi instrument on another suitably-located radar tower, to measure transverse refractivity gradients that we are currently not directly sensitive to; • ultimately, multiple receivers sampling the same atmos-pheric volume could be used in a tomographic approach.   
+
+> © 2013 Royal Meteorological Society Prepared using qjrms4.cls
+
+6        
+
+> Figure 5. Difference between the observed (O) and modelled (M) refracted angle for the ADS-B transmissions received between an observed AoA of 0.0◦and 3.0◦as a function of time for 04/09. Each point is an individual received ADS-B transmission, colour-coded by the reported distance. The mean O - M refracted angle for various distance ( s, [km]) bins are indicated the dashed and solid curved lines. The 11:00 UTC Watnall radiosonde launch is indicated by the solid vertical line.
+> Figure 6. The distribution in the refracted angle difference for all observations using the initial (blue) and retrieved (green) refractivity profiles. The standard deviation in the retrieved refracted angle difference is shown, with the largest standard deviation being 0.015 ◦during the 09:00 to 10:00 UTC observation period.
+
+Adjoint-based retrievals of three-dimensional refractive struc-tures using tomography/embedded sources have been recently demonstrated in other contexts: in turbulent fluids (using tomog-raphy) (Teh et al. 2022) and in gravitational (general relativistic) bending by dark matter (using embedded galactic sources) (Zhao et al. 2024). Since we have opportunistic access to embedded sources (aircraft), and the future prospect of tomography, the adjoint state technique may be very effective for the ADSBi application in three dimensions. If the full 3D information can be exploited, an important remaining challenge will be to assemble suitable validation data sets, as other data sources lack comparable spatio-temporal sampling. Quantifying the information content in the ADSBi data may be better approached by assimilation methods, to determine the magnitude and spatio-temporal structure of the resulting forecast impact. Sources of systematic biases in the retrievals include instrumental uncertainties and an accurate measurement of the surface refractivity. The impact of the these uncertainties would be difficult to separate from the effects of a complex refractivity environment on the observations. However, the initial analysis of the initial refractivity retrievals and the time series observations of the refracted angle does not indicate   
+
+> © 2013 Royal Meteorological Society Prepared using qjrms4.cls
+
+7 
+
+> Figure 7. The retrieved (green) and initial (dashed) vertical wet refractivity profiles for each of the six one-hour observation windows (a – f) from 09:00 to 15:00 UTC on 4 September 2024. For each time window, the high-resolution UKV model refractivity profile extracted along a representative ray is shown (solid blue line), providing an hourly NWP comparison throughout the observation period. The 11:00 UTC radiosonde profile from Watnall is shown for reference ( solid black line ). The refractivity at the receiver altitude was fixed to the interpolated value from in-situ measurements at the receiver location.
+
+any significant systematic bias. Any instrumental source of uncertainty would likely be far easier to diagnose during periods of calm weather with little variability over short spatial and temporal scales. With longer periods of continuous observations in a variety of atmospheric conditions, it may be possible to properly diagnose the principal sources of systematic noise in the observations. 
+
+6. Conclusions 
+
+The Automatic Dependent Surveillance-Broadcast (ADS-B) interferometry (ADSBi) technique has been developed to measure the refracted angle of radio transmissions broadcast by commercial aircraft. The instrument is highly sensitive to changes in atmospheric conditions over short spatial and temporal scales. The adjoint retrieval model developed by Lewis et al. (2025) has been modified to introduce constraints on the emission angle of the radio transmissions from the broadcasting aircraft at high altitudes (where the impact of water vapour is negligible). Vertical wet refractivity profiles in the lower atmosphere over hourly intervals were retrieved using ADS-B refraction observations obtained on the 4 September 2024. The retrievals show significant variability, particularly at earlier times. However, the profiles show some agreement with the reference radiosonde profiles from the nearby Watnall and Albemarle stations, particularly when capturing the steep refractivity gradient present at ∼ 3 km altitude. Sources of uncertainty were explored and future work was suggested, such as improvements in the instrument design to minimise multipath contamination and the development of a two-dimensional adjoint model to capture horizontal variations in refractivity. 
+
+7. Acknowledgments 
+
+This work was supported by the Met Office, the University of Exeter and the Harry Otten Foundation. The authors would like to thank Met Office engineers Mike Protts, Liam O’Brien and Andy Wilson for their support with the installation of the interferometer on the Clee Hill weather radar tower. The authors acknowledge the support of other Met Office engineering teams. The radiosonde data used to support this study was obtained from: Met Office (2025) Watnall station high resolution radiosonde data v2. NERC EDS Centre for Environmental Data Analysis (last accessed: 2 September 2025) ( https://catalogue.ceda. ac.uk/uuid/7b1c3cc934a840c2b522d847e921c5be )Met Office (2025). 
+
+8. Competing interests 
+
+The contact author has declared that none of the authors has any competing interests. 
+
+9. Copyright statement 
+
+The works published in this journal are distributed under the Creative Commons Attribution 4.0 License. This license does not affect the Crown copyright work, which is re-usable under the Open Government Licence (OGL). The Creative Commons Attribution 4.0 License and the OGL are interoperable and do not conflict with, reduce or limit each other. © Crown copyright 2026 
+
+References    
+
+> Aparicio, J. M. and Laroche, S. (2011). An evaluation of the expression of the atmospheric refractivity for GPS signals. Journal of Geophysical Research: Atmospheres , 116(D11).
+> © 2013 Royal Meteorological Society Prepared using qjrms4.cls
+
+8
+
+de Haan, S. (2011). High-resolution wind and temperature observations from aircraft tracked by mode-s air traffic control radar. Journal of Geophysical Research: Atmospheres , 116(D10). de Haan, S., de Haij, M., and Sondij, J. (2013). The use of a commercial ADS-B receiver to derive upper air wind and temperature observations from Mode-S EHS information in The Netherlands . KNMI De Bilt, The Netherlands. de Haan, S. and Stoffelen, A. (2012). Assimilation of high-resolution Mode-S wind and temperature observations in a regional NWP model for nowcasting applications. Weather and Forecasting , 27(4):918–937. Geer, A. J., Baordo, F., Bormann, N., Chambon, P., English, S. J., Kazumori, M., Lawrence, H., Lean, P., Lonitz, K., and Lupu, C. (2017). The growing impact of satellite observations sensitive to humidity, cloud and precipitation. Quarterly Journal of the Royal Meteorological Society ,143(709):3189–3206. Healy, S. B. (2011). Refractivity coefficients used in the assimilation of gps radio occultation measurements. Journal of Geophysical Research: Atmospheres , 116(D1). Leuenberger, D., Haefele, A., Omanovic, N., Fengler, M., Martucci, G., Calpini, B., Fuhrer, O., and Rossa, A. (2020). Improving high-impact numerical weather prediction with lidar and drone observations. Bulletin of the American Meteorological Society , 101(7):E1036–E1051. Lewis, O., Brunt, C., and Kitchen, M. (2023a). A new method of retrieving atmospheric refractivity structure. International Journal of Remote Sensing ,44(3):749–785. Lewis, O., Brunt, C., and Kitchen, M. (2024). Refractivity retrievals using interferometry of aircraft radio transmissions: First results and potential for future experiments. In IGARSS 2024-2024 IEEE International Geoscience and Remote Sensing Symposium , pages 5586–5589. IEEE. Lewis, O., Brunt, C., Kitchen, M., Bowler, N. E., and Stone, E. K. (2025). Retrieving tropospheric refractivity structure using interferometry of aircraft radio transmissions. Atmospheric Measurement Techniques ,18(17):4433–4451. Lewis, O., Brunt, C., Kitchen, M., Healy, S., and Bowler, N. (2023b). A new method of retrieving atmospheric refractivity. In Remote Sensing of Clouds and the Atmosphere XXVIII , volume 12730, pages 137–145. SPIE. Li, Z. (2021). Impact of assimilating Mode-S EHS winds in the Met Office’s high-resolution NWP model. Meteorological Applications , 28(3):e1989. Met Office (2025). Met Office Watnall station high resolution radiosonde data v2. Mirza, A. K., Ballard, S. P., Dance, S. L., Maisey, P., Rooney, G. G., and Stone, E. K. (2016). Comparison of aircraft-derived observations with in situ research aircraft measurements. Quarterly Journal of the Royal Meteorological Society , 142(701):2949–2967. Mirza, A. K., Ballard, S. P., Dance, S. L., Rooney, G. G., and Stone, E. K. (2019). Towards operational use of aircraft-derived observations: a case study at London Heathrow airport. Meteorological Applications ,26(4):542–555. Smith, E. K. and Weintraub, S. (1953). The constants in the equation for atmospheric refractive index at radio frequencies. Proceedings of the IRE ,41(8):1035–1037. Sokolovskiy, S. V., Rocken, C., and Lowry, A. R. (2001). Use of gps for estimation of bending angles of radio waves at low elevations. Radio Science , 36(3):473–482. Stone, E. K. (2018). A comparison of Mode-S Enhanced Surveillance observations with other in situ aircraft observations. Quarterly Journal of the Royal Meteorological Society , 144(712):695–700. Stone, E. K. and Kitchen, M. (2015). Introducing an approach for extracting temperature from aircraft gnss and pressure altitude reports in ads-b messages. Journal of Atmospheric and Oceanic Technology , 32(4):736– 743. Stone, E. K. and Pearce, G. (2016). A network of Mode-S receivers for routine acquisition of aircraft-derived meteorological data. Journal of Atmospheric and Oceanic Technology , 33(4):757–768. Tang, Y., Lean, H. W., and Bornemann, J. (2013). The benefits of the Met Office variable resolution NWP model for forecasting convection. 
+
+Meteorological Applications , 20(4):417–426. Teh, A., O’Toole, M., and Gkioulekas, I. (2022). Adjoint nonlinear ray tracing. 
+
+ACM Transactions on Graphics (TOG) , 41(4):1–13. Zeng, Y., Blahak, U., Neuper, M., and Jerger, D. (2014). Radar beam tracing methods based on atmospheric refractive index. Journal of Atmospheric and Oceanic Technology , 31(12):2650–2670. Zhao, B., Levis, A., Connor, L., Srinivasan, P. P., and Bouman, K. L. (2024). Single view refractive index tomography with neural fields. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition ,pages 25358–25367.

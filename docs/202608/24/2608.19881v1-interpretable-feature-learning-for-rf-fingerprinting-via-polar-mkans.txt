@@ -1,0 +1,294 @@
+Title: Interpretable Feature Learning for RF Fingerprinting via Polar MKANs
+
+URL Source: https://arxiv.org/pdf/2608.19881v1
+
+Published Time: Fri, 21 Aug 2026 00:44:17 GMT
+
+Number of Pages: 5
+
+Markdown Content:
+> IEEE WIRELESS COMMUNICATIONS LETTERS 1
+
+# Interpretable Feature Learning for RF Fingerprinting via Polar MKANs 
+
+Mikhail Krasnov †, Ljupcho Milosheski †, Carolina Fortuna Jožef Stefan Institute, Ljubljana, Slovenia {mikhail.krasnov, ljupcho.milosheski, carolina.fortuna}@ijs.si 
+
+Abstract —Radio frequency (RF) fingerprinting authenticates wireless devices from hardware-induced I/Q impairments, typ-ically with deep-learning feature extractors that are accurate but opaque, limiting their use in security-critical settings. We propose Polar Monotonic Kolmogorov–Arnold Networks (Polar MKAN), a block-partitioned monotonic encoder on polar inputs in which each latent dimension depends exclusively on magnitude or phase, yielding channel separation and monotone responses by construction. On a synthetic gain/carrier frequency offset (CFO) benchmark, Polar MKAN reaches 57 .2% DCI Disentanglement versus ≤ 12 .9% for unpartitioned baselines. We further evaluate the detection-accuracy trade-off on real data and the sensitivity to blind CFO compensation. 
+
+Index Terms —RF fingerprinting, unknown emitter detection, interpretability, Kolmogorov–Arnold networks, monotonic net-works, self-supervised learning, disentangled representations 
+
+I. I NTRODUCTION 
+
+RF fingerprinting exploits hardware-level imperfections such as carrier frequency offset (CFO), I/Q imbalance, and power-amplifier nonlinearities [1], to authenticate wireless de-vices without cryptographic overhead [2], [3]. Unknown emit-ter detection (UED) extends this capability to open-set scenar-ios in which previously unseen devices must be identified at inference time [4], [5]. Self-supervised approaches based on DL architectures [6], [7] are particularly suitable for this task due to their ability to learn from large amounts of unlabelled data, and recent work shows strong UED performance from such self-supervised feature spaces [8]. However, UED sys-tems based on standard DL architectures remain opaque and intractable for an operator due to the large number of parame-ters standing between the latent features and any interpretable signal property. For security-sensitive applications such as spectrum monitoring and critical-infrastructure protection, this lack of transparency is a deployment barrier [9]. Existing approaches to UED interpretability rely on post-hoc methods such as gradient saliency [10], LIME [11], and SHAP [12], which provide local, sample-specific explanations without structural guarantees about global consistency. A complemen-tary thread pursues disentangled representation learning for RF fingerprinting [13]–[15], separating device-relevant infor-mation from channel, receiver, modulation, and other nuisance factors through adversarial or regularised objectives. These methods share a fundamental limitation, namely that disen-tanglement is encouraged but not guaranteed in general [16], and the separation quality depends on training dynamics that 
+
+> †Mikhail Krasnov and Ljupcho Milosheski contributed equally to this work.
+
+cannot be verified at inference time. Kolmogorov–Arnold networks (KANs) [17], [18] offer an architectural route, since their visible spline functions enable global interpretability [8], but non-monotonic activations still yield complex input/output mappings. MKANs [19] enforce hard monotonicity constraints by making each spline activation monotonic, which fixes the sign of every input’s effect on every output and so makes the input/output mapping predictable. Certified-monotonic alterna-tives such as MonoKAN [20] exist, but we build on MKAN since its representation-learning guarantee (Theorem 1 of [19]) is established in the deep-clustering setting, certifying that a monotone extractor preserves the neighbourhood structure the clustering-based UED decision relies on. To the best of our knowledge, no prior work achieves an architecturally enforced 
+
+separation of the magnitude and phase information channels in the RF-fingerprinting feature space. Building on the MKAN construction and UED workflow of [8], [19], this letter’s new contributions are the polar input representation and the block-partitioned output, summarized as follows.  
+
+> •
+
+An encoder whose latent space is split by construction, with dedicated latent dimensions wired exclusively to the magnitude and to the principal-phase inputs, so each feature reflects exactly one of the two physical channels.  
+
+> •
+
+A synthetic-benchmark evaluation with known ground-truth device impairments, on which Polar MKAN re-covers the magnitude/phase separation (57 .2% DCI Disentanglement [21], [22] vs. ≤ 12 .9% for uncon-strained and polar-input-only baselines), and a quantified interpretability-performance trade-off on the UED task.  
+
+> •
+
+A perturbation analysis on real WiSig [23] signals show-ing that the phase channels respond monotonically and stay separated from the magnitude channel, so a feature-space deviation decomposes into a magnitude- and a phase-channel component. II. B ACKGROUND AND SYSTEM MODEL 
+
+We adopt the workflow of [8] depicted also in Fig. 1. A data modality (raw I/Q or polar coordinates) is mapped by a feature extractor (FE) F : R2N → RN ∗
+
+to a low-dimensional feature space. The FE is trained as the encoder of a self-supervised autoencoder, and at inference a cluster-based decision module compares test features with training clusters for UED. We keep the training and decision procedure fixed and modify only the FE and its input representation.  
+
+> This work has been submitted to the IEEE for possible publication. Copyright may be transferred without notice, after which this version may no longer be accessible. arXiv:2608.19881v1 [eess.SP] 20 Aug 2026 IEEE WIRELESS COMMUNICATIONS LETTERS 2
+
+Fig. 1: Self-supervised UED workflow. 
+
+A. Monotonic KAN 
+
+A KAN layer [17] replaces fixed multi-layer perceptron (MLP) activations with learnable B-spline functions ϕij (xi)
+
+on each edge, giving 
+
+F (j)(x) = X
+
+> i
+
+w(s) 
+
+> ij
+
+ϕij (xi) + w(b) 
+
+> ij
+
+SiLU( xi). (1) MKANs [19] constrain spline coefficients to be ordered, reparameterize connected weights through exponentiation, and replace the non-monotone SiLU base with ReLU, giving 
+
+eF (j)(x) = X
+
+> i
+
+e ew(s) 
+
+> ij
+
+eϕij (xi) + e ew(b) 
+
+> ij
+
+ReLU( xi) + bj , (2) where eϕij are monotone splines. Hence an output is compo-nentwise nondecreasing in every input to which it is connected, while disconnected inputs have zero effect. Theorem 1 of [19] shows that an increasing FE can reproduce the semantic-neighbourhood partition of an arbitrary FE with at most 2×
+
+feature dimensionality. 
+
+B. Proposed Polar MKAN 
+
+For xI [i] + jx Q[i], we form principal-polar coordinates 
+
+xI [i] + jx Q[i] = R[i]ejϕ [i], ϕ[i] ∈ [0 , 2π). (3) The implementation feeds polar models the fixed numerical scaling eR[i] = R[i]/1.5 and eϕ[i] = ϕ[i]/(2 π). Only Polar MKAN imposes exclusive output connectivity, as illustrated in Fig. 2a, where FR receives the magnitude block { eR[i]}
+
+while Fϕ1 and Fϕ2 receive the phase block { eϕ[i]}. Two outputs are allocated to phase because a substantial, often dominant, share of the discriminative fingerprint information is phase-encoded [2]. Polar CNN and Polar KAN use the same polar input, but without partitioned connectivity. The Polar MKAN architecture thus enforces channel-level separation without assuming that the two phase outputs isolate distinct physical factors. Formally, 
+
+Fϕ1 = Fϕ1 ( eϕ1, . . . , eϕN ),Fϕ2 = Fϕ2 ( eϕ1, . . . , eϕN ),FR = FR( eR1, . . . , eRN ).
+
+(4) Using ⪰ for componentwise ordering, monotonicity and the exclusive connections give the forward guarantees 
+
+eϕ′ ⪰ eϕ, eR′ = eR ⇒ F ′ 
+
+> ϕk
+
+≥ Fϕk , k ∈ { 1, 2}, F ′ 
+
+> R
+
+= FR,
+
+eR′ ⪰ eR, eϕ′ = eϕ ⇒ F ′ 
+
+> R
+
+≥ FR, F ′ 
+
+> ϕk
+
+= Fϕk .
+
+(5) RR020123
+
+1 
+
+> (a) Architecture phase shift scale shift (b) Feature-space geometry
+
+Fig. 2: Polar MKAN. (a) Exclusive connections, where 
+
+Fϕ1 , F ϕ2 receive only phase inputs and FR only magnitude inputs. (b) Idealised feature-space geometry away from the phase branch cut. TABLE I: Composition of the synthetic dataset enabling a controlled disentanglement study.               
+
+> Train Evaluation
+> Devices 1000 100
+> Bursts/device 11
+> Burst length ( N)256 256
+> Samples/symbol ( L)44
+> SNR range (dB) [10 ,30] [10 ,30]
+
+This means that raising every phase input while holding the magnitudes fixed can only raise the phase features, and leaves 
+
+FR untouched since it has no connection to the phase inputs. The second line mirrors this for magnitude. Monotonicity thus fixes the direction a feature may move, and the exclusive con-nections fix which features may move at all. Two conditions delimit these guarantees: (i) they run from an ordered input change to a feature change, so ∆Fϕ > 0 indicates a rise of the phase inputs, irrespective of its physical origin; (ii) they are stated in the principal-phase representation, so a phase shift is covered as long as every sample’s phase stays below 2π,since a sample that wraps back to 0 has decreased in this representation and the premise eϕ′ ⪰ eϕ then fails. III. E VALUATION ON SIMULATED /S YNTHETIC DATASET 
+
+We construct a controlled RF-fingerprinting benchmark in which devices differ through fixed impairment parameters CFO, gain, I/Q imbalance, and AWGN model. No existing measured RF dataset has annotations that enables the study of disentanglement. We use the same impairment model for two complementary synthetic dataset evaluations: feature–factor analysis and UED evaluation. The feature–factor analysis uses 1,000 training and 100 held-out evaluation devices with one burst each (Table I), which gives broad coverage of the impairment space. The synthetic UED experiment uses 200 devices with 20 bursts each, since training, clustering, and open-set testing require repeated observations per device. 
+
+a) Signal and impairment model: Every burst uses the same fixed unit-power 16-QAM symbol sequence with levels IEEE WIRELESS COMMUNICATIONS LETTERS 3
+
+TABLE II: DCI Disentanglement (D) and Completeness (C) (%, mean ± 95% CI over 10 runs).                                       
+
+> Architecture DCCNN 6.1±4.26.7±3.4
+> KAN 10 .0±4.79.8±4.0
+> MKAN 7.4±3.19.5±2.9
+> Polar CNN 5.0±2.45.3±1.8
+> Polar KAN 12 .9±4.813 .1±4.9
+> Polar MKAN 57 .2±6.047 .0±4.0
+
+{− 3, −1, 1, 3} on both axes, upsampled by L = 4 and root-raised-cosine pulse-shaped (roll-off 0.35 , span 8). The fixed sequence removes payload variation. Each device d
+
+has CFO νd ∼ N (0 , (2 × 10 −3)2) and gain perturbation 
+
+gd ∼ N (0 , 0.07 2). With pulse-shaped s[n],
+
+ud[n] = s[n]ej2πν dn. (6) We additionally introduce complex I/Q imbalance as struc-tured nuisance variation. Let ad ∼ N (0 , 0.32) dB, φd ∼N (0 , 0.03 2) rad, and γd = 10 ad/20 . The equivalent-baseband coefficients are 
+
+μd = 12 (1 + γde−jφ d ), ηd = 12 (1 − γdejφ d ), (7) giving 
+
+xd[n] = (1 + gd) [ μdud[n] + ηdu∗
+
+> d
+
+[n]] . (8) At zero imbalance ( γd = 1 , φ d = 0 ), μd = 1 and ηd = 0 . The imbalance is applied after the CFO/gain operation, matching the implementation. Because the image term contains u∗
+
+> d
+
+[n],nonzero I/Q imbalance couples magnitude and phase, so the CFO effect is no longer purely phase-only. Finally, 
+
+yd[n] = xd[n] + w[n], w[n] ∼ CN (0 , σ 2
+
+> w
+
+), (9) where σ2 
+
+> w
+
+= Px/10 SNR /10 and E|w[n]|2 = σ2
+
+> w
+
+. Raw-I/Q models receive (I, Q ) directly, and polar models convert each burst to ( eR, eϕ) at loading time. The scored factor vector is θd = ( gd, ν d), and the I/Q-imbalance parameters act as unscored structured nuisance variables. 
+
+b) Feature–factor analysis: All six autoencoders 1 are trained for 120 epochs with Adam (learning rate 10 −2), N ∗ =3, on the same synthetic training data. Polar CNN and Polar KAN serve as polar-input-only controls with unpartitioned encoders, while only the design of Polar MKAN enables the exclusive magnitude/phase output structure from Figure 2. Following the DCI framework [21], [22], the evaluation estimates an N ∗ × K feature-importance matrix R by fitting one gradient-boosted regressor (100 estimators, maximum depth 3) from the learned coordinates to each of the K = 2 
+
+scored factors. For latent coordinate i,
+
+Di = 1 − H(Pi·)log K , Pij = Rij 
+
+P 
+
+> k
+
+Rik 
+
+, (10) and overall disentanglement uses the canonical importance weighting 
+
+D = X
+
+> i
+
+ρiDi, ρi =
+
+P 
+
+> j
+
+Rij 
+
+P 
+
+> k,j
+
+Rkj 
+
+. (11)     
+
+> 1Code and configurations: https://github.com/sensorlab/PolarMKAN 0% 0--2% 2--5% 5--10% >10% Samples crossing branch cut (%) 0.0 0.2 0.4 0.6 0.8 1.0 Sign-consistent response rate
+> Fϕ1
+> Fϕ2
+
+Fig. 3: Sign consistency of the phase features vs. fraction of samples whose phase wraps (95% CI, 10 runs). Completeness (C) is computed analogously across latent coor-dinates for each factor. Without I/Q imbalance, gain and CFO would align exactly with magnitude and phase, respectively. Under the full model used here, the image term introduces cross-channel coupling, so the correspondence is no longer exact. The experiment therefore evaluates whether the imposed magnitude/phase structure remains informative about the two device factors in the presence of structured nuisance variation. Table II shows that only Polar MKAN achieves substantial 
+
+57 .2% D and 47 .0% C values, while Polar KAN and Polar CNN show that polar coordinates alone do not recover com-parable separation, achieving 12 .9% , 5% D and 13 .1% , 5.3% ,respectively. The raw-I/Q MKAN shows that monotonicity in Cartesian coordinates is insufficient. The lower completeness, as shown in the last column of II is consistent with the two phase coordinates that share information about the single scored CFO factor. 
+
+c) Phase response validation: Eq. (5) guarantees the response sign only for wrap-free inputs, so the practically relevant property is how quickly sign consistency is lost once samples start crossing the 2π branch cut. To characterise this, we apply rotations in [−0.6, 0.6] rad to the synthetic evaluation set over 10 independently trained Polar MKANs and group the responses by the fraction of samples whose phase wraps, with the results shown in Fig. 3. Sign consistency decreases gradually with the wrapped fraction, from complete consistency when no sample wraps to roughly 70% below 2% 
+
+wrapped samples, and to 20 –30% once more than 10% of the samples cross the 2π. The sign reading of the phase features therefore remains reliable for small rotations, and degrades gradually as wrapping becomes widespread. 
+
+d) Synthetic UED: Factor alignment alone does not establish that the representation remains useful for detection, so we also run the clustering-based UED task of Fig. 1 on the synthetic data, mirroring the WiSig protocol of Section IV. A fixed 25% of the 200 devices are unknown and appear only in the test set, and for the rest 80% of bursts train and 20% test. Models train for 120 epochs with Adam (learning rate 10 −2), batch size 50 and input-noise standard deviation 0.01, using 80 clusters. Results are averaged over 10 training seeds. 
+
+e) Performance and interpretability: Fig. 4 compares synthetic UED performance with held-out DCI Disentangle-ment. Polar MKAN occupies a distinct high-disentanglement IEEE WIRELESS COMMUNICATIONS LETTERS 450 55 60 65 70 75 80 85 
+
+> UED detection (synthetic ROC-AUC, %)
+> 010 20 30 40 50 60 70
+> Disentanglement D (%)
+> CNN KAN MKAN Polar CNN Polar KAN Polar MKAN
+> raw I/Q polar input
+
+Fig. 4: Synthetic UED ROC AUC vs. held-out DCI Disentan-glement (95% CI, 10 runs). region while retaining 73 .1% synthetic UED ROC AUC, within one standard deviation of raw-I/Q MKAN at 74 .4% 
+
+(Table III). Polar KAN, with the same input but neither monotonicity nor exclusive connections, reaches only 12 .9% 
+
+D, and raw-I/Q MKAN 7.4% , so the separation is associated with the combined block-partitioned monotonic construction rather than the polar transform alone. Taken together, the synthetic experiments evaluate two complementary properties. DCI measures alignment with known device factors, while UED measures whether the representation preserves device separability. Polar MKAN substantially improves the former while retaining useful detection performance. IV. V ALIDATION AND EVALUATION ON WISIG 
+
+We validate and evaluate the proposed method versus se-lected alternatives on WiSig [23] SingleDay and ManyTx subsets, using length-256 I/Q and a single receiver (index 0) in both. SingleDay contains 28 emitters from one capture day, and ManyTx contains 150 emitters and samples from four days. Device-level open-set folds are generated by the same repository routine used in [8] (fold-ratio settings 7 and 5, respectively), and devices returned in each fold’s unknown list are excluded from that fold’s training data and labelled unknown at evaluation. Models are trained for 120 epochs with Adam (learning rate 10 −3), batch size 50, using 280 clusters for SingleDay and 1,000 for ManyTx. The number of clusters is set to 5–10 × the number of classes, following the findings in [24]. Each fold is trained once, so the reported WiSig std aggregates device-split and training variability. 
+
+a) Amplitude/phase response: Fig. 5 illustrates the re-sponse on real signals. A common positive rotation leaves magnitudes unchanged. In raw I/Q it does not produce compo-nentwise ordered inputs, so an MKAN can move latent coordi-nates in different directions, whereas in Polar MKAN a wrap-free rotation obeys (5), so FR is unchanged and both phase outputs are nondecreasing. For a flagged sample, its deviation from the nearest known cluster centre, (∆ FR, ∆Fϕ1 , ∆Fϕ2 ),therefore decomposes the anomaly into a magnitude-channel and a phase-channel component, measured in units of within-cluster spread, and a positive ∆Fϕ indicates an aggregate F1 F2 F3 
+
+> emitter 1 emitter 13 phase shfit
+
+(a) Raw I/Q MKAN emitter 1 emitter 13 
+
+> phase shift
+
+(b) Polar MKAN 
+
+Fig. 5: Response to a positive carrier-phase rotation on WiSig ManyTx. positive phase rotation relative to the cluster, with the sign interpretation inherited from (5) under its wrap-free condition. In an unconstrained feature space, the same deviation vector points in an arbitrary learned direction and supports no such reading. 
+
+b) Performance–interpretability trade-off: Polar MKAN reaches 78 .8% ROC AUC on SingleDay (KAN 89 .8% ) and 
+
+67 .2% on ManyTx (KAN 73 .2% ) as summarized in Table III, quantifying the real-data cost of the stronger structural bias. The constrained model therefore trades approximately 11 AUC points on SingleDay and 6 points on ManyTx for the explicit magnitude/phase feature structure. Part of this gap is a dimensionality effect, since by Theorem 1 of [19], a monotone FE may need up to 2× the feature dimensionality of an unconstrained one to reproduce the same neighbourhood partition, so the fixed N ∗ = 3 disadvantages the monotone models. 
+
+c) Sensitivity to CFO suppression: Because CFO is a strong but temperature- and time-varying fingerprint [25], we evaluate sensitivity to its blind suppression on the synthetic UED benchmark and both WiSig subsets. For each burst, we estimate 
+
+ˆν = 12π arg( x[n]x∗[n − 1]) IEEE WIRELESS COMMUNICATIONS LETTERS 5
+
+TABLE III: UED results (%). AUC and F1 uncompensated, AUC comp with blind CFO compensation before training and evaluation. Std over 10 seeds (synthetic) or device folds (WiSig). Best uncompensated in bold. 
+
+Synthetic SingleDay ManyTx FE AUC F1 AUC comp AUC F1 AUC comp AUC F1 AUC comp 
+
+CNN 62.1 ±2.2 24.8 ±3.6 51.1 ±1.7 71.0 ±2.5 36.8 ±5.4 66.8 ±2.4 64.7 ±1.8 28.8 ±3.9 62.3 ±1.3 
+
+KAN 78.4 ±4.2 62.9 ±8.7 51.1 ±1.1 89.8 ±3.6 74.0 ±7.0 76.2 ±4.6 73.2 ±2.6 44.0 ±5.5 67.1 ±3.1 
+
+MKAN 74.4 ±4.6 53.3 ±8.2 49.8 ±1.4 79.7 ±5.8 61.3 ±7.9 66.5 ±5.1 69.9 ±1.2 38.2 ±2.4 60.8 ±2.3 
+
+Polar CNN 53.6 ±1.6 20.6 ±2.2 50.4 ±0.9 64.8 ±2.9 27.4 ±5.9 62.6 ±2.9 61.7 ±1.1 24.1 ±2.0 60.9 ±1.0 
+
+Polar KAN 56.3 ±5.3 23.2 ±7.5 50.5 ±1.7 82.8 ±4.6 59.8 ±7.1 71.0 ±5.8 66.3 ±1.8 30.9 ±4.0 62.2 ±2.4 
+
+Polar MKAN 73.1 ±3.6 45.9 ±4.6 49.8 ±1.1 78.8 ±4.8 52.6 ±9.1 66.5 ±4.6 67.2 ±1.0 31.5 ±2.1 61.3 ±1.9 
+
+and apply x[n] ← x[n]e−j2πˆνn before training and evaluation, leaving all other UED settings unchanged. The AUC comp 
+
+columns of Table III report the result. Compensation reduces AUC for every architecture. On the synthetic task all fall to 50 –53% , i.e., near chance, since CFO is essentially the only strong device-specific factor there. On WiSig the reductions are far smaller (about 1–14 
+
+points) and all models remain well above chance, indicating that real emitters carry substantial fingerprint information beyond CFO. V. C ONCLUSION 
+
+Polar MKAN imposes a simple structural constraint on RF-fingerprinting features, in which one latent coordinate depends only on magnitudes and two depend only on principal phases, with componentwise nondecreasing mappings in each connected block. The synthetic gain/CFO benchmark shows substantially stronger feature–factor alignment than the evalu-ated unpartitioned baselines, while WiSig shows a measurable UED-accuracy cost. Future work should separate partitioning from monotonicity experimentally, use circular or reference-invariant phase representations to remove the branch-cut lim-itation, and assess end-to-end attribution on flagged emitters. REFERENCES [1] K. Sankhe, M. Belgiovine, F. Zhou, L. Angioloni, F. Restuccia, S. D’Oro, T. Melodia, S. Ioannidis, and K. Chowdhury, “No radio left behind: Radio fingerprinting through deep learning of physical-layer hardware impairments,” IEEE Transactions on Cognitive Communica-tions and Networking , vol. 6, no. 1, pp. 165–178, 2019. [2] N. Soltanieh, Y. Norouzi, Y. Yang, and N. C. Karmakar, “A review of radio frequency fingerprinting techniques,” IEEE Journal of Radio Frequency Identification , vol. 4, no. 3, pp. 222–233, 2020. [3] L. Xie, L. Peng, J. Zhang, and A. Hu, “Radio frequency fingerprint identification for internet of things: A survey,” Security and Safety ,vol. 3, p. 2023022, 2024. [4] J. Robinson and S. Kuzdeba, “Novel device detection using rf fin-gerprints,” in 2021 IEEE 11th Annual Computing and Communication Workshop and Conference (CCWC) . IEEE, 2021, pp. 0648–0654. [5] S. Apfeld and A. Charlish, “Recognition of unknown radar emitters with machine learning,” IEEE Transactions on Aerospace and Electronic Systems , vol. 57, no. 6, pp. 4433–4447, 2021. [6] M. Zhan, Y. Li, H. Cui, B. Li, J. Zhang, C. Li, and W. Wang, “Mcrff: A meta-contrastive learning-based rf fingerprinting method,” in MILCOM 2023-2023 IEEE Military Communications Conference (MILCOM) . IEEE, 2023, pp. 391–396. [7] X. Hao, Z. Feng, R. Liu, S. Yang, L. Jiao, and R. Luo, “Contrastive self-supervised clustering for specific emitter identification,” IEEE Internet of Things Journal , vol. 10, no. 23, pp. 20 803–20 818, 2023. [8] M. Krasnov, L. Milosheski, M. Mohorˇ ciˇ c, and C. Fortuna, “Design principles of zero-shot self-supervised unknown emitter detectors,” arXiv preprint arXiv:2511.07026 , 2025. [9] C. Rudin, C. Chen, Z. Chen, H. Huang, L. Semenova, and C. Zhong, “Interpretable machine learning: Fundamental principles and 10 grand challenges,” Statistic Surveys , vol. 16, pp. 1–85, 2022. [10] K. Simonyan, A. Vedaldi, and A. Zisserman, “Deep inside convolutional networks: Visualising image classification models and saliency maps,” 
+
+arXiv preprint arXiv:1312.6034 , 2013. [11] M. T. Ribeiro, S. Singh, and C. Guestrin, ““Why should I trust you?”: Explaining the predictions of any classifier,” in Proc. ACM SIGKDD Int. Conf. Knowledge Discovery and Data Mining , 2016, pp. 1135–1144. [12] S. M. Lundberg and S.-I. Lee, “A unified approach to interpreting model predictions,” in Advances in Neural Information Processing Systems (NeurIPS) , 2017, pp. 4765–4774. [13] R. Xie, W. Xu, J. Yu, A. Hu, D. W. K. Ng, and A. L. Swindlehurst, “Disentangled representation learning for RF fingerprint extraction under unknown channel statistics,” IEEE Transactions on Communications ,vol. 71, no. 7, pp. 3946–3962, 2023. [14] Y. Zhang et al. , “Factorized disentangled representation learn-ing for interpretable radio frequency fingerprint,” arXiv preprint arXiv:2508.12660 , 2025. [15] Y. Pan et al. , “Cross-receiver generalization for RF fingerprint identifica-tion via feature disentanglement and adversarial training,” arXiv preprint arXiv:2510.09405 , 2025. [16] F. Locatello, S. Bauer, M. Lucic, G. Raetsch, S. Gelly, B. Schölkopf, and O. Bachem, “Challenging common assumptions in the unsupervised learning of disentangled representations,” in international conference on machine learning . PMLR, 2019, pp. 4114–4124. [17] Z. Liu, Y. Wang, S. Vaidya, F. Ruehle, J. Halverson, M. Soljaˇ ci´ c, T. Y. Hou, and M. Tegmark, “KAN: Kolmogorov–Arnold networks,” arXiv preprint arXiv:2404.19756 , 2024. [18] S. Somvanshi, S. A. Javed, M. M. Islam, D. Pandit, and S. Das, “A survey on kolmogorov-arnold network,” ACM Computing Surveys , 2024. [19] M. Krasnov, B. Bertalaniˇ c, and C. Fortuna, “Monotonic kolmogorov-arnold networks: A theoretical and empirical study of monotonicity as an inductive bias,” arXiv preprint arXiv:2606.17886 , 2026. [20] A. Polo-Molina, D. Alfaya, and J. Portela, “Monokan: Certified mono-tonic kolmogorov-arnold network,” Neural Networks , p. 108278, 2025. [21] C. Eastwood and C. K. I. Williams, “A framework for the quantitative evaluation of disentangled representations,” in International Conference on Learning Representations (ICLR) , 2018. [22] M.-A. Carbonneau, J. Zaidi, J. Boilard, and G. Gagnon, “Measuring disentanglement: A review of metrics,” IEEE transactions on neural networks and learning systems , vol. 35, no. 7, pp. 8747–8761, 2022. [23] S. Hanna, S. Karunaratne, and D. Cabric, “Wisig: A large-scale wifi signal dataset for receiver and channel agnostic rf fingerprinting,” IEEE Access , vol. 10, p. 22808–22818, 2022. [24] M. Krasnov, L. Milosheski, M. Mohorˇ ciˇ c, and C. Fortuna, “Novel devices identification with deep clustering,” in 2025 IEEE International Conference on Machine Learning for Communication and Networking (ICMLCN) . IEEE, 2025, pp. 1–6. [25] L. Xie, L. Peng, and J. Zhang, “Towards robust rf fingerprint identifi-cation using spectral regrowth and carrier frequency offset,” in IEEE INFOCOM 2025 - IEEE Conference on Computer Communications ,2025, pp. 1–10.

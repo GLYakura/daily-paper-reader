@@ -1,0 +1,451 @@
+Title: Real-Time Symbol-Domain OFDM Radar in an OpenAirInterface 5G Base Station With O-RAN Sensing Services
+
+URL Source: https://arxiv.org/pdf/2608.16705v1
+
+Published Time: Tue, 18 Aug 2026 02:16:20 GMT
+
+Number of Pages: 13
+
+Markdown Content:
+> 1
+
+# Real-Time Symbol-Domain OFDM Radar in an OpenAirInterface 5G Base Station With O-RAN Sensing Services 
+
+Karim Saifullin, Graduate Student Member, IEEE , Sajid Ahmed, Senior Member, IEEE, and Mohamed-Slim Alouini, Fellow, IEEE 
+
+Abstract —This paper presents a real-time orthogonal frequency-division multiplexing (OFDM) radar embedded in the OpenAirInterface (OAI) 5G base-station process. The radar removes communication symbols by regularized element-wise division and performs range–Doppler processing and ordered-statistic constant-false-alarm-rate detection online without mod-ifying the 5G waveform. The implemented system provides 2.57 m nominal range resolution and 0.28 m s −1 velocity reso-lution. Hardware measurements identify and mitigate several implementation-specific limitations, most notably a deterministic carrier-dependent transmit–receive phase rotation on a Universal Software Radio Peripheral (USRP) X300. Selecting a tuning-grid-aligned carrier improves mean-removal clutter suppression from −16.4 dB to 38.0 dB and reduces coherent-integration loss from 19.81 dB to 0.27 dB. The measured processing gain closely agrees with its predicted value. Instrumented worker timing confirms real-time operation, with a conservative 58.4 % utiliza-tion bound and no dropped soundings. A custom E2 service model, E2SM-RADAR, exports detections and a compact slow-time product to a near-real-time RAN Intelligent Controller. Live end-to-end operation demonstrates reliable delivery and supports controller-side tracking, micro-Doppler analysis, and classification. With a commercial user equipment connected on the same carrier, measurements show no measurable difference in downlink throughput estimate with sensing enabled, while the radar sensing bandwidth follows the scheduler allocation. 
+
+Index Terms —5G, joint communication and sensing, integrated sensing and communication, OFDM radar, OpenAirInterface, O-RAN, radar systems, software-defined radio. 
+
+I. I NTRODUCTION 
+
+# JOINT communication and radar (JCR) aims to use com-munication signals and infrastructure for sensing. A prac-tical implementation must do more than show that a cellular waveform can generate a range–Doppler map. The radar must operate within the base station’s timing and memory limits, use the scheduler-generated resource grid, remain stable on radio hardware, and make its output available to network applications. Many published testbeds address only part of this process. Some use standards-compliant waveforms but process recorded samples offline [1], [2]. Others operate in real time using communication-like orthogonal frequency-division multiplexing (OFDM) waveforms, but without an active cellular link carrying user data through a complete protocol stack [3], [4]. Recent Open Radio Access Network 
+
+> Manuscript received Month XX, 2026; revised Month XX, 2026.
+> Electrical and Computer Engineering (ECE)
+> Computer, Electrical and Mathematical Sciences and Engineering (CEMSE)
+> King Abdullah University of Science and Technology (KAUST) , Thuwal, 23955-6900, Kingdom of Saudi Arabia karim.saifullin,sajid.ahmed,slim.alouini@kaust.edu.sa
+
+(O-RAN) studies expose channel estimates or spectral features, but not the output of a monostatic radar [5], [6]. This paper presents a complete implementation of symbol-domain OFDM radar inside the OpenAirInterface (OAI) 5G next-generation NodeB (gNB). The method follows the OFDM radar formulation introduced by Sturm, Wiesbeck, and co-authors [1], [7]–[9]. The received resource grid is divided by the transmitted grid, which removes the random payload symbols and leaves the target-dependent phase terms. The resulting matrix is processed across subcarriers for range and across sounded downlink slots for Doppler. Prior work has demonstrated individual combinations of real-time OFDM radar, payload-bearing sensing, OAI-based cellular operation, and O-RAN sensing services. This work brings these capabilities together in a single implementation: symbol-domain radar operates online inside an OAI 5G gNB on real RF hardware, senses the payload-bearing downlink waveform, and exposes the resulting sensing products through an O-RAN E2 service. The main contributions are as follows:  
+
+> •
+
+A real-time symbol-domain monostatic OFDM radar is implemented inside the OAI 5G gNB. The radar operates directly on the downlink resource grid and performs symbol removal, range compression, clutter removal, Doppler processing, and constant-false-alarm-rate (CFAR) detection in real time on radio hardware. Operation is demonstrated both with a controlled full-band configuration and with a conventionally scheduled commercial user equipment (UE).  
+
+> •
+
+The deployed system is experimentally characterized, in-cluding a carrier-dependent transmit–receive phase rota-tion observed on the Universal Software Radio Peripheral (USRP) X300 and its effect on clutter suppression and coherent integration. With the corrected carrier config-uration, measurements further evaluate processing gain, false alarms, range consistency, and detector sensitivity.  
+
+> •
+
+The radar is exposed as an O-RAN sensing service through a custom E2 service model. Per-coherent pro-cessing interval (CPI) detections and a compact slow-time product are transported to controller-side applications for monitoring, control, tracking, micro-Doppler processing, recording, and classification. The implementation is validated progressively in an offline physical-layer simulator, the OAI radio frequency (RF) simu-lator, and the hardware gNB. This staged procedure separates signal-processing errors from real-time software constraints and radio-hardware effects. The remainder of the paper is organized as follows. Sec-tion II reviews related OFDM radar and cellular sensing arXiv:2608.16705v1 [eess.SP] 17 Aug 2026 2                                                                         
+
+> TABLE I COMPARISON WITH CLOSELY RELATED OFDM R ADAR AND CELLULAR SENSING IMPLEMENTATIONS
+> Work Symbol-domain radar OAI Real targets aOnline sensing Live payload sensing bO-RAN service
+> Sturm et al. [10] ✓×✓×××
+> ADI gr-ofdmradar [3] ✓×✓✓××
+> Ozkaptan et al. [11] ✓×✓✓✓×
+> OpenISAC [12] ✓×✓✓✓×
+> CellSense [13] ×✓✓partial ××
+> Carbonara et al. [2], [14] ✓✓××✓×
+> Bouknana et al. [15] ×✓×✓×✓
+> This work ✓✓✓✓✓✓
+> a“Real targets” means physical objects that do not participate in the sensing process, observed over the air through their reflections.
+> b“Live payload sensing” means sensing from the payload-bearing downlink grid of an active communication link, rather than from a dedicated radar waveform, from reference signals alone, or from modulation symbols transmitted without a link partner.
+
+systems. Section III describes the signal model and pro-cessing chain. Section IV presents the gNB implementation and validation stages. Section V describes the O-RAN E2 interface and controller-side applications. Section VI presents the hardware, radar, and network-level measurements, and Section VII concludes the paper. II. R ELATED WORK AND POSITIONING 
+
+Symbol-domain OFDM radar has been developed and validated through studies on range–Doppler processing, maximum-likelihood estimation, and hardware implementa-tion [1], [7]–[10]. Subsequent research has extended this framework to address interference cancellation, multiuser op-eration, multiple-input multiple-output (MIMO) processing, sparse reference-signal placement, and full-duplex transceiver architectures [4], [16]–[19]. Several software-defined radio (SDR) platforms have demonstrated real-time OFDM radar outside a 3GPP base-station stack. Examples include the GNU Radio 
+
+gr-ofdmradar implementation [3], a real-time mmWave joint radar–communication platform [11], and OpenISAC [12]. The latter two systems also demonstrate sensing using communication-bearing waveforms, but do not integrate the radar processing into a live 3GPP gNB stack. Other studies have instead built sensing functions directly on OAI. CellSense uses uplink sounding reference signals for passive angle–delay sensing [13], while Carbonara et al. 
+
+investigated self-interference mitigation and symbol-domain OFDM radar using 5G-compliant OAI signals on real radio hardware, with radar processing performed on recorded data or using a channel emulator [2], [14]. The present work combines these previously separate capabilities by perform-ing symbol removal, range–Doppler processing, moving-target indication (MTI), and CFAR detection continuously inside the running OAI gNB while sensing the payload-bearing downlink waveform. The implementation further addresses real-time integration constraints, including bounded buffering and isolation from slot-critical processing, together with radio-hardware coherence. Related work has also considered sensing functions within O-RAN. Some studies place sensing functions close to an OAI Distributed Unit through dApps [20], [21], while others intro-duce sensing-specific interfaces. E2SM-SENS exports spectral sensing features, whereas SenseORAN and BatStation address incumbent-radar detection and spectrum control rather than target range–Doppler sensing [5], [6], [22]. Bouknana et al. 
+
+use a custom E2 service model on the OAI–FlexRIC stack to export uplink sounding reference signal (SRS) channel esti-mates to the near-RT RIC, where an xApp performs continuous inference using a channel-charting model to localize connected user equipment [15]. Their framework and the present one share the use of a custom E2 service model for real-time sensing information, but differ in sensing modality: their system estimates the position of a cooperative UE from its own uplink transmissions, whereas the present system reports monostatic range–Doppler detections of uncooperative targets obtained from the downlink resource grid. Table I summarizes the capabilities of the most closely related implementations and positions the present system with respect to online OFDM radar, OAI integration, payload-bearing sensing, and O-RAN service exposure. The signal model and processing chain are described next. III. S YMBOL -D OMAIN OFDM R ADAR 
+
+A. Signal Model 
+
+Consider M sounded downlink slots separated by the slow-time interval Ts. Each sounded slot contains Ls OFDM sym-bols and N used subcarriers. Let X[m, ℓ, n ] denote the trans-mitted modulation symbol in sounded slot m, OFDM symbol 
+
+ℓ, and subcarrier n. For K point targets, the corresponding received frequency-domain sample can be written as 
+
+Y [m, ℓ, n ] = X[m, ℓ, n ]
+
+> K−1
+
+X
+
+> i=0
+
+αi
+
+× e−j2πn ∆f τ i ej2πf D,i (mT s+tℓ) + W [m, ℓ, n ],
+
+(1) where αi is the complex target coefficient, τi = 2 Ri/c 0 is the round-trip delay, fD,i = 2 vifc/c 0 is the Doppler frequency, 
+
+∆f is the subcarrier spacing, tℓ is the symbol time within the sounded slot, and W [m, ℓ, n ] contains receiver noise and residual interference. The cyclic prefix must be longer than the target delay for the model to hold. The implementation removes the transmitted symbols by regularized conjugate division. Let 
+
+P X [m] = 1
+
+|O m|
+
+X
+
+> (ℓ,n )∈O m
+
+|X[m, ℓ, n ]|2 (2) 3
+
+be the mean transmitted resource-element power in sounded slot m, where Om contains the occupied resource elements of that slot, excluding the guard bands, the DC subcarrier and its associated guard, and all elements that are exactly zero in the transmitted grid. To protect the system from numerical instability, we define the relative validity mask, which excludes low-energy ele-ments, and the corresponding per-resource-element estimate as 
+
+χ[m, ℓ, n ] = I|X[m, ℓ, n ]|2 ≥ ηP X [m] , (3) 
+
+Z[m, ℓ, n ] = χ[m, ℓ, n ] Y [m, ℓ, n ]X∗[m, ℓ, n ]
+
+|X[m, ℓ, n ]|2 + ϵ . (4) Here ϵ regularizes the denominator and the relative mask uses 
+
+η = 0 .1 in the reported experiments. Guard-band subcarriers are also excluded. Range processing is performed separately for every sounded slot. The N occupied channel estimates are mapped to their corresponding bins of an NFFT -point frequency grid, with the unused bins set to zero. Let ZF [m, k ] denote this zero-padded grid. The range profile is then 
+
+h[m, p ] = 
+
+> NFFT −1
+
+X
+
+> k=0
+
+wR[k]ZF [m, k ]ej2πkp/N FFT , (5) where wR[k] is the range window and NFFT = 2048 . Let 
+
+a[m] ∈ { 0, 1} denote the validity of slow-time sample m.Static coupling and clutter are removed at each range bin using 
+
+eh[m, p ] = a[m] h[m, p ] −
+
+PM −1 
+
+> r=0
+
+a[r]h[r, p ]
+
+PM −1 
+
+> r=0
+
+a[r]
+
+!
+
+. (6) Invalid soundings are excluded from the clutter estimate and set to zero after mean removal, as represented by a[m] in (6). A Doppler window and discrete Fourier transform across slow time then produce 
+
+P [p, q ] =  
+
+> M−1
+
+X
+
+> m=0
+
+wD [m]eh[m, p ]e−j2πmq/M 
+
+> 2
+
+. (7) A two-dimensional ordered-statistic (OS-CFAR) detector is applied to P [p, q ]. The implementation reports the range bin, Doppler bin, physical range, radial velocity, power, and estimated signal-to-noise ratio for each detection. 
+
+B. Resolution and Ambiguity 
+
+The basic range and velocity limits are 
+
+∆R = c0
+
+2B , Ramb = c0
+
+2∆ f , (8) 
+
+∆v = c0
+
+2fcM T s
+
+, vamb = c0
+
+4fcTs
+
+. (9) Here B = N ∆f is the occupied sensing bandwidth. The nominal range resolution is c0/(2 B), whereas the 2048-point inverse FFT samples the delay axis at c0/(2 fs). For the measurement configuration in Table II, these values are 2.57 m and 2.44 m, respectively, so the range profile is oversampled by a factor of approximately 1.05. With conventional scheduling, the available sensing band-width is determined by the occupied downlink resource ele-ments and can therefore vary with the scheduler allocation. The corresponding range resolution degrades when the occu-pied bandwidth is reduced. The maximum useful range is ad-ditionally limited by the cyclic prefix, the receiver processing convention, and the link budget. IV. S YSTEM DESIGN AND IMPLEMENTATION 
+
+A. Platform Selection 
+
+The hardware platform uses a single USRP X300 with transmit and receive on separate daughterboards. An initial two-radio configuration sharing an external frequency and timing reference did not improve leakage isolation when the antennas were connected, provided no short-term coherence advantage, and introduced an additional inter-device synchro-nization path. The single-radio arrangement was therefore selected for the final implementation. The N310 provides an independent reference and exhibits negligible rotation at the tested carriers. 
+
+B. Architecture 
+
+Figure 1 shows the implemented system. The radar module is self-contained and compiled into the OAI PHY library [23]. OAI generates the downlink resource grid and time-domain transmit samples, while the real-time radio thread only copies the required transmit and receive data into a bounded ring. A background worker reads the ring, reconstructs the aligned grids, executes the processing chain described in Section III, and publishes one report per CPI. The E2 agent forwards this report to the near-real-time RAN Intelligent Controller (RIC), while runtime controls are returned through a mailbox and applied at CPI boundaries. The same processing module is used in simulation and hardware, with only the source of the transmit and receive grids changing between validation stages.                 
+
+> TABLE II JCR M EASUREMENT CONFIGURATION
+> Parameter Value Carrier frequency 3.348 48 GHz Subcarrier spacing 30 kHz Allocated resource blocks 162 Occupied sensing bandwidth 58.29 MHz Nominal range resolution 2.57 m Range-bin spacing 2.44 m Implementation ISI-free span 307 m (126 bins) Nominal CP-limited span approximately 351 m Slow-time interval 2.5 ms Slow-time samples per CPI 64 CPI duration 160 ms Velocity resolution 0.28 m s −1
+> Unambiguous velocity ±8.95 m s −1
+> Detector 2-D ordered-statistic CFAR
+
+C. Real-Time Data Path, Grid Alignment, and CPI Formation 
+
+The gNB provides both the scheduled transmit resource grid and the corresponding time-domain radio samples. Radar 4  
+
+> Target and clutter USRP X300 separate transmit (TX)/receive (RX) daughterboards OAI gNB PHY scheduler and OFDM chain Bounded snapshot ring TX/RX slot data Radar worker division, range IFFT, MTI, Doppler FFT, OS-CFAR OAI E2 agent E2SM-RADAR Near-RT RIC display, record, control, tracking, classification echo IQ copy only
+
+Fig. 1. Implemented architecture. The gNB real-time thread only copies slot data into a ring. All radar processing runs in a background worker. The E2 agent reads a per-CPI report and does not access the real-time radio state. 
+
+processing reconstructs the transmit and receive grids using matched cyclic-prefix removal, Fourier transform, subcarrier mapping, and phase conventions, since any mismatch can introduce deterministic phase errors that appear as spurious range or Doppler shifts. For each downlink slot, the implementation stores a compact snapshot together with its frame, slot, time-division duplexing (TDD), and sounding-grid indices. A CPI is processed only when at least 50% of the expected soundings are valid; thus, for M = 64 , at least 32 soundings are required. Missing or corrupted receive slots are marked invalid and excluded from the clutter estimate rather than treated as valid zero-valued measurements. After mean removal, their slow-time samples are set to zero through the validity mask in (6). Hard-ware measurements also revealed occasional receive dropouts, which are rejected using an occupied-band energy threshold of 0.05 relative to an exponential moving average over accepted soundings. The real-time thread performs only bounded copies and counter updates, while all radar processing is delegated to a worker thread. Completed CPIs are published as immutable re-port snapshots. This separation keeps radar processing outside the gNB scheduling deadline and exposes overload through validity and ring-drop counters. No ring drops were observed in the reported hardware experiments. The sensing schedule maps selected downlink slots to slow-time samples for Doppler processing, as illustrated in Figure 2. The applied TDD configuration contains 20 slots per 10 ms frame, following a 7D + 1S + 2U pattern repeated every 5 ms. The radar selects downlink slots satisfying 
+
+sabs mod 5 = 1 , (10) which provides four soundings per frame at a 2.5 ms slow-time interval and avoids slot 0, which may contain the synchroniza-tion signal block. Each selected slot produces one range profile. A CPI contains M = 64 profiles and spans 160 ms; the resulting profiles are processed using the clutter-removal, Doppler, and detection chain in Section III. The radar therefore reuses existing downlink transmissions without utilizing dedicated sensing air-interface resources. 
+
+D. Numerical Processing and Detection 
+
+Strong direct transmit–receive coupling creates a large dynamic-range requirement, making numerical conditioning important. In a noiseless two-target simulation, fixed-point processing limited the peak-to-median dynamic range to                                                                
+
+> (a) One 10 ms frame =20 slots (band n78, μ= 1 , 30 kHz SCS, 0.5 ms/slot)
+> DDDDDDDDDDDDDDSSUUUUDDDD
+> 0246810 12 14 16 18 slot index within the frame slot 0 carries the SSB ⇒skipped (sound offset = 1 )PRI = 5 slots = 2 .5ms
+> (b) Inside one sounded slot: all 14 OFDM symbols are used
+> ℓ=0 ℓ=1 ℓ=2 ℓ=3 ℓ=4 ℓ=5 ℓ=6 ℓ=7 ℓ=8 ℓ=9 ℓ=10 ℓ=11 ℓ=12 ℓ=13
+> CP Valid resource elements from all 14 OFDM symbols contribute to the sounded slot.
+> (c) One CPI: M= 64 sounded slots over 160 ms
+> m= 0 m= 63
+> DL slot S slot (6D + 4G + 4U sym) UL slot sounded (radar) slot
+
+Fig. 2. Temporal mapping from the TDD frame to one radar CPI. Four selected downlink slots per 10 ms frame provide a 2.5 ms slow-time interval. Each selected slot produces one range profile, and 64 profiles form a 160 ms CPI for Doppler processing and CFAR detection. The radar reuses existing downlink transmissions and introduces no dedicated sensing air-interface resources. 
+
+37.5 dB, compared with 84 dB for the corresponding floating-point chain. The aligned transmit and receive grids are there-fore converted to single-precision complex values before sym-bol division, and all subsequent radar processing is performed in floating point. To protect the symbol-division stage from numerical insta-bility and noise enhancement caused by small transmit am-plitudes, we combine denominator regularization with relative masking. The regularizer ϵ prevents division by zero, while the mask in (3) removes small nonzero transmit samples relative to the power scale of each slot. In hardware captures from both radios, disabling the mask raised the post-MTI Doppler noise floor by 17–33 dB. To obtain robust target detections while limiting responses to nearby clutter and sidelobes, the two-dimensional OS-CFAR detector combines local ordered-statistic thresholding with peak selection and clustering. It uses two guard cells and eight training cells on each side along both range and Doppler, with Doppler training cells wrapped at the velocity boundary. Candidate detections must be local maxima within a 3 × 3 neighborhood and are clustered within eight range bins and four Doppler bins. The reported signal-to-noise ratio (SNR) is referenced to the local ordered-statistic background estimate and is therefore a detector-relative quantity rather than a calibrated echo SNR. 5
+
+E. Prototype, Simulation, and Validation Stages 
+
+The radar was developed through a sequence of validation stages. We first adapted and substantially extended a GNU Radio prototype [24], which did not originally operate on USRP hardware, by modifying both the radio-interface code and the signal-processing chain. The resulting prototype was used to verify the division-based estimator, basic range– Doppler processing, radio topology, and the effect of payload modulation. The processing module was then implemented in an offline OAI physical-layer simulator, where targets with known delay and Doppler were inserted into the transmitted waveform. This stage verified the OAI resource-grid mapping and the transmit–receive phase conventions required before symbol-domain division. Finally, the same module was integrated into 
+
+nr-softmodem , exercised with the OAI RF simulator, and deployed on radio hardware. Intermediate range and Doppler outputs were compared with an independent floating-point Python implementation at each stage. Recorded hardware slots could also be replayed through the processing chain, allowing algorithmic and parameter changes to be evaluated without repeating the radio measurement. 
+
+F. Hardware Integration 
+
+The hardware implementation uses a USRP X300 with transmit and receive on separate daughterboards. Figure 3 shows the hardware setup and antenna arrangement. The radar can operate with the conventional OAI scheduler, in which the available sensing bandwidth follows the scheduled downlink allocation. In this case, partial allocation can reduce the sensing bandwidth and degrade radar performance. Therefore, for controlled hardware characterization, the main radar mea-surements use OAI --phy-test , which provides a full-band downlink allocation with no UE attached. The corresponding transmit and receive samples are copied from the real-time path through the bounded, nonblocking ring described above. Hardware deployment exposed two system-level effects not present in simulation. First, the 500 μs slot deadline required radar processing to remain outside the real-time radio thread. Second, a deterministic transmit–receive phase rotation degraded clutter cancellation and coherent integration. The timing constraint is addressed by the background-worker architecture, while the coherence impairment is examined in Subsection IV-G. To reduce direct transmit–receive coupling, the TX and RX antennas were separated by approximately 1 m, resulting in a quasi-monostatic sensing geometry. The antenna arrangement was selected based on both target return and direct coupling rather than isolation alone. Direct air coupling was approxi-mately −39 dB. Cross-polarization improved isolation by up to 28 dB, but co-polarized antennas produced the strongest target-to-noise response for the tested short-range reflector geometry. The final configuration therefore balances coupling headroom against target illumination. No analog self-interference can-celler is used. 
+
+> Fig. 3. Hardware setup for the monostatic OAI radar experiments. The USRP X300 uses separate transmit and receive paths, with the antennas oriented along the measured target path.
+
+G. Transmit–Receive Coherence 1) Observed Phase Rotation: The direct transmit–receive coupling is a static component and should therefore remain at zero Doppler. However, at a carrier of 3.329 76 GHz, its phase advanced at approximately 28.57 Hz, corresponding to an apparent radial velocity of 1.286 m s −1 . The rotation displaced the static coupling from zero Doppler, degraded mean-based clutter removal, and reduced coherent integration. The effect was repeatable across two X300 devices at a com-mon carrier. The rotation rate varied with operating frequency in both magnitude and sign. For example, 3.600 00 GHz and 3.619 20 GHz produced rotations of 6.5914 Hz and −6.594 Hz, respectively. This device-repeatable but carrier-dependent be-havior indicates a deterministic tuning effect rather than inde-pendent oscillator instability. 
+
+2) Tuning-Remainder Model: A USRP Hardware Driver (UHD) tune request is realized through an analog RF fre-quency and a residual digital frequency correction, freq =
+
+fRF + sf DSP , where the sign convention s differs between the transmit and receive paths [25]. A mismatch between the realized TX and RX digital corrections can therefore appear as a deterministic slow-time phase rotation in the monostatic channel estimate. An empirical model based on 200 Hz-quantized tuning remainders reproduced the measured beat frequencies within 0.002 Hz. Although the internal origin of the apparent quan-tization was not independently verified, the empirical model explains the observed carrier-dependent rotation and provides a practical rule for selecting operating frequencies with negli-gible measured TX–RX rotation. 
+
+3) Digital and Hardware-Tuning Corrections: A digital phase-reference correction can estimate the coupling phase at each slow-time sample and rotate the corresponding range profile to a common reference. This approach removes the deterministic rotation but requires a persistent high-SNR refer-ence and propagates its phase-estimation error across the range profile. Thus, a strong nearby moving target may contaminate the phase-reference estimate, causing its motion-induced phase to be applied to the entire range profile. 6  
+
+> Radar worker per-CPI report and cube E2SM-RADAR OAI E2 agent FlexRIC near-RT RIC Display and tracker Dataset recorder Online classifier Runtime control E2 Fig. 4. E2SM-RADAR processing and the implemented controller applications. The gNB sends per-CPI detections and a compact slow-time slice to the RIC. Runtime controls are transferred in the opposite direction and applied by the radar worker at CPI boundaries.
+
+A simpler mitigation is to select a carrier for which the measured residual TX–RX rotation is negligible. Within band n78, 3.348 48 GHz satisfied this criterion while preserving the 5G cell numerology and bandwidth configuration. This carrier is used for all subsequent measurements. The detailed coherence, clutter-suppression, and integration results before and after the carrier correction are reported in Section VI. V. O-RAN S ENSING SERVICE 
+
+To expose the radar as a network-controlled sensing func-tion, the implementation follows the O-RAN architecture and its E2 interface toward the near-real-time RAN Intelligent Controller [26]. FlexRIC [27] provides the controller and service-model framework, while radar-specific information is carried through the custom E2SM-RADAR service model described below. Figure 4 summarizes the E2 data path and the implemented controller-side applications. 
+
+A. E2SM-RADAR 
+
+The in-gNB radar initially produced detections only on the gNB host. To expose the radar as a network function, a custom service model named E2SM-RADAR was added to the FlexRIC and OAI E2 paths. E2SM-RADAR is specific to this prototype and is not a standardized O-RAN Alliance E2 service model. It sends one indication per completed CPI and supports control requests for runtime parameters. Each indication contains a fixed-size report with the timing, waveform, calibration, and data-quality metadata required to interpret the CPI, together with up to 64 detections. Each detection reports the range and Doppler bins, physical range, radial velocity, power, and estimated SNR. The occupied sens-ing bandwidth is included explicitly because the achievable range resolution can vary with the scheduler allocation. At CPI completion, the radar worker publishes the fixed-size report and stages the optional bulk payload under a separate lock. The E2 agent reads only these published products, rather than the radar input ring, and encodes them into an indication. This separation prevents E2 polling from contending with the radio thread or the worker input path and allows the products to be consumed by multiple controller applications without exposing real-time radio state. The control message uses a bit mask to select any subset of the runtime parameters. The present controls include the CFAR scale, sounding interval, sounding-grid offset, minimum valid-sounding ratio, near-range blanking, zero-Doppler guard, phase-reference mode, and range-zero calibration. The gNB validates each request and returns an acceptance or rejection status together with a reason. Parameters that require buffer re-allocation, including CPI length and processing preset, remain restart-time settings. Accepted controls are applied only at a CPI boundary. The worker finishes the current CPI, applies the new parameter set, clears its state, and starts the next CPI. This rule prevents one CPI from containing samples generated under different configurations. 
+
+B. Compact Slow-Time Payload 
+
+In addition to the fixed-size report, an indication may carry an optional complex slow-time slice over a small range win-dow before clutter cancellation. A detection list is sufficient for tracking but does not preserve micro-Doppler energy below the CFAR threshold; the slice retains this information for display, recording, and classification. At the operating point in Table II, the payload is 5 264 bytes per CPI, corresponding to 263 kbit s −1 . This is much smaller than a continuous IQ stream. The slow-time slice is extracted before mean removal be-cause independently removing the mean from each CPI would introduce boundary discontinuities in a controller-side spec-trogram. The samples remain complex so that the controller can select its own window, overlap, range gate, and clutter treatment. A validity mask is sent with the slow-time slice because an invalid column would otherwise appear as broad Doppler energy. Table III summarizes the data products and the purpose of transporting each over E2. Raw IQ and the full range– Doppler map remain in the gNB. The controller receives data that supports monitoring and decisions without moving the highest-rate signal. 
+
+C. Controller Applications 
+
+Four controller-side xApps were implemented. The config-uration xApp monitors the radar status and updates runtime parameters. The display xApp combines detection reports and slow-time slices to generate range–time and velocity– time views with overlaid CFAR detections and to maintain a constant-velocity track. The recording xApp stores labeled 7         
+
+> TABLE III E2SM-RADAR D ATA PRODUCTS
+> Product Rate at the selected point Purpose CPI metadata one record per 160 ms Timing, calibration, bandwidth, and health Detection list 0–64 records per CPI Tracking, alarms, and range–velocity display Slow-time slice 5264 B per CPI Micro-Doppler, recording, and classification Validity mask one bit per slow-time column Missing-column handling Control request event-driven CFAR, cadence, range gate, and calibration
+
+measurements together with their radar configuration and data-quality counters. The classification xApp extracts features over a sliding 2 s window and applies a linear model trained offline. The display and classification xApps process complex slow-time slices over their respective analysis windows and apply clutter removal within each window. CPI timestamps are used to account for missing CPIs, while the validity mask identifies invalid soundings when constructing the slow-time axis. This avoids estimating a single background over the complete recording. The classification xApp uses the same feature definitions and model parameters during offline training and online inference. VI. E XPERIMENTAL RESULTS 
+
+A. Hardware-Tuning Correction and Coherent Integration 
+
+Table IV summarizes the impact of carrier selection without digital phase compensation. For the X300, the measured coupling rotation at 3.329 76 GHz was 28.5714 Hz, which reduced to −0.0012 Hz when the carrier frequency was shifted to 3.348 48 GHz. Concurrently, the mean-removal clutter-suppression metric improved from −16.4 dB, indicating clutter enhancement, to 38.0 dB, and the coherent-integration loss at 
+
+M = 64 decreased from 19.81 dB to 0.27 dB. As a baseline, the N310 exhibited negligible rotation across all tested carriers, serving as an independent reference.                     
+
+> TABLE IV MEASURED EFFECT OF THE CARRIER -G RID CORRECTION WITHOUT
+> DIGITAL PHASE COMPENSATION
+> Metric X300 3.32976 GHz X300 3.34848 GHz N310 3.32976 GHz TX–RX rotation (Hz) 28.5714 −0.0012 −0.0002
+> Apparent velocity (m s −1 )1.286 ≈00
+> Clutter suppression (dB) −16 .438.0 43.7 Integration loss, M= 64
+> (dB) 19.81 0.27 0.06
+
+The corrected-carrier measurements also quantify the avail-able coherent integration interval. Using M = 8 as a reference and comparing integrations formed from the same sequence of consecutive valid soundings, we found that the static coupling follows the ideal coherent-integration law to within 0.01 dB for all tested lengths up to M = 128 (corresponding to 320 ms). At the deployed M = 64 , the measured −3 dB Doppler width is 0.410 m s −1 , close to the 0.403 m s −1 predicted for the applied Hann weighting. These results indicate that radio coherence does not limit the deployed 160 ms CPI; the practical limit is instead set by target nonstationarity. By contrast, at the uncorrected carrier, the measured TX–RX phase rotation completes one cycle approximately every 35 ms, severely limiting coherent integration. 
+
+B. Measurement Method 
+
+For the experimental measurements, the hardware config-uration is detailed in Table II. Six scenarios were set up for raw-IQ data recordings: 1) an empty room, 2) stationary corner reflectors at 3 m, 3) 6 m, 4) 9 m, 5) a person walking over approximately 3–12 m, and 6) the same walk while carrying a metal sheet. The only human participant was one of the authors, who provided informed consent for the recordings and their use in this study. Each evaluation unit is a non-overlapping 160 ms CPI. For moving-target experiments, a detection is considered to be correct if it lies within ±1 range bin (2.44 m) and ±2
+
+Doppler bins (0.56 m s −1 ) of the reference cell. CPIs with 
+
+|v| < 0.6 m s −1 are excluded because they fall inside the MTI notch, leaving 42 evaluable CPIs per walk. The walking recordings are used for processing-gain, detection-sensitivity, and range-consistency measurements. The stationary-reflector recordings are used only for false-alarm evaluation: direct coupling and room clutter remain strong over their range cells, and changes in the complex background between recordings prevent reliable subtraction of the empty-room response. Consequently, they are not used for detection-probability or radar-cross-section (RCS) measure-ments. 
+
+C. Processing Gain 
+
+For coherent symbol-domain processing, the ideal SNR gain scales with the number of coherently processed resource ele-ments [10]. With Nocc = 1943 occupied subcarriers, Ls = 14 
+
+OFDM symbols per sounded slot, and M = 64 slow-time samples, the ideal processing gain is 10 log 10 (Nocc LsM ) = 62 .41 dB . Accounting for the range and Doppler windows, low-amplitude masking, and missing soundings gives the predicted gain of 57.56 dB in Table V.                    
+
+> TABLE V PROCESSING -G AIN BUDGET FOR THE SELECTED CONFIGURATION
+> Term Value [dB] Cumulative [dB]
+> 10 log 10 (Nocc LsM)62.41 Range window −1.76 60.65 Doppler window −1.83 58.82 Low-amplitude mask −0.27 58.55 Missing soundings −0.98 57.56
+> Measured 57.62
+> Residual (measured −predicted) +0 .06
+
+The gain was measured from the recorded walking data by injecting complex Gaussian noise and comparing the input 8
+
+SNR with the post-integration SNR in noise-limited CPIs. Across 68 measurements, the realized gain was 57.62 dB, only 0.06 dB above the prediction, with a standard deviation of 1.30 dB. The output SNR followed the injected level with a slope of 0.990. 
+
+D. Link Budget and Power-Limitation Characterization 
+
+For a monostatic point target, the free-space radar equation can be written in logarithmic form as 
+
+Pr = PTX + GTX + GRX − 2Lfeed + 20 log 10 λ
+
++ 10 log 10 σ − 30 log 10 (4 π) − 40 log 10 R, (11) where PTX is referenced to the USRP TX port, σ is the target radar cross section, and R is the target range. With 
+
+λ = 89 .5 mm , transmit and receive antenna gains of 6 dBi, 
+
+σ = 1 m 2, and an estimated feed loss of 1.6 dB per path, 
+
+Pr [dBm] = PTX [dBm] − 45 .14 − 40 log 10 R. (12) The transmit power was measured directly at the X300 TX SMA using a spectrum analyzer in channel-power mode over the 58 MHz occupied band. After accounting for the external 30 dB attenuator and the 74.3 % downlink duty cycle, the on-burst power was −0.7 dBm. With the estimated feed loss, this corresponds to approximately −2.3 dBm at the antenna port and an effective isotropic radiated power of approximately 3.7 dBm. The OAI-declared downlink reference-signal power is therefore not used as an RF calibration quantity. Using the measured processing gain of 57.62 dB from Ta-ble V, together with an estimated receiver noise figure of 7 dB, gives a thermal-noise power of approximately −89.3 dBm over 58.29 MHz. For σ = 1 m 2, the resulting post-processing SNR is approximately 66.5 dB at 7.3 m, and a 13 dB detection threshold gives a nominal noise-limited range under the stated assumptions of approximately 159 m. These values provide a free-space reference rather than a prediction of the indoor operating range because target RCS, receiver noise figure, antenna gain, and multipath are not independently calibrated.                    
+
+> X300 TX
+> PTX =−0.7dBm measured at SMA Two-way channel
+> GTX =GRX = 6 dBi
+> Lfeed ≈1.6dB/path
+> R−4,σ
+> X300 RX
+> F≈7dB
+> N≈ − 89 .3dBm Radar processing
+> Gproc = 57 .62 dB MTI–CFAR
+> Fig. 5. Measured and estimated terms used in the radar link budget. The transmit power and processing gain are measured quantities, whereas the feed loss, receiver noise figure, antenna gains, and target RCS retain the stated model assumptions.
+
+The measured system is nevertheless not power-limited over the tested indoor range. In a nine-point transmit-gain sweep, the dominant static return tracked the commanded TX-gain reduction to within 0.3 dB. The post-MTI floor decreased with transmit power initially and then saturated at a level 22.1 dB below its full-power value. Reducing the transmit power by 20 dB changed the wall-to-floor dynamic range from 73.19 dB to 72.32 dB, a loss of only 0.9 dB; a 15 dB reduction increased the dynamic range to 74.73 dB. An independent RX-gain experiment increased the analog receive gain by 12.2 dB at deep TX backoff but improved the wall-to-floor dynamic range by only 1.04 dB, indicating that the limiting floor is dominated by receiver noise rather than analog-to-digital converter quantization. Thus, at the nominal trans-mit setting, approximately 22 dB separates the clutter-limited working floor from the receiver-noise floor. Increasing transmit power therefore provides little benefit; improved isolation and suppression of strong static returns are more relevant to extending the useful sensing range. 
+
+E. Radar Detection Performance 
+
+Detector sensitivity was evaluated by adding complex Gaus-sian noise to each of the 42 valuable CPIs from each walk-ing recording and re-running the complete processing and detection chain. Each added-noise level uses 24 independent noise realizations per recorded CPI. These realizations provide repeated noise conditions for the same target snapshots rather than independent target trials, so binomial confidence intervals are not reported. The conditional detection fraction is 
+
+bPD, cond = ND
+
+Neval 
+
+,
+
+and applies only to the recorded trajectories outside the MTI notch. Post-integration SNR is measured relative to the local background within the searched region and is therefore a detector-relative quantity rather than a calibrated echo SNR. Figure 6 characterizes detector sensitivity at the deployed OS-CFAR scale of 15. 0 10 20 30 40 50              
+
+> post-integration SNR (dB)
+> 0.0 0.2 0.4 0.6 0.8 1.0 ̂
+> PD
+> (a)
+> person person + sheet 246810 12 14
+> target range (m)
+> 0.0 0.2 0.4 0.6 0.8 1.0 ̂
+> PD
+> (b)
+> person, 17 dB person, 11 dB person + sheet, 20 dB person + sheet, 15 dB
+> Fig. 6. Detector sensitivity at the deployed OS-CFAR scale of 15. (a) Con-ditional detection fraction versus detector-relative post-integration SNR. (b) Conditional detection fraction versus range at two added-noise levels per target, grouped in 1.5 m bins. Results use the 42 evaluable CPIs per recorded trajectory defined above. 9
+
+Over the recordings used for false-alarm evaluation, the empirical false-alarm rate was bPF A = 6 .9 × 10 −4. For both recorded moving-target trajectories, the conditional detection fraction exceeded 0.9 above approximately 25 dB detector-relative post-integration SNR and was 0.976 at the original recorded noise level. With added noise, detection decreased with range, although this dependence can only be assessed coarsely because the 3–12 m trajectory spans only a few range-resolution cells. The remaining false alarms were dominated by a small num-ber of persistent range–Doppler cells rather than by thermal noise: 68 % occurred in only five cells. Suppressing repeatedly triggered cells reduced the false-alarm rate more effectively than increasing the CFAR threshold alone, indicating that persistent clutter locations are the main limitation of the deployed detector. 
+
+F. Sensing Bandwidth and Range Resolution 
+
+The occupied sensing bandwidth of a scheduled system follows the downlink allocation. To characterize this depen-dence separately from the traffic that produces it, the walking recording was reprocessed with the occupied band restricted to 162, 106, 51, and 24 physical resource blocks (PRBs). The range window was refitted to each band edge, and the complete detection chain was rerun. Table VI reports the result.                                  
+
+> TABLE VI MEASURED EFFECT OF THE OCCUPIED SENSING BANDWIDTH
+> PRBs B∆RMeasured −3-dB extent ∆SNR bPD, cond
+> [MHz] [m] [m] [dB] 162 58.29 2.57 4.86 0.00.958 106 38.1 3.93 6.41 −1.80.949 51 18.3 8.18 12.13 −6.30.808 24 8.6 17.41 25.17 −12 .40.439
+
+The measured −3-dB range extent of the target follows the Hann-weighted prediction, 1.44 c0/(2 B), at the narrower bandwidths. At the widest bandwidth, the resolution cell becomes smaller than the walking subject, and the measured extent is therefore limited by the target extent rather than by the instrumental resolution. At a fixed added-noise level, the conditional detection fraction falls from 0.958 to 0.439 over the same bandwidth reduction. Peak SNR falls by 12.4 dB in total, of which 8.3 dB is the reduced number of coherently combined resource elements; the remainder is the local back-ground rising as the resolution cell widens, since this SNR is referenced to the median of the searched region. 
+
+G. Real-Time Execution and Queue Stability 
+
+The background-worker architecture in Section IV removes radar processing from the slot-critical gNB thread. For the deployed configuration to operate in real time, the worker must sustain the incoming sounding rate without accumulating backlog or dropping input data. The measurements below ver-ify this condition from the per-sounding and per-CPI execution times, input-ring occupancy, and drop counter. All timing measurements were obtained on the host sum-marized in Table VII: a 12-core Intel Xeon W-3323 with a 3.5 GHz base clock, running a PREEMPT_RT Linux kernel, with simultaneous multithreading disabled and the USRP X300 connected through a 10 Gbit s −1 Ethernet interface. The radar worker executes as an ordinary background thread on the same host as the gNB and is not pinned to a dedicated core. No CPU isolation, real-time scheduling priority, or frequency locking was applied beyond the standard PREEMPT_RT con-figuration. The timing results reported below therefore char-acterize an untuned general-purpose deployment rather than a platform optimized specifically for deterministic radar ex-ecution and provide a conservative empirical estimate of the available processing margin.                        
+
+> TABLE VII
+> GNB H OST PLATFORM USED FOR REAL -T IME MEASUREMENTS
+> Component Specification Platform Supermicro SYS-540A-TR Processor Intel Xeon W-3323 Physical cores 12 (SMT disabled) Base clock 3.50 GHz Maximum clock 3.90 GHz Last-level cache 21 MiB shared L3 Vector extensions AVX-512 (F, DQ, BW, VL, VNNI) System memory 128 GiB, single NUMA domain Operating system Ubuntu 24.04 LTS Kernel Linux 6.8, PREEMPT_RT
+> CPU frequency policy ondemand , turbo enabled Core isolation None ( isolcpus and nohz_full not used) Host–SDR interface Intel X550 10 Gbit s −1 Ethernet
+
+Execution time was measured inside the worker during a separate instrumented run containing 1145 CPIs and 6425 target detections. The timing histograms contain 1088 com-plete CPIs and their 69 632 constituent soundings. Table VIII summarizes the execution-time and queue measurements.                    
+
+> TABLE VIII RADAR -W ORKER REAL -T IME EXECUTION MEASUREMENTS
+> Metric Measured
+> Per-sounding stage ( n= 69 632 )
+> Median 0.314 ms 95th percentile 0.403 ms 99th percentile 0.498 ms Maximum 0.619 ms
+> Per-CPI stage ( n= 1088 )
+> Median 52.22 ms 95th percentile 53.08 ms 99th percentile 53.40 ms Maximum 53.76 ms CPI utilization, median-stage estimate 45.2 % CPI utilization, conservative bound 58.4 % Input-ring capacity 64 soundings Maximum observed ring occupancy 22 soundings Soundings dropped 0
+
+The measured execution times confirm real-time operation at the deployed configuration. Using the median stage times, the combined per-sounding and per-CPI workload is 72.32 ms per 160 ms CPI, corresponding to 45.2 % utilization. Even the conservative bound formed by assigning the maximum 10  
+
+> Fig. 7. Controller-side micro-Doppler and range–time output reconstructed from the compact E2 payload. (a) Walking subject, showing the Doppler-sign and range-slope reversal at the turnaround and limb components around the torso motion. (b) Wheeled-chair motion along the same radial path, showing a different micro-Doppler structure at a similar radial speed.
+
+observed per-sounding time to all 64 soundings and combining it with the maximum per-CPI time is only 93.38 ms, or 58.4 % of the CPI interval. The maximum per-CPI execution time of 53.76 ms predicts 53 .76 /2.5 = 21 .5 soundings arriving while CPI processing is active, closely matching the maxi-mum measured ring occupancy of 22 soundings. The queue therefore reflects the expected CPI-processing burst rather than progressive backlog, and no soundings were dropped during the instrumented run. 
+
+H. Live E2 Transport and Stream Integrity 
+
+After establishing real-time radar execution in Section VI-G, the complete gNB–RIC chain was evaluated to determine whether sensing products could be delivered continuously to the near-RT RIC without loss or excessive transport overhead. Six live runs produced 2591 CPI reports over 416 s. Table IX summarizes the resulting transport and stream-integrity mea-surements.                
+
+> TABLE IX E2 T RANSPORT AND STREAM INTEGRITY DURING THE LIVE SESSION
+> Quantity Measured Session duration 416 s CPI reports delivered 2591 Slow-time samples delivered 165 824 Invalid samples 8 (0.005 %) Radar-ring drops 0Noncontiguous CPI counter steps 0CPI-publication-to-xApp delay 0.3–0.5 ms Payload per CPI 5264 B Sustained payload rate 263 kbit s −1
+
+The contiguous CPI sequence and zero ring-drop count show that no complete CPI reports were lost during the recorded runs, while the 0.005 % invalid-sample fraction indi-cates that the slow-time product remained essentially com-plete. The sub-millisecond delivery delay and 263 kbit s −1 
+
+payload rate further show that E2 transport does not form a bottleneck for the deployed sensing configuration. 
+
+I. Controller-Side Micro-Doppler and Tracking 
+
+Figure 7 shows controller-side micro-Doppler and range– time products reconstructed from the compact E2 payload. The velocity–time spectrogram uses a 128-sample short-time Fourier transform with a 16-sample hop, corresponding to a 320 ms window and a 0.14 m s −1 velocity cell. The range–time view shows MTI power together with the CFAR detections and tracker output. For the walking example, the torso component lies near 
+
+±1.5 m s −1, while limb components extend to approximately 
+
+±4.5 m s −1. The subject moves from approximately 2.5 m to 12.5 m, turns, and returns. The simultaneous reversal of the Doppler sign and range slope provides a consistency check between the slow-time payload and the independently transported detection list. Figure 7(b) shows wheeled-chair motion over the same path, with a visibly different micro-Doppler structure at a similar radial speed. Across the live session, the tracker produced 2581 one-step residuals over 2607 updates. The residual RMS was 1.44 m, with 85.7 % of residuals within one 2.44 m range bin; 20 reacquisitions occurred, mainly near turnarounds. For comparison, two independently quantized range measurements with uniform errors over one 2.44 m bin have an expected RMS difference of approximately 1.00 m. Thus, much of the observed residual can be attributed to the available range resolution. Range differencing is therefore poorly suited to velocity estimation at this resolution. A one-bin change over one 160 ms update corresponds to 15.2 m s −1 , exceeding the radar’s 8.95 m s −1 unambiguous velocity. Consequently, 99.6 % of range-slope velocity estimates exceeded this limit, compared with only 1.6 % of Doppler estimates. The Doppler centroid is therefore used as the velocity measurement for tracking. 
+
+J. Micro-Doppler Classification 
+
+The classification experiment tests whether the compact E2 payload retains enough target-dependent structure for 11 
+
+controller-side inference. It serves as an end-to-end demonstra-tion of the radar, E2 transport, recording, training, and xApp inference path using a lightweight classifier. The dataset contains 17 cases: nine walking and eight wheeled-chair recordings, collected with one subject, one room, and one radar geometry. Each sample is a 2 s window of the slow-time stream, corresponding to 50 short-time Fourier transform (STFT) frames at a 40 ms hop. Windows with a moving-to-static power ratio below 6 dB are discarded, leaving 191 windows: 104 walking and 87 wheeled-chair. Motion direction and speed were selected to make radial speed similar between the two classes. The median speeds are 1.43 m s −1 for walking and 1.57 m s −1 for the wheeled chair, and 91.6 % of all windows lie within their common 0.50–2.45 m s −1 support. The speed distributions have a Bhat-tacharyya coefficient of 0.78 using 0.2 m s −1 bins and an overlapping coefficient of 0.67 from a Gaussian kernel-density estimate. Thus, radial speed alone provides little transferable class information. An ℓ2-regularized binary logistic-regression classifier is trained on 11 micro-Doppler features describing spectral shape, limb energy, gait rate, entropy, torso dominance, and related motion characteristics. A twelfth candidate feature, tar-get radial speed, is excluded from the deployed model so that classification depends primarily on micro-Doppler structure. Features are standardized using training-fold statistics only. Validation uses leave-one-take-out cross-validation, with each fold holding out one complete take so that no window from that recording appears in the training set. Over 191 windows, the speed-excluded classifier achieves 84.8 % per-window accuracy and 90.8 % mean per-take accuracy, while majority voting correctly classifies all 17 held-out takes. Retaining target speed increases the corresponding accuracies only modestly, to 88.5 % and 92.9 %. The majority-class base-line is 54.5 %; within the matched 0.6–1.0 m s −1 speed interval, the speed-excluded classifier achieves 58.1 %, indicating that class separation is weaker when radial-speed differences are minimized. Table X summarizes the validation results.                
+
+> TABLE X WALKING VERSUS WHEELED -C HAIR CLASSIFICATION
+> Model Per-window Per-take Majority-class baseline 54.5 % –Speed-only baseline 9.4 % 25.0 % Logistic regression, speed excluded 84.8 % 90.8 % Logistic regression, all features 88.5 % 92.9 % Per-take majority vote, speed excluded –17/17
+
+The same speed-excluded model was deployed in the con-troller xApp without retraining. Figure 7 shows different micro-Doppler structure for walking and wheeled-chair mo-tion at similar radial speeds. During the live session, 82 of 91 window-level predictions agreed with the corresponding activity label, giving an agreement rate of 90.1 %. 
+
+K. Multitarget Separation 
+
+The preceding measurements consider a single moving target. To test simultaneous-target separation, a wheeled chair was released toward the radar from approximately 8 m while the operator walked away along the same radial path. Raw slot-level IQ was recorded for 10.9 s and reprocessed with the same division, range, MTI, and Doppler chain used by the online radar. This experiment used a 5 ms slow-time interval and M = 64 , giving a 320 ms processing window, a 0.14 m s −1 velocity-bin spacing, and an unambiguous velocity of ±4.48 m s −1. The range-bin spacing remained 2.44 m. Figure 8 shows the target evolution in Doppler and range. The two targets remain in opposite Doppler half-planes while moving. Under the adopted sign convention, the chair has a mean Doppler velocity of +0 .94 m s −1 and a range rate of −0.91 m s −1, whereas the operator has a mean Doppler velocity of −2.02 m s −1 and a range rate of +2 .41 m s −1. The Doppler signs are therefore consistent with the corresponding range motion.          
+
+> Fig. 8. Evolution of two simultaneously moving targets. (a) Range-integrated micro-Doppler spectrogram; the approaching chair occupies the positive Doppler half-plane and the retreating operator the negative half-plane. (b) Moving-target range–time map showing the two target trajectories.
+
+During the approximately 3 s interval in which both targets are moving, their mean separation is 6.5 m in range and 2.7 m s −1 in Doppler, corresponding to approximately 2.6 range bins and 19 velocity bins. Both targets remain more than 20 dB above the local noise floor in all 151 overlapping processed windows. Figure 9 shows a representative range– Doppler snapshot in which both targets are resolved along both dimensions. Thus, the same processing chain separates the two moving targets simultaneously in range and Doppler. The Doppler spread also differs between the two targets. At 10 dB below the peak, the chair occupies approximately 0.50 m s −1 , compared with 1.77 m s −1 for the walking subject. The broader human return is consistent with additional limb motion and provides the type of micro-Doppler structure used by the classifier in Section VI-J. Because the targets do not occupy the same range bin while both are moving, this ex-periment demonstrates simultaneous moving-target separation rather than the minimum resolvable target spacing. 12    
+
+> Fig. 9. Two-target snapshot at t= 6 .94 s . (a) Range–Doppler map showing both targets resolved in range and Doppler. (b) Doppler cuts at the two target ranges, showing the narrower chair return and the broader micro-Doppler extent of the walking subject.
+
+L. Simultaneous Communication and Sensing 
+
+A commercial UE was attached to the n78 standalone cell with the radar worker and E2 agent enabled. Downlink performance was obtained from the gNB medium-access-control statistics. In parallel, the radar worker reported the occupied sensing resources using the corresponding frame and slot timing. OAI reports downlink throughput using its goodput esti-mate, which serves here as the communication-performance metric. At MCS 27, the highest MCS sustained in both con-figurations, the median downlink goodput was 172.7 Mbit s −1 
+
+with sensing enabled and 172.9 Mbit s −1 with it disabled, a difference of −0.1 %. The corresponding median block error rates (BLERs) were 0.0655 and 0.0648. No measurable dif-ference in these communication metrics was observed under the matched-MCS 27 condition. The principal interaction was instead in the sensing band-width. Figure 10 shows that the available radar bandwidth follows the scheduler allocation. Under downlink load, the scheduler provides the full 162-PRB allocation, retaining 58.29 MHz of sensing bandwidth and approximately 2.6 m nominal range resolution. During idle periods, the occupied bandwidth falls to approximately 4.44 MHz, corresponding to the control-channel footprint and a nominal range resolution of approximately 33.8 m. Thus, the --phy-test configuration used for the main radar characterization represents a fully allocated cell but not an idle one. Table XI summarizes the corresponding allocation states.                      
+
+> TABLE XI SENSING BANDWIDTH VERSUS SCHEDULER ALLOCATION
+> Allocation CPIs B[MHz] ∆R[m] Forced full-band allocation 203 58.29 2.6 Live UE, loaded 426 58.29 2.6 Live UE, light 358 58.29 2.6 Live UE, idle 274 4.44 33.8
+
+VII. C ONCLUSION 
+
+This paper presented a real-time symbol-domain OFDM radar integrated directly into the OAI 5G gNB and exposed through a custom O-RAN E2 sensing service. The same     
+
+> 050 100 150 200
+> goodput [Mb/s]
+> 020 40 60 020 40 60
+> time [s]
+> B [MHz] Fig. 10. Simultaneous communication and sensing with a scheduled UE. Upper panel: gNB-reported downlink goodput. Lower panel: occupied sensing bandwidth for each CPI. Under downlink load, the full sensing bandwidth is available; during idle periods, it contracts to the control-channel footprint.
+
+processing chain was validated progressively in an offline physical-layer simulator, the OAI RF simulator, and a USRP X300 hardware implementation, providing a continuous path from controlled verification to live over-the-air operation. Hardware measurements identified a deterministic carrier-dependent TX–RX phase rotation on the X300 that can severely limit coherent processing if left uncorrected. At the selected operating carrier, the measured residual rotation was reduced from 28.5714 Hz to 0.0012 Hz, improving mean-removal clutter suppression from −16.4 dB to 38.0 dB and reducing the M = 64 coherent-integration loss from 19.81 dB to 0.27 dB. At this operating point, the measured processing gain of 57.62 dB closely matched the predicted 57.56 dB. The resulting range–Doppler processing supported moving-target detection, range and Doppler estimation, and simultaneous separation of two oppositely moving targets. Instrumented execution measurements confirmed that the radar processing fits within the available real-time budget. The combined per-sounding and per-CPI processing occupied 45.2 % of the CPI interval using median stage times, while a conservative bound constructed from the separately observed stage maxima was 58.4 %. The maximum input-ring occu-pancy was 22 of 64 soundings, and no soundings were dropped during the instrumented run. The E2 implementation further demonstrated that the sens-ing products can be exported from the gNB as network-visible measurements. During a 416 s live session, 2591 CPI reports were delivered without a missing CPI sequence step or radar-ring drop. The exported detections and compact slow-time payload were sufficient for controller-side tracking, micro-Doppler processing, recording, and classification. Operation with a commercial UE on the same carrier also showed no measurable communication degradation under the tested matched-MCS 27 condition: median downlink goodput was 172.7 Mbit s −1 with sensing enabled and 172.9 Mbit s −1 with sensing disabled. In contrast, the available sensing bandwidth remained coupled to the communication scheduler: a loaded cell provided the full 58.29 MHz occupied bandwidth, whereas reduced allocation during idle periods directly degraded range resolution. Overall, the results demonstrate that established symbol-domain OFDM radar can operate as a real-time sensing 13 
+
+function inside a 5G base station, reuse the scheduled com-munication waveform without introducing a separate radar transmission, and expose sensing products through an O-RAN control path. They also highlight that practical cellular sensing is a system-level problem: radar performance depends not only on the signal-processing algorithm, but also on radio coherence, bounded real-time execution and buffering, and the communication scheduler that determines the instantaneous sensing resources. VIII. A CKNOWLEDGMENT 
+
+The authors acknowledge the use of Anthropic models as coding and writing assistants and OpenAI models as writing assistants during the preparation of this manuscript. The au-thors are committed to the responsible and transparent use of AI-assisted tools and take full responsibility for the accuracy, integrity, and content of the paper. REFERENCES [1] C. Sturm and W. Wiesbeck, “Waveform design and signal processing aspects for fusion of wireless communications and radar sensing,” 
+
+Proceedings of the IEEE , vol. 99, no. 7, pp. 1236–1259, 2011. [2] S. Carbonara, D. Pugliese, A. Fascista, A. Coluccia, and G. Boggia, “5g-compliant integrated sensing and communication at sub-6 ghz: Experiments with sdrs and openairinterface,” in European WIRELESS 2025; 30th European Wireless Conference , 2025, pp. 232–237. [3] Analog Devices Inc., “gr-ofdmradar: OFDM radar on MxFE platforms using IIO,” Analog Devices Wiki, https://wiki.analog.com/resources/ eval/user-guides/ad9081 fmca ebz/radar, 2023, based on a GRCon 2021 presentation; code: https://github.com/analogdevicesinc/gr-ofdmradar. Last modified 30 Jan 2023, accessed July 2026. [4] C. Baquero Barneto, T. Riihonen, M. Turunen, L. Anttila, M. Fleischer, K. Stadius, J. Ryynanen, and M. Valkama, “Full-duplex ofdm radar with lte and 5g nr waveforms: Challenges, solutions, and measurements,” 
+
+IEEE Transactions on Microwave Theory and Techniques , vol. 67, no. 10, p. 4042–4054, Oct. 2019. [Online]. Available: http://dx.doi.org/ 10.1109/TMTT.2019.2930510 [5] G. Reus-Muns, P. S. Upadhyaya, U. Demir, N. Stephenson, N. Soltani, V. K. Shah, and K. R. Chowdhury, “SenseORAN: O-RAN based radar detection in the CBRS band,” IEEE Journal on Selected Areas in Communications , vol. 42, no. 2, pp. 326–338, 2024. [6] Z. Gao, Z. Liu, and T. Chen, “BatStation: Toward in-situ radar sensing on 5G base stations with zero-shot template generation,” 2025. [Online]. Available: https://arxiv.org/abs/2509.06898 [7] C. Sturm, T. Zwick, and W. Wiesbeck, “An ofdm system concept for joint radar and communications operations,” in VTC Spring 2009 - IEEE 69th Vehicular Technology Conference , 2009, pp. 1–5. [8] C. Sturm, E. Pancera, T. Zwick, and W. Wiesbeck, “A novel approach to ofdm radar processing,” in 2009 IEEE Radar Conference , 2009, pp. 1–4. [9] M. Braun, C. Sturm, and F. K. Jondral, “Maximum likelihood speed and distance estimation for ofdm radar,” in 2010 IEEE Radar Conference ,2010, pp. 256–261. [10] C. Sturm, T. Zwick, W. Wiesbeck, and M. Braun, “Performance veri-fication of symbol-based ofdm radar processing,” in 2010 IEEE Radar Conference , 2010, pp. 60–63. [11] C. D. Ozkaptan, H. Zhu, E. Ekici, and O. Altintas, “Software-defined mimo ofdm joint radar-communication platform with fully digital mmwave architecture,” in 2023 IEEE 3rd International Symposium on Joint Communications & Sensing (JC&S) , 2023, pp. 1–6. [12] Z. Zhou, C. Zhang, X. Xu, and Y. Zeng, “Openisac: An open-source real-time experimentation platform for ofdm-isac,” 2026. [Online]. Available: https://arxiv.org/abs/2601.03535 [13] B. Kumar, I. K. Jain, and V. K. Shah, “Cellsense: A sub-6 ghz cellular isac system for clutter-robust passive sensing,” 2026. [Online]. Available: https://arxiv.org/abs/2606.07900 [14] S. Carbonara, D. Pugliese, A. Fascista, A. Coluccia, and G. Boggia, “Downlink isac with a full-stack 5g-compliant experimental testbed: Communication vs. control signals for multi-target detection,” in 2026 IEEE 6th International Symposium on Joint Communications & Sensing (JC&S) , 2026, pp. 1–6. [15] N. Bouknana, M. Ahadi, F. Kaltenberger, and R. Schmidt, “An O-RAN framework for AI/ML-based localization with OpenAirInterface and FlexRIC,” 2026. [Online]. Available: https://arxiv.org/abs/2511.19233 [16] Y. L. Sit, C. Sturm, and T. Zwick, “Interference cancellation for dynamic range improvement in an ofdm joint radar and communication system,” in 2011 8th European Radar Conference , 2011, pp. 333–336. [17] Y. L. Sit, L. Reichardt, C. Sturm, and T. Zwick, “Extension of the ofdm joint radar-communication system for a multipath, multiuser scenario,” in 2011 IEEE RadarCon (RADAR) , 2011, pp. 718–723. [18] Y. L. Sit, T. T. Nguyen, C. Sturm, and T. Zwick, “2d radar imaging with velocity estimation using a mimo ofdm-based radar for automotive applications,” in 2013 European Radar Conference , 2013, pp. 145–148. [19] Z. Wei, Y. Wang, L. Ma, S. Yang, Z. Feng, C. Pan, Q. Zhang, Y. Wang, H. Wu, and P. Zhang, “5g prs-based sensing: A sensing reference signal approach for joint sensing and communication system,” IEEE Transactions on Vehicular Technology , vol. 72, no. 3, pp. 3250–3263, 2023. [20] A. Lacava, L. Bonati, N. Mohamadi, R. Gangula, F. Kaltenberger, P. Johari, S. D’Oro, F. Cuomo, M. Polese, and T. Melodia, “dapps: Enabling real-time ai-based open ran control,” Computer Networks , vol. 269, p. 111342, 2025. [Online]. Available: https: //www.sciencedirect.com/science/article/pii/S1389128625003093 [21] M. Polese, R. Gangula, and T. Melodia, “Enabling programmable inference and isac at the 6gr edge with dapps,” 2026. [Online]. Available: https://arxiv.org/abs/2603.29146 [22] E. Baena, R. Krishnan, M. Vu, G. Zussman, and D. Koutsonikolas, “Toward native isac support in o-ran architectures for 6g,” 2026. [Online]. Available: https://arxiv.org/abs/2603.03607 [23] F. Kaltenberger, T. Melodia, I. Ghauri, M. Polese, R. Knopp, T. T. Nguyen, S. Velumani, D. Villa, L. Bonati, R. Schmidt, S. Arora, M. Irazabal, and N. Nikaein, “Driving innovation in 6g wireless technologies: The openairinterface approach,” Computer Networks , vol. 269, p. 111410, 2025. [Online]. Available: https: //www.sciencedirect.com/science/article/pii/S1389128625003779 [24] GNU Radio project, “GNU Radio: The free & open source radio ecosystem,” https://www.gnuradio.org, version 3.10, accessed July 2026. [25] Ettus Research / National Instruments. (2024) USRP hardware driver and USRP manual: General application notes — tuning notes. [Online]. Available: https://uhd.readthedocs.io/en/latest/page general.html [26] M. Polese, L. Bonati, S. D’Oro, S. Basagni, and T. Melodia, “Under-standing O-RAN: Architecture, interfaces, algorithms, security, and re-search challenges,” IEEE Communications Surveys & Tutorials , vol. 25, no. 2, pp. 1376–1411, 2023. [27] R. Schmidt, M. Irazabal, and N. Nikaein, “Flexric: an sdk for next-generation sd-rans,” in Proceedings of the 17th International Conference on Emerging Networking EXperiments and Technologies ,ser. CoNEXT ’21. New York, NY, USA: Association for Computing Machinery, 2021, p. 411–425. [Online]. Available: https://doi.org/10. 1145/3485983.3494870

@@ -1,0 +1,1119 @@
+Title: 2608.17476v1.pdf
+
+URL Source: https://arxiv.org/pdf/2608.17476v1
+
+Published Time: Wed, 19 Aug 2026 00:39:52 GMT
+
+Number of Pages: 48
+
+Markdown Content:
+1
+
+## Super-resolution ranging using a sub-terahertz self-injection-locked frequency-modulated radar 
+
+Hossein Naghavi 1 , Zainulabideen Khalifa 2, Hamad Alotaibi 2,4 , Farzad Khoeini 2, James Gruber 2, Morteza Tavakoli Taba 2, Aditya Varma Muppala 2, Saghar Adler 2, Ali Mostajeran 3,Mohammed Aseeri 4, Andreia Cathelin 5, Ehsan Afshari 2
+
+> 1
+
+Department of Electrical and Computer Engineering, University of Washington, Seattle, WA, USA. 2Department of Electrical and Computer Engineering, University of Michigan, Ann Arbor, MI, USA. 3Zadar Labs, San Jose, CA, USA. 4King Abdulaziz City for Science and Technology, Riyadh, Saudi Arabia. 5STMicroelectronics, Crolles, France. 
+
+Sub-terahertz (sub-THz) and terahertz (THz) frequency-modulated continuous-wave (FMCW) radars have opened a plethora of scientific and industrial applications, especially in the imaging field. While strong candidates for sub-THz/THz FMCW radar imagers are implemented using photonic methods, there is a desire to achieve the full integration and portability that only electronics offers. However, integrated electronic sub-THz/THz 
+
+FMCW radars have significantly lower bandwidth ( ≤ 100 GHz) than photonic -based 
+
+radars, restricting the radar range resolution to the millimeter size ( ≥ 1.5 mm). In addition, the electronic FMCW radar’s broad bandwidth comes with increased phase noise of the 
+
+radar transmitter, consequently degrading the radar range accuracy. Here, we present a sub-THz fully-integrated autodyne frequency-modulated (AFM) radar engaged in a self-injection locking (SIL) mechanism that fundamentally overcomes the abovementioned challenges of FMCW radars. The AFM radar supports an enormously wide effective bandwidth up to the terahertz sweep range by forming an intermediate frequency comb 2
+
+spectrum in a quadratic receiver, unlocking the path for super-resolution ranging. Also, 
+
+SIL significantly enhances the radar’s transmitter phase noise, allowing high -accuracy range measurements. We theoretically describe and experimentally demonstrate the SIL operation of the AFM radar. The proposed radar experimentally achieves sub-millimeter 
+
+range resolution and range accuracy of < 0.002%, enabling imaging from covered printed 
+
+letters with micrometer features. 
+
+Sub-THz and THz FMCW systems have been attracting growing interest from researchers in the fields of photonics 1–5 and electronics 6–13 in recent years. Photonic FMCW radars generate frequency chirps in the sub-THz/THz band by photo-mixing of tunable- and fixed-wavelength lasers in a photoconductive antenna (PCA) 3 or a uni-traveling-carrier photodiode (UTC-PD) 1.These photonic radars can provide a broadband frequency chirp up to the THz sweep range 3,14 ,which achieves micron range resolution. However, these FMCW systems use bulky lasers and separated transmitter (TX) and receiver (RX) parts, which make them expensive and limit their integrability into compact systems. On the other hand, electronic FMCW radars utilize a multiplier chain 7,10 or a harmonic voltage-controlled oscillator (VCO) 6,9,15 for generating a frequency chirp at sub-THz/THz bands. In the case of the multiplier chain topologies, a stabilized external source generates a highly linear and low-noise chirp signal at microwave frequencies, which is up-converted to the sub-THz/THz frequencies by the multiplier chain. When operating at the sub-THz/THz band, the multiplier topology consumes more power with less efficiency and needs a large chip area which, with the requirement of external sources, inhibit the full integration and portability of the system 16 . The harmonic VCO configuration employs a millimeter-wave oscillator with harmonics in sub-THz/THz frequencies. The frequency chirp is extracted from the harmonics, thus providing a bandwidth that is enhanced by 3
+
+the harmonic number. The major advantage of harmonic VCOs is that they can be fully integrated onto a single chip, making them very compact and cost-effective. However, the drawback is that the large bandwidth severely degrades the oscillator ’s phase noise 9,17 , which leads to poor radar range accuracy 18 .
+
+Phase-locked loop (PLL) 15,19 and self-referenced frequency stabilization (SRFS) 20,21 
+
+approaches have been suggested to improve the VCO’s phase noise and frequency stability by providing low-frequency feedback from the VCO output to its control voltage. A reference low-phase-noise oscillator and low-noise current source are required in the PLL and SRFS feedback loop, respectively. Nonetheless, the sub-THz/THz PLL circuits suffer from a large division ratio, limited locking range of frequency dividers, and significant noise folding 22 in the feedback loop. Also, the available SRFS methods proposed in the sub-THz/THz band show poor performance in VCO phase noise 21 and bandwidth 20,23 , restricting the applicability of these techniques in broadband sub-THz/THz radars. In addition to the mentioned problems of electronic FMCW radars in the sub-THz/THz band, the broadest bandwidth reported in the literature is about 386 GHz 24 , obtained with a bulky multiband structure, and this still cannot compete with its photonic counterparts. To overcome these limitations, we propose a fully-integrated silicon-germanium (SiGe) bipolar-complementary-metal-oxide-semiconductor (BiCMOS) 250 GHz AFM radar 6
+
+engaged in a SIL mechanism that significantly enhances the harmonic VCO phase noise and enormously broadens the effective bandwidth of the radar by the formation of intermediate frequency (IF) comb spectrum in the radar’s receiver. 
+
+SIL, or passive injection-locking, is analogous to active injection-locking, as explained by Adler ’s equation 25,26 , and it is well-studied in lasers and, to some extent, in electronic oscillators. In this method, the oscillator (laser) becomes injection-locked to itself by taking a portion of the 4
+
+output signal and re-injecting it into the oscillator (laser) after propagating through a long delay line 27,28 or a high-quality factor (high-Q) resonator (e.g., Fabry-Perot 29 , fiber 28,30 , whispering gallery mode 31,32 ). As opposed to active injection-locking 33,34 , this approach to injection-locking does not need any external reference oscillators. Moreover, unlike PLL and SRFS, which operate based on low-frequency feedback that needs frequency division or down-conversion in the feedback loop, the self-injection locked (SIL a) oscillator works based on high-frequency feedback and does not need to lower the output frequency. Therefore, the settling time for frequency stabilization of the SIL oscillator is significantly faster than PLL and SRFS methods 35 .In this article, we illustrate that, in an AFM radar, part of the reflected signal from the target returns to the VCO through the TX/RX antenna and engages the VCO in a SIL mechanism. It is shown that strong SIL due to large target reflections can significantly enhances the VCO phase noise, consequently improving the radar range accuracy 18 . We also manifest the improved range accuracy of the SIL AFM radar by using it in a high-precision imaging setup with micrometer features. 
+
+Furthermore, one of the essential features of the SIL AFM radar is its capability to measure the range of targets through self-mixing interferometry 27 by interacting the internal voltage of the 
+
+radar’s VCO with the backscattered target signal s. This way of measuring the target range differs from conventional FMCW radars, where mixing down to IF happens in a separate mixer. The moderate injection of the backscattered signal to the VCO drives it out of normal operation, entering a nonlinear dynamic regime where unexpected behaviors such as instability, bistability, and hysteresis appear 36 . By linearly sweeping the frequency of the SIL AFM radar, it moves through a series of unstable frequency regions and generates a train of sharp pulses in the time-    
+
+> aFor brevity, we use SIL as the abbreviation for both “self-injection locking ”and “self-injection locked ”
+> phrases.
+
+5
+
+domain IF output, which creates a frequency comb in the IF spectrum after de-chirping and Fourier transformation. Unlike conventional FMCW radars, which produce a single frequency line in the IF spectrum for a single target, the SIL AFM radar generates many equidistant frequency lines. We prove that higher-order lines ( ≥ 2) in the frequency comb spectrum results from fictitious FMCW radars with effective bandwidths equal to sweeping bandwidth times the line order number. As a consequence, for large enough frequency line orders, the effective bandwidth can reach THz sweep ranges and achieves super-resolution. We experimentally demonstrate that the SIL AFM radar can readily reach sub-millimeter range resolutions. 
+
+Sub-THz AFM radar operation. The AFM radar is a VCO that simultaneously conducts the functions of signal generation and mixing the transmitted and reflected signals; therefore can be considered a self-mixing interferometer 27 . There is no separate pathway for the RX signal in an AFM radar, as the transmission and reception occur simultaneously on the autodyne circuit 37 .Therefore, the radar employs a single antenna for both transmitting and receiving parts. Fig. 1a shows the deployed tabletop setup for the sub-THz AFM radar. The radar chip (Fig. 1a inset) is fabricated on a 55nm SiGe BiCMOS process, and its radiation and reception occur through a modified on-chip slot antenna 6. The on-chip antenna mostly radiates through the substrate of the silicon chip using a hemispheric silicon lens to prevent the formation of unwanted surface waves inside the silicon substrate of the chip. The permittivity difference between the silicon region ( εr
+
+= 11.9) and air ( εr = 1) allows about 70% power transfer from silicon to air. A Teflon lens collimates the radiated power to form a sub-THz beam before impinging on a corner reflector, the radar target with a reflectivity close to one. The Teflon lens also focuses the returned power from the target onto the polished surface of the silicon lens, which again transfers 70% of the reflected power to the on-chip antenna. For simplicity, we neglect the multiple reflections 6
+
+between the target and the silicon lens, as verified by measurements. Overall, the radiated sub-THz wave experiences a round trip delay τd and loss L, as depicted in Fig. 1b. 
+
+Principle of sub-THz VCO SIL (static analysis). First, we present the general principles of the VCO SIL in the AFM radar to the long delay τd between radar and target (Fig. 1b) and define the basic terms (Fig. 2a-c). As illustrated in Fig. 1b, the proposed sub-THz AFM radar comprises a VCO and a quadratic receiver. The VCO is modeled by a lossy tank and a negative resistance (-Gm) to compensate for the tank loss. The generated frequency of the free-running VCO is determined by its tank resonance frequency ( 𝜔 𝐿𝐶 = 1 √𝐿 1𝐶 1⁄ ) and can be adjusted by varying the control voltage ( Vtune ) of varactor C1. A coupling network couples the VCO to the free-space delay line by g1 and g2 coupling coefficients. Here, vP(t) is the pump voltage on the VCO tank, 
+
+vR(t) is the radio-frequency (RF) signal at the on-chip antenna port, and vO(t) and iO(t) are the IF signals after down-conversion by the quadratic receiver. The voltage vR(t) comprises forward 
+
+vR+(t) and backward vR–(t) waves, where vR+(t) is a copy of the pump signal vP(t) and vR–(t) is a delayed version of pump signal vP(t-τd). Here, the coupling network injects the delayed version of the pump signal vP(t-τd) into the VCO and alters the VCO behavior due to SIL. In that case, ω is the effective VCO frequency that differs from ωLC , due to the sub-THz feedback from the long delay τd, which impacts the VCO dynamics. In Fig. 2a-c, the SIL modeling is achieved from the static analysis of the equations of motions, presented in Supplementary. 
+
+Fig. 2a shows the stationary tuning curve (STC) for the dependency of free-running VCO frequency ( ωLC ), equivalently the control voltage ( Vtune ) of varactor C1, versus the effective VCO frequency ( ω)29 –32 . In the absence of a target, which means no SIL, the tuning curve tracks the line ωLC = ω (Fig. 2a) as Vtune varies. However, with the presence of a target, the VCO frequency becomes self-injection locked due to the feedback from the target backscatter. Strong enough 7
+
+feedback significantly deforms the STC (Fig. 2a, b) and the output power spectrum of the pump signal (Fig. 2c). In that case, for some ranges of the free-running frequency ωLC , there are three-solution regions for the effective frequency ω, where always the middle branch is unstable 31 , and the two other stable branches create a bistable area (Fig. 2a). The bistability in the tuning curve demonstrates hysteresis behavior in the up-chirping and down-chirping directions (Fig. 2b). Every time the free-running VCO frequency reaches a turning point in the STC, the effective frequency hops between stable states. Moreover, Fig. 2b illustrates the VCO locking range (Δωlock ), where its slope ( dωLC /dω) defines the stabilization factor for the SIL model 29,31 . The locking range width ( Δωlock ) depends on the magnitude of the reflection coefficient Γin (ω), the coupling coefficients g1 and g2, and the antenna port impedance Z0 (Fig. 1b). 
+
+As shown in Fig. 2a, inside the locking range, the fluctuation of the effective VCO frequency ω is several times smaller than the variation of the free-running VCO frequency due to the large stabilization factor ( dωLC /dω). Measurement results in Fig. 2d-f prove this observation. Fig. 2d shows the power spectrum of the sub-THz signal after down-conversion, which manifests a narrower linewidth and more substantial power for the SIL VCO compared to free-running VCO. Also, sub-THz feedback from the long delay τd suppresses the short-term statistical phase errors in the system, like the VCO phase noise 28 . As shown in Fig. 2e, the phase noise is reduced by more than 20 dB (at 1 MHz offset frequency) over a wide frequency range compared to the free-running VCO. Moreover, Fig. 2f compares the long-term frequency stability of free-running and SIL VCOs by plotting the Allen deviation and shows about 7 dB improvement. The instantaneous frequency measurement of Fig. 2f is reported in the Supplementary for a 1000-second measurement. 8
+
+Pulse train in the SIL AFM radar’s quadratic receiver (dynamic analysis). Before studying the pulse train formation at the IF port of the quadratic receiver (Fig. 1b), we review the dynamic behavior of SIL VCO when free-running frequency ωLC moves through the unstable areas of the STC. Fig. 3a shows the measured up-chirping spectrogram of the SIL VCO. Here, the Vtune of varactor C1 is continuously varied to increase the free-running frequency of the 
+
+radar’s VCO over time; therefore, the time axis in Fig. 3a is proportionate to the free-running frequency similar to Fig. 2a,b. It demonstrates the instantaneous jumps of the VCO effective frequency ω between adjacent stable states of the STC (known as frequency hopping 38 ). When the SIL VCO frequency reaches a turning point of the up-chirp locked state in the STC (Fig. 2b and Fig. 3a), it jumps through the unstable region and settles in the adjacent stable state. Fig. 3b illustrates the time-domain version of the measured radiated sub-THz signal of the SIL VCO and the instantaneous frequency increase during the hopping between two stable states. The dynamic analysis of the SIL VCO has been carefully conducted in the Supplementary with similar results matching measurements. Moreover, we observe the same behavior during the down-chirping of the SIL VCO, as shown in Fig. 3c. For the down-chirping, the Vtune of the varactor C1 is continuously changed to decrease the free-running frequency of the radar’s VCO , and the time axis is in the opposite direction of the free-running frequency in Fig. 2a,b. As illustrated, the measured effective frequency moves along the other side of the STC (Fig. 2b), and it instantaneously decreases during the hopping between two stable states (Fig. 3d). 
+
+In the simplified circuit model of Fig. 1b, the nonlinear impedance ZN(v) carries out the function of down-conversion in the AFM radar’s receiver. The impedance ZN(v) in the receiver encloses the dominant quadratic nonlinear terms of the VCO’s transconductance -Gm and varactor C1. Therefore, the AFM radar’s receiver is not a separate block from VCO; for 9
+
+simplicity, it is illustrated as an independent block. Here, the voltage across the nonlinear impedance ZN(v) has a high-frequency term vP(t) and a low-frequency term vO(t). The quadratic nonlinearity of Z N(v) mixes vP(t) and vO(t) in such a way that an instantaneous frequency change in vP(t) generates a copy in low frequencies that shows itself as a kink in the IF signals vO(t) and 
+
+iO(t)39 . Based on the dynamic analysis of the SIL, developed in the Supplementary, the resistive and capacitive parts of ZN(v) generate a step function and an impulse in the IF current iO(t), respectively. However, it was observed from the measurement results that the dominant nonlinearity comes from the resistive part of ZN(v). Hence, each frequency hop produces a step jump in iO(t). As shown in Fig. 1b, iO(t) is extracted from the biasing line using a bias-T, and after trans-impedance amplification, it passes through a differentiator which converts the step jump in iO(t) to a sharp pulse with a uniform broad bandwidth. Fig. 3b,d illustrate the processed IF pulses for up-chirping and down-chirping, respectively. From the measurements, the generated IF pulses during up-chirping are stronger than those during down-chirping. We should clarify that throughout several measurements, the IF pulses generated during down-chirping are not as stable as the IF pulses generated during up-chirping, and their pulse shapes vary depending on the target distance. Hence, moving forward, we will focus only on the up-chirping operation of the SIL AFM radar. 
+
+By linearly scanning the frequency of SIL VCO, the radiated frequency jumps between stable states of the STC, and for each frequency hop, the radar receiver delivers a sharp pulse at the IF port. Fig. 4a illustrates the IF output of the sub-THz SIL AFM radar with 67 GHz bandwidth for a target range of 30 cm and 10 kHz chirp rate. A broadband chirp linearization technique is applied to form a time-domain pulse train at the IF signal 40 . Fig. 4b shows the fast Fourier transform (FFT) of the time-domain pulse train, revealing a frequency comb spectrum 10 
+
+with discrete and equidistant frequency lines. Here, the amplitude of the lines gradually drops due to the limited bandwidth of the IF circuitry (TIA and VGA in Fig. 1a) and the deficiencies in the pulse recovery process. Moreover, the density of frequency lines can be controlled by adjusting the radar chirp rate; the slower the chirp rate, the higher the line density. More discussions about the pulse recovery process and the benefits of adjusting the radar chirp rate are explained in the Supplementary. 
+
+Super-resolution ranging . As depicted in Fig. 4c, in an FMCW radar with a single target, the IF output spectrum has one frequency line, and its frequency is linearly proportional to the radar scanning bandwidth; fIF = (2 Rf m/c)B, where B is the VCO bandwidth of FMCW radar, fm is the chirp rate ( Tm = 1/ fm is the chirp period), c is the speed of light in air, and R is the target range. However, for the proposed SIL AFM radar with a single target, the frequency comb spectrum has many frequency lines depending on the target distance, pulse bandwidth, radar chirp rate, and bandwidth of the IF circuitry. Each frequency line in Fig. 4c is a harmonic of the first frequency line fIF,N = Nf IF,1 , and its frequency is linearly proportional to the radar scanning bandwidth ( B) times the frequency line order ( N); fIF,N = (2 Rf m/c)NB . In this formula, c, fm, and R
+
+are the same for all frequency lines, and the only difference between the frequency lines is their 
+
+effective bandwidth that is given by NB . As depicted in Fig. 4c, the N th frequency line in the IF spectrum of the SIL AFM radar can be interpreted as a conventional FMCW radar with an effective bandwidth that is N-times the scanning VCO bandwidth B. Therefore, we can model the SIL AFM radar with a synchronous ensemble of FMCW radars, where their bandwidths are NB .
+
+Range resolution and accuracy are two fundamental nomenclatures in FMCW radars. The range resolution of an FMCW radar is the minimum distance that two targets can be separated along the radar ’s line of sight before they are indistinguishable. This feature is critical 11 
+
+for concealed object detection, which requires separation between individual surfaces of imaging scenes 41 . The range resolution of a conventional FMCW radar depends only on the radar ’sbandwidth using ΔRmin = αc/(2 B)41,42 , where ΔRmin is the range resolution, and α is the window factor of the IF signal due to amplitude modulation ( α ≥ 1 ). However, as explained earlier, the SIL AFM radar works with higher-order frequency lines, and the effective bandwidth for the N th 
+
+frequency line in the IF spectrum is N-times larger than the first line bandwidth ( B), readily reaching THz sweep ranges. To prove this quality of SIL AFM radar, a Fourier transform spectroscopy (FTS) method 43 has been applied to measure the radiated frequency of SIL AFM radar at each time, as displayed in Extended Data Fig. 3. This technique of achieving the FTS spectrogram has been discussed in the Supplementary. The N th frequency line in the IF spectrum of Fig. 4c is the outcome of FMCW( N) radar in the FTS spectrogram with effective bandwidth 
+
+NB . We should emphasize that only FMCW(1) is the only physically radiating radar, and the rest of FMCW( N ≥ 2) radars are fictitious, created by the SIL nonlinearity. The measured radiated frequency of SIL AFM radar using a spectrum analyzer verifies this observation. Therefore, we can express the range resolution of the N th frequency line of the SIL AFM radar by 
+
+ΔRmin = αc/(2 NB ), where an integer N is added to the denominator of the range resolution formula for a conventional FMCW radar. This ability of SIL AFM radar to look at higher-order frequency lines allows it to resolve objects much closer than the limit imposed by FMCW radars. Fig. 4d shows the first, ninth, and eleventh lines in the frequency comb spectrum when the SIL AFM radar looks at two objects ΔR = 570 μm apart. The range resolution of the first reflection line ( N = 1) is equal to the resolution of a conventional FMCW radar with 67 GHz bandwidth (ΔRmin = 3 mm for α = 1.33), which cannot distinguish the two objects. However, the 9 th and 11 th 
+
+frequency lines with respective effective bandwidths of 603 GHz (9×67 GHz) and 737 GHz 12 
+
+(11×67 GHz) can readily resolve two objects since these frequency lines have range resolutions of ΔRmin = 330 μm and ΔRmin = 271 μm, respectively, which are smaller than the separation of the targets ΔR = 570 μm. For comparison, each of the frequency line spectrum sub-figures contains two other measurements, each corresponding to the case where the radar looks at only one of the two targets. 
+
+High-accuracy ranging and high-precision imaging. On the other side, the range accuracy of radar is defined as how accurately the distance to a single target can be determined 41 . FMCW radars determine the target range by measuring the frequency or phase of the IF signal 6,37 . The radar ’s VCO phase noise affects the accuracy of frequency and phase measurements of the IF signal, directly introducing inaccuracies in determining the target range 18 . In traditional FMCW signal processing, the poor phase noise performance of the VCO is eliminated, to some degree, by signal averaging and correlation between the transmitted and received signals 41 . However, this is insufficient for high precision range measurements on the order of single-digit microns, which needs very low phase noise VCOs . As shown in Fig. 2e, the SIL technique significantly improves the AFM radar phase noise, enhancing the radar ’s range accuracy to 3.4 μm for a target at 185.5 mm (Fig. 5a). Moreover, the SIL technique enhances the frequency stability of the radar (Fig. 2f) which, in combination with the improved phase noise, enables the SIL AFM radar to be utilized in high-precision imaging. Fig. 5b illustrates the imaging setup from a printed letter “M” with a 12 μm i nk thickness covered by n layers of paper. The metallic plate behind the papers is an intensely reflective target that puts the AFM radar in a deep SIL regime. By scanning the image scene using a 2 D motorized stage, we can precisely measure the effective range variations due to changes in the refractive index of the areas with and without ink. Fig. 5c shows several images of the printed letter “M” when covered with 13 
+
+several layers of paper. Due to the moderate transparency of the papers at sub-THz frequencies, even after 20 pages, the printed letter “M” is still readable 44 . The image SNR degrades with increasing paper layers due to the fluctuations in paper thickness and refractive index at different image locations. 
+
+Finally, Extended Data Fig. 4a tabulates the range accuracy of the radar for several ranges and demonstrates a range accuracy better than 0.002% for the SIL AFM radar when averaging 100 IF signals. Also, Extended Data Fig. 4b,c shows additional reconstructed images from printed “ABC” letters with different ink thicknesses. The image quality drastically improves with thicker ink. 
+
+Conclusions. We have demonstrated a fully-integrated sub-THz AFM radar engaged in a SIL regime to enormously enhance the performance of the radar compared to conventional FMCW radar systems. The static and dynamic analyses of the SIL process are presented. The SIL mechanism significantly reduces the radar’s VCO phase noise, consequently improving the 
+
+radar range accuracy to < 0.00 2 %. Moreover, sharp pulse generations during frequency hoppings generate a broad frequency comb in the IF spectrum, which results in super-resolution by working with higher-order frequency lines. We theoretically and experimentally proved that the 
+
+range resolution limit of Δ Rmin = αc /(2 B) is not a constraint for the SIL AFM radar as it can 
+
+obtain any desired resolution of Δ Rmin = αc /(2 NB ) by appropriate selection of frequency line order N. However, this achievement comes with two limitations. First, the restricted frequency separation between the IF comb lines limits the range window of the SIL AFM radar. Therefore, for complex image scenes with many scatterers, if targets fall outside the range window, they will interfere with adjacent frequency lines. To tackle this issue, increasing the chirp rate expands frequency comb spacing and allows a larger range window for each frequency line. 14 
+
+Second, operating at large values of line order N requires advanced chirp linearization methods at hardware and software levels to get the super-resolution privilege of SIL AFM radars. In summary, the proposed SIL AFM radar is an excellent fully-integrated candidate for super-resolution and high-precision imaging applications with micron capabilities. 
+
+Methods 
+
+Details of laboratory measurement setup in Fig. 1a. In the RF measurements, we utilized a Rohde&Schawrz FSW67 spectrum analyzer (SA) with FS-Z220 and FS-Z325 even harmonic mixers (EHM) for RF power spectrum measurements. A Keysight MSOS 804A high-definition oscilloscope (RF Osc) accompanied by two cascaded Mini-Circuits ZX60-14012L amplifiers are used for monitoring the time-domain sub-THz (RF) response of the SIL setup. In the IF measurements, a Keysight 33512B arbitrary waveform generator (AWG) is programmed to deliver a nonlinear ramp signal to the AFM radar chip to generate a linearized sub-THz chirp signal. Also, the IF signal is detected using a Keysight DSOS 104A oscilloscope (IF Osc) followed by a Mini-Circuits ZFBT-6GW+ bias-T, an Analog Devices LTC6560 trans-impedance amplifier (TIA), and variable gain amplifiers (VGA) made of three cascaded Texas Instruments OPA2354 amplifiers. The differentiator block is implemented along the VGA cascade by adding a high-pass R-C filter between stages. All the measurement instruments share a 10 MHz reference signal, and a trigger starts with the AWG ramp signal. 
+
+Broadband chirp linearization. Achieving the ultimate range resolution and range accuracy from the SIL AFM radar requires highly linearized chirp signals. Both short- and long-term errors in the system can cause the chirp nonlinearity. The short-term errors originate from 15 
+
+the statistical phase variations in the system, like the VCO phase noise, which increase the IF noise floor and add skirt noise around frequency lines in the IF spectrum. However, the short-term errors are negligible for our applications for two reasons. First, the SIL process greatly decreases the VCO phase noise by the large stabilization factor of STC. Second, for short-range applications, which are our main focus, the transmitted and received signals have phase noise correlation and cancel each other during the down-conversion. The phase noise cancellation factor C = 4 sin 2(π fΔτd), derived in Ref. 41,45 , expresses the amount of improvement obtained by this correlation, where fΔ is the offset frequency away from the VCO oscillation frequency, and τd is the round-trip delay. For instance, for a target distance of 1 m ( τd = 6.66 ns) and fΔ = 1 MHz, the cancellation factor is 27.6 dB, demonstrating a substantial short-term error correction in the system. 
+
+On the other hand, long-term errors in the way of chirp linearization need special treatment to diminish their undesired effect on the IF spectrum. These errors broaden the width of IF frequency lines, especially for higher-order frequency lines. For this purpose, a two-step chirp linearization is adopted to remove the long-term systematic errors of the broadband chirp. The first step is proposed in Ref. 40 , where a particle swarm optimization is deployed to linearize the chirp. This method mostly removes the errors raised by the nonlinear response of the VCO frequency versus the control voltage Vtune by programming the AWG to generate a deformed ramp signal. This technique is very effective for lower-order frequency lines ( N ≤ 2) in the IF spectrum; however, it falls short of chirp linearization when we move to the higher-order frequency lines. The remaining small chirp nonlinearities are removed using the second step presented in Ref. 46 , where a software-based technique is employed to resample the IF signal so that sampling is not performed at a fixed time interval but at a fixed phase interval. This step 16 
+
+dramatically improves the chirp linearity for frequency lines N < 15. To achieve even better chirp linearization, we should devise new methods by combining hardware- and software-based techniques that are out of the scope of this article. 
+
+Long-term frequency stabilization measurement. To calculate the Allen deviation as a measure of long-term frequency stability of the radar’s VCO (Fig. 2f), the instantaneous radiated 
+
+frequency is measured over a long period as illustrated in Fig. S7 in Supplementary. For this measurement, instead of recording the signal frequency from the spectrum analyzer, we used the FFT of the down-converted RF signal at the output of the even-harmonic mixer displayed on the RF oscilloscope. The VCO frequency is measured over 20 μm time intervals (RBW: 50 kHz) for 
+
+each point in Fig. S7. This method allows us to continuously measure the instantaneous frequency over short periods, which is much faster than the limited sweep time of the spectrum analyzer (> 4 ms). 
+
+Range accuracy measurement. The results reported in Extended Data Fig. 4a are obtained by the measurement setup in Extended Data Fig. 1a. For this measurement, we do not require the RF data; therefore, the horn antenna and the even harmonic mixer setup are removed, which enhances the SIL effect. A Thorlabs DDS300 direct drive translation stage with a capability of 
+
+0.1 μm minimum incremental movement is utilized for this measurement. To calculate the radar 
+
+range accuracy, the corner reflector is moved with step size dR = 1 μm for R = 18.5, 25.4, and 45.4 cm, dR = 2.5 μm for R = 61 and 71 cm, and dR = 5 μm for R = 81 cm. The number of translation steps is 200 with 30 times IF signal recording at each position to find the error bars 
+
+similar to Fig. 5a. Each error bar shows a deviation of ±2σ around the average value, equivalent 
+
+to a 95.5% confidence factor. We should emphasize that, in this measurement, the phase of the first line in the IF frequency comb is used for range measurements 6.17 
+
+Data availability 
+
+The data supporting the plots within this article and other study findings are available from the corresponding author upon reasonable request. 
+
+Code availability 
+
+High-level descriptions of the codes created to develop the mathematical models are available from the corresponding author upon reasonable request. 
+
+References 
+
+1. Yi, L. et al. Ultra-Wideband Frequency Modulated Continuous Wave Photonic Radar System for Three-Dimensional Terahertz Synthetic Aperture Radar Imaging. J. Light. Technol. (2022) doi:10.1109/JLT.2022.3193397. 
+
+2. Kaname, R., Yi, L. & Nagatsuma, T. Investigation on 600-GHz-Band FMCW Photonic Radar System for a Flexible Inspection Distance. Asia-Pacific Microw. Conf. Proceedings, APMC 2021 -Novem , 437 –439 (2021). 
+
+3. Liebermeister, L. et al. Optoelectronic frequency-modulated continuous-wave terahertz spectroscopy with 4 THz bandwidth. Nat. Commun. 2021 121 12 , 1 –10 (2021). 
+
+4. Nishii, H., Nagatsuma, T. & Ikeo, T. Terahertz imaging based on optical coherence tomography [Invited]. Photonics Res. Vol. 2, Issue 4, pp. B64-B69 2, B64 –B69 (2014). 
+
+5. Yee, D.-S. et al. High-speed broadband frequency sweep of continuous-wave terahertz 18 
+
+radiation. Opt. Express, Vol. 23, Issue 11, pp. 14806-14814 23 , 14806 –14814 (2015). 
+
+6. Naghavi, S. M. M. H., Seyedabbaszadehesfahlani, S., Khoeini, F., Cathelin, A. & Afshari, E. A 250GHz Autodyne FMCW Radar in 55nm BiCMOS with Micrometer Range Resolution. in IEEE International Solid-State Circuits Conference (ISSCC) vol. 64 320 –
+
+321 (Institute of Electrical and Electronics Engineers Inc., 2021). 
+
+7. Yi, X. et al. A 220-to-320-GHz FMCW Radar in 65-nm CMOS Using a Frequency-Comb Architecture. IEEE J. Solid-State Circuits 56 , 327 –339 (2021). 
+
+8. Chen, X. et al. A 140GHz Transceiver with Integrated Antenna, Inherent-Low-Loss Duplexing and Adaptive Self-Interference Cancellation for FMCW Monostatic Radar. 
+
+Dig. Tech. Pap. - IEEE Int. Solid-State Circuits Conf. February , 80 –82 (2022). 
+
+9. Mostajeran, A. et al. A High-Resolution 220-GHz Ultra-Wideband Fully Integrated ISAR Imaging System. IEEE Trans. Microw. Theory Tech. 67 , 429 –442 (2019). 
+
+10. Grzyb, J., Statnikov, K., Sarmah, N., Heinemann, B. & Pfeiffer, U. R. A 210 –270-GHz Circularly Polarized FMCW Radar With a Single-Lens-Coupled SiGe HBT Chip. IEEE Trans. Terahertz Sci. Technol. 6, 771 –783 (2016). 
+
+11. Visweswaran, A. et al. A 28-nm-CMOS Based 145-GHz FMCW Radar: System, Circuits, and Characterization. IEEE J. Solid-State Circuits 56 , 1975 –1993 (2021). 
+
+12. Al-Eryani, J. et al. Fully Integrated Single-Chip 305-375-GHz Transceiver With On-Chip Antennas in SiGe BiCMOS. IEEE Trans. Terahertz Sci. Technol. 8, 329 –339 (2018). 
+
+13. Hasan, R., Eissa, M. H., Ahmad, W. A., Ng, H. J. & Kissinger, D. Wideband and Efficient 256-GHz Subharmonic-Based FMCW Radar Transceiver in 130-nm SiGe BiCMOS 19 
+
+Technology. IEEE Trans. Microw. Theory Tech. 71 , 59 –70 (2023). 
+
+14. Sang Yahng, J. et al. High-speed frequency-domain terahertz coherence tomography. Opt. Express, Vol. 24, Issue 2, pp. 1053-1061 24 , 1053 –1061 (2016). 
+
+15. Thomas, S., Bredendiek, C. & Pohl, N. A SiGe-Based 240-GHz FMCW Radar System for High-Resolution Measurements. IEEE Trans. Microw. Theory Tech. 67 , 4599 –4609 (2019). 
+
+16. Jiang, C. et al. A Fully Integrated 320 GHz Coherent Imaging Transceiver in 130 nm SiGe BiCMOS. IEEE J. Solid-State Circuits 51 , 2596 –2609 (2016). 
+
+17. Mostajeran, A., Cathelin, A. & Afshari, E. A 170-GHz Fully Integrated Single-Chip FMCW Imaging Radar with 3-D Imaging Capability. IEEE J. Solid-State Circuits 52 ,2721 –2734 (2017). 
+
+18. Thurn, K., Ebelt, R. & Vossiek, M. Noise in homodyne FMCW radar systems and its effects on ranging precision. in IEEE MTT-S International Microwave Symposium Digest 
+
+(2013). doi:10.1109/MWSYM.2013.6697654. 
+
+19. Jaeschke, T., Bredendiek, C. & Pohl, N. A 240 GHz ultra-wideband FMCW radar system with on-chip antennas for high resolution radar imaging. in IEEE MTT-S International Microwave Symposium Digest (2013). doi:10.1109/MWSYM.2013.6697495. 
+
+20. Jiang, C., Aseeri, M., Cathelin, A. & Afshari, E. A Fully On-Chip Frequency-Stabilization Mechanism for Terahertz Sources Eliminating Frequency Reference and Dividers. IEEE Trans. Microw. Theory Tech. 67 , 2523 –2536 (2019). 
+
+21. Hadidian, B. et al. A 194-238GHz Fully On-Chip Self-Referenced Frequency Stabilized 20 
+
+Radiator for High Range Resolution Imaging. 2023 IEEE Cust. Integr. Circuits Conf. 1–2(2023) doi:10.1109/CICC57935.2023.10121310. 
+
+22. Tavakoli Taba, M. et al. Progress Towards Fully On-Chip Frequency-Stabilization for Sub-Terahertz Sources. in IEEE 20th Topical Meeting on Silicon Monolithic Integrated Circuits in RF Systems (SiRF) 3–34 (Institute of Electrical and Electronics Engineers Inc., 2020). doi:10.1109/SIRF46766.2020.9040182. 
+
+23. Chen, L., Cathelin, A. & Afshari, E. A High-Efficiency High-Power 170-176-GHz Frequency Stabilized Quadrature Radiator. IEEE J. Solid-State Circuits (2023) doi:10.1109/JSSC.2023.3276388. 
+
+24. Jiang, H. et al. Ultra-wideband signal generation and fusion algorithm for high-resolution terahertz FMCW radar imaging. Opt. Express, Vol. 30, Issue 6, pp. 9814-9822 30 , 9814 –
+
+9822 (2022). 
+
+25. Adler, R. A study of locking phenomena in oscillators. Proc. IEEE 61 , 1380 –1385 (1973). 
+
+26. Hong, B. & Hajimiri, A. A General Theory of Injection Locking and Pulling in Electrical Oscillators - Part I: Time-Synchronous Modeling and Injection Waveform Design. IEEE J. Solid-State Circuits 54 , 2109 –2121 (2019). 
+
+27. Donati, S. Developing self-mixing interferometry for instrumentation and measurements. 
+
+Laser Photon. Rev. 6, 393 –417 (2012). 
+
+28. Lee, K.-H., Kim, J.-Y. & Choi, W.-Y. A 30-GHz self-injection-locked oscillator having a long optical delay line for phase-noise reduction. IEEE Photonics Technol. Lett. 19 , 1982 –
+
+1984 (2007). 21 
+
+29. Laurent, P., Clairon, A. & Breant, C. Frequency Noise Analysis of Optically Self-Locked Diode Lasers. IEEE J. Quantum Electron. 25 , 1131 –1142 (1989). 
+
+30. Favre, F. & Guen, D. Le. Spectral Properties of a Semiconductor Laser Coupled to a Single Mode Fiber Resonator. IEEE J. Quantum Electron. 21 , 1937 –1946 (1985). 
+
+31. Kondratiev, N. M. et al. Self-injection locking of a laser diode to a high-Q WGM microresonator. Opt. Express, Vol. 25, Issue 23, pp. 28167-28178 25 , 28167 –28178 (2017). 
+
+32. Voloshin, A. S. et al. Dynamics of soliton self-injection locking in optical microresonators. Nat. Commun. 2021 121 12 , 1 –10 (2021). 
+
+33. Chen, L. et al. An ultra-fast frequency shift mechanism for high data-rate sub-THz wireless communications in CMOS. Appl. Phys. Lett. 118 , 242103 (2021). 
+
+34. Tousi, Y. M., Pourahmad, V. & Afshari, E. Delay Coupled Oscillators for Frequency Tuning of Solid-State Terahertz Sources. Phys. Rev. Lett. 108 , 234101 (2012). 
+
+35. Shen, B. et al. Integrated turnkey soliton microcombs. Nat. 2020 5827812 582 , 365 –369 (2020). 
+
+36. Acket, G. A., Lenstra, D., Boef, A. J. D. & Verbeek, B. H. The Influence of Feedback Intensity on Longitudinal Mode Properties and Optical Noise in Index-Guided Semiconductor Lasers. IEEE J. Quantum Electron. 20 , 1163 –1169 (1984). 
+
+37. Komarov, I. V. & Smolskiy, S. M. Fundamentals of short-range FM radar. 289 (2003). 
+
+38. Henry, C. H. & Kazarinov, R. F. Stabilization of Single Frequency Operation of Coupled-Cavity Lasers. IEEE J. Quantum Electron. 20 , 733 –744 (1984). 22 
+
+39. Agrawal, G. P. & Dutta, N. K. Semiconductor Lasers . (Springer US, 1993). doi:10.1007/978-1-4613-0481-4. 
+
+40. Naghavi, S. M. H. et al. Broadband Sub-THz Chirp Linearization Using Particle Swarm Optimization for Precision Metrology Applications. in IEEE MTT-S International Microwave Symposium Digest vols 2021-June 752 –755 (Institute of Electrical and Electronics Engineers Inc., 2021). 
+
+41. Cooper, K. B. et al. THz Imaging Radar for Standoff Personnel Screening. IEEE Trans. Terahertz Sci. Technol. 1, 169 –182 (2011). 
+
+42. Muppala, A. V. & Sarabandi, K. Low-Cost 3-D Millimeter-Wave Concealed Weapons Detection Using Single Transceiver Affine Synthetic Arrays. IEEE Trans. Microw. Theory Tech. (2023) doi:10.1109/TMTT.2023.3284265. 
+
+43. Smith, B. C. Fundamentals of Fourier Transform Infrared Spectroscopy . (CRC Press, 2011). doi:10.1201/B10777. 
+
+44. Redo-Sanchez, A. et al. Terahertz time-gated spectral imaging for content extraction through layered structures. Nat. Commun. 2016 71 7, 1 –7 (2016). 
+
+45. Stove, A. G. Linear FMCW radar techniques. IEE Proceedings, Part F Radar Signal Process. 139 , 343 –350 (1992). 
+
+46. Vossiek, M., Heide, P., Nalezinski, M. & Mágori, V. Novel FMCW radar system concept with adaptive compensation of phase errors. in 26th European Microwave Conference (EuMC) vol. 1 135 –139 (IEEE Computer Society, 1996). 23 a
+
+b
+
+H-plane bend 
+
+Trigger 10 MHz Ref. 
+
+Even-harmonic 
+
+mixer 
+
+Horn antenna Teflon lens 
+
+Corner reflector 
+
+> AFM radar chip
+
+3.600 PS 
+
+Bias-T 
+
+IF Osc 
+
+AWG 
+
+Radar PCB 
+
+Absorber 
+
+Silicon lens 
+
+RF Osc SA 
+
+LO 
+
+> Amp VGA
+
+Radar chip       
+
+> TIA Diff
+> Z0
+> Teflon lens -GmG1L1C1
+> Silicon
+> lens Target
+> Round-trip delay
+
+τd, loss L
+
+> Voltage controlled oscillator (VCO)
+> Vtune
+
+vP(t)+vO(t)Coupling network 
+
+> g2
+
+vP(t)
+
+> RO
+> VB
+> On-chip antenna
+
+Γin (ω) 
+
+> ZN(
+
+v)
+
+> CB
+> Quadratic receiver
+
+vIF (t)
+
+vP(t)vP(t) vR(t)
+
+> Z0
+> g1
+
+vR(t)iO(t)
+
+> Bias-T
+> & LPF
+
+Fig. 1 | Self-injection locking setup. a, 3D view of the AFM radar measurement setup engaged in a SIL mechanism. The measurement instruments and RF/IF circuitry are illustrated for both time- and frequency-domain measurements. The fabricated AFM radar chip is shown in the inset. The VCO bandwidth at the second harmonic (220 GHz) is tunable between 54 GHz ( VB =3.6 V) and 68.6 GHz ( VB = 2.9 V). The photograph of the measurement setup is displayed in the Extended Data Fig. 1a. b, The simplified schematic of the proposed AFM radar representing the self-injection locking. The actual circuit schematic of the radar is reported in Ref. 6. PS: power supply. AWG: arbitrary waveform generator. Osc: oscilloscope. SA: spectrum analyzer. TIA: trans-impedance amplifier. Diff: differentiator. VGA: variable gain amplifier. Amp: amplifier. LPF: low-pass filter. 24 cba ed f 
+
+> 10 5
+> Offset frequency (Hz)
+> -110
+> -100
+> -90 -80
+> -70
+> -60
+> -50 10 610 7
+> Phase noise (dB c / Hz)
+> Free run: 221 GHz SIL VCO: 221 GHz
+> Free run: 242 GHz SIL VCO: 242 GHz
+> Chirp rate = 1 kHz, RBW = 1 MHz
+> Normalized  radiated power (dB)
+> Effective VCO frequency (
+
+ω 2π) (GHz) 242.2 242.4 242.6 242.8 243 -30 -20 -10   
+
+> 010 Measured up-chirping Measured down-chirping
+> Free running
+> Averaging time,
+
+τ (s) 10 0 10 1 10 2     
+
+> 10 -7
+> 10 -6
+> 10 -5
+> Allan deviation
+> Free running
+> SIL VCO
+> fRF = 242.484 GHz, RBW = 50 kHz
+> 242.2 242.4 242.6 242.8 243 242
+> 242.2
+> 242.4 242.6 242.8 243
+> 243.2
+> Stationary tuning curve (STC) in SIL model
+> Free-running VCO frequency ( ωLC  2π) (GHz)
+> Effective VCO frequency (
+
+ω 2π) (GHz) 
+
+> Linewidth
+> narrowing Bistability
+> Free running (
+
+ωLC = ω)Stable region Unstable region    
+
+> 242.2 242.4 242.6 242.8
+> 242.2 242.4
+> 242.6
+> 242.8 243
+> Stationary tuning curve (STC) in SIL model
+> Free-running VCO
+> frequency ( ωLC  2π) (GHz) Effective VCO frequency (
+
+ω 2π) (GHz)           
+
+> Up-chirping Down-chirping Locking range Δωlock
+> Hysteresis Frequency
+> hopping
+> Free running Up-chirping Down-chirping
+> 243 180 190 200 210 220 230 240 Down-converted frequency (f DF ) (MHz) -100
+> -90
+> -80 -70
+> Measured down-converted
+> sub-THz (RF) power (dB m)-60
+> -50 Free running
+> SIL VCO
+> fLO = 242.284 GHz, RBW = 50 kHz
+> fRF
+> fLO
+> fDF
+
+Fig. 2 | Static analysis of SIL. a, Stationary tuning curve (STC) of a VCO SIL to a free-space long delay line with length 42.8 cm (τd = 2.85 ns). The control voltage ( Vtune ) defines the VCO frequency ωLC , and the sub-THz feedback from the free-space delay line determines the effective or actual oscillation frequency ω. The effective frequency ω deviates from ω = ωLC (free-running case) when SIL happens. Within the locking range, the stabilization factor dω LC /dω > 1, narrowing the oscillator linewidth. Bistability arises in parts of ωLC where three solutions are available for ω. Also, unstable areas of the STC are indicated by dotted lines. b, The zoomed STC with the demonstration of the instantaneous frequency transition between stable states at the turning points of the STC in up- and down-chirping. The spectral bistability of the SIL model illustrates a hysteresis behavior in up- and down-chirping. c, The normalized radiated power spectrums at sub-THz frequencies are illustrated for up- and down-chirping. The up- and down-chirping curves follow different trends due to the hysteresis in STC. d, Down-converted sub-THz (RF) spectrum of the free-running and SIL VCO shows narrower linewidth and stronger power for the SIL case. The sub-THz signal is down-converted by an LO signal at 242.284 GHz. For a better comparison, the two down-converted spectrums are intentionally shifted. e, Phase noise diagram of the free running and SIL VCO at 221 GHz and 242 GHz. f, Allan deviation diagram for the free running and SIL VCO at 242.484 GHz over 1000 s frequency measurements. Extended Data Fig. 1b shows the measurement setup for figures d, e, and f. RBW: resolution bandwidth. 25 ba        
+
+> Frequency
+> hopping 242.2 242.4 242.6 242.8 Frequency (GHz)
+> Up-chirp locked state
+> 00.5 1
+> 1.5
+> 2
+> 2.5
+> Time (s)
+> Up-chirping spectrogram
+> Target range: 62.5 cm RBW: 2 MHz -0.15 -0.1 -0.05 00.05 0.1 Time ( μs)
+> RF frequency hopping and IF pulsing in up-chirping
+> -2 0
+> 2
+> Down-converted
+> RF signal (mV)
+> 0
+> 10
+> 20 30 Processed
+> IF signal (mV)
+
+dc        
+
+> Frequency
+> hopping
+> Down-chirp locked state Target range: 62.5 cm RBW: 2 MHz 242.2 242.4 242.6 242.8 Frequency (GHz)
+> 0
+> 0.5
+> 1
+> 1.5 22.5 Time (s)
+> Down-chirping spectrogram
+> Time ( μs)
+> RF frequency hopping and IF pulsing in down-chirping
+> -0.15 -0.1 -0.05 00.05 0.1 -10
+> 0
+> 10 20
+> Processed
+> IF signal (mV) -2
+> 0
+> 2Down-converted
+> RF signal (mV)
+
+Fig. 3 | Dynamic analysis of SIL. a,c, Measured spectrogram of the sub-THz outputs of the SIL AFM radar for up- and down chirping, respectively. Here, the time axis is equivalent to ωLC increment for up-chirping and ωLC decrement for down-chirping. Frequency hoppings between adjacent stable branches and locked states are illustrated for both cases. b,d, Measured frequency hoppings of the sub-THz (RF) signals in the time domain are shown in red. Sub-THz signals are captured on an 8 GHz oscilloscope after down-conversion with LO at 242.284 GHz. The measured IF pulsings in the IF port of the SIL AFM radar are shown in blue. The time difference between RF frequency hopping and IF pulsing is related to the group delay of IF circuitry. The small trailing peak after the IF pulses can be attributed to strong frequency overshooting in the dynamic analysis (see Supplementary) or transient response of the IF circuitry. These IF pulses are achieved using a software-based method for pulse recovery, explained in the Supplementary. The down-chirping IF pulse magnitude is weaker and less stable than in the up-chirping case, with minor differences between the pulse shapes depending on the target distance. 26 a bd           
+
+> 0246810 12 14 16 18 20
+> Frequency (MHz)
+> -50
+> -40
+> -30
+> -20
+> -10
+> 0
+> 10
+
+Frequency comb spectrum in up-chirping    
+
+> fIF,1 = 1.34 MHz
+> Δf= 1.34 MHz
+> Normalized IF power (dB)
+
+c       
+
+> 14.5 14.6 14.7 14.8 14.9 Frequency (MHz) -30
+> -25
+> -20
+> -15
+> -10
+> -5
+> 011 th freq. line Target 1
+> Target 2 Both targets
+
+Effective BW: 737 GHz, Rmin : 270 μm        
+
+> Normalized power (dB)
+> 11.8 11.9 12 12.1 12.2 12.3 Frequency (MHz)
+> -30
+> -25
+> -20
+> -15 -10 -5 09th freq. line Target 1 Target 2 Both targets
+> Normalized power (dB)
+
+Effective BW: 603 GHz, Rmin : 330 μm        
+
+> R: 570 μmR: 570 μm
+> 1.1 1.2 1.3 1.4 1.5
+> Frequency (MHz) -40
+> -30 -20
+> -10 0Normalized power (dB)
+> 1st freq. line
+
+Effective BW: 67 GHz, Rmin : 3 mm           
+
+> Target 1 Target 2 Both targets R: 570 μm
+> 00.01 0.02 0.03 0.04 0.05 0.06 0.07 0.08 0.09
+> Time (ms) 0
+> 0.2 0.4 0.6 0.8 1
+
+Time-domain pulse train in up-chirping  
+
+> Normalized IF signal (V) 0.10 Target range: 30 cm Bandwidth: 67 GHz Chirp rate ( fm): 10 kHz
+
+FMCW radar spectrum 
+
+fIF IF spectrum Single line  
+
+> Effective BW: B
+
+δfIF = α fm
+
+fIF =(2 Rfm/c)B  
+
+> 1st line
+> Effective BW: B
+
+δfIF = α fm
+
+fIF,1 =(2 Rfm /c)B 
+
+> 2nd line
+> Effective BW: 2 B
+
+δfIF = α fm
+
+fIF,2 =(2 Rfm /c)2 B  
+
+> Nth line
+> Effective BW: NB
+
+δfIF = α fm
+
+fIF,N =(2 Rfm /c)NB 
+
+fIF 
+
+> IF spectrum
+
+SIL AFM radar spectrum B 2B 3B NB FMCW & SIL AFM comparison B
+
+ΔRmin = 2NB 
+
+α c
+
+ΔRmin = 2B
+
+α c
+
+Fig. 4 | Super-resolution ranging. a, Time-domain IF pulse train in the up-chirping mode when SIL AFM radar sweeps a 67 GHz bandwidth ( B) with a 10 kHz chirp rate. b, Frequency comb spectrum after taking FFT from the time-domain IF pulse train. The higher-order frequency lines in the IF spectrum are the harmonics of the first frequency line ( fIF,1 = 1.34 MHz), so their frequencies are N-times the first frequency line ( fIF,N = N×fIF,1 ). Here we have a target range: 30 cm, averaging: 100, chirp rate ( fm): 10 kHz, and window factor α = 1.33 . The power level drop at higher-order frequency lines is related to the frequency response of TIA and VGA at the IF port as well as the defects in the IF pulse recovery process explained in Supplementary. c, The comparison between an FMCW radar and the proposed SIL AFM radar. The SIL AFM operates as an ensemble of synchronized FMCW radars, where their effective bandwidths increase by the frequency line order ( NB ). d, Zoomed version of three frequency lines (1st, 9th, and 11th) in the IF frequency comb spectrum. Each graph includes three measurements when the SIL AFM radar looks at only the first target, only the second target, and both simultaneously. The targets are separated by ΔR = 570 μm at a 30 cm distance. Extended Data Fig. 2a shows the measurement setup for these results. 27 n = 0 n = 3 n = 5 
+
+n = 15 n = 10 n = 20 
+
+a bc
+
+Relative displacement ( μm) 0
+
+10 
+
+20 30 40 
+
+50 
+
+> Relative unwrapped phase (deg)
+
+80 70 60 50 40 30 20 10 0
+
+Range: 185.5 mm, Bandwidth: 67 GHz 
+
+> 2σ
+> 2σ
+> Confidence factor k = 2 (95.5%)
+
+Range accuracy: 3.4 μm
+
+n layers of paper 
+
+> Metallic support and reflector
+
+2D motorized stage: 
+
+x pixels: 85 
+
+y pixels: 55 Step size: 1 mm 
+
+x
+
+y
+
+Sub-THz 
+
+chirp beam 
+
+Fig. 5 | High-accuracy ranging and high-precision imaging. a, Range accuracy measurement results at 185.5 mm distance. A linear stage moves the targets with a 1 μm step, and we repeat 30 times the range measurement at each step. It shows SIL AFM radar has 3.4 μm range accuracy with confidence factor k = 2 (95.5%). In this graph, we report the range accuracy by measuring the phase of the first frequency line in the frequency comb spectrum. b, c, Imaging setup and image results from a printed “M” 
+
+letter covered by n layers of paper. The images are taken by the 2D moving of the image scene with 1 mm steps. The images are without applying image improvement methods. Extended data Fig. 2b displays the measurement setup of this imaging. 28 ba
+
+> AFM radar Collimating Teflon lens Target on linear stage EHM, H-bend, horn antenna
+> AFM radar Focusing Teflon lens EHM, horn antenna Collimating Teflon lens
+> Target on
+> linear stage
+> Phase noise on
+> spectrum analyzer
+
+Extended Data Fig. 1 | Photographs from SIL AFM radar measurement setups. a, The practical implementation of Fig. 1a setup in the main text. This setup is also used for range accuracy measurement. The target is a corner reflector on a linear motorized stage. Even harmonic mixer (EHM), H-bend waveguide, and horn antenna take a sample from sub-THz radiated power of the AFM radar. b, Setup for single-tone sub-THz spectrum, phase noise, and frequency stability measurements (results reported in Fig. 2d, e, and f), where it utilizes a focusing lens to collimate the backside radiation of the radar chip into the aperture of the horn antenna for sub-THz measurements. The intrusion of the horn antenna in the way of target reflection in part (a) reduces the strength of the SIL; therefore, here, we use the backside radiation of the chip to remove this intrusion. However, due to the large power variations in the backside radiation measurement, it is only beneficial for single-tone measurements. For wideband measurements, we should employ the setup in part (a). 29 a
+
+## b
+
+> Focusing Teflon lens Target on 2D stage AFM radar
+> Target covered by papers
+
+0612 Height (μm) 
+
+> AFM
+> radar
+> Collimating
+> Teflon lens
+> Two targets
+> separated by ΔR
+
+Extended Data Fig. 2 | Photographs from range resolution and high-precision imaging setups. a, Setup for range resolution measurement. An aluminum tape (70 μm thick) plus five layers of paper (each layer is 100 μm thick) forms a 570 μm step on a copper sheet support. The sub-THz collimated beam impinges on this step for range resolution measurement in Fig. 4d in the main text. b, Imaging setup from printed letter “M” with and without covering papers. A metallic support (target) behind the papers acts as an intensely reflective target. The 3D image of the printed letter “M” without paper covering ( n = 0) is reconstructed through a phase processing analysis of the first frequency line in the IF frequency comb spectrum. 30 200 400 600 800 1000 1200 1400 1600 
+
+Frequency (GHz) 
+
+0
+
+10 
+
+20 30 40 50 
+
+60 
+
+70 80 90 
+
+> Time  (μ s)
+
+-50 -40 
+
+-30 -20 -10 0100 
+
+Spectrogram of Fourier transform spectroscopy 
+
+Extended Data Fig. 3 | Fourier transform spectroscopy. The normalized spectrogram of the SIL AFM radar, obtained using the FTS method, plots the radiated frequency during the up-chirping. The first radar FMCW(1) is the actual emitting frequency from 191-to-258 GHz ( B = 67 GHz). The rest of the FMCW radars, FMCW( N ≥ 2) with expanded bandwidth NB , are fictitious and generated by the SIL nonlinearity. 31 c
+
+a b
+
+> Focusing
+> Teflon lens
+> Target on
+> 2D stage
+> AFM
+> radar
+
+Ink thickness = 4 μm Ink thickness = 8 μm Ink thickness = 12 μmInk thickness = 16 μm Ink thickness = 20 μm Ink thickness = 40 μm            
+
+> Range accuracy < 0.002% Range (cm)
+> Range accuracy w/o averaging (μm)
+> Range accuracy w/ 100 averaging (μm)
+> 18.5 16.4 3.4 25.4 17.1 4.2 45.4 27 761 47.1 *8.7 71 56.3 *11.4 81 62.6 *13.2
+> * These numbers are affected by the electrical noise of the translation stage in the IF frequencies.
+
+Extended Data Fig. 4 | Range accuracy table with additional high-precision images. a, Range accuracy table for several target ranges with and without signal averaging. Overall, the radar provides a range accuracy better than 0.002% with 100 times signal averaging. b, Imaging setup from the printed “ABC ” letters with different ink thicknesses. c, Reconstructed images from “ABC ”
+
+letters with different ink thicknesses with 100 times signal averaging. It shows the image quality improvement with thicker ink. For 4 μm ink thickness, it is hard to distinguish the “ABC ” letters because 4 μm is close to the 3.4 μm range accuracy limit of the radar. Also, the micron-deep scratches on the metallic support involved in the range measuring deform the ink height measurement. S1 
+
+Supplementary information: 
+
+Super-resolution ranging using a sub-terahertz self-injection-locked frequency-modulated radar 
+
+S. M. Hossein Naghavi et al. 
+
+I. Theory of self-injection locking (SIL) 
+
+The simplified circuit model in Fig. 1b in the main text describes the SIL AFM radar system through the two main signals: vP(t), the pump voltage on the voltage-controlled oscillator (VCO) representing the self-injection locking (SIL) mechanism, and iO(t), the output IF current of the quadratic receiver. The complete set of equations of motions are: 
+
+𝑑𝑉 P(𝑡) 𝑑𝑡 = [𝑗(𝜔 LC − 𝜔) − 𝐺 1
+
+2𝐶 1
+
++ 𝐺 m(𝐴 P(𝑡)) 2𝐶 1
+
+(1 + 𝑗𝛼 g)] 𝑉 P(𝑡) − 𝑔 1𝑔 2𝑍 0𝐿 4𝐶 1
+
+𝑉 P(𝑡 − 𝜏 d)𝑒 −𝑗𝜔𝜏 d (S1a) 
+
+𝑖 O(𝑡) = 𝐺 𝑚 (𝐴 P(𝑡))𝑏 𝑔 
+
+|𝑉 𝑃 (𝑡)| 2
+
+2 − 𝐶 1𝑏 𝑐 𝑅𝑒 {𝑉 P∗(𝑡) 𝑑𝑉 P(𝑡) 𝑑𝑡 } (S1b) 
+
+Equations (S1a) and (S1b) are obtained by applying KVL/KCL relations and slowly varying envelope approximation (SVEA) 1. Here, vP(t) and iO(t) are real-valued functions of time, and VP(t)is a slowly varying complex-valued voltage amplitude, where  𝑣 P(𝑡) = 12 𝑉 P(𝑡)𝑒 𝑗𝜔𝑡 + 𝑐. 𝑐.  and 
+
+𝑉 P(𝑡) = 𝐴 P(𝑡)𝑒 𝑗𝜙 P(𝑡) . In this form, AP(t) and ϕP(t) are slowly varying real-valued functions for the amplitude and phase of VP(t), respectively. In (S1) derivation, we assumed vP(t) >> vO(t), where 
+
+vO(t) is the output IF voltage forms across the nonlinear impedance ZN(v), responsible for frequency down-conversion in the quadratic receiver. 
+
+The VCO in Fig. 1b comprises an LC tank made of inductance L1 and tunable capacitance 
+
+C1(Vtune ), with the loss term represented in the conductance G1. The VCO tank has a resonant S2 
+
+frequency of  𝜔 LC = 1√𝐿 1𝐶 1(𝑉 tune ), controlled by voltage Vtune . The activity sustaining the VCO oscillation is represented by the negative conductance -Gm(AP(t)), a function of voltage amplitude 
+
+AP(t). Parameter αg is the phase-amplitude coupling factor in the VCO 2 and is inspired by the Henry factor in laser diode operation 3. The quantity αg is small for our VCO, based on a comparison between simulation and measurement results; however, for the sake of completeness, we have included this term in (S1a). Part of the pump voltage at the VCO is extracted through the coupling network by the complex transconductance g2, then transmitted and received by the on-chip antenna, experiencing a round trip with a total delay of τd and loss of L. Here, Z0 is the characteristic impedance of the transmission line connecting the coupling network to the on-chip antenna. We assume the antenna and transmission line are perfectly matched. 
+
+Furthermore, in Fig. 1b, vR(t) is the voltage on the antenna port and can be expanded as the forward and backward voltages on the transmission line as vR(t) = vR+(t) + vR– (t). We can prove that the backward voltage is proportional to the delayed version of the pump voltage as  𝑣 R−(𝑡) = − 𝑔 2𝑍 0𝐿 2 𝑣 𝑃 (𝑡 − 𝜏 d). Part of the reflected voltage vR– (t) is injected into the VCO tank by the complex transconductance g1, which is defined by the last term in (S1a), known as the SIL term. Without the SIL term, (S1a) represents the behavior of a free-running oscillator with the frequency of ωLC 
+
+determined by the LC tank resonant frequency. However, with the SIL term, the VCO frequency changes to the actual or effective frequency  𝜔 , which differs from the free-running frequency ωLC 
+
+as the reflected voltage affects the oscillator dynamics. Notably, (S1a) is similar to the Lang-Kobayashi equation in injection-locked laser diodes 4,5 , where we use pump voltage on the VCO tank instead of the electric field inside a laser diode Fabry-Perot cavity. S3 
+
+Equation (S1b) is obtained by analyzing the quadratic receiver in Fig. 1b. Here, the quadratic nonlinearities originated from impedance ZN(v) performing the down-conversion to generate a kink ( iO) in the biasing current of the VCO during any frequency hopping. The impedance ZN(v)retains the nonlinear terms of the two components in the VCO tank, -Gm and C1, where the linear terms are involved in the VCO tank and nonlinear terms are included in the quadratic receiver. For brevity, we only consider the dominant quadratic terms in ZN(v) in our modeling. Here, we represent the resistive nonlinearity as GN(v) = -Gmbgv and the capacitive nonlinearity as CN(v) = 
+
+C1bcv, where bg and bc are the respective quadratic nonlinear coefficients for resistive and capacitive terms. In this simplified modeling, the nonlinear coefficient bg is the net nonlinearity of all transistors’ transconductances in the actual circuit, and the nonlinear coefficient bc is the net nonlinearity of all varactors in the actual circuit, which includes collector-base and base-emitter junctions of bipolar transistors and part of the tunable capacitor C1 that is attributed to the voltage across the capacitor, not control voltage Vtune . As shown in Fig. 1b, the voltage v(t) across impedance ZN(v) is the summation of high-frequency pump signal vP(t) and low-frequency IF voltage vO(t). The bypass capacitor CB is considered to DC isolate the VCO and the quadratic receiver. The DC bias voltage VB can change the bias point of the nonlinear impedance ZN(v) and consequently adjust the nonlinear coefficients of bg and bc. Finally, the IF current iO(t) is extracted through a bias-T and low-pass filter (LPF). The first term of the IF current iO(t) in (S1b) is related to the resistive nonlinearity GN(v), and the second term is attributed to capacitive nonlinearity 
+
+CN(v). Notably, the second term on the right side of (S1b) is proportional to the time derivation of the first term. Also, resistor RO is considered to model the loading effects of the low-frequency components in the actual circuit, the bias-T, and the following trans-impedance amplifier (TIA) S4 
+
+shown in Fig. 1a in the main text. For our circuit simulation, we model the bias-T with a large inductor LBT and large capacitor CBT .
+
+A. Static analysis of SIL equation 
+
+The first step in analyzing the SIL equation of motion (S1a) is to perform a static analysis by considering  𝑑 𝑑𝑡 → 0 . This analysis gives the stationary tuning curve presented in Fig. 2a,b in the main text. In the steady state, we can show  𝑉 P(𝑡), 𝑉 P(𝑡 − 𝜏 d) → 𝑉 P, where VP is a complex constant number. Then, by separating the real and imaginary parts of (S1a), we obtain equation set (S2), where  𝛤 in (𝜔) = −𝐿𝑒 −𝑗𝜔𝜏 d represents the reflection coefficient seen from the antenna port, as shown in Fig. 1b in the main text, capturing the propagation delay τd and the loss L.
+
+− 𝐺 1
+
+2𝐶 1
+
++ 𝐺 m(𝐴 𝑃 )2𝐶 1
+
++ 𝑍 0
+
+4𝐶 1
+
+𝑅𝑒{𝑔 1𝑔 2𝛤 in (𝜔)} = 0 
+
+(S2) 
+
+(𝜔 LC − 𝜔) + 𝐺 m(𝐴 P)2𝐶 1
+
+𝛼 g + 𝑍 0
+
+4𝐶 1
+
+𝐼𝑚{𝑔 1𝑔 2𝛤 in (𝜔)} = 0 242.2 242.4 242.6 242.8 243 242 242.5 243 Effective VCO frequency ( ω 2π) (GHz) Free-running VCO frequency (ωLC  2π) (GHz) 
+
+> Stationary tuning curve in SIL model
+> Unstable
+> Free running
+> L = 0.2
+> L = 0.4 L = 0.7 L = 1.0 Target RCS
+> increases
+
+Fig. S1 | Static analysis of SIL system. A simulated stationary tuning curve of VCO SIL for different propagation losses or equivalently target RCS is reported. Colored solid lines determine the stable areas; unstable regions are identified with gray dotted lines. Without a target when L = 0, the effective frequency is the same as free running frequency ( ω = ωLC ). S5 
+
+By eliminating Gm(AP) from (S2), we find (S3), the stationary tuning curve equation that demonstrates the relationship between the effective frequency ω and free-running frequency ωLC 
+
+of the VCO. 
+
+𝜔 LC = 𝜔 − 𝛼 g
+
+𝐺 1
+
+2𝐶 1
+
+− 𝑍 0
+
+4𝐶 1
+
+√1 + 𝛼 g
+
+> 2
+
+|𝑔 1𝑔 2𝛤 in (𝜔)| sin (𝜓 − 𝑡𝑎𝑛 −1 (𝛼 g))  (S3) 
+
+where  𝜓 = ∡{𝑔 1𝑔 2𝛤 in (𝜔)} = −(𝜙 𝑑 + 𝜔𝜏 d) and  𝜙 𝑑 = −∡{𝑔 1𝑔 2}. It is noteworthy that the gain mechanism which arises from negative conductance -Gm(AP) is inessential to the stationary tuning curve. Fig. S1 illustrates the stationary tuning curve for different levels of loss term L, where L is directly proportional to the target ’s radar cross section (RCS). By increasing RCS, VCO observes stronger SIL, which causes more significant variations in the stationary tuning curve. For a small value of L ≤ 0.2, there is no bistable region on the tuning curve, which means no instability. However, for a larger L > 0.2 , we observe bistable areas along the tuning curve that introduce unstable regions and are plotted by dotted lines. Solid lines in the figure demonstrate the stable branches of the tuning curve.                 
+
+> Table S1 |Typical values for static analysis of VCO SIL used in reproducing Fig. S1 and Fig. 2a,b in the main text. Capacitor
+> C1is a function of Vtune , and its average value is reported here.
+> Propagation loss L0 ~ 1 VCO tank capacitance C143 fF
+> Propagation delay τd2.85 ns VCO tank conductance G16.6 mS
+> Magnitude of coupling terms
+
+|g1|, | g2| 1.35 mS  Phase-amplitude coupling  αg -0.008  
+
+> Phase of coupling terms
+
+ϕd 1.7 rad  Antenna port impedance  Z0 377 Ω
+
+Table S1 summarizes the typical values we used in plotting Fig. S1 and Fig. 2a,b in the main text. For this case, we assumed the VCO tank has QLC = 10, and the target is 42.8 cm away from 
+
+the radar. The antenna port impedance is intentionally chosen 377 Ω to be equal to the free -space S6 
+
+impedance, then values of | g1|, | g2|, and ϕd are tuned to fit the measurement results in Fig. 2c in the main text. 
+
+B. Dynamic analysis of SIL equation 
+
+The static analysis of (S1a) gives us a clear vision of the VCO SIL behavior in the stable branches of the tuning curve. However, to study the behavior of VCO in unstable areas of the tuning curve, we need to numerically solve the differential equation (S1a). Equation (S1a) is a delay differential equation (DDE) because of the VP(t-τd) term on the right side. By Taylor expansion of  𝑉 P(𝑡 − 𝜏 d) = ∑ (−𝜏 d)𝑚  
+
+> 𝑚! 𝑀 𝑚=0 𝑑 𝑚 𝑉 P(𝑡) 𝑑𝑡 𝑚
+
+to M th order, we can convert the DDE to an ordinary differential equation (ODE) with order M. For instance, Fig. S2 shows the simulation results of an up-chirp frequency hopping across an unstable region, considering M = 2 in the Taylor expansion. For this simulation, we use ωLC = ωLC1 + βt to scan the VCO free-running frequency, where ωLC1 /2 π is the start frequency, and β is the chirp rate. For the purpose of simulation, we first assume ω is a constant frequency ωR; then, we calculate the effective frequency from the temporal oscillation of slowly varying complex amplitude VP(t) using the  𝜔 = 𝜔 R + 𝑑𝜙 P(𝑡) 𝑑𝑡  formula 2. The value of ωR is selected to fit the tuning curve of experimental results. Unlike the static analysis of VCO SIL, we need to define a gain mechanism to simulate the VCO behavior in the time domain. For this case, we can add a third equation to the equation set of (S1) to include the dynamic of the negative conductance -Gm(AP(t)). However, for our analysis, we assume the time variation of negative conductance is much faster than the other processes in the equation set, so we use the steady state value of  𝐺 m(𝐴 P) = 𝑔 mQ 
+
+> 2𝐼 1(𝑥) 𝑥𝐼 0(𝑥)
+
+, where In(x) is the n th -order modified Bessel function of the first kind,  𝑥 = 𝐴 P
+
+> 𝑉 T
+
+, VT is the thermal voltage, and gmQ is the small signal transconductance of bipolar transistors in the VCO core 6.S7 b
+
+c
+
+a
+
+d    
+
+> 242.4 242.5 242.6 242.7 242.5
+> 242.52
+> 242.54
+> Freq. hopping Freq. overshoot Up-chirping
+> Transient tuning curve in SIL model
+> (ωLC  2π) (GHz) (
+
+ω 2π) (GHz) -2 -1 0 1 2 3Time ( μs) -20 020 40 60 IF signal (a.u.)         
+
+> IF signal before pulse recovery
+> Ideal Bias-T Practical Bias-T
+> -0.1 -0.05 00.05 0.1 010 20
+> IF signal (a.u.)
+> time ( μs)
+> IF signal after pulse recovery
+> -0.1 -0.05 00.05 0.1 -0.2 00.2 time ( μs) Down-converted
+> RF signal (V)
+> RF frequency hopping in up-chirping
+
+Fig. S2 | Dynamic analysis of SIL system. a, Transient tuning curve in the SIL model shows the frequency hopping and overshooting between two adjacent stable branches during up-chirping. b, The sub-THz (RF) signal is down-converted by a 242.33 GHz LO signal and shows an immediate frequency variation during frequency hopping. c, Demonstration of IF voltage vIF (t) for the two cases with ideal and practical bias-Ts. d, Demonstration of IF signal vIF (t) after the pulse recovery process, which shows a sharp pulse synchronized with the RF frequency hopping. 
+
+Finally, Fig. S2a exhibits the transient tuning curve obtained from this calculation for up-chirping. It shows the instantaneous frequency hopping between two stable branches and the frequency overshooting before settling at Branch 2. Due to the 2 nd -order Taylor expansion approximation, there are some differences between transient and stationary tuning curves, but this approximation still gives us an insight into the dynamic of VCO SIL at RF and IF frequencies when it jumps through an unstable region. Fig. S2b illustrates the immediate frequency change of the VCO signal vP(t) during the frequency hopping. For better visualization, the RF signal vP(t) is down-converted by a 242.33 GHz LO signal, similar to the results of Fig. 3b in the main text. On the other hand, at the IF frequency, the output signal vIF (t) is plotted in Fig. S2c for two cases with an ideal bias-T and a practical bias-T with parameters LBT and CBT reported in Table S2. For an ideal bias-T, the output IF voltage vIF (t) is close to a step function which relates to the kink current 
+
+iO(t) in the biasing current of the VCO during frequency hopping 7. However, for the practical bias-S8 
+
+T, the output IF voltage shows a sharp change in the IF signal, followed by an exponential decay which is the step response of the bias-T. Fig. S6a compares the simulation and measurement results for the normalized IF voltages, which are in good agreement. Moreover, Fig. S2d depicts a sharp IF pulse after a recovery process explained in section  II.C . This IF pulse recovery is essential in forming a frequency comb spectrum with broad bandwidth. Also, Fig. S2b,d illustrate that RF frequency hopping and IF pulse generation occur simultaneously.                                 
+
+> Table S2 |Typical values for dynamic analysis of the SIL system represented in Fig. S2 and Fig. 3a,b in the main text.
+> Propagation loss L0.55 Thermal voltage VT26 mV
+> Chirp rate β7.54×10 14 rad/s 2Small-signal transconductance gmQ 5G1
+> Effective frequency ( 𝜔 2𝜋 ⁄)ωR/2 π242.58 GHz IF output resistor RO0.8 Ω
+> Resistive nonlinear coefficient bg0.01 ~ 1 Bias-T inductor LBT 770 nH
+> Capacitive nonlinear coefficient bc0Bis-T capacitor CBT 10.2 μF
+
+Table S2 shows the typical values we utilized in the dynamic analysis of the SIL system. For this case, we assume L = 0.55 to reproduce the stationary tuning curve of Fig. 2a in the main text. By studying several values for the nonlinear coefficients bg and bc and comparing them with measurements, we realize the resistive nonlinearity GN(v) is dominant in the down-conversion process, and we can ignore the effect of capacitive nonlinearity ( bc = 0). Moreover, for a range of 
+
+bg values, we notice the only difference between generated IF pulses is their amplitude, and the pulse shape is unaffected by this term. Simulation results presented in Fig. S2 are obtained for bg
+
+= 0.01. In addition, we consider the small-signal transconductance gmQ of bipolar transistors in the VCO core much larger than the loss in the VCO tank G1 to deliver a strong pump signal. S9 
+
+II. Additional measurements 
+
+A. Effect of loss on the shape of IF pulses 
+
+One of the important features of the IF pulses generated through frequency hopping in VCO SIL is the robustness of pulses in maintaining an enduring shape with variations in the system. To study the robustness of generated IF pulses, we have simulated and measured IF pulses by placing lossy objects in front of the radar. Fig. S3a shows the simulation results for several attenuation terms L. As we can see, by increasing the loss in the system, the pulse amplitude decreases; however, the shape of the pulse remains constant. In the measurements, we placed several laminar materials with different thicknesses and loss tangents in the wave propagation path and monitored the pulse shape (See Fig. S3b). Similar to simulation results, the pulse amplitude weakens with higher loss but still, the form of the pulse remains unchanged. The trailing peak after each pulse in the measurements is due to the frequency overshooting effect (See Fig. S2a) and the transient response of the following IF circuitry (TIA and VGA). However, in simulations, due to the 2 nd -
+
+order ODE approximation, we don’t see these trailing peaks. ba             
+
+> -0.02 00.02 0.04 0.06 0.08 0.1 0.12 0.14 Time ( μs)
+> -0.02
+> 00.02 0.04
+> 0.06 0.08
+> 0.1 0.12 IF signal amplitude (a.u.)
+> Air RO3003: 310 μmRO5880: 380 μmRO4003: 203 μmRO4003: 1550 μm
+> Measured IF pulses
+> -0.02 00.02 0.04 0.06 0.08 0.1 0.12 0.14 Time ( μs) IF signal amplitude (a.u.)
+> Simulated IF pulses
+> 00.5 11.5
+> 22.5 33.5 L = 0.55 L = 0.50 L = 0.40 L = 0.30
+> L = 0.20
+
+Fig. S3 | Robustness of IF pulse shape with respect to loss variations. a, Simulated and time-shifted IF pulses for different loss term L in the system. For this simulation, we assumed resistive nonlinear term bg = 0.01. b, Measured and time-shifted IF pulses by adding lossy laminar plates in front of the radar with different thicknesses. The dielectric constant and loss tangent of these S10 
+
+materials are as follows: RO3003 ( ε = 3, tan δ = 0.001), RO5880 ( ε = 2.2, tan δ = 0.0009), RO4003 ( ε = 3.55, tan δ = 0.0027). These IF pulses are recovered using a software-based technique discussed in section  II.C .0 0.02 0.04 0.06 0.08 Time (ms)                    
+
+> 00.2
+> 0.4 0.6
+> 0.8 1
+> 0.10 Normalized IF signal (V)
+> 00.2 0.4 0.6 0.8
+> Time (ms) 00.2 0.4 0.6 0.8 1
+> 1.0
+> Normalized IF signal (V) 0246810
+> Frequency (MHz)
+> -40
+> -30 -20 -10 0
+> 10
+> Normalized IF power (dB) 02468Time (ms) 00.2 0.4 0.6 0.8 1
+> Normalized IF signal (V)
+> 10 00.2 0.4 0.6 0.8 1
+> Frequency (MHz)
+> -40
+> -30 -20 -10 0
+> 10
+> Normalized IF power (dB)
+
+a
+
+bc
+
+fm = 10 kHz 
+
+fm = 1 kHz fm = 100 Hz         
+
+> 02468
+> Frequency (MHz) -40
+> -30
+> -20
+> -10 0
+> 10
+> 10 Normalized IF power (dB)
+> fIF,1 = 1.19 MHz Δf= 1.19 MHz
+
+Fig. S4 | Improved range resolution by reducing the chirp rate. The measurement results for time-domain IF pulse trains with associated frequency combs for a radar bandwidth of B = 54 GHz and target distance of R = 33 cm . a, Chirping frequency fm = 10 kHz. The failure in the pulse train at the two ends of the signal is related to the undesired behavior of TIA when the chirping rate is 10 kHz and above. b, Chirping rate fm = 1 kHz. The number of frequency lines is ten times larger than the case with fm = 10 kHz. The drop in amplitude of frequency lines at higher IF frequencies is related to the frequency response of TIA, VGA, and pulse recovery method explained in section  II.C . c, Chirping rate fm = 100 Hz. The density of this frequency spectrum is 10 and 100 times more than the two cases of fm = 1 kHz and 10 kHz, respectively. We only plotted 1 MHz of the IF spectrum for a better demonstration of the separation between frequency lines. The amplitude drop of the first frequency lines is related to the frequency response of bias-T, which blocks frequencies below 100 kHz. The time-domain pulse train for all three cases has almost the same shape, and the only difference is the expansion of time separation between adjacent IF pulses. We should emphasize that the shape of IF pulses 
+
+doesn’t change by chirping frequency and always has a constant shape. 
+
+B. Effect of chirp rate on the IF spectrum (frequency comb) 
+
+One of the exciting features of the SIL AFM radar is adjusting the required super-resolution by controlling the chirp rate β = 2π Bf m, where B is the radar scanning bandwidth (or actual S11 
+
+bandwidth), and fm is the chirping frequency. As mentioned in the main text, by moving to the higher frequency lines in the frequency comb spectrum, the achieved range resolution improves N-times, where N is the frequency line order. Therefore, reducing the chirp rate can include more frequency lines in the IF spectrum and achieve better range resolution. However, the significant range resolution improvement comes with the cost of limited spacing between frequency lines, which puts constraints on the level of image scene complexity. Moreover, working with higher-order frequency lines requires sophisticated chirp linearization techniques due to their broader effective bandwidth. To show the adjustability of range resolution, we measure the time-domain IF pulse train and calculate the associated IF frequency comb spectrum for a fixed target at R=33 
+
+cm with three different chirping frequencies of fm = 10 kHz, 1 kHz, and 100 Hz, as illustrated in Fig. S4. Here, the time span is the reciprocal of fm. As we can see from the figure, by reducing the chirping frequency fm, we decrease the spacing between frequency lines in the frequency comb to enclose more frequency lines in a limited bandwidth of 10 MHz. For a better illustration of the frequency comb, in Fig. S4c, we only show the results for a 1 MHz window of the IF frequency comb because of dense frequency lines. 0 0.2 0.4 0.6 0.8 1
+
+> Time ( μs) -0.4 -0.2
+> 00.2
+> 0.4 0.6
+> 0.8 1Normalized amplitude (V)
+> Time-sifted IF pulses
+> 3.4×10 15
+> 3.4×10 14
+> 3.4×10 12
+> 3.4×10 13
+> 3.4×10 11
+> 3.4×10 10
+> 3.4×10 9
+> 3.4×10 8
+> 3.4×10 7
+> 3.4×10 6
+> Chirp rate ( β)
+
+S12     
+
+> Fig. S5 |Constant pulse shape with respect to chirp rate. The normalized measured IF pulses for several chirp rates are time-shifted for a better comparison, indicating the form of IF pulses remains unchanged. These IF pulses are recovered using a hardware-based technique discussed in section II.C .
+
+We should emphasize that the adjustability of the range resolution in the SIL AFM radar by controlling the chirp rate is achieved due to the robustness of the frequency comb spectrum profile with respect to the variations of radar chirp rate. Accordingly, this property is related to the independence of the IF pulse shape to the variations in the system. To prove this point, measurements in Fig. S5 show that the IF pulse shape is independent of the chirp rate. Fig. S5 presents several measured IF pulses for different chirp rates and demonstrates the constant shape of pulses. 
+
+C. IF pulse recovery process 
+
+As we predicted from our theoretical model in section  0 of Supplementary, the output IF signal vIF (t) is the step response of the bias-T, which shows a sharp transition in the IF voltage followed by an exponentially decaying tail. Fig. S6a compares the measured and simulated vIF (t)signals and demonstrates excellent agreement between measurement and simulation. However, to acquire the best performance from the super-resolution SIL AFM radar, we require a broadband frequency comb in the IF spectrum. Therefore, we need to remove the exponential decay of the IF signal and convert it to a sharp pulse. Fig. S6c shows the Bode diagram for the IF signal before pulse recovery, which rolls off by 20 dB/dec. This slope is equivalent to a dominant pole at very low frequencies and can be compensated by passing the IF data through a differentiator that adds a zero to the system ’s transfer function. The added zero crosses out the pole of the system. However, to prevent strong spikes caused by differentiation from noise, we pre-filter the data by a Gaussian window to reduce the variations raised by the noise. Fig. S6b shows the IF pulse recovery outcome that removes the exponentially tailing effect. Besides, Fig.S6c also exhibits the S13 
+
+Bode diagram of the IF pulse after recovery, which has a flat spectrum, as expected from a sharp pulse. ba c             
+
+> -2 -1 0123-0.2 00.2
+> 0.4 0.6
+> 0.8
+> 1
+> Time ( μs) Normalized IF signal (V)
+> IF signal before pulse recovery
+> Measurement
+> Simulation
+> -0.2
+> 00.2 0.4
+> 0.6 0.8 1
+> Normalized IF signal (V) -0.1 -0.05 00.05 0.1
+> Time ( μs)
+> Recovered measured IF pulse
+> 10 510 610 710 810 9
+> Frequency (Hz) -100
+> -80
+> -60
+> -40
+> -20 0Normalized power (dB)
+> Measured IF spectrum
+> Before recovery
+> After recovery
+
+Fig. S6 | IF pulse recovery. a, Comparison of measurement and simulation results for IF signals before pulse recovery. Simulation perfectly follows the measurement. b, Recovered measured IF pulse by smoothening the results of Fig. S6a with a Gaussian window, then taking a derivation. c, Bode diagram of measured IF pulses before and after recovery. 
+
+We should mention that the above algorithm for IF pulse recovery is a numerical method implemented with computational software. Nonetheless, we can accomplish the same task on the hardware level by adding a differentiator circuit after TIA, as depicted in Fig. 1a in the main text. The measurement results in Fig. 4 in the main text, Fig. S4, and Fig. S5 are obtained using a hardware-based technique. However, the implemented hardware differentiator is not as perfect as the software one; therefore, we observe a shallow drop in the amplitude of the IF frequency comb at higher frequencies in Fig. 4b and Fig. S4a,b. Also, the recovered IF pulses in Fig. S5 (hardware-based) are not as narrow as the one reported in Fig. S6b (software-based). 
+
+D. Long-term frequency stabilization 
+
+In order to study the long-term frequency stability of the SIL VCO and compare it with the free-running case, the Allen deviation graph in Fig. 2f in the main text has been reported. The measured instantaneous frequency of this graph is shown in Fig. S7 for a 1000-second S14 
+
+measurement. As we see, the frequency standard deviation for the SIL case is 5.3 times less than the free-running VCO. 0 200 400 600 800 1000 
+
+Measurement time, T (s) 
+
+> -15 -10 -5
+> 0
+> 510 15
+> f - fRF  (MHz)
+> Free running SIL
+
+fRF = 242.484 GHz, RBW = 50 kHz     
+
+> Fig. S7 |Frequency stabilization. The instantaneous sub-THz (RF) frequency of the radar’s VCO over a 1000 -second measurement for both free-running and SIL cases. The resolution bandwidth for each frequency point is 50 kHz. The frequency standard deviation for free-running and SIL VCOs are 2.32 MHz and 0.44 MHz, respectively.
+
+E. Fourier transform spectroscopy (FTS) measurement setup 
+
+This section briefly explains the FTS method used in producing the Extended Data Fig. 3 in the main text. FTS is a well-known method for measuring the radiated frequency of coherent and incoherent sources by Fourier transformation of an interferogram produced by a two-beam Michelson interferometer 8. In FTS, one of the interferometer beams remains fixed, and the length of the second beam is varied from zero to a maximum value. By constantly measuring the phase difference between the two beams with respect to the time delay difference between them, an interferogram is achieved, where its Fourier transform contains the radiated spectrum of the source. Notably, the operation of an FMCW radar is similar to the two-beam Michelson interferometry, as the fixed beam is the path inside the radar that takes a sample from the VCO and injects it to the S15 
+
+LO port of the mixer, and the second path is the radiated signal to the air through TX/RX antennas. Therefore, constantly moving the target gives us a similar interferogram in FTS. τd=2 R/c
+
+A/D  
+
+> AFM radar chip Linear
+> motorized stage
+> Teflon
+> lens
+> Silicon
+> lens
+> Moving
+> target
+> Trigger 10MHz Ref.
+> Ramp IF
+> Fourier Transform Spectroscopy Setup using AFM Radar
+> Ramp
+> generator
+> Round-trip delay
+
+cad
+
+0 500 1000 1500 Frequency (GHz) -50 -40 
+
+-30 
+
+-20 -10 
+
+0 
+
+> Fourier transformation of interferogram at time = 31.8 μs
+> Normalized magnitude (dB)
+
+An ensemble of IF signals b
+
+0 20 40 60 80 100 Difference in round-trip delay ( Δτd) (ps) -0.2 
+
+0
+
+0.2 0.4 
+
+0.6 
+
+0.8 
+
+1 
+
+> Interferogram of IF signal ensemble at time = 31.8 μs
+> Amplitude (V)
+
+Fig. S8 | Fourier transform spectroscopy measurement setup. a, FTS setup using a SIL AFM radar, where the target is gradually moved by a linear motorized stage with 10 μm steps. The target is initially located at a distance of 40 cm and travels 5 cm away from the initial position. b, An ensemble of IF signals produced by putting the recorded IF signals for each stage position. Here, the difference between the round-trip delays ( Δτd = 2Δ R /c) with respect to the initial target position is used instead of the absolute target position. c, The interferogram of the IF signal ensemble at a time of 31.8 μs, as depicted in part (b) by a cutting plane in the ensemble. d, A normalized Fourier transformation of the interferogram in part (c) shows a frequency comb deeply extended into THz frequencies. 
+
+Fig. S8a shows the FTS setup used for a SIL AFM radar where a linear motorized stage 
+
+gradually displaces the target with 10 μm steps. At each step, we record the output IF signal, and 
+
+by putting them side-by-side, we obtain an ensemble of IF signals, as illustrated in Fig. S8b. The IF signal ensemble is a 3D plot of IF amplitude versus time and the difference in round-trip delay S16 
+
+Δτd. Any cut from the IF signal ensemble at a fixed time demonstrates an interferogram containing the AFM radar ’s radiated spectrum at that specific time. For example, Fig. S8c shows one instance at time = 31.8 μs, a train of pulses separated by 4.5 ps. Therefore, the Fourier transform of this interferogram is a frequency comb with the first frequency line at 222.2 GHz, as shown in Fig. S8d. We should emphasize that due to the nonlinear mechanisms inside the SIL AFM radar, only the first frequency line is the actual radiated frequency from the chip, and the rest are fictitious radiations. Finally, by placing the Fourier transformations for all the times side-by-side, we acquire the spectrogram presented in the Extended Data Fig. 3. It obviously shows that the operation of SIL AFM radar is equivalent to the operation of an ensemble of synchronized FMCW radars, where the primary FMCW radar has a 67 GHz bandwidth from 191 GHz-to-258 GHz and the other fictitious FMCW radars emerge from the nonlinear processes inside the SIL AFM radar. The fictitious FMCW radars help achieve super-resolution, as discussed in the main text. 
+
+References: 
+
+1. Weiner, A. M. Ultrafast Optics . Ultrafast Optics (Wiley Blackwell, 2009). doi:10.1002/9780470473467. 
+
+2. Kondratiev, N. M. et al. Self-injection locking of a laser diode to a high-Q WGM microresonator. Opt. Express, Vol. 25, Issue 23, pp. 28167-28178 25 , 28167 –28178 (2017). 
+
+3. Henry, C. H. Theory of the Linewidth of Semiconductor Lasers. IEEE J. Quantum Electron. 
+
+18 , 259 –264 (1982). 
+
+4. Lang, R. & Kobayashi, K. External Optical Feedback Effects on Semiconductor Injection Laser Properties. IEEE J. Quantum Electron. 16 , 347 –355 (1980). S17 
+
+5. Donati, S. Developing self-mixing interferometry for instrumentation and measurements. 
+
+Laser Photon. Rev. 6, 393 –417 (2012). 
+
+6. Clarke, K. K. & Hess, D. T. Communication Circuits: Analysis and Design . (Addison-Wesley Publishing Company, 1971). 
+
+7. Agrawal, G. P. & Dutta, N. K. Semiconductor Lasers . (Springer US, 1993). doi:10.1007/978-1-4613-0481-4. 
+
+8. Smith, B. C. Fundamentals of Fourier Transform Infrared Spectroscopy . (CRC Press, 2011). doi:10.1201/B10777.

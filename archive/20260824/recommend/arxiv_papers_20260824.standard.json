@@ -1,0 +1,591 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-24T19:48:22.939787+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 0,
+    "deep_divecandidates": 14,
+    "deep_cap": 5,
+    "deep_selected": 5,
+    "quick_candidates": 9,
+    "quick_skim_target": 10,
+    "quick_selected": 9
+  },
+  "deep_dive": [
+    {
+      "id": "2608.16454v1",
+      "source": "arxiv",
+      "title": "Self-Supervised Noise2Noise-Enhanced Denoising for Continuous-Scan Air-Plasma THz Spectroscopy",
+      "abstract": "Terahertz time-domain spectroscopy (THz-TDS) based on air-plasma generation and balanced air-biased coherent detection offers gap-free broadband coverage, but individual continuous-scan traces are strongly affected by pulse-to-pulse fluctuations and electronic noise. Reaching a useful signal-to-noise ratio therefore requires averaging multiple traces, which directly increases measurement time. We propose a learned denoising approach that recovers high-quality THz waveforms from as few as one complete continuous delay sweep, referred to here as a single-scan trace. A compact one-dimensional residual U-Net is trained using two complementary strategies: a reference-supervised baseline that maps individual noisy traces to long-average reference waveforms, and a Noise2Noise approach that learns from pairs of independently acquired noisy traces without requiring a clean training target. Averaging the predictions of both models reduces systematic bias and yields a trace-reduction factor of approximately $5.4\\times$ at $K=1$, meaning that one denoised trace achieves the reconstruction accuracy of averaging approximately five raw traces. The Noise2Noise model alone achieves $4.9\\times$, outperforming both the reference-supervised baseline ($4.6\\times$) and classical Wiener filtering ($3.2\\times$). These results show that self-supervised learning from repeated noisy measurements can support faster continuous-scan THz-TDS without hardware modification.",
+      "authors": [
+        "Adam Umra",
+        "Oways Alsoloh",
+        "Oliver Nagy",
+        "Aydin Sezgin",
+        "Clara Saraceno"
+      ],
+      "primary_category": "eess.SP",
+      "categories": [
+        "eess.SP",
+        "cs.LG"
+      ],
+      "published": "2026-08-17T11:55:51+00:00",
+      "link": "https://arxiv.org/pdf/2608.16454v1",
+      "tags": [
+        "keyword:es",
+        "query:es"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Proposes learned denoising that recovers high-quality THz waveforms from a single scan, improving signal acquisition efficiency",
+      "llm_evidence_cn": "提出学习式去噪，可从单次扫描恢复高质量太赫兹波形，提升采集效率",
+      "llm_evidence": "提出学习式去噪，可从单次扫描恢复高质量太赫兹波形，提升采集效率",
+      "canonical_evidence": "提出学习式去噪，可从单次扫描恢复高质量太赫兹波形，提升采集效率",
+      "llm_tldr_en": "This paper proposes a compact 1D residual U-Net denoiser, trained with reference-supervised and Noise2Noise self-supervised strategies, to recover high-quality THz waveforms from as few as one continuous-scan trace, cutting measurement time.",
+      "llm_tldr_cn": "空气等离子体太赫兹时域光谱的连续扫描单迹受脉冲波动和电子噪声影响，通常需要多次平均以获得足够信噪比，耗时很长。本文提出一种基于一维残差U-Net的去噪方法，用参考监督和Noise2Noise自监督两种策略联合训练，可从单次扫描中恢复高质量太赫兹波形。实验表明，经该方法处理的单扫描轨迹信噪比显著提升，有望大幅缩短光谱测量时间，推动太赫兹光谱在实时检测中的应用。",
+      "llm_tldr": "空气等离子体太赫兹时域光谱的连续扫描单迹受脉冲波动和电子噪声影响，通常需要多次平均以获得足够信噪比，耗时很长。本文提出一种基于一维残差U-Net的去噪方法，用参考监督和Noise2Noise自监督两种策略联合训练，可从单次扫描中恢复高质量太赫兹波形。实验表明，经该方法处理的单扫描轨迹信噪比显著提升，有望大幅缩短光谱测量时间，推动太赫兹光谱在实时检测中的应用。",
+      "llm_tags": [
+        "query:es"
+      ],
+      "matched_query_tag": "query:es",
+      "matched_query_text": "electromagnetic signal processing techniques",
+      "matched_requirement_id": "req-2",
+      "selection_source": "carryover_cache",
+      "paper_id": "2608.16454v1"
+    },
+    {
+      "id": "2608.16518v1",
+      "source": "arxiv",
+      "title": "Development of Different Algorithms for Drone-Based Antenna Measurement Systems and Near-Field Error Analysis",
+      "abstract": "Near-field antenna measurements underpin the characterization of electrically large apertures, yet the fidelity of the Near-Field to Far-Field (NF-FF) transformation depends on the reconstruction algorithm's assumptions and robustness to real-world imperfections, including those from drone-based scanning platforms.   Classical FFT-based modal expansion is efficient on uniformly sampled canonical grids but fails when phase-coherent acquisition cannot be maintained. We address this via a phaseless NF-FF algorithm reconstructing the far field from amplitude-only data through iterative phase retrieval. When sampling becomes sparse or irregular, even amplitude-based methods break down, motivating the $\\textbf{Adaptive Sparse Inverse Radiation Estimator (ASPIRE)}$, a full-complex inverse source framework that solves a Method-of-Moments problem over RWG basis functions via cascaded rSVD and regularized shrinkage. Mutual coupling between basis functions is explicitly resolved, improving reconstruction fidelity beyond coupling-agnostic inverse-source formulations. The solver is accelerated via a Multilevel Fast Multipole Method engine with Numba just-in-time compilation, achieving a $1.2\\times$ reduction in matrix-vector product time and up to $15\\times$ lower memory usage relative to dense evaluation at N=100K.   Across frequency bands and positioning/truncation error scenarios, the pipeline sustains algorithmic stability and achieves sub-degree beamwidth reconstruction error. These results establish an error-aware framework for algorithm selection across fixed and drone-based near-field measurement platforms.",
+      "authors": [
+        "Simranjit Singh",
+        "Jaswant Sharma",
+        "Jigar M. Pandya"
+      ],
+      "primary_category": "eess.SP",
+      "categories": [
+        "eess.SP"
+      ],
+      "published": "2026-08-17T12:59:55+00:00",
+      "link": "https://arxiv.org/pdf/2608.16518v1",
+      "tags": [
+        "keyword:es",
+        "query:es"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Near-field antenna measurement acquisition with phaseless and adaptive algorithms for NF-FF transformation",
+      "llm_evidence_cn": "近场天线测量采集及无相位与自适应近远场变换算法",
+      "llm_evidence": "近场天线测量采集及无相位与自适应近远场变换算法",
+      "canonical_evidence": "近场天线测量采集及无相位与自适应近远场变换算法",
+      "llm_tldr_en": "Develops phaseless and adaptive near-field to far-field algorithms for drone-based antenna measurements, handling non-uniform sampling and amplitude-only data.",
+      "llm_tldr_cn": "该论文针对无人机载平台天线测量系统中近远场变换精度受采样与相位一致性影响的问题，提出了无相位近远场算法，利用迭代相位恢复从幅度数据重建远场，并发展了自适应算法以应对稀疏或不规则采样。传统FFT模态展开在非均匀采样时失效，所提方法可提高重建鲁棒性。该研究为电磁信号天线辐射场的采集与重建提供了先进的测量与误差控制方法，支撑大孔径天线测量。",
+      "llm_tldr": "该论文针对无人机载平台天线测量系统中近远场变换精度受采样与相位一致性影响的问题，提出了无相位近远场算法，利用迭代相位恢复从幅度数据重建远场，并发展了自适应算法以应对稀疏或不规则采样。传统FFT模态展开在非均匀采样时失效，所提方法可提高重建鲁棒性。该研究为电磁信号天线辐射场的采集与重建提供了先进的测量与误差控制方法，支撑大孔径天线测量。",
+      "llm_tags": [
+        "query:es"
+      ],
+      "matched_query_tag": "query:es",
+      "matched_query_text": "electromagnetic signal acquisition methods",
+      "matched_requirement_id": "req-3",
+      "selection_source": "carryover_cache",
+      "paper_id": "2608.16518v1"
+    },
+    {
+      "id": "2608.16705v1",
+      "source": "arxiv",
+      "title": "Real-Time Symbol-Domain OFDM Radar in an OpenAirInterface 5G Base Station With O-RAN Sensing Services",
+      "abstract": "This paper presents a real-time orthogonal frequency-division multiplexing (OFDM) radar embedded in the OpenAirInterface (OAI) 5G base-station process. The radar removes communication symbols by regularized element-wise division and performs range-Doppler processing and ordered-statistic constant-false-alarm-rate detection online without modifying the 5G waveform. The implemented system provides 2.57 m nominal range resolution and 0.28 m/s velocity resolution. Hardware measurements identify and mitigate several implementation-specific limitations, most notably a deterministic carrier-dependent transmit-receive phase rotation on a Universal Software Radio Peripheral (USRP) X300. Selecting a tuning-grid-aligned carrier improves mean-removal clutter suppression from -16.4 dB to 38.0 dB and reduces coherent-integration loss from 19.81 dB to 0.27 dB. The measured processing gain closely agrees with its predicted value. Instrumented worker timing confirms real-time operation, with a conservative 58.4 percent utilization bound and no dropped soundings. A custom E2 service model, E2SM-RADAR, exports detections and a compact slow-time product to a near-real-time RAN Intelligent Controller. Live end-to-end operation demonstrates reliable delivery and supports controller-side tracking, micro-Doppler analysis, and classification. With a commercial user equipment connected on the same carrier, measurements show no measurable difference in downlink throughput estimate with sensing enabled, while the radar sensing bandwidth follows the scheduler allocation.",
+      "authors": [
+        "Karim Saifullin",
+        "Sajid Ahmed",
+        "Mohamed-Slim Alouini"
+      ],
+      "primary_category": "eess.SP",
+      "categories": [
+        "eess.SP"
+      ],
+      "published": "2026-08-17T15:25:12+00:00",
+      "link": "https://arxiv.org/pdf/2608.16705v1",
+      "tags": [
+        "keyword:es",
+        "query:es"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Implements real-time OFDM radar signal processing in a 5G base station",
+      "llm_evidence_cn": "在5G基站中实现实时OFDM雷达信号处理",
+      "llm_evidence": "在5G基站中实现实时OFDM雷达信号处理",
+      "canonical_evidence": "在5G基站中实现实时OFDM雷达信号处理",
+      "llm_tldr_en": "Implements a real-time symbol-domain OFDM radar in an OpenAirInterface 5G base station, removing communication symbols by regularized element-wise division and performing range-Doppler processing and ordered-statistic constant-false-alarm-rate detection online without modifying the 5G waveform.",
+      "llm_tldr_cn": "针对5G基站集成雷达感知的需求，在OpenAirInterface 5G基站进程中嵌入实时OFDM雷达，通过正则化逐元素相除去除通信符号，在线完成距离-多普勒处理和有序统计恒虚警检测，且不修改5G波形。系统提供2.57米距离分辨率和0.28米/秒速度分辨率，并通过硬件测量识别和缓解了USRP X300上的确定性载波相关相位旋转等实现限制。该工作展示了利用现有通信基础设施进行电磁信号处理与感知的可行性。",
+      "llm_tldr": "针对5G基站集成雷达感知的需求，在OpenAirInterface 5G基站进程中嵌入实时OFDM雷达，通过正则化逐元素相除去除通信符号，在线完成距离-多普勒处理和有序统计恒虚警检测，且不修改5G波形。系统提供2.57米距离分辨率和0.28米/秒速度分辨率，并通过硬件测量识别和缓解了USRP X300上的确定性载波相关相位旋转等实现限制。该工作展示了利用现有通信基础设施进行电磁信号处理与感知的可行性。",
+      "llm_tags": [
+        "query:es"
+      ],
+      "matched_query_tag": "query:es",
+      "matched_query_text": "electromagnetic signal processing techniques",
+      "matched_requirement_id": "req-2",
+      "selection_source": "carryover_cache",
+      "paper_id": "2608.16705v1"
+    },
+    {
+      "id": "2608.17216v1",
+      "source": "arxiv",
+      "title": "Multi-Tag Collision Recovery in UHF-RFID Using Self-Attention Decoding",
+      "abstract": "Passive ultra high frequency (UHF) radio frequency identification (RFID) enables battery-free tags to communicate with a reader through backscatter. When multiple tags respond in the same time slot, their waveforms overlap at the reader, and a conventional reader that follows framed slotted ALOHA (FSA) discards the resulting collided slot. This limits the throughput of the overall protocol even though the received signal still contains recoverable information about the responding tags. To address this limitation, we propose Self-Attention Tag Recovery (SATR), a transformer-based decoding algorithm that operates directly on the baseband in-phase and quadrature (I/Q) samples received during a standard tag response. SATR uses self-attention to model the temporal structure of the modulated waveform and learns candidate tag representations. It jointly estimates the number of responding tags and, more importantly, decodes the bit sequence of each detected tag. We numerically evaluate the decoding and throughput performance of SATR over a range of collision sizes and recovery configurations, and validate it with measurements of commercial UHF-RFID tags. The results show that, with proper design and training, SATR can reliably decode collisions of up to four tags. It achieves a throughput of approximately $0.815$ tags per slot under single acknowledgment and $1.87$ tags per slot under full recovery, corresponding to $2.2$ and $5.1$ times the conventional FSA limit of $1/e \\approx 0.368$ tags per slot, while approaching optimal decoding performance and outperforming existing collision recovery methods.",
+      "authors": [
+        "Talha Akyildiz",
+        "Siva Aditya Gooty",
+        "Hessam Mahdavifar",
+        "Najme Ebrahimi"
+      ],
+      "primary_category": "eess.SP",
+      "categories": [
+        "eess.SP"
+      ],
+      "published": "2026-08-17T23:59:46+00:00",
+      "link": "https://arxiv.org/pdf/2608.17216v1",
+      "tags": [
+        "keyword:es",
+        "query:es"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Recovers collided RFID tag signals from baseband I/Q samples via self-attention decoding",
+      "llm_evidence_cn": "通过自注意力解码从基带I/Q样本中恢复碰撞的RFID标签信号",
+      "llm_evidence": "通过自注意力解码从基带I/Q样本中恢复碰撞的RFID标签信号",
+      "canonical_evidence": "通过自注意力解码从基带I/Q样本中恢复碰撞的RFID标签信号",
+      "llm_tldr_en": "This paper proposes SATR, a transformer-based decoder that operates directly on collided baseband I/Q samples to recover multiple UHF-RFID tag responses instead of discarding slots, improving throughput.",
+      "llm_tldr_cn": "无源UHF RFID读写器在多个标签同一时隙响应时会发生波形重叠，传统ALOHA协议丢弃碰撞时隙，浪费了可恢复信息。本文提出基于Transformer的SATR解码算法，直接对标准标签响应期间的基带I/Q样本进行自注意力建模，以恢复碰撞中的多标签数据。该方法在无需改变协议的前提下提升了吞吐量，并展示了利用深度学习处理RFID碰撞信号的有效性。",
+      "llm_tldr": "无源UHF RFID读写器在多个标签同一时隙响应时会发生波形重叠，传统ALOHA协议丢弃碰撞时隙，浪费了可恢复信息。本文提出基于Transformer的SATR解码算法，直接对标准标签响应期间的基带I/Q样本进行自注意力建模，以恢复碰撞中的多标签数据。该方法在无需改变协议的前提下提升了吞吐量，并展示了利用深度学习处理RFID碰撞信号的有效性。",
+      "llm_tags": [
+        "query:es"
+      ],
+      "matched_query_tag": "query:es",
+      "matched_query_text": "electromagnetic signal processing techniques",
+      "matched_requirement_id": "req-2",
+      "selection_source": "carryover_cache",
+      "paper_id": "2608.17216v1"
+    },
+    {
+      "id": "2608.17400v1",
+      "source": "arxiv",
+      "title": "Quantum sensors that compute: quantum computational magnetic-field sensing using a superconducting qubit",
+      "abstract": "A measurement of a single-qubit quantum sensor reveals at most 1 bit of information about the signal that was sensed. To perform a classification task on the signal, the conventional approach is to repeat a sensing protocol many times, averaging the measurement results to obtain a high-precision estimate of the sensed signal, and then to apply classical postprocessing. Quantum computational sensing (QCS) is an alternative approach that breaks with the paradigm of first obtaining a classical estimate of the signal and then computing a function of the estimated signal in postprocessing. QCS instead combines quantum sensing with quantum computing to concentrate information about the signal relevant to the task into the solitary bit revealed by each measurement. Here, we report on the experimental demonstration of QCS where sensing and computing were both performed by the same single superconducting transmon qubit. We consider various binary classification tasks based on static and oscillating magnetic fields induced by current through a flux line. The fields were sensed through a double-junction superconducting quantum interference device (SQUID) loop that was part of the qubit. We used a protocol based on quantum signal processing to preprocess the sensed signals in the quantum domain prior to measurement. For tasks on static magnetic fields, our protocol outperformed the conventional baseline of Ramsey-based phase estimation by as much as 15 percentage points. For tasks on oscillating magnetic fields, we classified signal amplitude and frequency with up to 20 and 15 percentage points higher accuracy, respectively, compared to the conventional baseline of optimized dynamical-decoupling protocols. Our results illustrate how quantum computing can enhance quantum sensing even with a minimally sized quantum system subject to the practical limitations of decoherence and error-prone operations.",
+      "authors": [
+        "Purnendu Sen",
+        "Mathieu Ouellet",
+        "Saeed A. Khan",
+        "Wayne Wang",
+        "Sridhar Prabhu",
+        "Alen Senanian",
+        "William P. Banner",
+        "William D. Oliver",
+        "Peter L. McMahon"
+      ],
+      "primary_category": "quant-ph",
+      "categories": [
+        "quant-ph",
+        "physics.app-ph",
+        "physics.ins-det"
+      ],
+      "published": "2026-08-18T05:54:38+00:00",
+      "link": "https://arxiv.org/pdf/2608.17400v1",
+      "tags": [
+        "keyword:es",
+        "query:es"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Quantum computational magnetic-field sensing using a superconducting qubit for magnetic signal acquisition",
+      "llm_evidence_cn": "利用超导量子比特进行量子计算磁场传感，实现磁信号采集",
+      "llm_evidence": "利用超导量子比特进行量子计算磁场传感，实现磁信号采集",
+      "canonical_evidence": "利用超导量子比特进行量子计算磁场传感，实现磁信号采集",
+      "llm_tldr_en": "This paper introduces quantum computational sensing (QCS) to extract task-relevant information from magnetic fields directly during measurement, offering a new paradigm for magnetic signal acquisition.",
+      "llm_tldr_cn": "传统量子传感需多次测量并先估计信号再做后处理，效率受限。本文提出量子计算传感（QCS），将传感与量子计算结合，在测量过程中直接浓缩与任务相关的磁场信息，无需先得到经典估计。该方法为磁信号（特别是地磁信号）采集提供了新型范式，有望提升分类和参数估计的采样效率。",
+      "llm_tldr": "传统量子传感需多次测量并先估计信号再做后处理，效率受限。本文提出量子计算传感（QCS），将传感与量子计算结合，在测量过程中直接浓缩与任务相关的磁场信息，无需先得到经典估计。该方法为磁信号（特别是地磁信号）采集提供了新型范式，有望提升分类和参数估计的采样效率。",
+      "llm_tags": [
+        "query:es"
+      ],
+      "matched_query_tag": "query:es",
+      "matched_query_text": "geomagnetic signal collection techniques",
+      "matched_requirement_id": "req-4",
+      "selection_source": "carryover_cache",
+      "paper_id": "2608.17400v1"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2608.17476v1",
+      "source": "arxiv",
+      "title": "Super-resolution ranging using a sub-terahertz self-injection-locked frequency-modulated radar",
+      "abstract": "Sub-terahertz (sub-THz) and terahertz (THz) frequency-modulated continuous-wave (FMCW) radars have opened a plethora of scientific and industrial applications, especially in the imaging field. While strong candidates for sub-THz/THz FMCW radar imagers are implemented using photonic methods, there is a desire to achieve the full integration and portability that only electronics can offer. However, integrated electronic sub-THz/THz FMCW radars have significantly lower bandwidth (< 100 GHz) than photonic-based radars, restricting the radar range resolution to the millimeter scale (> 1.5 mm). In addition, the electronic FMCW radar's broad bandwidth comes with increased transmitter phase noise, consequently degrading the radar range accuracy. Here, we present a sub-THz fully-integrated autodyne frequency-modulated (AFM) radar utilizing a self-injection locking (SIL) mechanism that fundamentally overcomes the aforementioned challenges of FMCW radars. The AFM radar supports an exceptionally wide effective bandwidth extending into the terahertz sweep range by forming an intermediate frequency comb spectrum in a quadratic receiver, unlocking the path for super-resolution ranging. Furthermore, SIL significantly reduces the transmitter's phase noise, allowing high-accuracy range measurements. We theoretically describe and experimentally demonstrate the SIL operation of the AFM radar. The proposed radar experimentally achieves sub-millimeter range resolution and a range accuracy of < 0.002%, enabling the imaging of covered printed letters with micrometer features.",
+      "authors": [
+        "Hossein Naghavi",
+        "Zainulabideen Khalifa",
+        "Hamad Alotaibi",
+        "Farzad Khoeini",
+        "James Gruber",
+        "Morteza Tavakoli Taba",
+        "Aditya Varma Muppala",
+        "Saghar Adler",
+        "Ali Mostajeran",
+        "Mohammed Aseeri",
+        "Andreia Cathelin",
+        "Ehsan Afshari"
+      ],
+      "primary_category": "eess.SP",
+      "categories": [
+        "eess.SP"
+      ],
+      "published": "2026-08-18T08:05:45+00:00",
+      "link": "https://arxiv.org/pdf/2608.17476v1",
+      "tags": [
+        "keyword:es",
+        "query:es"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Sub-THz FMCW radar with super-resolution ranging involves EM signal acquisition and processing",
+      "llm_evidence_cn": "亚太赫兹FMCW雷达超分辨测距涉及电磁信号获取与处理",
+      "llm_evidence": "亚太赫兹FMCW雷达超分辨测距涉及电磁信号获取与处理",
+      "canonical_evidence": "亚太赫兹FMCW雷达超分辨测距涉及电磁信号获取与处理",
+      "llm_tldr_en": "Demonstrates super-resolution ranging with a sub-terahertz self-injection-locked FMCW radar, addressing bandwidth and transmitter phase noise limits in integrated electronic radars.",
+      "llm_tldr_cn": "针对集成电子式亚THz/THz FMCW雷达带宽窄且相位噪声高、导致距离分辨率受限的问题，本文提出采用自注入锁定调频雷达实现超分辨测距，以全电子集成方式弥补光子系统体积大、不可移植的不足。实验验证该方案能在降低相位噪声影响的同时提升成像距离分辨率，为电磁雷达信号获取与处理提供了新的技术路径。",
+      "llm_tldr": "针对集成电子式亚THz/THz FMCW雷达带宽窄且相位噪声高、导致距离分辨率受限的问题，本文提出采用自注入锁定调频雷达实现超分辨测距，以全电子集成方式弥补光子系统体积大、不可移植的不足。实验验证该方案能在降低相位噪声影响的同时提升成像距离分辨率，为电磁雷达信号获取与处理提供了新的技术路径。",
+      "llm_tags": [
+        "query:es"
+      ],
+      "matched_query_tag": "query:es",
+      "matched_query_text": "electromagnetic signal processing techniques",
+      "matched_requirement_id": "req-2",
+      "selection_source": "carryover_cache",
+      "paper_id": "2608.17476v1",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2608.17497v1",
+      "source": "arxiv",
+      "title": "Channel Modeling for Phase-Based Ranging",
+      "abstract": "This paper presents a Python-based simulation framework for the physical layer of Bluetooth Channel Sounding in accordance with Bluetooth Core Specification v6.2. The simulator implements Mode 3 phase-based ranging across 72 active tones in the 2.4 GHz ISM band and supports multiple propagation conditions, including free-space, static multipath, and IEEE 802.15.4a stochastic multipath channels. In addition, it models relevant hardware and interference effects such as phase noise, phase ramp, carrier frequency offset, IQ imbalance, ADC quantization, and narrowband interference from co-located Wi-Fi systems, with parameters derived from commercial SoC datasheets and field measurements. The framework enables controlled and repeatable analysis of physical layer effects that are difficult to isolate in over-the-air experiments and are not sufficiently represented in existing higher-level simulation tools. This work focuses exclusively on physical layer signal generation, channel modeling, and impairment injection, providing a foundation for future studies on Bluetooth Channel Sounding ranging and localization algorithms.",
+      "authors": [
+        "Till Droemmer",
+        "Markus Gardill"
+      ],
+      "primary_category": "eess.SP",
+      "categories": [
+        "eess.SP"
+      ],
+      "published": "2026-08-18T08:24:26+00:00",
+      "link": "https://arxiv.org/pdf/2608.17497v1",
+      "tags": [
+        "keyword:es",
+        "query:es"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Models factors affecting signal strength like phase noise, CFO, IQ imbalance, and interference",
+      "llm_evidence_cn": "建模了相位噪声、载波频偏、IQ失衡和干扰等影响信号强度的因素",
+      "llm_evidence": "建模了相位噪声、载波频偏、IQ失衡和干扰等影响信号强度的因素",
+      "canonical_evidence": "建模了相位噪声、载波频偏、IQ失衡和干扰等影响信号强度的因素",
+      "llm_tldr_en": "Presents a Python simulation framework for Bluetooth Channel Sounding phase-based ranging, modeling multipath, hardware impairments such as phase noise and carrier frequency offset, and narrowband interference for controlled physical-layer analysis.",
+      "llm_tldr_cn": "为蓝牙信道探测的相位测距建立Python仿真框架，基于蓝牙6.2规范实现72个音调的Mode 3测距，支持自由空间、静态多径和IEEE 802.15.4a随机多径信道，并建模相位噪声、相位斜坡、载波频偏、IQ失衡、ADC量化以及来自共置Wi-Fi的窄带干扰。参数来自商用SoC数据手册和现场测量，可实现受控可重复的物理层效应分析，有助于理解信号强度与质量的影响因素。",
+      "llm_tldr": "为蓝牙信道探测的相位测距建立Python仿真框架，基于蓝牙6.2规范实现72个音调的Mode 3测距，支持自由空间、静态多径和IEEE 802.15.4a随机多径信道，并建模相位噪声、相位斜坡、载波频偏、IQ失衡、ADC量化以及来自共置Wi-Fi的窄带干扰。参数来自商用SoC数据手册和现场测量，可实现受控可重复的物理层效应分析，有助于理解信号强度与质量的影响因素。",
+      "llm_tags": [
+        "query:es"
+      ],
+      "matched_query_tag": "query:es",
+      "matched_query_text": "factors affecting electromagnetic signal strength",
+      "matched_requirement_id": "req-8",
+      "selection_source": "carryover_cache",
+      "paper_id": "2608.17497v1",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2608.17769v1",
+      "source": "arxiv",
+      "title": "Electromagnetic World Model for 6G: A Unified Framework for Joint Environment Reconstruction and Channel Prediction",
+      "abstract": "The integration of sensing, communication, and intelligence is becoming a key enabler for sixth generation (6G) wireless systems, where intelligent terminals are expected to simultaneously support efficient link establishment and reliable environmental sensing. However, existing studies mainly exploit sensing information or communication information to address a single task, such as channel prediction or environment reconstruction. Motivated by the shared dependence of optical and radio-frequency signals on the surrounding environment, we propose the electromagnetic world model (EMWM), the first unified framework for joint environment reconstruction and channel prediction. EMWM learns a common electromagnetic representation with the potential to provide a modeling foundation for 6G tasks. Specifically, partial channel state information (CSI) and multi-view red-green-blue (RGB) images are encoded into CSI and visual tokens and jointly processed by a hierarchical world-model backbone with local and global aggregation. Based on the learned representation, a mixture-of-experts (MoE)-based CSI prediction head reconstructs the complete CSI, while a depth prediction head estimates multi-view depth maps that are further converted into three-dimensional (3D) point clouds. Moreover, a large-scale multi-modal dataset is constructed based on a campus digital twin. Experimental results show that EMWM outperforms conventional neural network and large language model (LLM) baselines in both CSI prediction and environment reconstruction, achieving a squared generalized cosine similarity (SGCS) of 0.9699 for CSI prediction while demonstrating robustness across different signal-to-noise ratio (SNR) conditions and zero-shot generalization at 28 GHz.",
+      "authors": [
+        "Yizhu Zhao",
+        "Li Yu",
+        "Jianhua Zhang",
+        "Yuxiang Zhang",
+        "Zhen Zhang",
+        "Guangyi Liu"
+      ],
+      "primary_category": "eess.SP",
+      "categories": [
+        "eess.SP"
+      ],
+      "published": "2026-08-18T13:32:17+00:00",
+      "link": "https://arxiv.org/pdf/2608.17769v1",
+      "tags": [
+        "keyword:es",
+        "query:es"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "electromagnetic world model for channel prediction and environment reconstruction",
+      "llm_evidence_cn": "用于信道预测与环境重建的电磁世界模型",
+      "llm_evidence": "用于信道预测与环境重建的电磁世界模型",
+      "canonical_evidence": "用于信道预测与环境重建的电磁世界模型",
+      "llm_tldr_en": "Proposes the electromagnetic world model (EMWM), a unified framework for joint environment reconstruction and channel prediction in 6G, learning a common electromagnetic representation shared by optical and RF signals to enable integrated sensing and communication.",
+      "llm_tldr_cn": "6G中感知、通信与智能融合成为关键，但现有方法通常将信道预测和环境重建分开处理。本文提出电磁世界模型（EMWM），利用光与射频信号对环境的共同依赖，学习统一的电磁表征，从而联合完成环境重建与信道预测。该框架首次将两个任务统一，在通感一体化和智能无线环境建模中具有基础性作用。实验验证了EMWM在两种任务上的有效性和泛化能力。",
+      "llm_tldr": "6G中感知、通信与智能融合成为关键，但现有方法通常将信道预测和环境重建分开处理。本文提出电磁世界模型（EMWM），利用光与射频信号对环境的共同依赖，学习统一的电磁表征，从而联合完成环境重建与信道预测。该框架首次将两个任务统一，在通感一体化和智能无线环境建模中具有基础性作用。实验验证了EMWM在两种任务上的有效性和泛化能力。",
+      "llm_tags": [
+        "query:es"
+      ],
+      "matched_query_tag": "query:es",
+      "matched_query_text": "electromagnetic signal processing techniques",
+      "matched_requirement_id": "req-2",
+      "selection_source": "carryover_cache",
+      "paper_id": "2608.17769v1",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2608.18348v1",
+      "source": "arxiv",
+      "title": "The Atacama Cosmology Telescope: Passband Measurements with an Analysis of Systematic Errors",
+      "abstract": "We present measurements of the spectral response of the four Advanced ACTPol (AdvACT) multichroic detector arrays, which observed in frequency bands centered near 30, 40, 90, 150, and 220 GHz. The passbands were measured with a Fourier transform spectrometer (FTS) combined with coupling optics that direct and match the output of the FTS to the AdvACT receiver. We perform optical simulations of the FTS and coupling optics in order to model frequency-dependent systematic effects in this system. We use these simulations to apply corrections to the measurements and evaluate the remaining systematic uncertainty. We combine these systematic estimates with statistical errors to determine the measured passbands and their uncertainties from our FTS measurement, which are typically 0.75 to 1.5% per detector array. We present the passband characteristics for all measurements made by ACT in a common framework. Additionally, we discuss the performance achieved as well as ways to improve passband measurements in the future.",
+      "authors": [
+        "Thomas Alford",
+        "Rahul Datta",
+        "Erminia Calabrese",
+        "Steve K. Choi",
+        "Shannon M. Duff",
+        "Adriaan J. Duivenvoorden",
+        "Joseph Golec",
+        "Matthew Hasselfeld",
+        "J. Colin Hill",
+        "Johannes Hubmayr",
+        "Jeffrey McMahon",
+        "Michael D. Niemack",
+        "Lyman A. Page",
+        "Alex Thomas",
+        "Cristian Vargas",
+        "Yuhan Wang",
+        "Edward J. Wollack"
+      ],
+      "primary_category": "astro-ph.IM",
+      "categories": [
+        "astro-ph.IM"
+      ],
+      "published": "2026-08-18T22:02:39+00:00",
+      "link": "https://arxiv.org/pdf/2608.18348v1",
+      "tags": [
+        "keyword:es",
+        "query:es"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Passband spectral response measurements of detector arrays with Fourier transform spectrometer and systematic error analysis",
+      "llm_evidence_cn": "利用傅里叶变换光谱仪测量探测器阵列的通带频谱响应并分析系统误差",
+      "llm_evidence": "利用傅里叶变换光谱仪测量探测器阵列的通带频谱响应并分析系统误差",
+      "canonical_evidence": "利用傅里叶变换光谱仪测量探测器阵列的通带频谱响应并分析系统误差",
+      "llm_tldr_en": "The Atacama Cosmology Telescope passband measurements use an FTS with coupling optics and optical simulations to quantify systematic uncertainties in the spectral response of multichroic detector arrays.",
+      "llm_tldr_cn": "针对宇宙学望远镜多色探测器阵列的通带测量问题，本文使用傅里叶变换光谱仪配合耦合光学系统测量其频谱响应，并利用光学仿真对测量中的系统效应进行建模。作者通过仿真修正测量数据并评估剩余系统不确定性，结合统计误差给出各频段通带及其不确定度。该工作为电磁信号频谱特性测量和仪器标定提供了完整的系统误差分析方法。",
+      "llm_tldr": "针对宇宙学望远镜多色探测器阵列的通带测量问题，本文使用傅里叶变换光谱仪配合耦合光学系统测量其频谱响应，并利用光学仿真对测量中的系统效应进行建模。作者通过仿真修正测量数据并评估剩余系统不确定性，结合统计误差给出各频段通带及其不确定度。该工作为电磁信号频谱特性测量和仪器标定提供了完整的系统误差分析方法。",
+      "llm_tags": [
+        "query:es"
+      ],
+      "matched_query_tag": "query:es",
+      "matched_query_text": "electromagnetic signal properties and characteristics",
+      "matched_requirement_id": "req-1",
+      "selection_source": "carryover_cache",
+      "paper_id": "2608.18348v1",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2608.19709v1",
+      "source": "arxiv",
+      "title": "RFWM: Physics-Guided World Model for Dynamic Wireless Radiance Field Generation",
+      "abstract": "Radio-frequency (RF) radiance-field modeling is essential for wireless network optimization and sensing, yet remains challenging in dynamic and unseen environments. Existing learning-based methods synthesize RF fields from sparse measurements, but most struggle to generalize to dynamic and unseen environments. To address this limitation, we propose RFWM, a physics-guided RF world model that maps multimodal physical conditions like visual dynamics and AP configurations to spatiotemporal RF fields. RFWM adopts a two-stage training strategy with physics-guided priors and constraints. In the first stage, RFWM adapts a pretrained visual diffusion backbone to RF trajectories to predict RF sequences from a few past RF inputs, while conditioning the backbone on a Friis-guided prior for coarse attenuation guidance. In the second stage, RFWM learns the physical-to-RF mapping by training a ControlNet from scratch and fine-tuning the RF-adapted backbone, while six physics-guided regularizers enforce fine-grained propagation consistency. Cross-height heads then jointly generate RF trajectories at queried receiver heights in one forward pass. We construct a new benchmark of 7,715 sequences averaging 33 frames across 115 environments for dynamic RF-field generation. Experimental results show that RFWM improves MSE by approximately 7 dB and 3 dB over the state of the art under in-distribution and out-of-distribution settings, respectively.",
+      "authors": [
+        "Zijiu Yang",
+        "Qianqian Yang"
+      ],
+      "primary_category": "cs.NI",
+      "categories": [
+        "cs.NI"
+      ],
+      "published": "2026-08-20T07:08:50+00:00",
+      "link": "https://arxiv.org/pdf/2608.19709v1",
+      "tags": [
+        "keyword:es",
+        "query:es"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "RF field modeling and wireless signal prediction",
+      "llm_evidence_cn": "射频场建模与无线信号预测",
+      "llm_evidence": "射频场建模与无线信号预测",
+      "canonical_evidence": "射频场建模与无线信号预测",
+      "llm_tldr_en": "RFWM is a physics-guided RF world model that maps visual dynamics and AP configurations to spatiotemporal RF fields. Using a pretrained visual diffusion backbone and physics-guided priors, it generates accurate RF radiance fields in dynamic unseen environments.",
+      "llm_tldr_cn": "射频辐射场建模对无线网络优化和感知很重要，但现有方法难以泛化到动态未知环境。本文提出RFWM，一个物理引导的射频世界模型，将视觉动态、接入点配置等多模态条件映射为时空射频场，并采用两阶段训练策略结合物理先验与约束。结果表明RFWM能在动态场景下生成更准确的RF辐射场。该模型可利用少量历史射频输入生成未来场快照，解决了传统方法在未见环境中的泛化难题。",
+      "llm_tldr": "射频辐射场建模对无线网络优化和感知很重要，但现有方法难以泛化到动态未知环境。本文提出RFWM，一个物理引导的射频世界模型，将视觉动态、接入点配置等多模态条件映射为时空射频场，并采用两阶段训练策略结合物理先验与约束。结果表明RFWM能在动态场景下生成更准确的RF辐射场。该模型可利用少量历史射频输入生成未来场快照，解决了传统方法在未见环境中的泛化难题。",
+      "llm_tags": [
+        "query:es"
+      ],
+      "matched_query_tag": "query:es",
+      "matched_query_text": "electromagnetic signal processing techniques",
+      "matched_requirement_id": "req-2",
+      "selection_source": "carryover_cache",
+      "paper_id": "2608.19709v1",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2608.19881v1",
+      "source": "arxiv",
+      "title": "Interpretable Feature Learning for RF Fingerprinting via Polar MKANs",
+      "abstract": "Radio frequency (RF) fingerprinting authenticates wireless devices from hardware-induced I/Q impairments, typically with deep learning feature extractors that are accurate but opaque, limiting their use in security critical settings. We propose Polar Monotonic Kolmogorov-Arnold Networks (Polar MKAN), a block partitioned monotonic encoder on polar inputs in which each latent dimension depends exclusively on magnitude or phase, yielding channel separation and monotone responses by construction. On a synthetic gain and carrier frequency offset (CFO) benchmark, Polar MKAN reaches 57.2 percent DCI Disentanglement versus at most 12.9 percent for unpartitioned baselines. We further evaluate the detection accuracy trade off on real data and the sensitivity to blind CFO compensation.",
+      "authors": [
+        "Mikhail Krasnov",
+        "Ljupcho Milosheski",
+        "Carolina Fortuna"
+      ],
+      "primary_category": "eess.SP",
+      "categories": [
+        "eess.SP",
+        "cs.LG"
+      ],
+      "published": "2026-08-20T10:42:33+00:00",
+      "link": "https://arxiv.org/pdf/2608.19881v1",
+      "tags": [
+        "keyword:es",
+        "query:es"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "RF fingerprinting via Polar MKAN processes electromagnetic signals for device authentication",
+      "llm_evidence_cn": "基于Polar MKAN的射频指纹识别技术处理电磁信号以实现设备认证",
+      "llm_evidence": "基于Polar MKAN的射频指纹识别技术处理电磁信号以实现设备认证",
+      "canonical_evidence": "基于Polar MKAN的射频指纹识别技术处理电磁信号以实现设备认证",
+      "llm_tldr_en": "This paper proposes Polar MKAN, a monotonic encoder on polar I/Q inputs for RF fingerprinting, achieving high feature disentanglement and interpretability in electromagnetic signal processing.",
+      "llm_tldr_cn": "针对射频指纹识别中深度学习特征提取器不透明的问题，本文提出Polar MKAN，在极坐标输入上构建分区单调编码器，使每个潜变量只依赖幅度或相位，从而获得可解释的特征表达。在合成基准上解纠缠度达57.2%，显著优于基线，并在真实数据上验证了检测精度与可解释性的平衡。",
+      "llm_tldr": "针对射频指纹识别中深度学习特征提取器不透明的问题，本文提出Polar MKAN，在极坐标输入上构建分区单调编码器，使每个潜变量只依赖幅度或相位，从而获得可解释的特征表达。在合成基准上解纠缠度达57.2%，显著优于基线，并在真实数据上验证了检测精度与可解释性的平衡。",
+      "llm_tags": [
+        "query:es"
+      ],
+      "matched_query_tag": "query:es",
+      "matched_query_text": "electromagnetic signal processing techniques",
+      "matched_requirement_id": "req-2",
+      "selection_source": "carryover_cache",
+      "paper_id": "2608.19881v1",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2608.20240v1",
+      "source": "arxiv",
+      "title": "QUASAR: A Quantum-Classical Neural Network for SAR Satellite Physical-Layer Authentication",
+      "abstract": "X-band SAR satellites (8-12 GHz) play a critical role in disaster response, environmental monitoring, and military intelligence. Yet, they lack robust physical-layer authentication (PLA), a security layer orthogonal to cryptographic solutions. Existing PLA systems, typically based on radio-frequency fingerprinting, are often limited to sub-6 GHz frequencies and rely on classical deep learning. However, this approach underfits the IQ phase nonlinearities that distinguish satellite hardware. In this paper, we present QUASAR, to the best of our knowledge the first quantum-classical hybrid architecture that fuses a CNN spectrogram encoder with a variational quantum circuit (VQC) to provide PLA to X-band SAR signals. Our solution enjoys two distinctive features: (i) it is markedly more data-efficient than classical machine learning, requiring only 10% of the training data to match the accuracy of classical baselines -- data collection being notoriously the most time-consuming phase of PLA; and, (ii) at an equal data budget, it improves classification accuracy over those baselines. In detail, we test our solution under three adversarial scenarios: replay, crafted-IQ injection, and space-borne spoofing. QUASAR rejects spoofed transmissions in 89.7%, 94.1%, and 81.3% of attempts, respectively, establishing the first quantum-enhanced physical-layer classifier for satellite constellations. The fully detailed framework and the supporting results, other than being interesting on their own, show a novel research avenue for physical-layer authentication.",
+      "authors": [
+        "Vincenzo Sammartino",
+        "Nathanael Denis",
+        "Roberto Di Pietro"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CR"
+      ],
+      "published": "2026-08-20T16:31:01+00:00",
+      "link": "https://arxiv.org/pdf/2608.20240v1",
+      "tags": [
+        "keyword:es",
+        "query:es"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Quantum-classical hybrid network for RF fingerprinting of X-band SAR satellite signals",
+      "llm_evidence_cn": "量子-经典混合网络用于X波段SAR卫星信号的射频指纹识别",
+      "llm_evidence": "量子-经典混合网络用于X波段SAR卫星信号的射频指纹识别",
+      "canonical_evidence": "量子-经典混合网络用于X波段SAR卫星信号的射频指纹识别",
+      "llm_tldr_en": "This paper presents QUASAR, a quantum-classical neural network combining CNN spectrogram encoder with variational quantum circuit for physical-layer authentication of X-band SAR signals.",
+      "llm_tldr_cn": "X波段SAR卫星信号缺乏物理层认证机制，现有射频指纹方法多限于6GHz以下。本文提出QUASAR，融合CNN频谱图编码器与变分量子电路，对X波段SAR信号进行物理层认证。实验表明该混合架构能更好地拟合IQ相位非线性，提升认证性能。",
+      "llm_tldr": "X波段SAR卫星信号缺乏物理层认证机制，现有射频指纹方法多限于6GHz以下。本文提出QUASAR，融合CNN频谱图编码器与变分量子电路，对X波段SAR信号进行物理层认证。实验表明该混合架构能更好地拟合IQ相位非线性，提升认证性能。",
+      "llm_tags": [
+        "query:es"
+      ],
+      "matched_query_tag": "query:es",
+      "matched_query_text": "electromagnetic signal processing techniques",
+      "matched_requirement_id": "req-2",
+      "selection_source": "carryover_cache",
+      "paper_id": "2608.20240v1",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2608.20486v1",
+      "source": "arxiv",
+      "title": "Wireless Physical-Layer Foundation Models: Architectures, Learning Paradigms, Applications, and Deployment",
+      "abstract": "Foundation models, i.e., large neural networks pretrained on broad unlabeled data and adapted to many downstream tasks, have reshaped natural language processing and computer vision and are now being explored for the wireless physical layer. Wireless Physical-Layer Foundation Models (WPFMs) aim to learn transferable representations of signals such as channel state information (CSI), in-phase and quadrature (IQ) samples, and spectrograms so that a single pretrained backbone can support tasks ranging from channel estimation and prediction to localization and sensing while using limited task-specific data. This paper provides a dedicated review of WPFMs from learning design to practical deployment. We first establish the theoretical background, covering the neural architectures used for wireless signals, the self-supervised pretraining paradigms of masked modeling, contrastive learning, and generative pretraining, and the fine-tuning strategies that adapt pretrained models to downstream tasks. We then introduce a taxonomy that organizes existing models along five dimensions: architecture family, input modality and tokenization, pretraining objective, model scale and deployment target, and generalization capability. Building on this basis, we review applications across telecommunications, localization, and sensing, and, for each domain, analyze deployment feasibility by mapping model size to the memory, compute, and latency budgets of representative wireless hardware. Finally, we discuss model compression and efficient deployment, summarize the cross-cutting challenges, and outline open research directions. Our goal is to provide a reference that connects pretraining, architecture, and fine-tuning with the practical constraints of wireless systems.",
+      "authors": [
+        "Mohammad Cheraghinia",
+        "Davide Buffelli",
+        "Liu Li",
+        "Mohammad Alhellani",
+        "Jaron Fontaine",
+        "Sattar Vakili",
+        "Mamoun Guenach",
+        "Eli De Poorter",
+        "Adnan Shahid"
+      ],
+      "primary_category": "eess.SP",
+      "categories": [
+        "eess.SP"
+      ],
+      "published": "2026-08-20T18:17:40+00:00",
+      "link": "https://arxiv.org/pdf/2608.20486v1",
+      "tags": [
+        "keyword:es",
+        "query:es"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Review of foundation models for learning transferable representations of wireless physical-layer signals such as CSI, IQ samples, and spectrograms",
+      "llm_evidence_cn": "综述无线物理层基础模型，研究CSI、IQ样本、频谱图等电磁信号的通用表征与处理方法",
+      "llm_evidence": "综述无线物理层基础模型，研究CSI、IQ样本、频谱图等电磁信号的通用表征与处理方法",
+      "canonical_evidence": "综述无线物理层基础模型，研究CSI、IQ样本、频谱图等电磁信号的通用表征与处理方法",
+      "llm_tldr_en": "This review surveys wireless physical-layer foundation models that learn transferable representations from signals like CSI, IQ samples, and spectrograms, covering architectures, learning paradigms, applications, and deployment for tasks such as channel estimation and sensing.",
+      "llm_tldr_cn": "本文系统综述无线物理层基础模型（WPFM），这类模型在大规模无标签数据上预训练，可迁移至信道估计、定位、感知等多种任务。文章从学习设计到实际部署，梳理了面向CSI、IQ采样和频谱图等电磁信号的表示学习方法、主流架构与微调策略。它为利用大模型处理电磁信号提供了统一的技术路线和部署视角，是该方向的重要参考综述。",
+      "llm_tldr": "本文系统综述无线物理层基础模型（WPFM），这类模型在大规模无标签数据上预训练，可迁移至信道估计、定位、感知等多种任务。文章从学习设计到实际部署，梳理了面向CSI、IQ采样和频谱图等电磁信号的表示学习方法、主流架构与微调策略。它为利用大模型处理电磁信号提供了统一的技术路线和部署视角，是该方向的重要参考综述。",
+      "llm_tags": [
+        "query:es"
+      ],
+      "matched_query_tag": "query:es",
+      "matched_query_text": "electromagnetic signal processing techniques",
+      "matched_requirement_id": "req-2",
+      "selection_source": "carryover_cache",
+      "paper_id": "2608.20486v1",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2608.21108v1",
+      "source": "arxiv",
+      "title": "Remote sensing of the temporal and spatial variability of atmospheric refractivity using ADS-B interferometry (ADSBi)",
+      "abstract": "The extreme variability of humidity in the lower atmosphere over short spatial and temporal scales presents an enormous challenge for existing observing systems. Variations in humidity can be detected due to changes in the refractive properties of the atmosphere, which influence the propagation of electromagnetic radiation. We demonstrate the ability to retrieve high-resolution refractivity gradient measurements using an interferometer to measure the refraction of the Automatic Dependent Surveillance-Broadcast (ADS-B) radio transmission routinely broadcast by commercial aircraft. The ADS-B interferometry (ADSBi) technique is sensitive to small-scale spatial and temporal variability in the refractivity gradient due to changes in humidity. We demonstrate how the retrieval of refractivity profiles is possible exploiting the differences in the observed refraction of radio transmissions broadcast by aircraft at different distances and altitudes.",
+      "authors": [
+        "Ollie Lewis",
+        "Chris Brunt",
+        "Malcolm Kitchen",
+        "Neill E. Bowler",
+        "Edmund K. Stone"
+      ],
+      "primary_category": "physics.ao-ph",
+      "categories": [
+        "physics.ao-ph"
+      ],
+      "published": "2026-08-21T13:54:39+00:00",
+      "link": "https://arxiv.org/pdf/2608.21108v1",
+      "tags": [
+        "keyword:es",
+        "query:es"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Interferometric detection of ADS-B radio transmissions for atmospheric refractivity sensing",
+      "llm_evidence_cn": "利用干涉仪检测ADS-B无线电传输以感知大气折射率",
+      "llm_evidence": "利用干涉仪检测ADS-B无线电传输以感知大气折射率",
+      "canonical_evidence": "利用干涉仪检测ADS-B无线电传输以感知大气折射率",
+      "llm_tldr_en": "Uses ADS-B interferometry to retrieve high-resolution refractivity gradients, sensitive to small-scale atmospheric variability, enabling remote sensing of humidity.",
+      "llm_tldr_cn": "低层大气湿度在短尺度上高度变化，现有观测系统难以捕捉。论文利用商用飞机广播的ADS-B无线电信号，通过干涉仪测量电磁波折射，从而反演高分辨率的折射率梯度。ADSBi技术对大气折射率的时空变化灵敏，为大气遥感提供了一种新途径。",
+      "llm_tldr": "低层大气湿度在短尺度上高度变化，现有观测系统难以捕捉。论文利用商用飞机广播的ADS-B无线电信号，通过干涉仪测量电磁波折射，从而反演高分辨率的折射率梯度。ADSBi技术对大气折射率的时空变化灵敏，为大气遥感提供了一种新途径。",
+      "llm_tags": [
+        "query:es"
+      ],
+      "matched_query_tag": "query:es",
+      "matched_query_text": "how to detect electromagnetic signals using equipment",
+      "matched_requirement_id": "req-7",
+      "selection_source": "carryover_cache",
+      "paper_id": "2608.21108v1",
+      "quick_tier": "8plus"
+    }
+  ]
+}

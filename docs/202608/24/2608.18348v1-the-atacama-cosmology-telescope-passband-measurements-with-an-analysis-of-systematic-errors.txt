@@ -1,0 +1,1109 @@
+Title: The Atacama Cosmology Telescope: Passband Measurements with an Analysis of Systematic Errors
+
+URL Source: https://arxiv.org/pdf/2608.18348v1
+
+Published Time: Thu, 20 Aug 2026 00:19:03 GMT
+
+Number of Pages: 21
+
+Markdown Content:
+> Research Article 1
+
+# The Atacama Cosmology Telescope: Passband Measurements with an Analysis of Systematic Errors 
+
+# THOMAS ALFORD 1, * , R AHUL DATTA 2, 3 , E RMINIA CALABRESE 4, S TEVE K. C HOI 5,SHANNON M. D UFF 6, A DRIAAN J. D UIVENVOORDEN 7, J OSEPH GOLEC 8, M ATTHEW HASSELFELD 
+
+9, J. C OLIN HILL 10 , J OHANNES HUBMAYR 6, J EFFREY MCMAHON 1, 2, 3 , M ICHAEL D. N IEMACK 
+
+11, 12 , L YMAN A. P AGE 13 , A LEX THOMAS 2, C RISTIAN VARGAS 14 , Y UHAN WANG 11 , AND 
+
+# EDWARD J. W OLLACK 15 
+
+> 1
+
+Department of Physics, University of Chicago, Chicago, IL 60637, USA 
+
+> 2
+
+Department of Astronomy and Astrophysics, University of Chicago, Chicago, IL 60637, USA 
+
+> 3
+
+Kavli Institute for Cosmological Physics, University of Chicago, Chicago, IL 60637, USA 
+
+> 4
+
+School of Physics and Astronomy, Cardiff University, The Parade, Cardiff, Wales CF24 3AA, UK 
+
+> 5
+
+Center for Experimental Cosmology and Instrumentation, Department of Physics and Astronomy, University of California, Riverside, CA 92521, USA 
+
+> 6
+
+Quantum Sensors Division, NIST, 325 Broadway, Boulder, CO 80305, USA 
+
+> 7
+
+Max-Planck-Institut für Astrophysik, Karl-Schwarzschild-Str. 1, 85748 Garching, Germany 
+
+> 8
+
+Department of Astronomy, University of Massachusetts Amherst, Amherst, MA 01003, USA 
+
+> 9
+
+Center for Computational Astrophysics, Flatiron Institute, 162 5th Avenue, New York, NY 10010, USA 
+
+> 10
+
+Department of Physics, Columbia University, New York, NY 10027, USA 
+
+> 11
+
+Department of Physics, Cornell University, Ithaca, NY 14853, USA 
+
+> 12
+
+Department of Astronomy, Cornell University, Ithaca, NY 14853, USA 
+
+> 13
+
+Joseph Henry Laboratories of Physics, Jadwin Hall, Princeton University, Princeton, NJ 08544, USA 
+
+> 14
+
+Mitchell Institute for Fundamental Physics and Astronomy, Texas A&M University, College Station, TX 77843, USA 
+
+> 15
+
+NASA Goddard Space Flight Center, 8800 Greenbelt Road, Greenbelt, MD 20771, USA 
+
+> *
+
+Corresponding author: tdalford@uchicago.edu Compiled August 20, 2026 
+
+We present measurements of the spectral response of the four Advanced ACTPol (AdvACT) multichroic detector arrays, which observed in frequency bands centered near 30, 40, 90, 150, and 220 GHz. The passbands were measured with a Fourier transform spectrometer (FTS) combined with coupling optics that direct and match the output of the FTS to the AdvACT receiver. We perform optical simulations of the FTS and coupling optics in order to model frequency-dependent systematic effects in this system. We use these simulations to apply corrections to the measurements and evaluate the remaining systematic uncertainty. We combine these systematic estimates with statistical errors to determine the measured passbands and their uncertainties from our FTS measurement, which are typically 0.75 to 1.5% per detector array. We present the passband characteristics for all measurements made by ACT in a common framework. Additionally, we discuss the performance achieved as well as ways to improve passband measurements in the future. 
+
+1. INTRODUCTION 
+
+Measurements of the Cosmic Microwave Background (CMB) are key to our current understanding of cosmology and many astrophysical phenomena. Observatories are making rapid ad-vances in sensitivity and frequency coverage, with a variety of bands at different frequencies. For example, Advanced ACTPol (AdvACT) [1] observed in bands centered at 30, 40, 90, 150, and 220 GHz for a combined map depth of 10 μK arcmin [2], while Simons Observatory (SO) [3] adds a band centered at 280 GHz to these frequencies and forecasts a combined map depth of 2.6 μK
+
+arcmin [4] over an even larger sky area. Given the improved sen-sitivity of these surveys, we are at the point where the passband calibration can limit our ability to separate signals with different frequency dependencies and remove foregrounds. For instance, Simons Observatory has a number of science goals that crucially depend on precision characterization of the measured passband. Accurate characterization of the polarized foregrounds is essen-tial for B-mode searches with the small aperture telescopes [5]. Likewise, for the large aperture telescope, proper bandpass char-acterization is critical for constraining foreground parameters [6, 7], measuring lensing, tracing large-scale structure using the arXiv:2608.18348v1 [astro-ph.IM] 18 Aug 2026 Research Article 2 
+
+> Fig. 1.
+
+CAD diagram of the FTS, coupling optics, and AdvACT optics tubes. The top of the FTS and coupling optics arm has been made transparent to show the internal components more easily. Most, ≳ 99%, of the power from the input thermal source is transmitted through the beam splitter to the sky to avoid detector saturation, while ≲ 1% is reflected toward the optics tubes. This view has been rotated to see features of the FTS and receiver more easily; the actual measurement was taken with the FTS pointing down towards the receiver at a 45 degree angle. thermal Sunyaev-Zel’dovich effect, analyzing the CMB power spectrum, and placing limits on cosmic birefringence. Taking full advantage of all of these datasets is expected to require knowledge of the effective band centers at the 0.1% level for some applications. The results presented in this work do not by themselves reach this threshold; however, they provide a necessary step toward it by identifying the dominant systematic effects in the measurements and quantifying their associated corrections and uncertainties. The individual receivers in CMB polarimetry instrument sys-tems typically have 30% fractional bandwidth [1, 3, 8]. With relatively wide bandwidth polarimetry channels, the calibra-tion is especially challenging since relevant sources can have vastly different dependencies on frequency over the full spectral range of the instrument system. The flux of many foregrounds can be described by a power-law, Sν ∝ νβ, with β ∼ − 0.7 for synchrotron emission and β ∼ 3.5 for dust-like sources [9, 10]. Precise knowledge of the observed amplitudes of these sources is essential for separating them out from maps of the CMB, which is generally done using internal linear combination procedures [11, 12] or parametric models that require precise knowledge of each sky component’s frequency dependence [7]. With knowl-edge of the anticipated source spectra, the amplitude for a beam-filling source can be computed by precisely understanding the effective frequency of observation or color correction. These both depend on integrals over the product of the passband and source spectra [9]. Thus, achieving a 0.1% knowledge of the band center requires careful calibration of the instrument re-sponse as a function of frequency. Systematic effects that shift the recovered frequency or produce frequency-dependent biases in the apparent amplitude response of the measurement must be carefully quantified and controlled. The primary tool for bandpass calibration in CMB measure- 
+
+> Table 1.
+
+FTS design parameters and specifications. Parameter Value Mirror/Polarizing Wire Grid Center Spacing 90 mm Mirror/Polarizing Wire Grid Diameters 84.6 mm Dihedral Mirror Thickness 0.1 mm Dihedral Mirror Maximum Center Offset 75 mm FTS Width 452.3 mm Beam Angle ( θ) 11.3 ◦
+
+Étendue 150 mm 2-Sr ments is the Fourier transform spectrometer (FTS) [13]. Other instruments, such as vector network analyzers, have been used successfully to measure the frequency response of small num-bers of coherent detectors [14] . However, the FTS is well suited to the calibration of large numbers of cryogenic detectors, espe-cially when the end-to-end response of each detector including the feedhorn, orthomode transducer, and optical filter stack is desired. Fourier transform spectrometers create an optical delay be-tween two input beams of light that are then recombined and passed through to a detector [15]. The measured power as a function of optical delay (the interferogram) can then be Fourier transformed to recover the spectrum of the input source, or in our case the spectral response of a single-mode detector to a known input source. A variety of FTS designs and measurement schemes have been used for CMB frequency characterization [8, 16–19]. For the Atacama Cosmology Telescope (ACT) we measured the passbands using an FTS with a Rayleigh-Jeans source input. The FTS was combined with coupling optics de-signed to match the beam of the FTS to the beam of the receiver optics. In this paper we present the system we used to calibrate the AdvACT receiver. We describe its design in Section 2 and we describe the modeling of systematic effects in Section 3; the mea-surements of the AdvACT passbands are presented in Section 4. We present the final passband results including statistical and systematic errors in Section 5. We conclude with a discussion of the achieved performance and approaches that could be taken to improve the precision and accuracy in future calibration efforts. 
+
+2. FTS AND COUPLING OPTICS DESIGN 
+
+The FTS used in this work is based on the Primordial Inflation Explorer (PIXIE) design [20] with additional coupling optics that match the outgoing beam from the FTS to the input of the AdvACT receiver. A flat beam splitter used in reflection limits the loading of the CMB detectors that would otherwise be saturated by the Rayleigh-Jeans source. A CAD model of the FTS and AdvACT receiver is shown in Figure 1.  
+
+> FTS design
+
+Our version of the PIXIE FTS [21] contains four ellipsoidal mirrors on each side of the FTS, four central polar-izing wire grids, and a movable central dihedral mirror. This FTS transmits two orthogonal linear polarization states indepen-dently without changing their polarization. Radiation entering the two input ports interferes such that the modulation of the output interferogram is proportional to the difference between Research Article 3
+
+Table 2. Design parameters of the HDPE lenses comprising the coupling optics. Element Thickness R κ A4
+
+(cm) (cm) (cm −3)Lens 1 surface 1 a 2.35 21.6 Lens 1 surface 2 −11.4 −1.857 3 × 10 −5
+
+Lens 2 surface 1 a 5.62 −7.1 Lens 2 surface 2 a −5.2 Lens 3 surface 1 2.96 11.2 −0.960 3 × 10 −5
+
+Lens 3 surface 2 −27.8 −6.539 −2 × 10 −5 
+
+> aSurface 1 of Lens 1 and both surfaces of Lens 2 are spheric surfaces. The rest of the surfaces are aspheric.
+
+the input signals. In our configuration one output port is di-rected to the receiver for use in calibration while the second output is terminated with microwave absorber. One of the input mirrors is covered with microwave absorber so that it emits a 300 K blackbody. The second input (labeled "Thermal Source" in Figure 1) is a ∼ 750 K thermal emitter that is chopped at ∼ 8 Hz. Each mirror is a section of an ellipsoid whose foci lie at the centers of adjacent optical elements, re-imaging light from the previous mirror onto the next with a beam angle θ, which is set by the dimensions of the FTS. The wire grid polarizers are aligned at angles π/2, π/4, π/4, and π/2 with respect to the FTS central axis (labeled p in Figure 2). The central dihedral mirror is mounted on a linear stage. A central mirror offset of h generates an optical delay of 4 h cos θ between light rays hitting the two opposite sides of the dihedral mirror. The FTS component dimensions are detailed in Table 1. The FTS central mirror step size ∆h and total (two-sided) throw H determine the Nyquist frequency 
+
+νmax = c
+
+8∆h cos θ (1) 
+
+and resolution of the spectra 
+
+∆ν = c
+
+4H cos θ , (2) 
+
+where c is the speed of light. The central dihedral mirror has a maximum displacement of ±75 mm, corresponding to a total throw of 150 mm. During the measurements reported in this work, however, the mirror was scanned at most from −35 mm to +35 mm for a total throw of 70 mm.  
+
+> Coupling optics
+
+The coupling optics are a focal length reducer with an integrated beam splitter designed to transmit the full field of view of the FTS with high image quality. The coupling optics arm mounted to the FTS with output pointing directly at the AdvACT receiver is shown in Figure 1. This system converts the FTS output f/5.6 to the f/1.6 input needed for the AdvACT receiver. This system is designed to illuminate clusters of about 13 feeds or 26 detectors per band at a time (out of ∼ 1000 per fo-cal plane array). Detectors outside the region illuminated by the FTS coupling optics remain open to the sky; however, some rays from these detectors may be vignetted by elements of the cou-pling optics or FTS mounting assembly. These detectors do not produce modulated interferograms and are therefore excluded 
+
+Fig. 2. An overhead view of the trace of a central ray through the FTS and coupling optics. The polarizing wire grids are oriented at angles of π/2, π/4, π/4, and π/2 radians with respect to the axis p. Orthogonally polarized rays that travel through the same optical path are slightly offset from each other for clarity. The central mirror position is set to h = −20 mm. from the analysis. A beam splitter reduces the signal by a factor of ≳ 99% to reduce the FTS signal incident on the receiver to hundreds of milli-Kelvin while allowing the receiver to receive the majority of its power from the sky. This is critical as the detectors would saturate if the full FTS signal were used. This calibration approach implicitly assumes that inserting the FTS and coupling optics system does not significantly alter the opti-cal termination seen by the focal plane, apart from introducing the intended modulated calibration signal. These coupling optics are comprised of three high-density polyethylene (HDPE) lenses and a thin low-density polyethylene (LDPE) beam splitter. The lens surfaces include both spheric and aspheric surfaces defined as: 
+
+z = r2/R
+
+1 + p1 − (1 + κ)r2/R2 + A4r4, (3) 
+
+where z is the sag of the surface, r is the radial polar coordinate, 
+
+R is the radius of curvature, κ is the conic constant, and A4 is a higher order term. Table 2 describes the shapes of the lenses.  
+
+> Chopped Thermal Source
+
+The thermal source for this FTS is a commercially available heat lamp behind a chopper wheel. 1
+
+The chopper modulates the signal at frequencies from a few to a few tens of Hertz, with 8 Hz being the default frequency. This was chosen to modulate above low frequency noise from fluctuations in the atmosphere. The heat lamp has a diameter of 120 mm, which fully fills the field of view. We operate at tem-peratures near 750 K. Each FTS measurement was made with a step-and-integrate procedure by moving the central mirror over      
+
+> 1The heat lamp can be found commercially at https://www.mcmaster.com with part number 3110K93. Research Article 4100 200 300 400 500 Frequency [GHz] 020 40 60 80 100 Emissivity [%]
+
+## FTS Source Emissivity Measurement  
+
+> Fig. 3.
+
+Measurement of the ceramic heat lamp source emissiv-ity at 300 K. This was determined by measuring the reflectance of a smooth portion of the lamp’s surface. The measurements below 200 GHz likely underestimate the emissivity due to the difficulty of using our calibration source at these frequencies, but in the worst case the impact implied by the measurement is sub-percent for all bands. a set of discrete positions. The chopped signal was demodulated and integrated while the central mirror sat stationary at each position to build up the measured interferogram. We tested this blackbody against a 77 K blackbody made us-ing high quality commercial microwave absorber submerged in a liquid nitrogen bath and found no indication of a departure from an RJ spectrum. We selected this heat lamp source for its ease of use. Additionally, the source was calibrated by measur-ing the reflectance as a function of frequency from its smooth surface and computing the emissivity via the Hagen-Rubens relation, ϵ = 1 − R [22]. Figure 3 shows this measurement, which implies the emissivity to be greater than 80% below 200 GHz and above 95% for the higher frequencies. Within these two frequency regions the variation within a band with 30% bandwidth is bounded by 5% and 2.5% linear slope and 10 GHz periodic oscillations at a similar level. We estimate the impact on the band centers and bandwidth to be sub-percent based on the model. We note that the measurements below 200 GHz are likely an underestimate for the emissivity and an overestimate of the variation due to the difficulties of using the calibrator at these frequencies. For a future higher precision calibration an improved blackbody that is more accurately characterized will be required. 
+
+3. SIMULATIONS OF SYSTEMATIC EFFECTS 
+
+> A. Simulation Procedure
+
+We use simulations to quantify effects that create systematic biases on the frequency or response of the system as a function of frequency. In this section we describe these simulations, while Section 4 will discuss how these effects were corrected and how the combined uncertainties were computed. These simulations are carried out using physical optics whereby ray-tracing is used to calculate the path length through our optical system along a given path and then multiple paths are summed to compute interference effects. The simulations are based on the code used in Liu, et al. (2020) [23] with a modification to accelerate the calculation of many frequencies by storing the path length and  
+
+> Fig. 4.
+
+Top: Simulated interferograms at 90, 150, and 220 GHz for a centered detector and spectral line source. Bottom: In-dividual spectra of the simulated interferograms, including a Gaussian fit to each. In each case the true frequency of the source is about a factor of 1.019 = 1/ cos θ times the fitted frequency, consistent with the optical delay relation 4 h cos θ
+
+for a central mirror displacement h. Small deviations from this factor are due to the extended angular distribution of the source. The recovered amplitude of each spectrum decreases slightly with increasing frequency due to decoherence effects from small path length variations in the FTS, representing the FTS transfer function. Because the detector shown here is cen-tered, the recovered frequency shift is effectively negligible after accounting for the nominal 1/ cos θ correction; for detec-tors displaced from the center, the recovered frequency shift is larger. computing the integrals in a separate step 2. The simulations add additional traces through coupling optics between the FTS output and the AdvACT receiver. These simulations launch rays starting at the thermal source as the input to the FTS and are treated as a single linearly po-larized state. They are propagated through the optical system, storing the optical path length traveled and losses (due to re-flection from or transmission through a polarizing wire grid) as they encounter each element, until finally reaching a position on the detector focal plane. Any rays that miss an optical element are discarded. At this point the rays would be combined in the feedhorn of a single detector. To simulate this, for a given feed position, all rays that land outside the outer feedhorn ra-dius are not included in the computation. The detector field is then formed by summing the complex contributions of rays that couple to the detector feed, with each ray’s wave amplitude weighted by the beam pattern of the detector feedhorn. A 5 × 5square grid of possible detector feed positions is analyzed to probe the dependence of the spectral response on the detector position. The analyzed feed positions extend to a maximum displacement of 10 mm, corresponding to the vignetting limit of the FTS. A trace of the central ray with an offset central mirror position h = −20 mm is shown in Figure 2. This calculation is repeated for a number of dihedral mirror positions to simulate an interferogram at individual frequencies, which is then Fourier transformed to calculate the spectrum for a   
+
+> 2GitHub repository: https://github.com/tdalford/FTS-Simulation Research Article 5
+> Fig. 5.
+
+Simulated fractional frequency shifts across the focal plane at perfect (z = 0) and maximum (z = ±50 mm) align-ments of the FTS to the receiver. The detector x and y offsets are relative to the center of the FTS pointing on the focal plane. The maximum x and y offsets of ±10 mm correspond to the vignetting limit of the FTS and match the amount seen in mea-surements. Plotted is the frequency shift at a frequency of 150 GHz. In practice simulations over all possible misalign-ments and starting frequencies between 15 and 300 GHz are computed, although the fractional frequency shift is nearly independent of starting frequency. The frequency shifts have primarily a dependence on the y position of the detector on the focal plane relative to the FTS pointing center but do vary slightly with x.monochromatic input. We fit a Gaussian to each monochromatic spectrum. The parameters in the Gaussian fit are interpreted as the amplitude and recovered central frequency for this input. This procedure is repeated over a range of frequencies. These Gaussian fit parameters are then used to construct the transfer function, or response as a function of frequency, and frequency shifts of the FTS. These are studied as a function of position and with respect to alignment errors. An example of spectra genera-tion and parameter estimation from simulated interferograms is shown in Figure 4. To simulate the extended source we choose starting points evenly spaced over the 120 mm circular thermal source, with a total of 625 starting positions used. At each point the rays are treated as being emitted with an isotropic directional de-pendence. We use n = 4500 starting rays at each point. We calculate spectra for frequencies evenly spaced between 15 and 300 GHz. Since the rays are incoherent in phase when emitted from different starting positions, for a given detector position we sum the interferograms together from each starting position before transforming to the final spectrum.  
+
+> Coordinate System
+
+We define a coordinate system to quantify the impact of relative errors in the optical alignment of the FTS and the receiver on passband measurements. The z axis is de-fined by the direction the central ray travels as it exits the cou-pling optics, i.e. normal to the center of last lens and focal plane. The y direction lies in the coupling optics / FTS plane and is orthogonal to the optical axis z. The x direction is then perpen-dicular to z and y. These are illustrated in Figure 2.  
+
+> Fig. 6.
+
+FTS transfer functions between 15 and 300 GHz simu-lated and normalized for perfect FTS z alignment ( z = 0, mid-dle column) along with maximum z misalignments ( z = ±50 mm, left and right columns) in either direction. The simulated corrections are plotted as a function of radius from the cou-pling optics focus. The radially symmetric corrections have errorbars plotted as shaded regions that are subdominant to the correction dependence on r and z.During the measurements presented below, the alignment of the coupling optics relative to the receiver was not precisely controlled. While the x-y alignment is naturally encapsulated within the field of view of the FTS, the z offset represents an uncontrolled variable that will factor into systematic uncertain-ties. We estimate that the alignment along this axis was only controlled to ±50 mm and varied between measurements. To evaluate this effect we simulated 30 possible z-distance offsets of the FTS between these values, z = + 50 mm and z = −50 mm (we denote z = 0 as perfect alignment). 
+
+> B. Systematic Effects
+
+We use the simulations described above and additional calcula-tions to model the impact of four classes of systematic effects: 1. Frequency shifts arising from variations in the path through the FTS; 2. Color corrections due to optical effects in the FTS; 3. Color corrections due to the transmission of the lenses; 4. Color corrections due to the reflectance from our thin film beam-splitter. 
+
+> B.1. FTS Frequency Shifts
+
+The output of the FTS depends on the interference of light. Any physical realization of an FTS includes optics that accommodate Research Article 6 
+
+> Fig. 7.
+
+Simulation of the coupling optics lens transmission using Ansys High-Frequency Structure Simulator (HFSS) software. The simulation includes a centered source transmitting at 75 GHz that is modeled as a pyramidal horn antenna pattern that propagates through to the focus of the coupling optics. To find the transmitted power through the lenses, we perform simulations at a range of source positions matched to the full extent of the thermal source and at a range of frequencies up to 100 GHz. Then we sum up the total power which resides within a detector feed radius from all source positions at each frequency. multiple paths through each arm. This leads to geometric effects that limit the output resolution and induce biases which amount to frequency shifts in the recovered spectrum. We use the simulations described above to calculate this frequency shift as a function of detector position (x-y) and z-alignment. The frequency shift was simulated for a range of starting frequencies between 15 and 300 GHz but the fractional shift was found to have negligible variation with starting fre-quency. The results of these simulations are presented in Figure 5. These contour plots summarize the spatial dependence of the fractional frequency shifts as a function of x, y, and z offsets in the alignment of the FTS relative to the receiver focus. These indicate a weak dependence on the focal alignment along the boresight direction ( z) leading to a bias of at most 0.2% due to our 
+
+±50 mm alignment accuracy. Larger errors are associated with in-plane displacements (the x-y plane). Here we find that the largest shifts occur along the y direction. These roughly linear variations in the frequency shift arise because detector offsets from the FTS focus in y cause the angles of incidence through the FTS to vary. This detector displacement relative to the FTS focus leads to ∼ 1.5% shifts in the band center. This implies a several percent variation in band-center when illuminating multiple detectors. Measurements when multiple detectors were illuminated are consistent with this prediction. It is the dominant systematic effect in the determination of band-centers with this FTS. 
+
+> B.2. FTS Transfer Function
+
+The FTS transfer function is the ratio of the output power relative to the power presented at its input port. Generally, this function is frequency dependent due to variations in the path length de-lays within the spectrum of rays defining the beam, diffraction from the edges of optical elements, decoherence arising from dif-fusive surface scattering, and other processes. In our simulations we examine the first process. The variations in optical delay be-tween rays in different parts of the beam lead to a frequency dependent reduction in the amplitude. Shorter wavelengths will yield stronger decoherence effects as the wavelength approaches the size of these small optical delay fluctuations. This effect thus causes a measured passband to attenuate more at higher frequencies. The transfer function was simulated by combining the amplitudes of the fits to each individual frequency spectrum as shown in Figure 4. This effect is dependent on the detector position in the focal plane and the z alignment of the FTS rela-tive to the detectors. This contribution to the transfer function is  
+
+> Fig. 8.
+
+Transfer function due to dielectric losses in the HDPE lenses of the coupling optics. Uncertainties are plotted as the shaded region and are calculated assuming a loss tangent that can vary from 1 × 10 −4 to 3 × 10 −4.roughly symmetric with radius from the coupling optics focus. Figure 6 shows the simulated transfer functions for various radii at z = 0, +50, and -50 mm alignment. Near the focus this effect amounts to 5% changes over an octave band. However, this can grow to up to 50% per octave when significantly out of focus. 
+
+> B.3. Coupling Optics Transfer Function
+
+The three HDPE lenses used in the coupling optics, which do not have any anti-reflection coating, absorb light and create multi-path interference due to reflections from each of their surfaces leading to an additional transfer function. The intensity transmission coefficient for light traveling through the lenses is approximated by (ignoring surface reflec-tions) 
+
+T = e− tan δ 2πn  
+
+> λl
+
+(4) 
+
+where n is the index of refraction of the lenses ( n = 1.52), tan δ
+
+is the loss tangent of the material (HDPE) that is estimated to be between 1 × 10 −4 and 3 × 10 −4 [24, 25], and l is the distance traveled through the lenses. While the total path length l through the lenses varies, we estimate the transmission using the mean path length of 96 mm. Fixing this value has a negligible effect on the estimated transmission since variations in the dielectric losses from path length deviations are smaller than those arising from the as-sumed uncertainty in the loss tangent. This transfer function Research Article 7 
+
+> Fig. 9.
+
+Transmitted power through the coupling optics to a de-tector feed as a function of frequency and from different radii from the center of the FTS pointing, as computed from An-sys HFSS simulations. A quadratic fit has been removed from each transfer function to account for the frequency-dependent beam size of the input pyramidal horn antenna (this spuri-ously modifies the amount of power reaching the first lens and propagating through the simulation). and its uncertainty are shown in Figure 8. The amplitude of this loss is 7% per octave. Interference effects in refractive systems are a more significant concern as they introduce a variety of coherent features in the resulting spectra. To estimate the amplitude of these effects, we simulate the transmission of the coupling optics system in Ansys Electronics High-Frequency Structure Simulator (HFSS) 3. The simulation does not include the polarizing wire grids or mirrors from the FTS, as incorporating these components would increase the computational requirements beyond our current computing capabilities. We instead assume that the dominant interference effects arise from the refractive coupling optics lenses and limit our simulation to these components. The HFSS model also excludes the beam splitter, whose effect is treated separately in the next section. Figure 7 shows the HFSS model with a color scale propor-tional to the field strength. The simulation uses a pyramidal horn on the left as the input source of light propagating through the coupling optics system before coming to a focus on the right. The real part of the z component (the propagation direction of the simulation) of the Poynting vector is summed over a radius equivalent to the radius of a detector feed and weighted by a Gaussian approximation to the beam of the feed. We combined simulations from 25 - 50 GHz and 40 - 100 GHz which use two different waveguide dimensions for the input pyramidal horn. We could not simulate higher frequencies because the compu-tation time scales with the cube of the frequency. However we expect effects at higher frequencies to be qualitatively similar to the effects seen in this simulation. Although the pyramidal horn does not exactly reproduce the illumination pattern of the de-tector array, the simulated transmission is used only to estimate relative spectral interference effects. Differences in feed taper and spillover are therefore not expected to significantly affect the final calibration.  
+
+> 3http://www.ansys.com/Products/Electronics/ANSYS-HFSS
+> Fig. 10.
+
+Simulated beam splitter reflectance (top) and spectral shape correction (bottom) functions for thicknesses of 0.008 mm and 0.025 mm between 15 and 300 GHz. The transfer functions are effectively identical between the two cases, while the absolute reflectances differ by roughly a factor of 6. A significant amount of the power propagating from the pyra-midal horn in the simulations misses the first lens. Since the Gaussian beam response from this input horn narrows with in-creasing frequency this causes a spurious frequency-dependent trend in the power received at the detector feed. We account for this by fitting and removing a quadratic term from the transmis-sion function. Figure 9 shows the results of this simulation. This transfer function includes oscillations at a scale of approximately 5 GHz and amplitude of typically 10% for this frequency separation. The phase and amplitude of these variations depend on the coordinates r and z of the detector with respect to the optics position. Correcting for this transmission exactly would require precise knowledge of the distributions of r and the distance z
+
+for the measured detectors. We use this simulation to place limits on the possible effects of interference in the lenses and to interpret features in the measured spectra. However, the dielectric loss component of the transfer function (Figure 8) is explicitly corrected for. 
+
+> B.4. Beam Splitter Transfer Function
+
+The ≳ 99% transparent beam splitters used to prevent satura-tion have frequency-dependent transmission. LDPE of thickness 0.008 mm was used as the beam splitter for the 30/40 GHz array while 0.025 mm thickness was used for the higher frequencies. We simulated the reflection coefficient from 15 to 300 GHz for LDPE of thickness 0.008 mm and 0.025 mm using HFSS. Figure 10 shows the results of the simulations. Going from 0.025 mm to 0.008 mm membrane thickness yields a factor of six less re-flectance; however, when normalizing these reflection functions, they have the same frequency dependence up to a shift in the overall amplitude. This increase in reflectance with increasing frequency causes the measured passband to have increased am-plitude at higher frequencies. The uncertainty in this correction is negligible since we are not sensitive to shifts in the overall Research Article 8 
+
+> Table 3.
+
+Details of individual measurements of the Advanced ACTPol detector arrays. The FTS throw indicates the total dis-tance the central mirror travels to both sides of the FTS. Each "run" corresponds to a pointing position of the FTS which illu-minates up to ∼ 25 detectors in the focal plane, where many runs are needed to properly sample a large portion of the de-tector array. The total number of spectra indicates the number of detectors with physical spectra measured with the FTS over all observing dates and runs. Array / Measurement FTS Step FTS Total # #Frequency Dates (mm/yy) Size Throw Spectra Runs PA4-f150 12/16, 12/17, 0.1 mm 40 mm 179 26 PA4-f220 12/19 193 24 PA5-f090 12/17, 12/19 0.15 mm 70 mm 53 16 PA5-f150 150 16 PA6-f090 12/17, 12/19 0.15 mm 70 mm 83 26 PA6-f150 248 27 PA7-f030 01/21 0.375 mm 70 mm 29 15 PA7-f040 48 19 amplitude. 
+
+4. ACT PASSBAND MEASUREMENTS 
+
+From 2016-2021, summer measurement campaigns were carried out to measure the AdvACT passbands (measurements in the preceding years characterized earlier ACTPol passbands [26]; we focus on the AdvACT passbands in this work). These campaigns measured the four separate AdvACT cameras called polarization arrays (PA for short). Each of these cameras was multichroic and covered a set of neighboring frequency windows. These were PA4 (AdvACT 150/220 GHz array), PA5 and PA6 (AdvACT 90/150 array), and PA7 (AdvACT 30/40 GHz array) [1, 27, 28]. The measurement date, number of spectra for each array, FTS measurement parameters, and number of observing runs are summarized in Table 3. These data permit tests of the spatial and temporal variation in the passbands. Each array was measured with the FTS moved to roughly 15-30 different positions across the array. 
+
+> A. Data Selection
+
+The FTS and coupling optics only illuminate up to 26 detectors per band at a given pointing. The first step in data analysis is to identify these channels and reject the channels not directly illuminated by the FTS. The set of illuminated detectors was identified by computing the spectra for each channel and then constructing a signal-to-noise metric from the mean in the band of interest divided by the RMS from frequencies well separated from this band. Detectors for which this statistic was above five were retained for further consideration. Detectors that were spatially separated from the cluster illuminated by the FTS were also rejected. 
+
+> B. Data Processing
+
+The data that passed the above cuts were then analyzed to pro-duce cleaned spectra. First, a polynomial fit was removed from  
+
+> Fig. 11.
+
+All 248 measured passbands of the PA6 150 GHz detectors are individually plotted in gray. The final noise-weighted average is over-plotted in blue. the timeseries data to remove any large-scale drift in the inter-ferograms. This polynomial was chosen to be 5th-order, which corrects any non-physical drifts in the interferograms without biasing the results (the bias in band center due to this removal is below 0.1%). A small number of glitches from jumps in the detector time streams were found in some channels. Most chan-nels had no jumps but about 10% of our data had a few such glitches. These glitches were masked and the missing values were replaced with linear interpolation between neighboring points. Next, the interferogram was apodized about the zero path difference point and the data was Fourier transformed to obtain the spectrum. The mean FTS calibration factor from the simulations ( 1.981 ≈ 1.019), matching the expected geometrical factor from the optical delay formula 4 h cos θ, was then multi-plied to the frequencies. The passbands were tested both with and without applying the Mertz phase correction procedure [29] to the data, which includes fitting and removing a linear gradient from the phase frequency dependence to account for a measured off-center inter-ferogram. The results were nearly identical aside from increased noise and more detectors cut in the data with the correction applied. This occurred because the phase fits were unstable for low signal-to-noise detectors and for data containing glitches that were not fully removed. As a result, we chose not to apply the Mertz phase correction, which leaves a positive noise bias in the data. This, if unaccounted for, would bias the band center or width calculations, especially for measurements with low SNR. We correct for this by subtracting a constant baseline from each spectrum. The baseline term is determined by averaging the spectrum over a region far away from the main passband region and any associated harmonics. The passband was then normalized to have a maximum value of 1, and the noise was estimated by computing the standard deviation of the data outside the passband region. This noise estimate was used in the signal-to-noise (SNR) weighting when combining multiple channels. Simulations were used to confirm that the bias introduced by these processing steps is less than 10% of the uncertainties we present below. We recomputed the signal-to-noise of these processed spectra and rejected any bands with SNR < 15. We then averaged all Research Article 9 
+
+> Fig. 12.
+
+Comparison of systematic transfer function (Section B.4, B.3, and B.2 from top to bottom) magnitudes and uncertainties over each band region. Each transfer function plotted is normalized to a maximum of unity within an interval of frequencies chosen to simulate frequency intervals for the actual passbands. The shaded regions are minimum and maximum bounds of the transfer function distributions over the given interval. To calculate the percent shifts in band centers we sample the transfer function dis-tribution and apply the corresponding correction, given by the inverse of the transfer function, to an original measured average passband at each frequency region. The shifts reported are the mean and standard deviation of each sample. Any shift or uncer-tainty calculated to be smaller than 0.01% is reported as <0.01%. The percent shifts for the band centers in actuality depend on the choice of band used but these numbers are intended to be rough estimates given real band shapes. the passband measurements for each band weighted by their SNR squared. In some cases, due to overlapping FTS positions, a single detector had multiple passband measurements between observing runs for the same array. In these cases we took the highest SNR measurement as the passband measurement to use. The spectrum for each detector array is reported as the noise-weighted mean of these data and the statistical error is reported as the variance on this mean within each frequency bin. For example, Figure 11 shows individual processed spectra combined with the final noise-weighted average for the PA6 150 GHz array. 
+
+> C. Systematic Bias Corrections and Error Propagation
+> C.1. Obtaining Final Systematic Corrections
+
+There are four corrections that need to be applied to the final passbands to take into account the systematic effects discussed in Section 3: the FTS frequency shift correction (B.1), the FTS transfer function (B.2), the coupling optics lens transmission correction (B.3), and the beam splitter correction (B.4). The mean coupling optics transmission from dielectric losses and beam splitter transfer function lead to multiplicative biases that are straightforward to correct and for which we can estimate systematic uncertainties. The FTS transfer function correction and FTS frequency shift correction are more complex since these are dependent on the detector position relative to the FTS. The FTS was moved to 15-30 different positions across each detector array. However, the exact central pointing position of the FTS onto the focal plane was not known during measurement. It can only be es-timated roughly from the centroid of the pixels measured for each pointing. This estimate is limited by the low number of active pixels in each pointing and exacerbated by the fact that some detectors were not active during a given measurement. We therefore carry conservative systematic uncertainties in both of these corrections. First, we evaluate the FTS transfer function over all radii and z alignment positions and make a correction based on the mean of these functions. We use the variance on these simulated cor-rections as the systematic error band. A plot showing the beam splitter, coupling optics dielectric loss, and FTS transfer function corrections in each individual band region with uncertainties is shown in Figure 12. The largest systematic uncertainty on band center determi-nation is the FTS frequency shift, which can shift the bands by up to 1.5% in either direction. We measure this effect in our data by computing the band centers of individual detectors and plot-ting that against the y distance from the center of the detector centroid in a given pointing. Figure 13 shows this for the PA4 150 GHz data. A clear slope is visible at a level consistent with the expected variation. We correct this effect by removing the best-fit slope in the y-direction. The dominant error in applying this correction is uncertainty in the true detector positions. This leads to an intrinsic variation in the bands between detectors and at different pointings. We do not separately account for the systematic uncertainty on this correction. We report the uncer-tainty on this correction as the residual RMS of the bands post Research Article 10  
+
+> Fig. 13.
+
+An example of the FTS frequency shift seen in actual passband data. Top: Pixel positions with measured passbands from run 12 (out of 26 total runs) of the PA4 150 GHz measure-ment. The color scale represents the central frequency shift of each pixel measured relative to the average passband. The green square shows the centroid, or center of the cluster of measured detectors, for this run. Middle: Run 12 PA4 150 GHz frequency shifts which have been plotted as a function of the y distance from the centroid, along with the expected shifts from simulations. The color scale shows the SNR of each measure-ment. Bottom: Similar pixel data but now including passbands from all PA4 150 GHz pointings combined. The trend in the measurements is consistent with expected slope from the fre-quency shift simulations in Section B.1. correction. This accounts for any intrinsic errors in pointing estimation. Another source of uncertainty arises because we did not sample the full detector array. This combined with any potential systematic shifts in the passbands across the wafer would yield a biased wafer-averaged estimate. However, using the residual RMS as the final uncertainty also accounts for this possible variation assuming enough distinct sampling regions. Finally, the frequency dependence of interference effects in the coupling optics must be accounted for. As mentioned in B.3, we use simulations to place limits on the effects of interference in the lenses and add a conservative uncertainty determined by the variance in the band shifts seen when applying each simulated transmission function in r and z. This uncertainty is treated as an RMS scatter to the frequencies and is added in quadrature to the residual RMS to the bands from the previous paragraph. Since the simulation only goes up to 100 GHz, the 150 and 220 GHz array passbands use the 90 GHz band uncertainty (0.3%) as the evaluated uncertainty.  
+
+> Table 4.
+
+Uncertainty composition of the AdvACT passband measurements. Column 2 shows the statistical error on the noise-weighted average passband. Column 3 shows the un-certainty estimate of all multiplicative corrections, including contributions from B.2 and B.3 (B.4 has no associated uncer-tainty). Column 4 shows the residual RMS of all passband central frequencies after correcting for the y dependence of the frequency shift B.1. Column 5 shows the upper limit of the un-certainty expected from the full coupling optics transmission in B.3. Array / Statistical Transfer Residual Coupling Band Error Function RMS Optics PA4-f150 0.1% 0.1% 0.7% 0.3% PA4-f220 0.1% 0.3% 1.5% 0.3% PA5-f090 0.1% 0.1% 0.9% 0.3% PA5-f150 0.1% 0.1% 0.8% 0.3% PA6-f090 0.2% 0.1% 1.1% 0.3% PA6-f150 0.1% 0.1% 0.6% 0.3% PA7-f030 0.2% 0.01% 0.8% 0.7% PA7-f040 0.5% 0.02% 3.3% 0.3% Table 4 compares the sources of uncertainty for each AdvACT detector array. The dominant remaining source of uncertainty is the residual RMS among the detectors, although we note that applying the best-fit slope correction to each array reduces the RMS by up to 25%. 
+
+> C.2. Propagation of the Errors
+
+We multiply each of the mean transfer functions together to arrive at the net correction which is divided out of the passband measurement. Our main types of uncertainties are systematic error bounds on these transfer functions, statistical errors of the measured average, and RMS frequency shifts. We combine all of these errors together by Monte Carlo sampling from the distributions of each until the final error distribution converges. For example, in each Monte Carlo iteration we start with the final measured average passband. We first sample a statistical error of the average and apply it to the band. We then apply re-alizations of the systematic transfer functions drawn from their respective uncertainty distributions. Finally, we shift the band by a frequency offset drawn from a Gaussian distribution with an RMS given by the quadrature sum of the residual RMS and the coupling optics RMS. We then compute the central frequency and width of the resulting passband, eventually building up a distribution used to estimate uncertainties. We compute uncer-tainties on both the central frequencies and bandwidths in this manner, although we note that the frequency shift uncertainty has no effect on the bandwidth. 
+
+5. RESULTS 
+
+A plot of the final AdvACT passbands and their fully propa-gated errors is shown in Figure 14. The measurements have statistical noise floors approximately at the 1% level, with a gen-tle frequency dependence due to the decreasing beam splitter reflectance at lower frequencies. Low-frequency out-of-band data is low signal-to-noise and is not shown. We have no evi-dence for spurious couplings at low frequencies, a conclusion Research Article 11  
+
+> Fig. 14.
+
+AdvACT PA4 (150 and 220 GHz), PA5 (90 and 150 GHz), PA6 (90 and 150 GHz), and PA7 (30 and 40 GHz) passbands. The shaded regions show combined statistical and systematic (spectral shape and frequency shift corrections) errors for each band. Low frequency noise swiftly increases due to the beam splitter correction and is not included in the bands plotted. The harmonics at roughly twice the band frequencies of the 90 and 150 GHz bands are believed to be spurious features as a result of nonlinearities and aliasing. that is further supported by thick grill filter measurements that bound the integrated couplings to below 1% in the low frequency out-of-band region. The passbands measured with this setup determine the fre-quency response of the AdvACT detectors to a beam-filling source in the Rayleigh-Jeans (RJ) limit. The power measured from an RJ source is weighted only by the detector’s frequency bandpass response with no other frequency dependence. The figures and results shown in the main section of this work use the central frequency defined as 
+
+ν0 =
+
+R ντ (ν) dν
+
+R τ(ν) dν (5) 
+
+where τ(ν) is the passband response at a given frequency ν.We characterize the bandwidth using the signal bandwidth. This computation is independent of the source spectrum and is defined as (see Appendix A) 
+
+∆ν =
+
+> Z
+
+τ(ν) dν (6) 
+
+where we set τ(ν) to be normalized to have a maximum of one. Table 5 shows the final band centers and widths, along with their uncertainties, for an RJ source spectrum. However, in prac-tice, the effective central frequency of the passband depends on the spectrum of the celestial source observed. Appendix A intro-duces the formalism for computing full effective frequencies and color corrections for different types of sources. Complete results tables for different ACT arrays, including effective frequencies for multiple types of celestial and point sources, as well as the various factors used in the results, are included in Appendix B. 
+
+> A. Integration Bounds and Aliased Harmonics
+
+When computing these band centers and bandwidths, a choice must be made about which frequency range to integrate over. Ideally, the band could be measured perfectly and the central  
+
+> Table 5.
+
+Final Band Attributes and Propagated Uncertainties Array Band Center [GHz] Bandwidth [GHz] PA4 150 GHz 148.5 ± 1.1 35.8 ± 1.4 PA4 220 GHz 226.3 ± 3.4 65.2 ± 2.4 PA5 90 GHz 96.4 ± 0.9 18.9 ± 1.0 PA5 150 GHz 149.3 ± 1.3 28.0 ± 1.4 PA6 90 GHz 95.3 ± 1.1 23.1 ± 1.0 PA6 150 GHz 147.8 ± 0.9 31.0 ± 1.4 PA7 30 GHz 27.4 ± 0.3 4.3 ± 0.4 PA7 40 GHz 38.3 ± 1.3 12.4 ± 0.8 frequency and bandwidth computed as an integral over all fre-quencies. However, spurious trends and noise artifacts in our data would otherwise bias the results. For instance, there are several above-band features that mimic harmonics of the 90 and 150 GHz bands and are aliased by our step-and-integrate data acquisition strategy. These are attributed to nonlinearity in our detectors for the relatively large signals from the FTS. Lab tests using similar detectors for Simons Observatory showed similar spectral features— measurements using a coherent source con-firmed these to be systematics associated with compression in our bolometric detectors [30, 31]. We further confirmed that the band centers including these harmonics would have produced beam sizes on astrophysical point sources that are inconsistent with the beams we observe. We thus do not include these har-monics in our computations of band centers and bandwidth. An additional spurious noise source in the data arises from the beam splitter correction, which substantially increases the noise at low frequencies. To avoid biasing our results, we ex-clude most of the below-band low-frequency region from the Research Article 12  
+
+> Fig. 15.
+
+Spatial variation of the passband central frequencies for each detector array. Orthogonally polarized detectors with the same passband residing at the same pixel are mapped to polarization groups ‘A’ and ‘B’. ‘A’ detectors are plotted with a left half-circle while ‘B’ detectors are plotted with a right half-circle. The typical fraction of functional detectors per array was greater than 70%, with reduced spatial coverage in the plots from detectors missed or otherwise cut in the measurements. There is a slight radial trend seen primarily in the 150 GHz data where passbands near the edge of the array have ∼ 2% lower central frequency than passbands at the center. The maximum and minimum values for each colorbar are bounded by 95% intervals in its corresponding dataset to avoid outlier effects. integration; this is also justified because that region lies below the expected waveguide cutoff of each band. Thus, to mini-mize the effects of these low and high frequency biases we set integration bounds within at most 10 GHz of the band edges.  
+
+> Possibility of Blue Leaks
+
+However, we cannot exclude the possi-bility of a passband blue leak below the 1% level with the data alone. Leakage at high out of band frequencies could bias the effective frequency by substantially more than the uncertainties reported in this work. Constraining such leakage will be partic-ularly important for future passband measurements requiring an even smaller error margin. The results presented in this work instead focus on systematic errors from the FTS itself. 
+
+> B. Spatial Variation of the Bands
+
+The band centers as a function of detector position are shown in Figure 15. This figure also shows which detectors were measured in each array. The typical fraction of detectors measured ranges between 10% and 50%. In some cases, a lack of spatial coverage is a result of missing detectors in the arrays themselves– though the fraction of functional detectors was typically greater than 70%. Orthogonally polarized detectors that reside at the same pixel and have the same passband region are separated into two polarization groups ‘A’ and ‘B’. To differentiate between these, the figure shows two detectors per pixel with the half-circle on the left ‘A’ detectors and on the right ‘B’ detectors. We separately tested consistency between A and B detectors and found no significant difference in their passbands up to measurement uncertainty. In most cases any possible trends in the spatial variation of the band centers are obscured due to intrinsic measurement uncertainty across the detector array. However, after applying the systematic corrections as detailed in C.1, the data exhibits a small radial dependence, primarily in the 150 GHz data. Detec-tors near the center of the array have roughly 2% higher central frequency than detectors at the far edge. Such a radial trend is possible due to differences in the deposited dielectric thickness over a wafer and has been observed in similar types of arrays [30] but is not yet well understood. 
+
+> C. Temporal Variation of the Bands
+
+In some cases, array measurements were repeated multiple times with the FTS in the same position. In other cases, the extended beam size of the FTS output resulted in the same detector being measured from multiple different FTS positions. These repeated measurements span both daily timescales within a single mea-surement campaign and yearly timescales between campaigns. We compare all such measurements to set limits on the time variability of the passbands. Because the number of repeated measurements is limited, we do not separately characterize vari-ability on different timescales. For detectors measured at least three separate times, we com-pute the noise-weighted standard deviation of the central fre-quencies to obtain an estimate of the variability. The results are shown in Figure 16. In the PA5 90 GHz, PA6 90 GHz, and PA7 40 GHz arrays we found no such detectors with at least three measurements. For the remaining detectors we find variations in the band centers to be 1% or less in almost all cases. Since our measured uncertainties for the bands are all at a similar or larger scale than this variation we interpret this as a non-detection consistent with our known systematic uncertainties. 
+
+> D. Use in ACT DR6 Analyses
+
+The passband results produced in this work have been incor-porated into multiple ACT DR6 analyses. In the component-separated maps of [32], the frequency dependence of each astro-physical component is integrated over the measured passbands to compute its expected response in each frequency channel. The passband uncertainties are also propagated to evaluate the impact of instrumental systematics on the resulting maps. In the power-spectrum likelihood analysis of [33] and the constraints Research Article 13  
+
+> Fig. 16.
+
+Temporal variation in the passband centers for each array. We found all detectors with at least three measurements and computed the noise-weighted standard deviation of the measured central frequencies. Plotted are the percent uncer-tainty for each such detector. The PA5 90 GHz, PA6 90 GHz, and PA7 40 GHz arrays had no such detectors with at least 3 different measurements. Plotted as vertical lines are the mean values and the percent uncertainty estimates of the band cen-ters for each array. In all cases the scatter is smaller than the estimated uncertainty; there is no evidence for temporal varia-tion in the band centers. on extended cosmological models in [34], the measured pass-bands are similarly used to determine the band-integrated fore-ground responses. The measurement uncertainties set the prior widths for additional passband-shift parameters, which are sam-pled jointly with cosmological and foreground parameters for the final analysis. We note that the values reported in Table 5 differ by 0.1 - 0.2 GHz per band from the bandpass-shift priors used in Table 4 of [33] due to minor updates to the analysis in this work. The posterior sampled shifts (Figure 26 of [33]) are all within the band uncertainties from this work with the exception of PA4-f220, which yielded a 1.4 σ shift upwards relative to the prior. 
+
+6. CONCLUSION 
+
+We have presented measurements of the AdvACT passbands using a system comprised of a PIXIE-style FTS and coupling optics. We have quantified the statistical and systematic errors. We find that the band-center uncertainties due to the FTS mea-surement are at most 1.5% for all bands except PA7 40 GHz, with the statistical error largely subdominant to the systematics. Future experiments may require passband calibration accu-racies approaching 0.1%. This will be particularly challenging for astrophysical sources with substantially different spectral energy distributions. For high resolution CMB analyses, it will also be essential to account for the frequency dependence of the beam across the instrumental passband and its uncertainties [35]. Achieving this level of accuracy will require improved control of both systematic and statistical uncertainties. Both represent tractable challenges. The main systematic sources of error for these measurements are the correction for transmission through the coupling optics lenses and uncertainty in the frequency shift induced by the FTS position relative to the receiver, including both axial ( z) and radial ( r) offsets. The coupling optics systematics can most directly be miti-gated by using a system of reflective coupling optics designed to create a similarly focused output beam with neutral frequency dependence. We are working on designing such reflective optics for future large aperture and small aperture telescope calibra-tion. The frequency shift uncertainty can first be decreased through precision alignment and measurement of the FTS distance to the cryostat. This can be performed either by aligning the FTS once by maximizing the input signal to the detectors and then fixing the axial distance in subsequent measurements or by probing the effect and uncertainty of the axial distance through multiple measurements at a range of possible z. For instance, future measurements for the SO large aperture telescope plan on using a gantry system to precisely control and measure z while taking measurements. The off-axis radial distance uncertainty can be reduced through precision detector beam-maps with the FTS alongside spectra measurements, which would allow precise determination of r for each working detector. The FTS frequency shift as a primary source of uncertainty can also be addressed by closing the FTS beam down to a much smaller size by placing a small aperture over the source, making sure that we only measure detectors very close to the coupling optics focus at the cost of reduced illumination. While the statistical errors of the main band region are close to the 0.1% level in some cases, they can be further improved by sampling the full detector wafer and taking multiple samples per detector. This has the advantage of further probing the spatial dependence of the wafer passbands while sampling the entire wafer for an unbiased estimate of the average. Additionally, multiple samples of individual detectors will allow us to probe passbands at the single detector level. This may be required for precision cosmology given the possible spatial dependence of the passband over the detector wafer. Finally, in order to constrain shifts in the effective band center from out-of-band leakage, the noise level of the measurement will have to be orders of magnitude deeper than the current 1% noise floor, requiring much longer integration time with the FTS and a complete understanding of the baseline removal. To assist with these strict requirements, other calibration methods such as the frequency-tunable laser source (FLS) [36] are being developed to provide alternative calibration techniques to the FTS. The FLS performs exceptionally well out of band by being able to constrain leakage at the level of 0.01% or less, while the FTS currently provides better measurements of the main band shape. Combining these techniques will allow us to perform stringent tests of the band systematics and reach even lower error thresholds. Research Article 14 
+
+A. EFFECTIVE FREQUENCIES AND COLOR CORREC-TIONS 
+
+The power that lands on a detector in a single polarization is given by 
+
+P = 12
+
+> Z Z
+
+Iν( ˆn)η(ν)τ(ν)Ae( ˆn, ν)dν dΩν, (7) 
+
+where ν is the frequency, Iν is the spectral or surface brightness with units of W/m 2 Hz sr, and τ(ν) is the passband normalized to unit peak. We take Ae( ˆn, ν), where ˆ n is associated with dΩν,to be the effective area assuming a lossless antenna. The optical coupling to the detectors ensures that only a single spatial mode of radiation is measured and thus R dΩν Ae( ˆn, ν) = λ2 at each frequency. We account for the combined loss in all elements of the system with the efficiency η(ν) and in the following assume it is independent of frequency. 4 When the source is a beam-filling Planck function, Iν = Bν(T), then in the Rayleigh-Jeans (RJ) limit 5
+
+P = kB Tη 
+
+> ZZ
+
+ν2
+
+c2 τ(ν)Ae( ˆn, ν)dν dΩν
+
+= kB Tη
+
+> Z
+
+τ(ν)dν = kB Tη∆ν. (8) 
+
+In the last expression, ∆ν = R τ(ν)dν is the signal bandwidth of the receiver. It is always less than or equal to the Dicke bandwidth [39], 
+
+∆D ν =
+
+ R ∞ 
+
+> 0
+
+τ(ν)dν
+
+2
+
+R ∞ 
+
+> 0
+
+τ2(ν)dν = (∆ν)2
+
+R ∞ 
+
+> 0
+
+τ2(ν)dν , (9) 
+
+that enters into computing the sensitivity of a radiometer. Note that in equation 8 the power depends only on T, η, and 
+
+∆ν and does not depend on the frequency of the measurement. When the passband is measured with a Fourier Transform Spec-trometer (FTS), the source is almost always in the RJ limit. Thus the measurement gives the contribution from each sub-band, δν ,of ∆ν weighted only by τ(ν) and no other powers of frequency. In this derivation we will assume that τ(ν) is measured with a FTS in one spatial mode in the RJ limit of a source at constant temperature. 
+
+A. Celestial Sources 
+
+For our purposes, the primary distinction between different sources is whether they are beam-filling or point sources; we leave a full ℓ dependent formalism outside the scope of this work. For beam-filling sources, the particulars of the beam forward gain should drop out whereas for point sources, the forward gain is an important part of the characterization. The ACT CMB temperature maps are calibrated in terms of deviations from a Planck emitter at TCMB with surface brightness 
+
+Bν(TCMB ) = 2hν3
+
+c2
+
+1exp (hν/kB TCMB ) − 1 (10) 
+
+= b0 TCMB 
+
+x3
+
+ex − 1 , (11) 
+
+where x = hν/kB TCMB and b0 = 2k3 
+
+> B
+
+T2
+
+> CMB
+
+/(hc )2 = 9.905 ×
+
+10 −19 J/Km 2. The RJ limit is b0 TCMB x2.         
+
+> 4We generally adopt the notation of [37] and [38].
+> 5In the Rayleigh-Jeans limit, hν<< kBTwhere his Planck’s constant and kBis Boltzmann’s constant.
+
+Maps of diffuse sources are given in terms of surface bright-ness Iν. We are only sensitive to variations in Iν which, in terms of a CMB calibrated map, are given by 
+
+δIν = δTCMB 
+
+∂Bν(T)
+
+∂T TCMB 
+
+≡ b′
+
+> ν
+
+δTCMB (12) 
+
+so that 
+
+b′ 
+
+> ν
+
+= ∂Bν(T)
+
+∂T TCMB 
+
+= b0
+
+x4ex
+
+(ex − 1)2 . (13) 
+
+In the RJ limit, b′ 
+
+> ν
+
+= b0 x2 = 2kBν2/c2.We often want to convert between fluctuations in brightness temperature TRJ and TCMB . From Equation 11 and its RJ limit we find 
+
+t′ 
+
+> ν
+
+≡ δTRJ 
+
+δTCMB 
+
+= x2ex
+
+(ex − 1)2 . (14) 
+
+In the RJ limit, t′ 
+
+> ν
+
+= 1. 6
+
+The ACT temperature maps, for example, currently do not have information below a multipole of ℓ = 200, corresponding to angular scales larger than 0.5 ◦. Thus any measure of a dif-fuse source is a variation from a local average as indicated in Equation 12. In the following, though, we use the notation Iν to denote a diffuse source at frequency ν and implicitly recognize it as a fluctuation over some unspecified spatial scale. In general, diffuse sources can be characterized as 
+
+Iν = Iνr (ν/νr )β (15) 
+
+where for synchrotron emission β = −0.7, for free-free emission 
+
+β = −0.1, for RJ emission β = 2, and for dust-like galactic emis-sion β ≈ 3.5. The νr is a convenient reference or pivot frequency. More specific versions of this generic parameterization include the CMB, diffuse dust, the cosmic infrared background (CIB), and the Sunyaev-Zel’dovich effects [40]. Point source emission is also generally characterized with a power law as Sν = Sνr (ν/νr )β where Sν is the flux in Jan-skys. The conventions for β are the same as for beam-filling sources but the terminology is slightly different. For example, “flat spectrum" radio sources have β ≈ 0. Because of the variety of processes that produce these power laws, there is a large vari-ation in β especially at millimeter wavelengths where the indices span from roughly β = −0.7 to β = 3.5; thus classification by spectral index can be misleading. In general, β can vary over a band but we do not treat this case. For both extended and point-source-like emission, the power law exponent for brightness temperature is β − 2. We note that α
+
+is often used as the exponent for the flux density spectral index and β for brightness temperature. However, because in this work α is used for the exponent of the frequency dependence of the forward gain (Section D), we instead use β for the flux density spectral index. 
+
+B. Color Corrections for Beam-Filling Sources 
+
+The purpose of a color correction is to convert the surface bright-ness of a non-CMB signal in a CMB-calibrated map to the surface brightness associated with the signal’s spectral type. In this ap-proach, we fix a reference frequency νr, any one we choose, and find flux at that frequency as a function of the spectral index or equivalent. Our derivation is similar to but differs somewhat from that in [38].               
+
+> 6In [10], g2(ν)−1=b′
+> ν,g1(ν)−1=t′
+> ν, and f(ν) = τ(ν).Research Article 15
+
+Fig. 17. Color correction curves of R(β, νr = ν0) with 1 σ uncer-tainties for each AdvACT array. For each array, ν0 is defined by Equation 22 and reported in Table 5. The detected power is (see Equation 7) 
+
+P = C
+
+> Z
+
+Iνν−2τ(ν)dν. (16) 
+
+Again, the ν−2 factor comes from the effective area for a single mode of radiation. For Iν = Bν(T) in the RJ limit we recover Equation 8 with C = c2/2. If we have a map pixel with some value M, then 
+
+M = C′
+
+> Z
+
+Iνν−2τ(ν)dν, (17) 
+
+where C′ includes the new normalization factors. When the map is calibrated in CMB temperature units, an input CMB signal, 
+
+δIν = b′
+
+> ν
+
+δTCMB , should yield M = δTCMB . From Equation 12 we see that this holds true when 
+
+C′ =
+
+Z
+
+b′
+
+> ν
+
+ν−2τ(ν)dν
+
+−1
+
+. (18) 
+
+Now say we have a source spectrum given by Equation 15. This will be measured as 
+
+M = C′ Iνr
+
+> Z
+
+(ν/νr )βν−2τ(ν)dν (19) 
+
+so that 
+
+Iνr = M
+
+R b′
+
+> ν
+
+ν−2τ(ν)dν
+
+R (ν/νr )βν−2τ(ν)dν , (20) 
+
+which we write as 
+
+M = Iνr
+
+b′
+
+> νr
+
+R (ν/νr )βν−2τ(ν)dν
+
+R b′
+
+> ν
+> b′
+> νr
+
+ν−2τ(ν)dν
+
+= Iνr
+
+b′
+
+> νr
+
+R(β, νr ). (21) 
+
+The R(β, νr ) are the “color corrections." They convert beam-filling celestial signals, such as dust, into the CMB temperature units displayed in a map and vice versa. This last expression says pick a reasonable reference frequency νr, take the source surface brightness Iν at that frequency, convert it to temperature with b′ 
+
+> νr
+
+, and then multiply by R(β, νr ) to put it into CMB tem-perature units. Plots of R(β, νr ) for each of the AdvACT arrays are shown in Figure 17. The 1-sigma uncertainties are obtained using the same Monte Carlo process detailed in C.2. 
+
+C. Effective Frequencies for Beam-Filling Sources  
+
+> Central frequency
+
+The independence of frequency in Equation 8 is a consequence of being in the RJ regime, but for any instru-ment we have a general idea of the frequency of observation. It is somewhere near the middle of the band. However, there is no physical principle that determines its value. Therefore, we adopt the following definition for the central frequency for a receiver viewing a beam-filling RJ source, the same as used in the main body of this work, Equation 5: 
+
+ν0 ≡
+
+R ντ (ν)dν
+
+R τ(ν)dν . (22) 
+
+For flat passband between νa and νb, ν0 = ( νa + νb)/2 in accord with our intuition.  
+
+> Effective frequencies
+
+Jarosik et al. [14] give the frequency at which a beam-filling source should be evaluated so that its emis-sion equals the band averaged quantity. We now derive this effective frequency for a source characterized by Iν. In a small band δν ,
+
+P = Iν
+
+c2
+
+ν2 τ(ν)δν →
+
+R Iν c2 
+
+> ν2
+
+τ(ν)dν
+
+R τ(ν)dν ∆ν. (23) 
+
+The expression to the right of the arrow simply sums up all the sub-band contributions to make the full band, ∆ν. This ex-pression is the same as Equation 49 in [14], up to some constants and a different convention for β. The power detected in one spatial mode in both polarizations can be expressed in terms of the brightness temperature as 
+
+P = 2kB T∆ν = 2kB
+
+Iνe t′
+
+> νe
+
+b′
+
+> νe
+
+∆ν, (24) 
+
+where νe is the effective frequency of the source. Note that 
+
+b′
+
+> ν
+
+/t′ 
+
+> ν
+
+= b0 x2. In the RJ limit I → b0 Tx 2 = 2ν2kB T/c2 and Equations 23 and 24 give the same thing. As is the case in [14], in the RJ limit for a beam-filling source frequency drops out of both sides and so the effective frequency is set by Equation 22. For other sources we solve the following equation to determine the effective frequency 
+
+Iνe t′
+
+> νe
+
+b′
+
+> νe
+
+≡ c2
+
+2kB
+
+R Iνν−2τ(ν)dν
+
+R τ(ν)dν . (25) 
+
+For a map calibrated in δTCMB we may plug in Equation 12 to find that the effective frequency is defined by 2kBδTCMB t′ 
+
+> νe
+
+= δTCMB 
+
+R b′  
+
+> νc2
+> ν2
+
+τ(ν)dν
+
+R τ(ν)dν , (26) Research Article 16 
+
+or 
+
+t′ 
+
+> νc
+
+= c2
+
+2kB
+
+R b′
+
+> ν
+
+ν−2τ(ν)dν
+
+R τ(ν)dν , (27) 
+
+where we have let νe = νc to denote the CMB. The values for νc
+
+and for νe for a variety of sources are given in Appendix B. 
+
+> Effective frequencies vs. color corrections for beam-filling sources.
+
+Suppose that we have a map calibrated in δTCMB at νc and we measure a source, such as the galactic plane, with a spec-trum given by Equation 15. What do we report for Iνr ? With Iν
+
+(Equation 12) evaluated at the CMB effective frequency, νc, and Equation 25 we get 
+
+Iνc = δTCMB b′ 
+
+> νc
+
+= c2
+
+2kB
+
+b′
+
+> νc
+
+t′
+
+> νc
+
+R Iνr
+
+ ννr
+
+β
+
+ν−2τ(ν)dν
+
+R τ(ν)dν . (28) 
+
+Solving for Iνr and substituting in Equation 27 for t′ 
+
+> νc
+
+, we find 
+
+Iνr = Iνc
+
+1
+
+b′
+
+> νc
+
+R b′
+
+> ν
+
+ν−2τ(ν)dν
+
+R  ννr
+
+β
+
+ν−2τ(ν)dν
+
+. (29) 
+
+Because M = Iνc /b′ 
+
+> νc
+
+the above is the same as Equation 20. Thus, the color correction and effective frequency approaches encode the same information but in different ways. The color corrections, though, are often more convenient because they give the response for different values of β at a reference frequency as opposed to a series of effective frequencies for different values of β.
+
+D. Effective Frequencies for Point Sources 
+
+Point sources appear in our maps as hot spots with the profile of the instrument beam. 7 Their amplitudes are calibrated to the CMB, while the beam profile is measured using planet scans. The source flux, Sν, is related to the surface brightness through 
+
+Iν = Sνδ(cos θ − cos θ0)δ(ϕ − ϕ0), (30) 
+
+where the delta functions pick out its position at coordinates 
+
+(θ0, ϕ0). The power measured in small band δν while pointing in direction ⃗ θ = ( θ, ϕ) is 
+
+P(⃗ θ) = 
+
+Z
+
+Iν(⃗ θ′ −⃗ θ)Ae( ˆn′, ν) dΩ′ 
+
+> ν
+
+δν , (31) 
+
+where, as before, Ae is the effective area of the primary optic. The integral is over the solid angle. For ease of notation we have suppressed a possible rotation of the beam around its axis. By the reciprocity theorem or energy conservation (see e.g., [41] or [37]), Ae( ˆn, ν) = λ2Gν(θ, ϕ)/4 π, the more general form of “AΩ = mλ2" with m = 1 for a single mode. With this, 
+
+P(⃗ θ) = 
+
+Z
+
+Iν(⃗ θ′ −⃗ θ) c2
+
+4πν 2 Gν(⃗ θ′)dΩ′ 
+
+> ν
+
+δν . (32) 
+
+Combining the contributions from each sub-band weighted by the bandwidth, we obtain 
+
+P = 2kB T∆ν = c2
+
+4π
+
+RR Iν(⃗ θ′ −⃗ θ)ν−2Gν(⃗ θ′)τ(ν)dΩ′
+
+> ν
+
+dν
+
+R τ(ν)dν ∆ν. (33) 
+
+Integrating over solid angle and substituting in for Iν we find [9] 
+
+Tr = c2Sνr
+
+8πkBνβ
+
+> r
+
+R νβν−2Gm(ν)τ(ν)dν
+
+R τ(ν)dν = ΓSνr , (34) 
+
+> 7In this treatment we ignore the pixel window function.
+
+where Gm(ν) is the maximum forward gain. It is defined through 
+
+Gν(θ, ϕ) = Gm(ν)B(θ, ϕ) = 4π
+
+ΩB
+
+ ννB
+
+α
+
+B(θ, ϕ), (35) 
+
+where B is the normalized beam profile and νB is the frequency at which the beam solid angle, ΩB, is measured. Here we have modeled the frequency dependence of the forward gain as G(ν) = GνB (ν/νB)α. When α = 0, the beam is independent of frequency. In regards to what a detector measures, this is the same as one gets with a beam-filling source. When α = 2, the illuminated area of the primary is independent of frequency. This behavior is expected because the cryogenic Lyot stop is imaged to a fixed radius on the primary [42]. Combining the previous two equations gives 
+
+Γ = c2
+
+2kBΩBνβ 
+
+> r
+
+να
+
+> B
+
+R νβνα−2τ(ν) dν
+
+R τ(ν) dν 10 −20 [μK/Jy ], (36) 
+
+for any reference frequency νr. The ν−2 in the numerator is grouped with the α because both are associated with the gain. By convention, Γ converts the power in both polarizations to a brightness temperature. To find an effective frequency for a source, we let Te = Tr.These can be written as 
+
+Tr = c2Sνr
+
+2kBΩBνβ 
+
+> r
+
+να
+
+> B
+
+R νβνα−2τ(ν)dν
+
+R τ(ν)dν (37) 
+
+Te = c2Sνr
+
+2kBΩB
+
+ νe
+
+νr
+
+β  νe
+
+νB
+
+α
+
+νe−2 (38) 
+
+Solving for νe we find 8
+
+ν(β+α−2) 
+
+> e
+
+=
+
+R νβνα−2τ(ν)dν
+
+R τ(ν)dν . (39) 
+
+For a beam-filling ( α = 0) source, this reduces to the result from Equation 25. From Equation 39, we see that given the effective frequency and solid angle, we can compute the flux at any reference fre-quency with 
+
+Γ = c2
+
+2kBΩBν2
+
+> e
+
+ νe
+
+νB
+
+α  νe
+
+νr
+
+β
+
+. (40) 
+
+For νr = νe, this reduces to 
+
+Γ = c2
+
+2kBΩBν2
+
+> e
+
+ νe
+
+νB
+
+α
+
+= c2
+
+2kBν2
+
+> e
+
+Gm(νe)
+
+4π = Ae
+
+2kB
+
+(41) 
+
+which is equation 3.48 of [37]. Here the effective area is com-puted at the effective frequency. Appendix B gives νe, Γ, and ΩB
+
+in a variety of cases. A convenient form for Γ at a fixed frequency is Γ = ( b0 x2ΩB)−1. 
+
+> Connecting ACT’s measurements to the effective frequency.
+
+Point sources are detected in our maps with a matched filter that returns the amplitude of the source in units of δTCMB . The source has some effective frequency, νe, in the band and shows up in the map with a brightness temperature 
+
+Ts,νe = δTs,CMB t′ 
+
+> νe
+
+(42)  
+
+> 8This updates equation 26 in Page et al 2003. The correction was pointed out to L. Page by Ricardo Genova. Research Article 17
+
+and an associated flux Sνe = Ts,νe /Γνe . In general, νe is differ-ent than νc. From here we can compute the flux at any other reference frequency with Sνr = Sνe
+
+ νr
+
+> νe
+
+β
+
+.The prescription for reporting the flux from a point source with known β at, for example, νr = 150 GHz, is then a) use a matched filter to find δTs,CMB , b) compute the effective fre-quency for νr, β, α, and τ(ν) from Equation 39, c) compute t′
+
+> νe
+
+from Equation 14 to get the brightness temperature Ts,νe from 
+
+δTs,CMB , d) compute Γ for νe and νr to find the flux, Sνe , from 
+
+Ts,νe , and e) find the flux at the reference frequency, Sνr .Research Article 18 
+
+B. NUMERICAL RESULTS 
+
+We present the general characteristics of all the passbands measured for ACT in the common framework outlined in this work. The quoted uncertainties are based on the analysis described in this paper and do not include potential systematic shifts from out of band features at or below our noise level. 
+
+Table 6. Passband characteristics for MBAC Array AR1 (GHz) AR2 (GHz) AR3 (GHz) 
+
+ν0 150.1 ± 3.5 220.4 ± 3.5 276.5 ± 3.5 Bandwidth, ∆ν 18.2 17.0 20.5 Dicke bandwidth, ∆D ν 28.3 25.8 35.4 Effective frequencies for beam-filling sources Synchrotron ( β = −0.7) 149.1 219.8 276.0 Free-free ( β = −0.1) 149.3 219.9 276.0 Dust ( β = 3.5) 150.2 220.5 276.7 CMB ( νc) 150.0 220.2 276.0 
+
+Γ and effective frequencies for point sources 
+
+Γ (μK/Jy), ( νe) ( β = −0.7) 6460 (149.6) 5400 (220.0) 4340 (276.2) 
+
+Γ (μK/Jy), ( νe) ( β = −0.1) 6460 (149.7) 5390 (220.1) 4340 (276.3) 
+
+Γ (μK/Jy), ( νe) ( β = 3.5) 6450 (150.6) 5380 (220.6) 4330 (277.2) Conversion factors and beam characteristics 
+
+δTCMB /δTRJ at ν = νc 1.74 ± 0.04 3.08 ± 0.10 5.38 ± 0.20 
+
+δW/δTRJ (pW/K) 0.503 0.469 0.566 
+
+ΩB (nsr) 223.2 ± 4.0 124.4 ± 2.5 98.1 ± 2.0 
+
+νB (GHz) 150.3 220.4 276.5 
+
+α 1.8 1.1 1.1 
+
+This table updates Table 4 in [43]. The central values have shifted somewhat within the original uncertainty but we retain the original value of ±3.5 GHz on frequencies and retain other error bars as well. The δTRJ to δTCMB conversion is the inverse of Equation 14. We now report δW/δTRJ for η = 1 in Equation 8 but for two polarizations because we measure both. The uncertainties on Γ are 320, 200 and 140 μK/Jy for AR1, AR2, and AR3 respectively. For ΩB we use the weighted average of the values in Table 2 of [44] increased to account for beam jitter reported in Table 3 therein. We have also increased the uncertainties to account for systematic errors described in [45]. The νB is from Equation 39 using estimates of α based on subsequent modeling of the ACT forward gain via GRASP 9.
+
+Table 7. Passband characteristics for ACTPol Array PA1 (GHz) PA2 (GHz) PA3, f090 (GHz) PA3, f150 (GHz) 
+
+ν0 150.9 ± 2.4 151.3 ± 2.4 98.4 ± 1.7 148.5 ± 2.4 Bandwidth, ∆ν 33.5 ± 2.1 33.0 ± 1.9 20.7 ± 1.9 30.1 ± 1.6 Dicke bandwidth, ∆D ν 50.3 ± 1.9 51.0 ± 1.9 34.1 ± 1.9 42.2 ± 1.6 Effective frequencies for beam-filling sources Synchrotron ( β = −0.7) 148.4 148.8 96.2 146.8 Free-free ( β = −0.1) 148.8 149.2 96.6 147.1 Dust ( β = 3.5) 151.2 151.6 98.7 148.7 CMB ( νc) 150.8 151.2 98.7 148.4 
+
+Γ and effective frequencies for point sources 
+
+Γ (μK/Jy), ( νe) ( β = −0.7) 7080 (149.7) 7460 (150.0) 6570 (97.4) 5550 (147.7) 
+
+Γ (μK/Jy), ( νe) ( β = −0.1) 7080 (150.1) 7450 (150.4) 6570 (97.7) 5550 (147.9) 
+
+Γ (μK/Jy), ( νe) ( β = 3.5) 7060 (152.4) 7430 (152.8) 6560 (99.7) 5540 (149.5) Conversion factors and beam characteristics 
+
+δTCMB /δTRJ at ν = νc 1.75 ± 0.03 1.75 ± 0.03 1.28 ± 0.01 1.72 ± 0.03 
+
+δW/δTRJ (pW/K) 0.463 0.456 0.286 0.416 
+
+ΩB (nsr) 200.8 ± 5.0 189.9 ± 4.3 507 ± 22 265.0 ± 6.4 
+
+νB 151.4 151.8 98.9 148.9 
+
+α 1.8 1.8 1.9 1.8 
+
+This updates Table 1 in [1] and Tables A1 and A2 in [46]. The central values have shifted by roughly the original quoted uncertainties (2.4 GHz) and we retain the original error bound of ±2.4 GHz on f150 bands and ± 1.7 GHz on the f090 band. The uncertainties on the Γ’s are 290, 290, 360, and 230 
+
+μK/Jy for PA1, PA2, PA3 f090, and PA3 f150, respectively. The δTRJ to δTCMB conversion is the inverse of Equation 14. We give δW/δTRJ for η = 1 in Equation 8 for one polarization. The values for α are estimated based on modeling of the ACT forward gain using GRASP. For ΩB, we use the weighted average over all observations in Table 4 of [45]. These solid angles include the “jitter beam.” The νB is from Equation 39.  
+
+> 9GRASP. 2018, The GRASP reflector antenna design software package is available through www.ticra.com. Research Article 19
+
+Table 8. Passband characteristics for Advanced ACTPol, part A Array PA7, f030 (GHz) PA7, f040 (GHz) PA5, f090 (GHz) PA6, f090 (GHz) PA4, f220 (GHz) 
+
+ν0 27.4 ± 0.3 38.3 ± 1.3 96.4 ± 0.9 95.3 ± 1.1 226.3 ± 3.4 Bandwidth, ∆ν 4.3 ± 0.4 12.4 ± 0.8 18.9 ± 1.0 23.1 ± 1.0 65.2 ± 2.4 Dicke bandwidth, ∆D ν 6.3 ± 0.2 15.6 ± 0.3 26.9 ± 0.3 30.3 ± 0.3 81.5 ± 0.5 Effective frequencies for beam-filling sources Synchrotron ( β = −0.7) 27.1 37.4 95.3 93.9 222.3 Free-free ( β = −0.1) 27.2 37.6 95.5 94.1 222.9 Dust ( β = 3.5) 27.4 38.4 96.6 95.5 226.8 CMB ( νc) 27.4 38.5 96.6 95.5 224.7 
+
+Γ and effective frequencies for point sources 
+
+Γ (μK/Jy), ( νe) ( β = −0.7) 8570 (27.3) 7850 (37.9) 7170 (95.9) 7290 (94.6) 5800 (223.5) 
+
+Γ (μK/Jy), ( νe) ( β = −0.1) 8570 (27.3) 7850 (38.0) 7170 (96.0) 7290 (94.9) 5790 (224.1) 
+
+Γ (μK/Jy), ( νe) ( β = 3.5) 8570 (27.5) 7840 (38.9) 7160 (97.2) 7280 (96.2) 5700 (228.0) Conversion factors and beam characteristics 
+
+δTCMB /δTRJ at ν = νc 1.02 ± 0.01 1.04 ± 0.01 1.27 ± 0.01 1.26 ± 0.01 3.21 ± 0.10 
+
+δW/δTRJ (pW/K) 0.059 0.171 0.261 0.319 0.900 
+
+ΩB (nsr) 5060 a 2800 a 487.8 ± 3.6 491.9 ± 2.6 110.6 ± 1.6 
+
+νB 27.4 38.5 96.5 95.3 226.7 
+
+α 1.99 1.94 1.9 1.9 1.1 
+
+The uncertainties on the Γ’s are 250, 550, 150, 180, and 180 μK/Jy for arrays PA7 f030, PA7 f040, PA5 f090, PA6 f090, and PA4 f220, respectively. The 
+
+δTRJ to δTCMB conversion is the inverse of Equation 14. We give δW/δTRJ for η = 1 in Equation 8 for one polarization. For ΩB, we use the solid angles computed from estimates of the monochromatic beam profile evaluated at each reference frequency νB. These solid angles include the “jitter beam.” The profiles were released through NASA’s Legacy Archive for Microwave Background Data Analysis (LAMBDA; https://lambda.gsfc.nasa.gov/ product/act/act_dr6.02/act_dr6.02_harmonic_beams_profiles_info.html ) and are described as part of the ACT DR6 map release [2]. The files follow the naming convention act_dr6.02_main_beams/main_beams/nominal/coadd_{array}_{band}_night_beam_tform_jitter_mono.txt , where {array} 
+
+and {band} denote the detector array and frequency band listed in the corresponding table column (e.g., pa5 and f090 ). The solid angles for PA7 are preliminary and not a data product. They are included to indicate the expectations from PA7. 
+
+Table 9. Passband characteristics for Advanced ACTPol, part B Array PA4, f150 (GHz) PA5, f150 (GHz) PA6, f150 (GHz) 
+
+ν0 148.5 ± 1.1 149.3 ± 1.3 147.8 ± 0.9 Bandwidth, ∆ν 35.8 ± 1.4 28.0 ± 1.4 31.0 ± 1.4 Dicke bandwidth, ∆D ν 44.2 ± 0.3 38.2 ± 0.3 40.5 ± 0.3 Effective frequencies for beam-filling sources Synchrotron ( β = −0.7) 146.7 147.9 146.3 Free-free ( β = −0.1) 147.0 148.1 146.5 Dust ( β = 3.5) 148.8 149.5 148.0 CMB ( νc) 148.4 149.2 147.8 
+
+Γ and effective frequencies for point sources 
+
+Γ (μK/Jy), ( νe) ( β = −0.7) 6470 (147.6) 6770 (148.6) 6710 (147.0) 
+
+Γ (μK/Jy), ( νe) ( β = −0.1) 6470 (147.9) 6770 (148.8) 6710 (147.3) 
+
+Γ (μK/Jy), ( νe) ( β = 3.5) 6460 (149.6) 6760 (150.1) 6700 (148.8) Conversion factors and beam characteristics 
+
+δTCMB /δTRJ at ν = νc 1.72 ± 0.01 1.73 ± 0.02 1.71 ± 0.01 
+
+δW/δTRJ (pW/K) 0.494 0.388 0.429 
+
+ΩB (nsr) 228.3 ± 1.9 215.8 ± 1.5 221.9 ± 1.1 
+
+νB 148.5 149.3 147.9 
+
+α 1.8 1.8 1.8 
+
+The uncertainties on the Γ’s are 100, 120, and 90 μK/Jy for arrays PA4, PA5, and PA6, respectively. The δTRJ to δTCMB conversion is the inverse of Equation 14. We give δW/δTRJ for η = 1 in Equation 8 for one polarization. For ΩB, we use the solid angles computed from estimates of the monochromatic beam profile evaluated at each reference frequency νB. These solid angles include the “jitter beam.” The profiles were released through NASA’s Legacy Archive for Microwave Background Data Analysis (LAMBDA; https://lambda.gsfc.nasa.gov/product/act/act_dr6.02/ act_dr6.02_harmonic_beams_profiles_info.html ) and are described as part of the ACT DR6 map release [2]. The files follow the naming convention 
+
+act_dr6.02_main_beams/main_beams/nominal/coadd_{array}_{band}_night_beam_tform_jitter_mono.txt , where {array} and {band} denote the detector array and frequency band listed in the corresponding table column (e.g., pa5 and f150 ). Research Article 20 
+
+Acknowledgment. Support for ACT was through the U.S. National Science Foundation through awards AST-0408698, AST-0965625, and AST-1440226 for the ACT project, as well as awards PHY-0355328, PHY-0855887 and PHY-1214379. Funding was also provided by Princeton Uni-versity, the University of Pennsylvania, and a Canada Foundation for In-novation (CFI) award to UBC. ACT operated in the Parque Astronómico Atacama in northern Chile under the auspices of the Agencia Nacional de Investigación y Desarrollo (ANID). The development of multichroic detectors and lenses was supported by NASA grants NNX13AE56G and NNX14AB58G. Detector research at NIST was supported by the NIST Innovations in Measurement Science program. Computing for ACT was performed using the Princeton Research Computing resources at Princeton University, the National Energy Research Scientific Com-puting Center (NERSC), and the Niagara supercomputer at the SciNet HPC Consortium. SciNet is funded by the CFI under the auspices of Compute Canada, the Government of Ontario, the Ontario Research Fund–Research Excellence, and the University of Toronto. We thank the Republic of Chile for hosting ACT in the northern Atacama, and the local indigenous Licanantay communities whom we follow in observing and learning from the night sky. 
+
+Disclosures. The authors declare no conflicts of interest. 
+
+Data availability. Data underlying the simulations presented in this work are available on Zenodo [47]. The codes used to generate the FTS optical simulations (FTS-Simulation; [48]) and process the measured passbands (passband-analysis; [49]) are available on GitHub. 
+
+REFERENCES 
+
+1. R. J. Thornton, P. A. R. Ade, S. Aiola, et al. , “The atacama cosmol-ogy telescope: The polarization-sensitive ACTPol instrument,” The Astrophys. J. Suppl. Ser. 227 , 21 (2016). 2. S. Naess, Y. Guan, A. J. Duivenvoorden, et al. , “The atacama cos-mology telescope: Dr6 maps,” J. Cosmol. Astropart. Phys. 2025 , 061 (2025). 3. P. Ade, J. Aguirre, Z. Ahmed, et al. , “The simons observatory: sci-ence goals and forecasts,” J. Cosmol. Astropart. Phys. 2019 , 056–056 (2019). 4. M. Abitbol, I. Abril-Cabezas, S. Adachi, et al. , “The simons observatory: science goals and forecasts for the enhanced large aperture telescope,” J. Cosmol. Astropart. Phys. 2025 , 034 (2025). 5. M. H. Abitbol, D. Alonso, S. M. Simon, et al. , “The simons observatory: gain, bandpass and polarization-angle calibration requirements for b-mode searches,” J. Cosmol. Astropart. Phys. 2021 , 032 (2021). 6. S. Giardiello, M. Gerbino, L. Pagano, et al. , “The simons observatory: impact of bandpass, polarization angle and calibration uncertainties on small-scale power spectrum analysis,” J. Cosmol. Astropart. Phys. 
+
+2024 , 008 (2024). 7. B. Beringue, K. M. Surrao, J. C. Hill, et al. , “The atacama cosmology telescope: Dr6 power spectrum foreground model and validation,” J. Cosmol. Astropart. Phys. 2025 , 082 (2025). 8. J. A. Sobrin, A. J. Anderson, A. N. Bender, et al. , “The design and integrated performance of spt-3g,” The Astrophys. J. Suppl. Ser. 258 ,42 (2022). 9. L. Page, C. Jackson, C. Barnes, et al. , “The optical design and charac-terization of the microwave anisotropy probe,” The Astrophys. J. 585 ,566–586 (2003). 10. S. K. Choi, M. Hasselfield, S.-P. P. Ho, et al. , “The atacama cosmology telescope: a measurement of the cosmic microwave background power spectra at 98 and 150 ghz,” J. Cosmol. Astropart. Phys. 2020 , 045 (2020). 11. C. L. Bennett, R. S. Hill, G. Hinshaw, et al. , “First-year wilkinson mi-crowave anisotropy probe (wmap)* observations: Foreground emis-sion,” The Astrophys. J. Suppl. Ser. 148 , 97 (2003). 12. G. Hurier, J. F. Macías-Pérez, and M. H. Pedrosa, “MILCA, a modified internal linear combination algorithm to extract astrophysical emissions from multifrequency sky maps,” Astron. & Astrophys. 558 , A118 (2013). 13. J. Peatross and M. Ware, Physics of Light and Optics (BYU, 2020), 3rd ed. 14. N. Jarosik, C. L. Bennett, M. Halpern, et al. , “Design, implementa-tion, and testing of the microwave anisotropy probe radiometers,” The Astrophys. J. Suppl. Ser. 145 , 413 (2003). 15. J. Chamberlain, “The principles of interferometric spectroscopy,” A Wiley-Interscience Publ. (1979). 16. L. A. Page, E. S. Cheng, B. Golubovic, et al. , “Millimeter–submillimeter wavelength filter system,” Appl. Opt. 33 , 11–23 (1994). 17. F. Matsuda, L. Lowry, A. Suzuki, et al. , “The polarbear fourier trans-form spectrometer calibrator and spectroscopic characterization of the polarbear instrument,” Rev. Sci. Instruments 90 , 115115 (2019). 18. K. S. Karkare, P. A. R. Ade, Z. Ahmed, et al. , “Keck array and BICEP3: spectral characterization of 5000+ detectors,” in Millimeter, Submillime-ter, and Far-Infrared Detectors and Instrumentation for Astronomy VII, 
+
+vol. 9153 of Society of Photo-Optical Instrumentation Engineers (SPIE) Conference Series W. S. Holland and J. Zmuidzinas, eds. (2014), p. 91533B. 19. Planck Collaboration, Ade, P. A. R., Aghanim, N., et al. , “Planck 2013 results. ix. hfi spectral response,” Astron. Astrophys. 571 , A9 (2014). 20. A. Kogut, D. Fixsen, D. Chuss, et al. , “The primordial inflation explorer (pixie): a nulling polarimeter for cosmic microwave background obser-vations,” J. Cosmol. Astropart. Phys. 2011 , 025 (2011). 21. Z. Pan, M. Liu, R. Basu Thakur, et al. , “Compact millimeter-wavelength fourier-transform spectrometer,” Appl. Opt. 58 , 6257 (2019). 22. M. Born and E. Wolf, Principles of Optics: Electromagnetic Theory of Propagation, Interference and Diffraction of Light (Cambridge Univer-sity Press, Cambridge, 1999), 7th ed. 23. M. Liu, Z. Pan, R. B. Thakur, and S. S. Meyer, “Simulation and calibra-tion of a compact millimeter-wavelength fourier transform spectrometer,” Appl. Opt. 59 , 7726–7733 (2020). 24. J. Krupka, “Measurements of the complex permittivity of low loss poly-mers at frequency range from 5 ghz to 50 ghz,” IEEE Microw. Wirel. Components Lett. 26 , 464–466 (2016). 25. B. D. Elwood, P. K. Grimes, J. Kovac, et al. , “Fabry–Pérot open resonant cavities for measuring the dielectric parameters of mm-wave optical materials,” in Millimeter, Submillimeter, and Far-Infrared Detectors and Instrumentation for Astronomy XII, vol. PC13102 J. Zmuidzinas and J.-R. Gao, eds., International Society for Optics and Photonics (SPIE, 2024), p. PC1310220. 26. R. Datta, J. Austermann, J. A. Beall, et al. , “Design and deployment of a multichroic polarimeter array on the atacama cosmology telescope,” J. Low Temp. Phys. 184 , 568–575 (2016). 27. S. Henderson, R. Allison, J. Austermann, et al. , “Advanced actpol cryogenic detector arrays and readout,” J. Low Temp. Phys. 184 (2016). 28. B. J. Koopman, N. F. Cothard, S. K. Choi, et al. , “Advanced actpol low-frequency array: Readout and characterization of prototype 27 and 39 ghz transition edge sensors,” J. Low Temp. Phys. 193 , 1103–1111 (2018). 29. L. Mertz, “Auxiliary computation for fourier spectrometry,” Infrared Phys. 
+
+7, 17–23 (1967). 30. C. E. Sierra, K. Harrington, S. Sutariya, et al. , “Simons observatory: Predeployment performance of a large aperture telescope optics tube in the 90 and 150 ghz spectral bands,” The Astrophys. J. Suppl. Ser. 
+
+276 , 31 (2025). 31. K. Harrington, C. Sierra, G. Chesmore, et al. , “The integration and testing program for the simons observatory large aperture telescope optics tubes,” Millimeter, Submillimeter, Far-Infrared Detect. Instrum. for Astron. X (2020). 32. W. Coulton, M. S. Madhavacheril, A. J. Duivenvoorden, et al. , “Atacama cosmology telescope: High-resolution component-separated maps across one third of the sky,” Phys. Rev. D 109 , 063530 (2024). 33. T. Louis, A. La Posta, Z. Atkins, et al. , “The atacama cosmology tele-scope: Dr6 power spectra, likelihoods and λcdm parameters,” J. Cos-mol. Astropart. Phys. 2025 , 062 (2025). 34. E. Calabrese, J. C. Hill, H. T. Jense, et al. , “The atacama cosmol-ogy telescope: Dr6 constraints on extended cosmological models,” J. Cosmol. Astropart. Phys. 2025 , 063 (2025). 35. S. Giardiello, A. J. Duivenvoorden, E. Calabrese, et al. , “Modeling beam chromaticity for high-resolution cmb analyses,” Phys. Rev. D 111 ,Research Article 21 
+
+043502 (2025). 36. S. Sutariya et al. , “Bandpass calibration using a frequency-selectable laser source (fls),” (2026). In preparation. 37. J. J. Condon and S. M. Ransom, Essential Radio Astronomy , Princeton Series in Modern Observational Astronomy (Princeton University Press, Princeton, NJ, USA, 2016). 38. P. A. R. Ade, N. Aghanim, M. Arnaud, et al. , “Planck intermediate results: Ix. detection of the galactic haze with planck,” Astron. & Astro-phys. 554 , A139 (2013). 39. R. H. Dicke, “The Measurement of Thermal Radiation at Microwave Frequencies,” Rev. Sci. Instruments 17 , 268–275 (1946). 40. R. A. Sunyaev and Y. B. Zeldovich, “The Observations of Relic Radi-ation as a Test of the Nature of X-Ray Radiation from the Clusters of Galaxies,” Comments on Astrophys. Space Phys. 4, 173 (1972). 41. J. D. Kraus, Radio Astronomy (Cygnus-Quasar Books, 1986), 2nd ed. 42. J. W. Fowler, M. D. Niemack, S. R. Dicker, et al. , “Optical design of the atacama cosmology telescope and the millimeter bolometric array camera,” Appl. Opt. 46 , 3444 (2007). 43. D. S. Swetz, P. A. R. Ade, M. Amiri, et al. , “Overview of the atacama cos-mology telescope: Receiver, instrumentation, and telescope systems,” The Astrophys. J. Suppl. Ser. 194 , 41 (2011). 44. M. Hasselfield, M. Hilton, T. A. Marriage, et al. , “The atacama cos-mology telescope: Sunyaev-zel’dovich selected galaxy clusters at 148 ghz from three seasons of data,” J. Cosmol. Astropart. Phys. 2013 ,008–008 (2013). 45. M. Lungu, E. R. Storer, M. Hasselfield, et al. , “The atacama cosmology telescope: measurement and analysis of 1d beams for dr4,” J. Cosmol. Astropart. Phys. 2022 , 044 (2022). 46. R. Datta, S. Aiola, S. K. Choi, et al. , “The atacama cosmology tele-scope: two-season actpol extragalactic point sources and their polar-ization properties,” Mon. Notices Royal Astron. Soc. 486 , 5239–5262 (2018). 47. T. Alford, “Fts simulation datasets,” (2026). 48. T. Alford, “FTS-Simulation,” https://github.com/tdalford/FTS-Simulation (2026). GitHub repository. 49. T. Alford, “passband-analysis,” https://github.com/tdalford/ passband-analysis (2026). GitHub repository.
