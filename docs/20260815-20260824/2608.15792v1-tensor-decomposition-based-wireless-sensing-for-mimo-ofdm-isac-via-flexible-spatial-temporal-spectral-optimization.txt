@@ -1,0 +1,1950 @@
+Title: Tensor Decomposition-Based Wireless Sensing for MIMO-OFDM ISAC via Flexible Spatial-Temporal-Spectral Optimization
+
+URL Source: https://arxiv.org/pdf/2608.15792v1
+
+Published Time: Tue, 18 Aug 2026 01:14:04 GMT
+
+Number of Pages: 13
+
+Markdown Content:
+> 1
+
+# Tensor Decomposition-Based Wireless Sensing for MIMO-OFDM ISAC via Flexible Spatial-Temporal-Spectral Optimization 
+
+Chengzhi Ye, Student Member, IEEE , Ruoyu Zhang, Senior Member, IEEE , Lei Yao, Xinrong Guan, Yu Zhang, Wen Wu, Senior Member, IEEE , Rui Zhang, Fellow, IEEE 
+
+Abstract —Integrated sensing and communication (ISAC) is re-garded as a key enabling technique in future 6th-generation (6G) mobile communication systems. However, existing multi-input multi-output (MIMO) orthogonal frequency division multiplexing (OFDM) ISAC designs generally rely on the fixed-position an-tennas and fixed allocation of time-frequency resources, thereby limiting the degrees of freedom of wireless sensing along the spatial-temporal-spectral dimensions. In this paper, we propose a novel wireless sensing framework for MIMO-OFDM ISAC systems with flexible spatial-temporal-spectral optimization and propose a tensor decomposition-based approach to estimate target parameters, including azimuth/elevation angles, ranges, and velocities. Specifically, we first establish a monostatic wireless sensing model for MIMO-OFDM ISAC systems, where the positions of antenna elements, the allocation of OFDM symbols and subcarriers can be flexibly configured. Then, we formulate the problem of estimating target parameters as a tensor decom-position problem admitting to the canonical polyadic format, which enables the parallel target parameters estimation process from corresponding factor matrices along the spatial, temporal, and spectral dimensions, respectively. Based on the decomposed factor matrices, we derive the Cram´ er-Rao Bound (CRB) for the unknown target parameters and reveal that the estimation accuracy of azimuth/elevation angles, velocities and ranges is fundamentally determined by the array geometry, the distribu-tion of OFDM symbols and subcarriers. Building on this insight, we obtain an optimized solution for the positions of antenna elements, and optimal solutions for the subcarrier allocation and OFDM symbol allocation to minimize the CRB, as well as the mean square error of target parameters estimation. Numerical results demonstrate that the proposed tensor decomposition-based wireless sensing with spatial-temporal-spectral optimiza-tion can significantly reduce both the CRB and the actual root mean square error of wireless sensing compared to conventional MIMO-OFDM ISAC systems employing fixed-position antennas and static time-frequency resource allocation. 
+
+Index Terms —Multiple-input multiple-output (MIMO), or-thogonal frequency-division multiplexing (OFDM), integrated sensing and communication (ISAC), tensor decomposition, pa-rameter estimation, movable antenna (MA). 
+
+Chengzhi Ye, Ruoyu Zhang, Lei Yao and Wen Wu are with the Key Laboratory of Near-Range RF Sensing ICs and Microsystems (NJUST), Ministry of Education, School of Electronic and Optical Engineering, Nanjing University of Science and Technology, Nanjing 210094, China. Chengzhi Ye and Lei Yao are also with Qian Xue-sen College, Nanjing University of Science and Technology, Nanjing 210094, China (e-mail qxsycz8166@njust.edu.cn; ryzhang19@njust.edu.cn; yaolei@njust.edu.cn; wuwen@njust.edu.cn). Xinrong Guan is with the Col-lege of Communications Engineering, Army Engineering University of PLA, Nanjing 210007, China (e-mail: guanxr@aliyun.com). Yu Zhang is with The Sixty-Third Research Institute, National University of Defense Technology, Nanjing 210007, China. (e-mail: zhyu63@163.com). Rui Zhang is with the Department of Electrical and Computer Engineering, National University of Singapore, Singapore 117583 (e-mail: elezhang@nus.edu.sg). (Corresponding author: Ruoyu Zhang) 
+
+I. I NTRODUCTION 
+
+Integrated sensing and communication (ISAC), which serves as a unified platform for fully integrating radar sensing and communication capabilities, has been recognized as a fun-damental enabler for sixth-generation (6G) wireless systems [1]–[3]. The realization of ISAC has been facilitated by advanced multicarrier modulation techniques such as orthogo-nal frequency-division multiplexing (OFDM), which enhances spectral efficiency and robustness against multipath fading, along with other key enabling technologies [4], [5]. Mean-while, multiple-input multiple-output (MIMO), which utilizes multiple antennas at both the transmitter and receiver to enable spatial multiplexing and diversity, has emerged as one of the most promising technologies for next-generation mobile communication networks [6], [7]. Leveraging the spatial degrees of freedom and inherent waveform diversity, the integration of MIMO and ISAC can simultaneously achieve ultra-reliable communication and wire-less sensing, thereby facilitating a wide range of advanced applications [8]–[10]. To achieve this goal, a novel multibeam framework was proposed in [8] with a steady subbeam ded-icated to communication and a fully steerable one enabling uninterrupted scanning for sensing. The authors in [11] in-vestigated transmit beamforming designs for MIMO ISAC systems by proposing a multiobjective optimization framework to achieve a fair performance tradeoff between multiuser communications and multitarget sensing. Recent ISAC works developed a joint design methodology that can strike a scalable tradeoff between the dual functionalities via exploiting the extra flexibility and the degrees of freedom offered by MIMO techniques [12], [13]. However, the aforementioned MIMO ISAC systems generally configure the fixed-position antennas for both sensing and communication, failing to fully exploit the wireless signal variation in a given transmitter/receiver region and thereby cannot effectively adapt to the ISAC requirements in wireless networks. In recent years, movable antennas (MAs)/fluid antenna systems (FAs) have attracted considerable research interest due to their unique capability to flexibly optimize wireless channels through intelligent antenna repositioning [14], [15]. Unlike conventional fixed-position antenna arrays, MA tech-nology introduces an additional dimension of flexibility by enabling physical antenna movement within a certain spatial region, thereby fully exploiting the available spatial degrees of freedom [16]–[18]. As for wireless communications, the authors in [19] proposed multi-directional descent algorithms to jointly optimize antenna positions and transmit power, arXiv:2608.15792v1 [eess.SP] 16 Aug 2026 2
+
+thereby achieving a substantial reduction in the total transmit power. [20] proposed a joint beamforming and MA positioning scheme for minimizing the BS power consumption under user requirements, which is suitable for both ideal and non-ideal channel state information (CSI). The novel algorithm in [21] jointly optimizes beamforming and antenna positioning, which significantly improves the energy efficiency of movable an-tenna systems. Joint antenna position and rotation optimization was also considered in [22], which can fully exploit both the spatial and rotational degrees of freedom of MAs. As for sensing and ISAC, recent works also demonstrate the performance improvement of MAs for pushing the theoretical limits of sensing via optimizing spatial positioning [23]–[26]. For instance, the authors in [23] optimize movable antenna positions to minimize the Cram´ er-Rao Bound (CRB) for ISAC systems and achieve significant performance gains over fixed antennas. The work in [25] minimizes the CRB for angle estimation in a multiuser ISAC system by jointly optimizing movable antenna positions and beamforming. An MA array-based wireless sensing system was proposed in [26], which significantly reduces the CRB and practical mean square error for direction of arrival (DOA) estimation. Although the amalgamation of MA with ISAC has demonstrated significant performance improvement for communication and sensing, the aforementioned works did ont investigate how to realize wire-less sensing via estimating the information of target parameters in practical systems. In fact, the target parameter estimation problem has been ex-tensively studied in the field of conventional radar sensing and recently investigated in ISAC systems [27]–[29]. The authors in [27] proposed a robust multi-transmitter passive sensing system for near-field ISAC to enhance sensing performance under imperfect CSI. The study in [28] proposed a decoupled multiple signal classification (MUSIC) algorithm for near-field mobile target sensing, which achieves benchmark per-formance at a drastically reduced computational cost. A high-accuracy parameter estimation method was introduced in [29] for dual-function radar-communication systems using fourth-order statistics and improved matched-filtering. The work in [30] capitalized on the translational invariance structure of OFDM signals across both pulse and frequency domains to achieve auto-paired range and velocity estimation. Addi-tionally, [31] presented a two-dimensional MUSIC algorithm integrated with a carefully designed smoothing window to mitigate the computational burden. To further improve the sensing estimation accuracy, the authors in [32] considered intrapulse and intersubcarrier Doppler effects, leading to a refined maximum likelihood estimation scheme. Building on this, the work in [33] tackled the joint estimation of delay, Doppler, and angle parameters for multiple targets in MIMO-ISAC systems. Expanding the scope to system architecture, [34] proposed integrating radar sensing into mobile networks and developed direct/indirect schemes for estimating azimuth, range, and velocity via one-dimensional compressive sensing. The authors in [35] proposed a joint target detection and multi-user downlink channel estimation method based on sparse Bayesian learning. Recently, the tensor-based signal processing has been deemed as a promising solution for wireless sensing, such as DOA estimation, channel estimation, MIMO radar [36]– [39], and has been successfully applied for ISAC systems [40]. Different from the aforementioned compressed sensing-based methods that rely on constructing high-dimensional dictionary for sparse representation of channels, tensor-based process-ing has become one of promising tools for exploiting the multidimensional characteristics of high-dimensional channel matrices [41]–[44]. For example, the authors in [42] developed a unified tensor model for integrated wireless communication and sensing. In another study, the authors in [43] introduced a tensor-based channel training-assisted sensing framework for terahertz MIMO-ISAC systems. This approach employs tensor decomposition to jointly estimate both channel and target parameters, greatly reducing training overhead while enabling high-precision sensing. Additionally, [44] proposed a cooperative ISAC scheme for low-altitude drones, which can achieve high-precision estimation of drone parameters in multi-base station scenarios. From the discussion of aforementioned works, while MA systems can optimize the spatial positions of antennas to en-hance wireless sensing performance, and tensor decomposition can improve the estimation accuracy of multiple parameters, there still remain the following two limitations: 1) Conven-tional MA-enhanced ISAC systems only consider the spatial distribution of antennas, which is primarily limited to the spatial-domain optimization and fails to enhance the wireless sensing performance of other parameters beyond angles. 2) Existing tensor decomposition-based algorithms in MIMO-OFDM ISAC systems operate on a fixed resource allocation model for sensing and did not address the question of how to maximize sensing performance under the general spatial-temporal-spectral resource constraints. To address the limita-tions above, we develop in this paper a novel wireless sensing framework for MIMO-OFDM ISAC systems with flexible spatial-temporal-spectral optimization and propose a tensor decomposition-based approach to estimate target parameters, including azimuth/elevation angles, ranges, and velocities. The specific contributions can be summarized as follows: 1) Firstly, we propose a novel framework for enhanced wireless sensing in MIMO-OFDM ISAC systems, which establishes a monostatic sensing model with flexible spatial-temporal-spectral optimization of antenna posi-tions, OFDM symbols, and subcarriers, where the base station deploys MAs to collect the echo signals and performs target sensing within the limited coherence time and signal bandwidth. The positions of antenna elements, the allocation of OFDM symbols and subcar-riers can be flexibly configured to enhance the target parameter estimation performance. 2) We formulate the problem of target sensing as a novel tensor decomposition problem admitting to the canonical polyadic decomposition (CPD) format to accommodate flexible spatial-temporal-spectral configurations. Based on the decomposed factor matrices, we transform the joint estimation of target parameters into parallel estima-tion processes along the spatial, temporal, and spectral dimensions respectively. 3) We derive the CRBs for the unknown target param-eters and reveal that the estimation accuracy of az-3
+
+imuth/elevation angles, velocities and ranges is funda-mentally determined by the array geometry, the distri-bution of OFDM symbols and subcarriers. Building on this insight, we obtain a globally optimal solution for the positions of antenna elements, subcarrier allocation, and OFDM symbol allocation to minimize the CRB. 4) Finally, we conduct sufficient simulation experiments to present the superiority of our proposed method. The simulation results demonstrate that the performance of the proposed flexible spatial-temporal-spectral optimiza-tion via tensor decomposition performs significantly better than the conventional tensor decomposition-based method and the conventional subspace-based method, as well as the root mean square error (RMSE) of target parameters is closer to CRB. Notations: Lowercase letter, boldface lowercase letter, bold-face uppercase letter and calligraphy uppercase letter de-note the scalars, vectors, matrices and tensors, respectively. The conjugate, transpose, conjugate transpose, pseudo-inverse, mathematical expectation, and inverse are represented by (·) ∗,
+
+(·) T, (·) H, (·) −1 (·) †, and E{·} . The outer product of vectors is given by ◦. The Kronecker product, Khatri-Rao product are denoted by ⊗, ⊙. The expression diag (𝒃 ) denotes the diagonal matrix formed by using vector 𝒃 as its diagonal elements. The expression [𝒂 ]𝑘 and [𝑾 ] 𝑝,𝑞 denotes the 𝑘 -th element of the vector 𝒂 and the 𝑖 -th row and the 𝑗 -th column of the matrix 𝑾 ,respectively. The expression var (X ) denotes the variance of the set X and var (X ) = 1
+
+> 𝑁
+
+P𝑁 𝑛 =1 𝑥 2 
+
+> 𝑛
+
+− ( 1
+
+> 𝑁
+
+P𝑁 𝑛 =1 𝑥 𝑛 )2. The ex-pression cov (X , Y) denotes the covariance of the set X , Y, and 
+
+cov (X , Y) = 1
+
+> 𝑁
+
+P𝑁 𝑛 =1 [( 𝑥 𝑛 − 1
+
+> 𝑁
+
+P𝑁 𝑛 =1 𝑥 𝑛 )( 𝑦 𝑛 − 1
+
+> 𝑁
+
+P𝑁 𝑛 =1 𝑦 𝑛 )] .The set of positive integers is denoted by Z+. The real part and the imaginary part of the complex matrix or complex number are expressed by ℜ[·] and ℑ[·] , respectively. The ℓ2 norm of a vector is denoted by ∥ · ∥ 2. The Frobenius norm of a matrix is expressed as ∥ · ∥ 𝐹 . The flooring of positive integer 𝑚 is denoted by ⌊𝑚 ⌋.II. S YSTEM MODEL 
+
+In this section, as shown in Fig. 1, we present the system model for communication and radar sensing in MIMO-OFDM ISAC systems. 
+
+A. System Description 
+
+As shown in Fig. 1, the transmit part of the base station (BS) is equipped with a uniform rectangular array (URA) with 
+
+𝑁 bs ,𝑥 and 𝑁 bs ,𝑦 fixed-position antennas located in the 𝑥 and 
+
+𝑦 directions, such that 𝑁 = 𝑁 bs ,𝑥 𝑁 bs ,𝑦 . The receive part of the BS is equipped with 𝑁 re MAs, whose coordinates are ex-pressed as X = {𝑥 1, 𝑥 2, . . . , 𝑥 𝑁 re } and Y = {𝑦 1, 𝑦 2, . . . , 𝑦 𝑁 re }.We consider the MAs can be flexibly adjusted within the two-dimensional movable region C, which is assumed to be a rectangular region of size 𝐴 𝑥 × 𝐴 𝑦 . We utilize OFDM-based ISAC signals to realize communication and sensing, which consist of 𝐾 0 total subcarriers and 𝑀 0 total OFDM symbols, whose sets are respectively given by F0 = {1, . . . , 𝐾 0 } and 
+
+T0 = {1, . . . , 𝑀 0 }. For wireless sensing, we select a set T of 
+
+𝑀 OFDM symbols from T0 and a set F of 𝐾 subcarriers from F0, such that T ⊆ T0 and F ⊆ F0. In this paper, Nre  Nbs   
+
+> BS
+> UE
+> Target 1
+> Target Q
+> …
+> Downlink signals
+> Echo signals
+> …
+> Target q
+> {βq,θq,ϕq,τq,ωq}
+> Target parameter
+> Movable antennas
+
+## Gx
+
+> y
+> Fig. 1: An illustrative MIMO-OFDM ISAC system model, where the BS is equipped with MAs.
+
+we focus on simultaneously sensing 𝑄 targets by exploiting spatial-temporal-spectral resources, whose distribution directly influences the sensing performance. It should be noted that the positions of the MAs, as well as the distribution of OFDM symbols and subcarriers, can be flexibly adjusted. Thus, we perform the flexible spatial-temporal-spectral optimization for 
+
+X , Y, F, and T jointly. 
+
+B. Signal Model 
+
+In this subsection, the signal model for wireless sensing in MIMO-OFDM ISAC is presented. The complex baseband time-domain transmit signal corresponding to the 𝑚 -th OFDM symbol for the 𝑞 -th target is given by 
+
+˜𝑠 𝑚 (𝑡 ) = 1
+
+√𝐾 0
+
+> 𝐾 0
+
+∑︁ 
+
+> 𝑘 =1
+
+𝜒 𝑚,𝑘 ej2 𝜋 (𝑘 −1)Δ 𝑓 𝑡 rect   𝑡 − 𝑚𝑇 sym 
+
+𝑇 sym 
+
+, (1) where 𝜒 𝑚,𝑘 ∈ C denotes the transmitted payload data symbol at the 𝑘 -th subcarrier of the 𝑚 -th OFDM symbol and | 𝜒 𝑚,𝑘 |2 =
+
+1. Δ 𝑓 = 𝑓 s/𝐾 0 denotes the subcarrier spacing. rect (𝑡 ) denotes the transmit pulse shaping filter. 𝑇 sym = 𝑇 eff +𝑇 cp represents the duration of an effective OFDM symbol and 𝑇 cp is the cyclic-prefix duration. Then, the transmitted frequency domain signal vector can be expressed as 
+
+𝒔 𝑚,𝑘 = 𝒑 𝑚 𝜒 𝑚,𝑘 , (2) where 𝒑 𝑚 ∈ C𝑁 bs ×1 denotes the transmit beamforming vec-tor. After removing the cyclic-prefix and performing discrete Fourier transform at the base station, the echo signal can be expressed as [42] 
+
+˜𝒛 𝑚,𝑘 = 𝑮 𝑚,𝑘 𝒔 𝑚,𝑘 + ˜𝒏 𝑚,𝑘 , (3) where 𝑮 𝑚,𝑘 denotes the sensing channel matrix at the 
+
+𝑘 -th subcarrier of and 𝑚 -th OFDM symbols. ˜𝒏 𝑚,𝑘 ∼
+
+CN  0𝑁 re , 𝜎 2 
+
+> 𝑛
+
+𝑰 𝑁 re × 𝑁 re 
+
+ denotes additive white Gaussian noise, and 𝜎 2 
+
+> 𝑛
+
+denotes the power of noise. It should be noted that the echo signal in (3), composed of multiple OFDM symbols and subcarriers, cannot be naturally decomposed into separate dimensions, thus not inherently conforming to typical tensor models [45]. After removing the pilot symbols at the receiver, the received signal can be further expressed as 
+
+𝒛 𝑚,𝑘 = 𝜒 ∗ 
+
+> 𝑚,𝑘
+
+˜𝒛 𝑚,𝑘 = 𝑮 𝑚,𝑘 𝒑 𝑚 + 𝒏 𝑚,𝑘 , (4) where 𝒏 𝑚,𝑘 = 𝜒 ∗ 
+
+> 𝑚
+
+˜𝒏 𝑚,𝑘 denotes the corresponding noise vector. In the next subsection, we will demonstrate the sensing channel in particular. 4
+
+C. Sensing Channel Model 
+
+Given that all signals are transmitted and received from the same BS, their angles of arrival and departure are geometri-cally identical for the 𝑄 mutually uncorrelated targets assumed to be located in the far-field region. The time and delay domain sensing channel can be expressed as 
+
+𝑮 (𝑡, 𝜏 ) =
+
+> 𝑄
+
+∑︁ 
+
+> 𝑞 =1
+
+𝛽 𝑞 𝜚 (𝜏 − 𝜏 𝑞 ) 𝒂 re (𝜗 𝑞 ,𝜑 𝑞 ) 𝒂 Tbs (𝜗 𝑞 ,𝜑 𝑞 )ej2π 𝜔 𝑞 𝑡 , (5) where 𝜚 (𝑡 ) denotes the impulse function. The complex re-flection coefficient 𝛽 𝑞 represents the radar cross section of the 𝑞 -th target. The round-trip time delay 𝜏 𝑞 = 2𝑅 𝑞 /𝑐 and Doppler shift 𝜔 𝑞 = 𝑓 𝑐 (2𝑉 𝑞 /𝑐 ) are determined by the distance 
+
+𝑅 𝑞 and velocity 𝑉 𝑞 of the 𝑞 -th target, where 𝑐 denotes the speed of the light. 𝜗 𝑞 = sin 𝜃 𝑞 cos 𝜙 𝑞 , 𝜑 𝑞 = cos 𝜃 𝑞 , where 𝜃 𝑞 
+
+and 𝜙 𝑞 denotes the elevation and azimuth angles. The receiver steering vector 𝒂 re (𝜗 𝑞 , 𝜑 𝑞 ) ∈ C𝑁 re ×1 is given by 
+
+𝒂 re (𝜗 𝑞 , 𝜑 𝑞 ) = e−j 2π       
+
+> 𝜆𝑐 (𝑥 1𝜗 𝑞 +𝑦 1𝜑 𝑞 )
+
+, . . . , e−j 2π     
+
+> 𝜆𝑐 (𝑥 𝑁 re 𝜗 𝑞 +𝑦 𝑁 re 𝜑 𝑞 )
+
+T, (6) where 𝜆 𝑐 denotes the carrier wavelength. The steering vec-tor at the BS with URA configuration is 𝒂 bs (𝜗 𝑞 , 𝜑 𝑞 ) =
+
+𝒂 bs ,𝑥 (𝜗 𝑞 , 𝜑 𝑞 ) ⊗ 𝒂 bs ,𝑦 (𝜗 𝑞 , 𝜑 𝑞 ) ∈ C𝑁 bs ,𝑥 𝑁 bs ,𝑦 ×1, where 𝑥 and 𝑦 
+
+direction steering vectors are expressed as 
+
+𝒂 bs ,𝑥 (𝜗 𝑞 , 𝜑 𝑞 ) = 1, . . . , e−j 2π     
+
+> 𝜆𝑐 (𝑁 bs ,𝑥 −1)𝑑 𝜗 𝑞
+
+T, (7) 
+
+𝒂 bs ,𝑦 (𝜗 𝑞 , 𝜙 𝑞 ) = 1, . . . , e−j 2π     
+
+> 𝜆𝑐 (𝑁 bs ,𝑦 −1)𝑑 𝜑 𝑞
+
+T, (8) where 𝑑 = 𝜆 𝑐 /2 represents the spacing between adjacent an-tenna elements. It should be noted that in wireless communica-tion, the reflection coefficients in the propagation environment correspond to the target reflection strength in wireless sensing. The sensing channel matrix at the 𝑘 -th subcarrier and 𝑚 -th OFDM symbols can be expressed as 
+
+𝑮 𝑚,𝑘 =
+
+> 𝑄
+
+∑︁ 
+
+> 𝑞 =1
+
+𝛽 𝑞 𝒂 re (𝜗 𝑞 ,𝜑 𝑞 ) 𝒂 Tbs (𝜗 𝑞 ,𝜑 𝑞 )e−j2π 𝜏 𝑞 𝑘 Δ 𝑓 +j2π𝑚𝜔 𝑞 𝑇 sym . (9) Our goal is to achieve the optimized performances of estimating the parameters by flexibly adjusting X , Y, T , and F
+
+within the limited resources. To achieve this goal, we propose the tensor decomposition-based algorithm and the flexible spatial-temporal-spectral optimization in the following. III. W IRELESS SENSING FOR MIMO-OFDM ISAC-B ASED ON TENSOR DECOMPOSITION 
+
+In this section, we propose a tensor-based parameter estima-tion algorithm, which is suitable for a variety of parameter es-timation applications. Specifically, we first model the received signal as a tensor and perform the CPD using the alternating least squares (ALS) algorithm. Then, we exploit the spectrum peak search method to estimation the parameters. 
+
+A. Tensor Formulation and Factor Matrices Estimation 
+
+For wireless sensing, the positions of MAs, the OFDM symbols and the subcarriers can be flexibly adjusted or se-lected. Specifically, the positions of MAs satisfy X , Y ∈ C,the number of distinct selections for F and T is  𝑀 0
+
+> 𝑀
+
+ and 
+
+ 𝐾 0
+
+> 𝐾
+
+, respectively. Considering 𝑀 OFDM symbols, (4) can be rewritten as 1
+
+𝒁 𝑘 =
+
+> 𝑄
+
+∑︁ 
+
+> 𝑞 =1
+
+𝛽 𝑞 𝒂 re (X , Y, 𝜗 𝑞 , 𝜑 𝑞 ) 𝒂 Tbs (𝜗 𝑞 , 𝜑 𝑞 )𝑷𝜞 (T , 𝜔 𝑞 )× e−j2π 𝜏 𝑞 F (𝑘 )Δ 𝑓 + 𝑵 𝑘 , (10) where 𝒁 𝑘 = [𝒛 1,𝑘 , 𝒛 2,𝑘 , . . . , 𝒛 𝑀,𝑘 ] ∈ C𝑁 re ×𝑀 represents the received signal at the 𝑘 -th subcarrier. The pilot training matrix 
+
+𝑷 = [ 𝒑 1, . . . , 𝒑 𝑀 ] ∈ C𝑁 bs ×𝑀 , and 𝜞 (T , 𝜔 𝑞 ) ∈ C𝑀 ×𝑀 =
+
+diag [𝒂 do (T , 𝜔 𝑞 )] , where 𝒂 do (T , 𝜔 𝑞 ) represents the equivalent Doppler steering vector and is given by 
+
+𝒂 do (T , 𝜔 𝑞 ) = ej2π𝑇 sym T (1) 𝜔 𝑞 , . . . , ej2π𝑇 sym T ( 𝑀 ) 𝜔 𝑞 T. (11) Simultaneously, the training signals received at UE are utilized for channel estimation. In the following, we model the received signal as a tensor and employ the ALS method to perform the CPD on the tensor, we then estimate the parameters from estimated factor matrices. Recalling the expression of the received signal and the channel model provided in Section III-A, we notice that the AoAs, AoDs, Doppler shifts, and time delays caused by the targets independently affect the received signal in spatial-temporal-spectral dimensions. Thanks to the characteristic of tensor decomposition that can decouple various parameters, we formulate the multi-dimensional parameter estimation via using a tensor decomposition model. Specifically, by combin-ing the reflected signals from 𝐾 subcarriers, we reconstruct the signal as a third-order tensor Z ∈ C𝑁 re ×𝑀 ×𝐾 which is given by 
+
+Z =
+
+> 𝑄
+
+∑︁ 
+
+> 𝑞 =1
+
+𝒂 re (X , Y, 𝜗 𝑞 , 𝜑 𝑞 ) ◦ 𝒃 bs (T , 𝜔 𝑞 , 𝜗 𝑞 , 𝜑 𝑞 ) ◦ 𝒄 td (F, 𝛽 𝑞 , 𝜏 𝑞 )+ N , (12) where N ∈ C𝑁 re ×𝑀 ×𝐾 denotes the noise tensor. 
+
+𝒃 bs (T , 𝜔 𝑞 , 𝜗 𝑞 , 𝜑 𝑞 ) = 𝜞 (T , 𝜔 𝑞 )𝑷 T 𝒂 bs (𝜗 𝑞 , 𝜑 𝑞 ) represents the equivalent transmit steering vector. The equivalent delay steer-ing vector is denoted as 𝒄 td (F, 𝛽 𝑞 , 𝜏 𝑞 ) = 𝛽 𝑞 𝒂 td (F, 𝜏 𝑞 ), where 
+
+𝒂 td (F, 𝜏 𝑞 ) is given by 
+
+𝒂 td (F, 𝜏 𝑞 ) = e−j2π 𝜏 𝑞 Δ 𝑓 F (1) , . . . , e−j2π 𝜏 𝑞 Δ 𝑓 F (𝐾 ) T. (13) Our objective is to estimate the unknown target parameters 
+
+{𝜗 𝑞 , 𝜑 𝑞 , 𝑣 𝑞 , 𝜏 𝑞 , 𝛽 𝑞 }𝑄 𝑞 =1. This sensing problem can be formu-lated as (14). Following [42], the CPD of the received signal tensor in (12) can be given by 
+
+Z = J𝑪 (1) , 𝑪 (2) , 𝑪 (3) K + N , (15) where the three factor matrices 𝑪 (1) ∈ C𝑁 re ×𝑄 , 𝑪 (2) ∈ C𝑀 ×𝑄 ,and 𝑪 (3) ∈ C𝐾 ×𝑄 are respectively expressed as 
+
+𝑪 (1) = 𝒂 re (X , Y, 𝜗 1, 𝜑 1), . . . , 𝒂 re (X , Y, 𝜗 𝑞 , 𝜑 𝑞 ), (16) 
+
+𝑪 (2) = 𝒃 bs (T ,𝜔 1, 𝜗 1,𝜑 1), . . . , 𝒃 bs (T ,𝜔 𝑞 , 𝜗 𝑞 , 𝜑 𝑞 ), (17) 
+
+𝑪 (3) = 𝒄 td (F, 𝛽 𝑞 , 𝜏 𝑞 ), . . . , 𝒄 td (F, 𝛽 𝑞 , 𝜏 𝑞 ). (18) 
+
+> 1In this manuscript, we follow the common assumption in existing ISAC literature [42]–[44] that the self interference is perfectly cancelled. 5
+
+min          
+
+> {X,Y,T,F, 𝜗 𝑞 , 𝜑 𝑞 , 𝜔 𝑞 𝜏 𝑞 ,𝛽 𝑞 }𝑄 𝑞 =1
+
+Z −
+
+> 𝑄
+
+∑︁ 
+
+> 𝑞 =1
+
+𝒂 re (X , Y, 𝜗 𝑞 , 𝜑 𝑞 ) ◦ 𝒃 bs (T , 𝜔 𝑞 , 𝜗 𝑞 , 𝜑 𝑞 ) ◦ 𝒄 td (F, 𝛽 𝑞 , 𝜏 𝑞 )
+
+> 2
+> 𝐹
+
+, (14) Various methods have been proposed to solve the CPD prob-lem and acquire the factor matrices. One well-known approach is the ALS method, which updates one factor matrix while fixing the others until convergence [46]. For instance, the CPD of tensor Z can be given as 
+
+𝑪 (1)( 𝜄 +1) = arg min   
+
+> 𝑪 (1)(𝜄 )
+
+𝒁 (1) − 𝑪 (1)  𝑪 (3)( 𝜄 ) ⊙ 𝑪 (2)( 𝜄 )
+
+T 2 
+
+> 𝐹
+
+, (19) 
+
+𝑪 (2)( 𝜄 +1) = arg min   
+
+> 𝑪 (2)(𝜄 )
+
+𝒁 (2) − 𝑪 (2)  𝑪 (3)( 𝜄 ) ⊙ 𝑪 (1)( 𝜄 +1)
+
+T 2 
+
+> 𝐹
+
+, (20) 
+
+𝑪 (3)( 𝜄 +1) = arg min   
+
+> 𝑪 (3)(𝜄 )
+
+𝒁 (3) − 𝑪 (3)  𝑪 (1)( 𝜄 +1) ⊙ 𝑪 (2)( 𝜄 +1)
+
+T 2 
+
+> 𝐹
+
+, (21) where 𝒁 (1) , 𝒁 (2) , and 𝒁 (3) represent the mode-1, mode-2, and mode-3 unfoldings of Z respectively. Through iterative execution of these three update steps, we obtain the estimated factor matrices  ˆ𝑪 (1) , ˆ𝑪 (2) , ˆ𝑪 (3) upon convergence. It should be noted that the factor matrices obtained via CPD typically exhibit biases and are subject to two types of ambiguities scaling ambiguity and permutation ambiguity [47]. For the estimated factor matrices  ˆ𝑪 (1) , ˆ𝑪 (2) , ˆ𝑪 (3) , they satisfy the following relationships 
+
+ˆ𝑪 (1) ≜ 𝑪 (1) 𝜫 𝜟 (1) + 𝑬 (1) , (22) 
+
+ˆ𝑪 (2) ≜ 𝑪 (2) 𝜫 𝜟 (2) + 𝑬 (2) , (23) 
+
+ˆ𝑪 (3) ≜ 𝑪 (3) 𝜫 𝜟 (3) + 𝑬 (3) , (24) where 𝜫 ∈ C𝑄 ×𝑄 is a permutation matrix, and 𝜟 (1) , 𝜟 (2) ,
+
+𝜟 (3) are diagonal matrices. The matrices 𝑬 (1) , 𝑬 (2) , and 
+
+𝑬 (3) represent the estimation error terms. From (22)-(24), we observe that the estimated factor matrices differ from the original ones, even in noise-free scenarios. Fortunately, these ambiguities do not disrupt the pairing relationships between the estimated and true factor matrices, enabling the extraction of AoA information from corresponding column vectors. In the next subsection, we will propose the spectrum peak search algorithm to estimate the unknown parameters. 
+
+B. Parameter Estimation 
+
+In Section III-A, we employed the ALS algorithm to per-form CPD of the tensor and estimate the factor matrices. In this subsection, we proceed to estimate the elevation and azimuth angles, time delays, Doppler shifts, and reflection coefficients of targets from these estimated factor matrices. In (16), we observe that each column of the factor matrix 
+
+ˆ𝑪 (1) corresponds to a pair of elevation and azimuth angles. It should be noted that the permutation matrix 𝜫 remains consistent across all factor matrices, thus its presence does not affect parameter estimation. Therefore, we can estimate the 𝜗 and 𝜑 associated with each column of ˆ𝑪 (1) using a correlation-based method 
+
+ ˆ𝜗 𝑞 , ˆ𝜑 𝑞 = argmin  
+
+> 𝜗 𝑞 , 𝜙 𝑞
+
+∥ ˆ𝒄 (1) 
+
+> 𝑞
+
+− 𝒂 re (X , Y, 𝜗 𝑞 , 𝜑 𝑞 )∥ 22 (25) 
+
+= argmax  
+
+> 𝜗 𝑞 , 𝜑 𝑞
+
+( ˆ𝒄 (1) 
+
+> 𝑞
+
+)H 𝒂 re (X , Y, 𝜗 𝑞 , 𝜑 𝑞 ) 2
+
+∥ ˆ𝒄 (1) 
+
+> 𝑞
+
+∥22 ∥ 𝒂 re (X , Y, 𝜗 𝑞 , 𝜑 𝑞 )∥ 22
+
+,
+
+where ˆ𝒄 (1) 
+
+> 𝑞
+
+denotes the 𝑞 -th column of the estimated factor matrix ˆ𝑪 (1) . Then the elevation and azimuth angles can be estimated by ˆ𝜃 = arccos ˆ 𝜙 and ˆ𝜙 = arccos ˆ 𝜗 /√︁ 1 − ˆ𝜑 2.The 𝑞 -th column of (24) satisfies 
+
+ˆ𝒄 (2) 
+
+> 𝑞
+
+= 𝛿 (2) 
+
+> 𝑞
+
+𝜞 (T , 𝜔 𝑞 )𝑷 T 𝒂 bs (X , Y, 𝜃 𝑞 , 𝜙 𝑞 ) + 𝒆 (2)
+
+> 𝑞
+
+= 𝛿 (2) 
+
+> 𝑞
+
+ˆ𝑸 T 𝒂 do (T , 𝜔 𝑞 ) + 𝒆 (2) 
+
+> 𝑞
+
+, (26) where the second equality holds due to the definition of diago-nal matrix ˆ𝑸 ∈ C𝑀 ×𝑀 with diagonal elements 𝑷 T 𝒂 bs ( ˆ𝜃 𝑞 , ˆ𝜙 𝑞 ),and 𝛿 (2) 
+
+> 𝑞
+
+denotes the (𝑞, 𝑞 )-th element of 𝜟 (2) . Since the elevation and azimuth angles of AoA/AoD are equal, the AoA can be estimated from (25), and with the known precoding matrix 𝑷 , (26) can be rewritten as 
+
+˜ˆ𝒄 (2) 
+
+> 𝑞
+
+= 𝛿 (2) 
+
+> 𝑞
+
+𝒂 do (T , 𝜔 𝑞 ) + ˜𝒆 (2) 
+
+> 𝑞
+
+, (27) where ˜ˆ𝒄 (2) 
+
+> 𝑞
+
+= ( ˆ𝑸 T)−1 ˆ𝒄 (2) 
+
+> 𝑞
+
+, ˜𝒆 (2) 
+
+> 𝑞
+
+= ( ˆ𝑸 T)−1 𝒆 (2) 
+
+> 𝑞
+
+, combining all 
+
+𝑄 targets, we obtain the matrix form of (27) 
+
+˜ˆ𝑪 (2) = 𝑨 do 𝜟 (2) + ˜𝑬 (2) , (28) where 𝑨 do = [𝒂 do (T , 𝜔 1), . . . , 𝒂 do (T , 𝜔 𝑄 )] . We now turn to estimating the Doppler shifts from the factor matrix ˜ˆ𝑪 (2) .Substituting the estimated  ˆ𝜗 𝑞 , ˆ𝜑 𝑞 into (27), 2 Similarly, we can estimate 𝜔 𝑞 by computing 
+
+ˆ𝜔 𝑞 = argmax 
+
+> 𝜔 𝑞
+
+( ˜ˆ𝒄 (2) 
+
+> 𝑞
+
+)H 𝒂 do (T , 𝜔 𝑞 ) 2
+
+∥ ˜ˆ𝒄 (2) 
+
+> 𝑞
+
+∥22 ∥ 𝒂 do (T , 𝜔 𝑞 )∥ 22
+
+. (29) Also, based on (24), we can proceed to estimate 𝜏 𝑞 via 
+
+ˆ𝜏 𝑞 = argmax 
+
+> 𝜏 𝑞
+
+( ˆ𝒄 (3) 
+
+> 𝑞
+
+)H 𝒂 td (F, 𝜏 𝑞 ) 2
+
+∥ ˆ𝒄 (3) 
+
+> 𝑞
+
+∥22 ∥ 𝒂 td (F, 𝜏 𝑞 )∥ 22
+
+, (30) where ˆ𝒄 (3) 
+
+> 𝑞
+
+represents the 𝑞 -th column of ˆ𝑪 (3) .Following this estimation procedure, after obtaining 
+
+{ ˆ𝜃 𝑞 , ˆ𝜙 𝑞 , ˆ𝜔 𝑞 , ˆ𝜏 𝑞 }𝑄 𝑞 =1, we proceed to estimate the reflection coefficients {𝛽 𝑞 }𝑄 𝑞 =1. Based on the CPD in (18), we unfold 
+
+Z along mode-3, transpose it, and vectorize the columns to obtain vec (𝒁 T 
+
+> (3)
+
+) = 𝑨 td ⊙ ( 𝑪 (2) ⊙ 𝑪 (1) ) 𝜷 + vec (𝑵 T 
+
+> (3)
+
+), (31)    
+
+> 2For multistatic sensing systems where both AoD and Doppler shift are unknown in ˆ𝑪 (2), the alternating iterative algorithm in [43] can be employed to estimate AoD and Doppler shift simultaneously. 6
+
+where 𝑨 td = 𝒂 td (F, 𝜏 1), . . . , 𝒂 td (F, 𝜏 𝑄 ) represents the delay steering matrix. Therefore, we estimate ˆ𝜷 as 
+
+ˆ𝜷 = [ ˆ𝑨 td ⊙ ( ¯𝑪 (2) ⊙ ¯𝑪 (1) )] †vec (𝒁 T 
+
+> (3)
+
+), (32) where ¯𝑪 (1) = [𝒃 bs (X , Y, ˆ𝜗 1, ˆ𝜑 1), . . . , 𝒃 bs (X , Y, ˆ𝜗 𝑄 , ˆ𝜑 𝑄 )] ,
+
+¯𝑪 (2) = [𝒃 bs (T , ˆ𝜔 1, ˆ𝜗 1, ˆ𝜑 1), . . . , 𝒃 bs (T , ˆ𝜔 𝑄 , ˆ𝜗 𝑄 , ˆ𝜑 𝑄 )] , and 
+
+ˆ𝑨 td = 𝒂 td (F, ˆ𝜏 1), . . . , 𝒂 td (F, ˆ𝜏 𝑄 ). It is important to note that the estimation of reflection coefficients depends on 
+
+{ ˆ𝜗 𝑞 , ˆ𝜑 𝑞 , ˆ𝜔 𝑞 , ˆ𝜏 𝑞 𝑄 𝑞 =1. Since the optimization in (52)-(49) im-proves the CRB for 𝜗 , 𝜑 , 𝜔 , and 𝜏 , the estimation performance of ˆ𝜷 is consequently enhanced. Benefiting from the ability of CPD to decouple the param-eters from multidimensional signals into multiple independent groups, this approach reduces the dimensionality of the Fisher information matrix, thereby enabling the derivation of specific CRB expressions for individual parameters and laying the foundation for flexible spatial-temporal-spectral optimization. In the next subsection, we will present the derivation of CRB for each parameter individually. Next, we analyze the complexity of the proposed algorithm. For a received signal tensor of dimensions 𝑁 re ×𝐾 ×𝑀 and rank 
+
+𝑄 , the complexity per iteration for updating the factor matrices is approximately O(𝑁 re 𝐾 𝑀𝑄 ). Given that the subsequent parameter extraction involves only simple phase operations with a negligible complexity of O(𝑄𝑁 re + 𝑄𝐾 + 𝑄𝑀 ),the total complexity of the algorithm after 𝐼 iter iterations is effectively O(𝐼 iter 𝑁 re 𝐾 𝑀𝑄 ), where 𝑁 re , 𝐾 , and 𝑀 denote the number of receive antennas, subcarriers, and OFDM symbols. IV. F LEXIBLE SPATIAL -T EMPORAL -S PECTRAL 
+
+OPTIMIZATION FOR WIRELESS SENSING 
+
+In this section, we first derive the CRB of each parameter based on the estimated factor matrices. Then, we transform the problem of minimizing the CRB into the flexible spatial-temporal-spectral optimization with respect to X , Y, T , and 
+
+F.
+
+A. Derivation of CRB Based on Estimated Factor Matrices 
+
+In this subsection, we first illustrate the difficulty of deriving the specific expression of CRB for each parameter from the received signal matrix. Then, we derive the CRB of each parameter individually based on the expression of the estimated factor matrices. Our goal is to improve the performance of estimation, which can be transformed into minimizing the CRB of each parameter. As is well known, the normalized root mean square error of parameter estimation represents the performance of the parameter estimation. For convenience of notation, let 
+
+𝝁 = [𝜷 T, 𝝑 T, 𝝋 T, 𝝎 T, 𝝉 T] ∈ C5𝑄 ×1, where 𝜷 = [𝛽 1, . . . , 𝛽 𝑄 ]T,
+
+𝝑 = [𝜗 1, . . . , 𝜗 𝑄 ]T, 𝝋 = [𝜑 1, . . . , 𝜑 𝑄 ]T, 𝝎 = [𝜔 1, . . . , 𝜔 𝑄 ]T,and 𝝉 = [𝜏 1, . . . , 𝜏 𝑄 ]T. The RMSE of the 𝑞 -th parameter 
+
+[𝜼 ]𝑞 and the CRB of this parameter satisfy the following relationship RMSE ([ 𝜼 ]𝑞 ) ≥ √︃ 𝐶 𝑅𝐵 ([ 𝜼 ]𝑞 ). (33) The typical CRB is derived based on (19)-(20) in [43], which can be given by 
+
+𝒇 ( 𝝁 ) = const − 𝒁 T 
+
+> (1)
+
+−  𝑪 (3) ⊙ 𝑪 (2) 𝑪 (1)T 2 
+
+> 𝐹
+
+/𝜎 2 
+
+> 𝑛
+
+(34) 
+
+= const − 𝒁 T 
+
+> (2)
+
+−  𝑪 (3) ⊙ 𝑪 (1) 𝑪 (2)T 2 
+
+> 𝐹
+
+/𝜎 2 
+
+> 𝑛
+
+(35) 
+
+= const − 𝒁 T 
+
+> (3)
+
+−  𝑪 (2) ⊙ 𝑪 (1) 𝑪 (3)T 2 
+
+> 𝐹
+
+/𝜎 2 
+
+> 𝑛
+
+, (36) where const = −𝑁 re 𝑁 bs 𝐾 ln  π𝜎 2
+
+> 𝑛
+
+. The resulting Fisher infor-mation matrix (FIM) is 𝜴 (𝜼 ) ∈ C5𝑄 ×5𝑄 , and the CRB for the unknown parameters 𝜂 can be obtained via CRB (𝜼 ) = 𝜴 −1 (𝜼 ).However, obtaining an analytical expression for the CRB is exceedingly challenging because inverting this unstructured 
+
+5𝑄 × 5𝑄 block matrix lacks a closed-form solution, which in turn poses a significant obstacle to optimizing the CRB. Fortunately, by employing the tensor CPD method, (22), (24), and (28) become mutually independent. Furthermore, it should be noted that the expressions in (22), (24), and (28) enable the derivation of the CRB because they explicitly characterize the statistical relationship between the estimated parameters and the true values under a defined perturbation model. This formulation allows the construction of a like-lihood function and computation of the Fisher information matrix for all parameters. This allows the unknown param-eters to be decoupled into three distinct groups {𝜗 𝑞 , 𝜑 𝑞 }𝑄 𝑞 =1,
+
+{𝜔 𝑞 , 𝜗 𝑞 , 𝜑 𝑞 }𝑄 𝑞 =1, and {𝛽 𝑞 , 𝜏 𝑞 }𝑄 𝑞 =1. Based on (22)-(28), we can independently compute the CRBs of the parameters. As proved in Appendix A, the CRBs are given by 
+
+𝑪 𝑹𝑩 𝝑𝝑 = 𝑭 𝝑𝝑 − 𝑭 𝝑𝝋 𝑭 −1 
+
+> 𝝋𝝋
+
+𝑭 H
+
+> 𝝑𝝋
+
+−1, (37) 
+
+𝑪 𝑹𝑩 𝝋𝝋 = 𝑭 𝝋𝝋 − 𝑭 H 
+
+> 𝝑𝝋
+
+𝑭 −1 
+
+> 𝝑𝝑
+
+𝑭 𝝑𝝋 
+
+−1, (38) 
+
+𝑪 𝑹𝑩 𝝎𝝎 = 𝑭 𝝎𝝎 − 𝑭 𝝎𝜹 (2) 𝑭 𝜹 (2) 𝜹 (2) 𝑭 H
+
+> 𝝎𝜹 (2)
+
+−1, (39) 
+
+𝑪 𝑹𝑩 𝝉𝝉 = 𝑭 𝜏 𝜏 − 𝑭 𝝉𝜷 𝑭 −1 
+
+> 𝜷𝜷
+
+𝑭 H
+
+> 𝝉𝜷
+
+−1. (40) A key strength of the CPD is its capability to decompose a high-order tensor into a sum of rank-one tensors, thus inherently isolating individual targets. Accordingly, we derive the CRB separately for each of the 𝑄 targets. Without loss of generality and for notational clarity, we omit the subscript 𝑞 in all subsequent variables. The expressions of CRBs in (37)-(40) can be expressed as 
+
+𝐶 𝑅𝐵 𝜗 𝜗 =
+
+h 8π2 |𝛿 (1) |2
+
+𝜆 2 
+
+> 𝑐
+
+𝜎 2
+
+> e(1)
+
+  var (Y) − cov (X , Y)2
+
+var (X )
+
+i−1
+
+, (41) 
+
+𝐶 𝑅𝐵 𝜑 𝜑 =
+
+h 8π2 |𝛿 (1) |2
+
+𝜆 2 
+
+> 𝑐
+
+𝜎 2
+
+> e(1)
+
+  var (X ) − cov (X , Y)2
+
+var (Y)
+
+i−1
+
+, (42) 
+
+𝐶 𝑅𝐵 𝜔 𝜔 =
+
+h 8π2𝑇 2 
+
+> sym
+
+|𝛿 (2) |2
+
+𝜎 2˜𝑒 (2)
+
+var (T )
+
+i−1
+
+, (43) 
+
+𝐶 𝑅𝐵 𝜏 𝜏 =
+
+h 8π2 |𝛽 |2 𝑓 2 
+
+> s
+
+|𝛿 (3) |2𝐾 𝐾 20 𝜎 2
+
+> e(3)
+
+var (F)
+
+i−1
+
+. (44) The parameters 𝛿 (1) , 𝛿 (2) , and 𝛿 (3) are derived from 𝜟 (1) , 𝜟 (2) ,and 𝜟 (3) respectively, while 𝜎 2 
+
+> e(1)
+
+, 𝜎 2˜𝑒 (2) , and 𝜎 2 
+
+> e(3)
+
+represent the power of error terms. 3 The detailed derivations of (41)-(44) are 
+
+> 3It is worth noting that the constant scaling factors in these CRB expressions are strictly independent of the structural design variables. Consequently, their exact numerical values are not required to determine the optimal resource distribution and will not introduce any additional computational complexity in practice. 7
+
+provided in Appendix B. In the next section, we will present the flexible spatial-temporal-spectral optimization for X , Y, F,and T , respectively. In the following subsections, we present and prove the optimized MA positions, subcarrier distribution, and OFDM symbols distribution for wireless sensing. 
+
+B. Flexible Spatial Optimization 
+
+In this subsection, we focus on the flexible spatial opti-mization in (45) and (46) for positions of MAs. Since the positions of receive antennas can be flexibly adjusted and other coefficients are fixed, we transform the CRB minimization problem into optimizing the expression respect to X and Y.
+
+min 𝐶 𝑅𝐵 𝜗 𝜗 ⇔ max   
+
+> X,Y
+
+var (Y) − cov (X , Y)2
+
+var (X ) , (45) 
+
+min 𝐶 𝑅𝐵 𝜑 𝜑 ⇔ max   
+
+> X,Y
+
+var (X ) − cov (X , Y)2
+
+var (Y) . (46) Since the variables in (45) and (46) are identical and the objective functions exhibit rotational symmetry with respect to X and Y, we jointly optimize (45) and (46). We consider MAs located within a fixed region C. To pre-vent severe mutual coupling between antennas, we enforce a minimum separation distance of 𝑑 between any two antennas. Thus, (45) and (46) can be expressed as 
+
+max   
+
+> X,Y
+
+var (Y) − cov (X , Y)2
+
+var (X ) + var (X ) − cov (X , Y)2
+
+var (Y) (47a) s.t. (X , Y) ∈ C, (47b) √︃ 
+
+(𝑥 𝑛 1 − 𝑥 𝑛 2 )2 + ( 𝑦 𝑛 1 − 𝑦 𝑛 2 )2 ≥ 𝑑. (47c) Solving (47) presents significant challenges. On one hand, (47c) is non convex potentially leading to local optima. On the other hand irregular boundaries of the movable region may preclude analytical solutions. Fortunately, [26] has derived an-alytical solutions for optimal antenna arrays in circular regions and developed computational methods for general regions. Specifically this highly non convex problem is efficiently solved by alternating the optimization variables between the 
+
+𝑥 and 𝑦 directions. In each alternating step the successive convex approximation method is utilized to construct a convex surrogate function for the non convex minimum distance constraint iteratively guiding the antenna coordinates to a stationary point. We will compute the optimal MA positions following this alternating approach in [26]. 
+
+C. Flexible Temporal Optimization 
+
+In this subsection, we focus on the flexible temporal op-timization for the OFDM symbol distribution. Similar to the process in Section IV-B, we transform the CRB minimization into optimizing the expression with respect to T .
+
+min 𝐶 𝑅𝐵 𝜔 𝜔 ⇔ max  
+
+> T
+
+var (T ). (48) Different from the elements in X and Y, the set T must be a set of positive integers. Then the optimization problem in (48) can be formulated as 
+
+max  
+
+> T
+
+var (T ) (49a) s.t. T (𝑚 1) ≠ T (𝑚 2), 𝑚 1, 𝑚 2 = 1, . . . , 𝑀 (49b) 
+
+1 ≤ T (𝑚 ) ≤ 𝑀 0, 𝑚 = 1, . . . , 𝑀 (49c) 
+
+T (𝑚 ) ∈ Z+, 𝑚 = 1, . . . , 𝑀. (49d) Although the objective function of the aforementioned opti-mization problem is convex, the constraints that all variables must be distinct from each other and take integer values make this problem particularly challenging to solve. Fortunately, Theorem 1 provides a closed-form solution to address a class of optimization problems sharing a similar form. Let T ★
+
+denote the optimal solution to (49). 
+
+Theorem 1. The optimal OFDM symbol distribution that minimizes the root mean square error of Doppler estimation is given by 
+
+T (𝑚 )★ =
+
+(
+
+1, 2, . . . , ¯𝑀 𝑚 ≤ ¯𝑀, 𝑀 0 − ¯𝑀 + 1, . . . , 𝑀 0 𝑚 > ¯𝑀. (50) 
+
+where ¯𝑀 = ⌊𝑀 /2⌋.Proof. See Appendix C. □
+
+Theorem 1 demonstrates that to minimize the CRB for Doppler estimation, the training OFDM symbols should be divided into two groups. Specifically, half of the training OFDM symbols should occupy the lower end of the total OFDM symbol range, while the other half should occupy the upper end. It is straightforward to understand that the distribution proposed in Theorem 1 maximizes the variance by spreading the OFDM symbols as widely as possible. Furthermore, given the number of OFDM symbols 𝑀 ,increasing the total number of OFDM symbols 𝑀 0 can ef-fectively reduce 𝐶 𝑅𝐵 𝜔 𝜔 .
+
+D. Flexible Spectral Optimization 
+
+In this section, we focus on the flexible spectral optimization of the subcarrier distribution. Similar to the reasoning in Sec-tion IV-C, we transform the CRB minimization into optimizing the expression with respect to F.
+
+min 𝐶 𝑅𝐵 𝜏 𝜏 ⇔ max  
+
+> F
+
+var (F). (51) Following the rationale established in Section IV-C, the opti-mization problem in (51) can be formulated as 
+
+max  
+
+> F
+
+var (F) (52a) s.t. F (𝑘 1) ≠ F (𝑘 2), 𝑘 1, 𝑘 2 = 1, . . . , 𝐾, (52b) 
+
+1 ≤ F (𝑘 ) ≤ 𝐾 0, 𝑘 = 1, . . . , 𝐾, (52c) 
+
+F (𝑘 ) ∈ Z+, 𝑘 = 1, . . . , 𝐾. (52d) Let F★ denote the optimal solution to (52). It is noteworthy that (52) is similar to the form of (49). Consequently, we can likewise employ Theorem 1 to obtain the optimal solution F★.To this end, we have shown the proposed flexible spatial-temporal-spectral optimization-based tensor algorithm, which 8
+
+Algorithm 1 Proposed Flexible Spatial-Temporal-Spectral Optimization-Based Tensor Algorithm 
+
+Input The received signal tensor Z, precoding matrix 𝑷 ,the number of target sources 𝑄 , the movable rectangular region C, the number of MAs 𝑁 re , the total number of OFDM carriers 𝐾 0 and OFDM symbols 𝑀 0, the number of symbols 𝐾 and subcarriers 𝑀 .
+
+Stage 1 Flexible spatial-temporal-spectral optimization 
+
+1: Optimize X , Y, F, T via (47), (52), and (49); 
+
+Stage 2 Parameter estimation 
+
+2: Compute the factor matrices 𝑪 (1) , 𝑪 (2) , 𝑪 (3) via (22)-(24); 
+
+3: for each 𝑞 ∈ [ 1, . . . , 𝑄 ] do 
+
+4: Estimate { ˆ𝜃 𝑞 , ˆ𝜙 𝑞 , ˆ𝜔 𝑞 , ˆ𝜏 𝑞 } via (25), (29), and (30); 
+
+5: end for 
+
+6: Estimate ˆ𝜷 via (32); 
+
+Output Return estimated parameters { ˆ𝜃 𝑞 , ˆ𝜙 𝑞 , ˆ𝜔 𝑞 , ˆ𝜏 𝑞 , ˆ𝛽 𝑞 }.-10 -5 0 5 10 15 20  
+
+> SNR (dB)
+> 10 -3
+> 10 -2
+> 10 -1
+> 10 0
+> 10 1
+> RMSE  (deg)
+> CPD with STS optimization CPD without STS optimization Conventional with STS optimization Conventional without STS optimization CRB with STS optimization CRB without STS optimization
+
+Fig. 2: RMSE of elevation angles versus SNR. 
+
+is summarized in Algorithm 1. Notably, the proposed estima-tion algorithm imposes no additional hardware requirements compared to [42], [43], nor does it increase computational complexity. Furthermore, the tensor decomposition approach enables independent estimation of each target parameter, thereby overcoming the performance degradation caused by target coupling in conventional algorithms under conditions of flexible spatial-temporal-spectral optimization. V. S IMULATION RESULTS 
+
+In this section, we evaluate the performance of the proposed tensor-based flexible spatial-temporal-spectral optimization through numerical simulations. We consider a BS equipped with 𝑁 bs = 36 fixed-position transmit antennas with 𝑁 bs, 𝑥 = 6,
+
+𝑁 bs, 𝑦 = 6, and 𝑁 re = 36 receive MAs. The carrier frequency is 𝑓 𝑐 = 28 GHz and the bandwidth is 𝑓 s = 100 MHz with 
+
+𝐾 0 = 128 and 𝐾 = 16 . The CP duration in one OFDM symbol is 𝑇 cp = 1/( 2Δ 𝑓 ) with 𝑀 0 = 64 and 𝑀 = 16 .The BS is detecting 𝑄 = 3 targets, where the AoAs (deg) and AoDs (deg) follow U (0, 2π), the distances 𝑅 (m) fol-lows U (0, 48 ), and the velocities 𝑉 (m/s) follows U (− 30 , 30 )
+
+where the minus sign indicates the direction opposite to the positive direction. The signal-to-noise ratio (SNR) is given by SNR = || 𝒁 𝑘 − 𝑵 𝑘 || 2 
+
+> 𝐹
+
+/|| 𝑵 || 2 
+
+> 𝐹
+
+. The RMSE can be defined as RMSE =√︃ P𝐼 𝑖 =1
+
+P𝑄 𝑞 =1 ( ˆ𝜂 𝑖𝑞 − 𝜂 𝑞 )2/( 𝐼𝑄 ), where 𝐼 denotes -10 -5 0 5 10 15 20  
+
+> SNR (dB)
+> 10 -3
+> 10 -2
+> 10 -1
+> 10 0
+> 10 1
+> RMSE  (deg)
+> CPD with STS optimization CPD without STS optimization Conventional with STS optimization Conventional without STS optimization CRB with STS optimization CRB without STS optimization
+
+Fig. 3: RMSE of azimuth angles versus SNR. -10 -5 0 5 10 15 20  
+
+> SNR (dB)
+> 10 -5
+> 10 -4
+> 10 -3
+> 10 -2
+> 10 -1
+> 10 0
+> 10 1
+> RMSE (m)
+> CPD with STS optimization CPD without STS optimization Conventional with STS optimization Conventional without STS optimization CRB with STS optimization CRB without STS optimization
+
+Fig. 4: RMSE of target ranges versus SNR. 
+
+the number of Monte Carlo trials. 𝜂 𝑞 ∈ { 𝜗 𝑞 , 𝜑 𝑞 , 𝑅 𝑞 , 𝑉 𝑞 }𝑄 𝑞 =1
+
+denotes the true parameter and ˆ𝜂 𝑖𝑞 denotes the 𝑖 -th trial 𝑞 -th estimated parameter, respectively. The estimation of the reflection coefficient 𝜷 performance at the 𝑚 -th OFDM are calculated by the normalized mean square error (NMSE), which can be given by NMSE ( 𝜷 ) = ∥ 𝜷 − ˆ𝜷 ∥2 
+
+> 𝐹
+
+/∥ 𝜷 ∥2 
+
+> 𝐹
+
+. The proposed method and benchmarks are as follows:  
+
+> •
+
+CPD with STS optimization : The proposed tensor-based method with the proposed STS optimization.  
+
+> •
+
+CPD without STS optimization : The proposed tensor-based method without STS optimization.  
+
+> •
+
+Conventional with STS optimization : The conventional MUSIC and MF methods [48] with STS optimization. 4 
+
+> •
+
+Conventional without STS optimization : The conven-tional MUSIC and MF methods without STS optimiza-tion.  
+
+> •
+
+CRB with STS optimization : The theoretical CRB of the parameter estimation problem with STS optimization.  
+
+> •
+
+CRB without STS optimization : The theoretical CRB of the parameter estimation problem without STS opti-mization. Figs. 2 and 3 illustrate the RMSE of elevation and azimuth angle estimation versus SNR for various algorithms. By ap-plying the proposed STS optimization, the theoretical CRBs for estimating both angles are significantly lowered. For the 
+
+> 4
+
+The conventional uniform steering vectors corresponding to the antenna positions, subcarrier and OFDM symbols distribution are placed by the proposed STS optimized steering vectors. 9-10 -5 0 5 10 15 20  
+
+> SNR (dB)
+> 10 -2
+> 10 -1
+> 10 0
+> 10 1
+> RMSE (m/s)
+> CPD with STS optimization CPD without STS optimization Conventional with STS optimization Conventional without STS optimization CRB with STS optimization CRB without STS optimization
+
+Fig. 5: RMSE of velocities versus SNR. -10 -5 0 5 10 15 20  
+
+> SNR (dB)
+> 10 -7
+> 10 -6
+> 10 -5
+> 10 -4
+> 10 -3
+> 10 -2
+> 10 -1
+> NMSE  (β)
+> CPD with STS optimization CPD without STS optimization Conventional with STS optimization Conventional without STS optimization CRB with STS optimization CRB without STS optimization
+
+Fig. 6: NMSE of reflection coefficients versus SNR. 
+
+actual estimation performance, the conventional algorithms completely fail at low SNR regimes because severe mutual interference among multiple targets drastically degrades the accuracy. In stark contrast, the proposed algorithm based on tensor decomposition achieves substantial performance gains over conventional methods. It successfully approaches the optimized CRBs even at low SNR levels. This remarkable enhancement stems from the inherent capability of tensor decomposition to isolate individual targets and completely eliminate mutual interference among targets. Fig. 4 presents the RMSE performance of the range esti-mation versus SNR. The STS optimization effectively reduces the CRB for target range estimation. The results indicate that the conventional algorithm without STS optimization performs poorly and struggles to acquire accurate delay estimation. Al-though incorporating STS optimization into the conventional algorithm provides a noticeable performance lift, it still suffers from an error floor at high SNR regions due to the unresolved mutual interference. Conversely, the proposed algorithm based on tensor decomposition overcomes this saturation bottleneck. By further integrating the STS optimization, the proposed method fully unlocks the spatial, temporal, and spectral de-grees of freedom, achieving the lowest RMSE and tightly approaching the optimized CRB. Fig. 5 displays the RMSE performance of velocity estima-tion versus SNR for different algorithms. With the implemen-tation of STS optimization, the corresponding CRB exhibits a significant decrease. The results explicitly reveal that conven-16 32 48 64 80 96 112 128 
+
+K0
+
+> 10 -3
+> 10 -2
+> 10 -1
+> 10 0
+> RMSE( m)
+> CPD with STS optimization CPD without STS optimization Conventional with STS optimization Conventional without STS optimization
+
+Fig. 7: RMSE of target distances versus the total number of subcarriers. 16 24 32 40 48 56 64 
+
+M0
+
+> 10 -2
+> 10 -1
+> 10 0
+> 10 1
+> RMSE (m/s)
+> CPD with STS optimization CPD without STS optimization Conventional with STS optimization Conventional without STS optimization
+
+Fig. 8: RMSE of velocities versus the total number of OFDM symbols. 
+
+tional algorithms fail to estimate velocities accurately regard-less of whether STS optimization is applied, which is primarily caused by the severe mutual interference. In contrast, the proposed algorithms based on tensor decomposition maintain robust estimation capabilities. Furthermore, the combination of the proposed algorithm and STS optimization yields the most superior results, demonstrating a distinct performance gap compared to all baseline methods and tightly approaching the lowered theoretical bound. Fig. 6 shows the NMSE performance of reflection coeffi-cient estimation versus SNR. Because the reflection coefficient estimation heavily relies on previously estimated parameters including the AoA, AoD, range, and velocity of each target, any estimation error from previous stages propagates and degrades the final NMSE. Consequently, the conventional al-gorithms cannot accurately estimate the reflection coefficient, presenting a flat performance curve even at high SNR levels. Benefiting from the highly accurate parameter estimation provided by the aforementioned stages, the proposed algorithm based on tensor decomposition successfully circumvents this error propagation. Empowered by the STS optimization, the proposed algorithm achieves the most outstanding NMSE performance and strictly follows the minimized CRB. Fig. 7 presents the RMSE of range estimation versus the total number of subcarriers for the algorithms based on tensor decomposition, given a fixed subcarrier spacing and an SNR of 20 dB. The algorithm without the STS optimization exhibits a constant performance curve regardless of the total 10 
+
+number of subcarriers. This occurs because the unoptimized contiguous subcarrier allocation fails to fully exploit the newly added frequency resources. In contrast, the proposed algorithm equipped with the STS optimization demonstrates progres-sively improved performance as the total number of subcarriers increases. By widely spreading the selected subcarriers across the entire available band, the STS optimization effectively maximizes the frequency aperture. Consequently, the proposed algorithm with STS optimization maintains significantly better performance compared with the unoptimized baselines. Fig. 8 shows the RMSE of velocity estimation versus the total number of OFDM symbols for the algorithms based on tensor decomposition with an SNR of 20 dB. The algorithm without STS optimization maintains a consistent error level across different total numbers of OFDM symbols due to its restrictive contiguous temporal allocation. However, the proposed algorithm enhanced by the STS optimization exhibits progressively improved performance as the total number of OFDM symbols increases. By distributing the selected OFDM symbols toward the two ends of the available time frame, the STS optimization maximizes the effective observation time and refines the Doppler resolution. Similar to the range estima-tion scenario, the proposed algorithm with STS optimization consistently achieves significantly better performance than the conventional algorithms. VI. C ONCLUSION 
+
+This paper has proposed a novel wireless sensing frame-work for MIMO-OFDM ISAC systems to achieve flexible optimization across the spatial-temporal-spectral dimensions. We have established a monostatic sensing model where an-tenna positions, OFDM symbol allocation, and subcarrier assignment can be dynamically configured, and developed a tensor decomposition-based approach that transforms target parameter estimation into a parallelizable process. Our deriva-tion of the CRB reveals fundamental relationships between estimation accuracy and system configuration, demonstrating that the performance bounds for azimuth/elevation angles, velocities, and ranges are intrinsically determined by array geometry and time-frequency resource distribution. Building on this theoretical foundation, we have obtained a globally optimal solution for joint spatial-temporal-spectral resource allocation that simultaneously minimizes both the CRB and mean square error of estimation. Extensive numerical results validate that the proposed framework significantly outperforms conventional sensing systems with fixed-position antennas and static resource allocation, showcasing its strong potential to en-hance sensing accuracy in next-generation wireless networks. APPENDIX ADERIVATION OF CRB In this appendix, we present the derivation for the subma-trices in equations (37)-(40). 
+
+A. Derivation of CRB 𝜗 𝜗 and CRB 𝜑 𝜑 
+
+For (22), by vectorizing ˆ𝑪 (1) , we obtain vec ( ˆ𝑪 (1) ) = ˆ𝒄 (1) = 𝑰 𝑄 ×𝑄 ⊗ 𝑪 (1) 𝜹 (1) + 𝒆 (1) , (53) where 𝜹 (1) = vec  𝜟 (1) , 𝒆 (1) = vec  𝑬 (1) . From (53), ˆ𝒄 (1)
+
+can be viewed as a distribution with the mean vector 𝝁 (1) and covariance matrix 𝑯 (1) , which are given by 
+
+𝝁 (1) = 𝑰 𝑄 ×𝑄 ⊗ 𝑪 (1) 𝜹 (1) , (54) 
+
+𝑯 (1) = E𝒆 (1) 𝒆 (1)H = 𝜎 2 
+
+> 𝑒 (1)
+
+𝑰 𝑁 re 𝑄 × 𝑁 re 𝑄 . (55) Since we are interested in the parameters, we can construct a Fisher Information Matrix (FIM) based on (53) 
+
+𝑭 (1) (𝝑 , 𝝋 ) = 𝑭 𝝑𝝑 𝑭 𝝑𝝋 
+
+𝑭 H 
+
+> 𝝑𝝋
+
+𝑭 𝝋𝝋 
+
+ ∈ C2𝑄 ×2𝑄 , (56) where the (𝑞, 𝑞 ′)-th element of 𝑭 (1) (𝝑 , 𝝋 ) can be given by 
+
+𝑭 (1)  
+
+> 𝑞,𝑞 ′
+
+= 2ℜ 𝜕 𝝁 (1)H
+
+𝜕𝜂 𝑞 
+
+[𝑯 (1) ]−1 𝜕 𝝁 (1)
+
+𝜕𝜂 𝑞 ′
+
+. (57) The mean vector 𝝁 (1) is a function of 𝝑 and 𝝋 . Its first-order derivatives with respect to 𝝑 and 𝝋 are given by 
+
+𝜕 𝝁 (1)
+
+𝜕 𝝑 = 𝜦 (1)H 
+
+> 1
+
+𝑪 (1)H 
+
+> 𝝑
+
+, . . . , 𝜦 (1)H 
+
+> 𝑄
+
+𝑪 (1)H
+
+> 𝝑
+
+T
+
+, (58) 
+
+𝜕 𝝁 (1)
+
+𝜕 𝝋 = 𝜦 (1) H 
+
+> 1
+
+𝑪 (1)H 
+
+> 𝝋
+
+, . . . , 𝜦 (1𝐻 𝑄 𝑪 (1)H
+
+> 𝝋
+
+T
+
+, (59) where 𝜦 (1) 
+
+> 𝑞
+
+= diag ([ 𝜟 (1) ] (:,𝑞 ) ). The matrices 𝑪 (1) 
+
+> 𝝑
+
+and 𝑪 (1)
+
+> 𝝋
+
+consist of the derivatives of the columns of 𝑪 (1) with respect to the corresponding 𝝑 and 𝝋 , respectively, and are given by 
+
+𝑪 (1) 
+
+> 𝝑
+
+=  𝜕 𝒂 re 
+
+𝜕𝜗 𝜗 =𝜗 1
+
+, . . . , 𝜕 𝒂 re 
+
+𝜕𝜗 𝜗 =𝜗 𝑄 
+
+ ∈ C𝑁 re ×𝑄 , (60) 
+
+𝑪 (1) 
+
+> 𝝋
+
+=  𝜕 𝒂 re 
+
+𝜕𝜑 𝜑 =𝜑 1
+
+, . . . , 𝜕 𝒂 re 
+
+𝜕𝜑 𝜑 =𝜑 𝑄 
+
+ ∈ C𝑁 re ×𝑄 . (61) Using (57), we obtain the following expressions: 
+
+𝑭 𝝑𝝑 = 2
+
+𝜎 2
+
+> 𝑒 (1)
+
+ℜ 𝑄 ∑︁ 
+
+> 𝑞 =1
+
+𝜦 (1)H 
+
+> 𝑞
+
+𝑪 (1)H 
+
+> 𝝑
+
+𝑪 (1) 
+
+> 𝝑
+
+𝜦 (1)
+
+> 𝑞
+
+, (62) 
+
+𝑭 𝝋𝝋 = 2
+
+𝜎 2
+
+> 𝑒 (1)
+
+ℜ 𝑄 ∑︁ 
+
+> 𝑞 =1
+
+𝜦 (1)H 
+
+> 𝑞
+
+𝑪 (1)H 
+
+> 𝝋
+
+𝑪 (1) 
+
+> 𝝋
+
+𝜦 (1)
+
+> 𝑞
+
+, (63) 
+
+𝑭 𝝑𝝋 = 2
+
+𝜎 2
+
+> 𝑒 (1)
+
+ℜ 𝑄 ∑︁ 
+
+> 𝑞 =1
+
+𝜦 (1)H 
+
+> 𝑞
+
+𝑪 (1)H 
+
+> 𝝑
+
+𝑪 (1) 
+
+> 𝝋
+
+𝜦 (1)
+
+> 𝑞
+
+. (64) Applying the block matrix inversion formula, we obtain the CRBs 
+
+𝑪 𝑹𝑩 𝝑𝝑 = 𝑭 𝝑𝝑 − 𝑭 𝝑𝝋 𝑭 −1 
+
+> 𝜑 𝜑
+
+𝑭 H
+
+> 𝝑𝝋
+
+−1, (65) 
+
+𝑪 𝑹𝑩 𝝋𝝋 = 𝑭 𝝋𝝋 − 𝑭 H 
+
+> 𝝑𝝋
+
+𝑭 −1 
+
+> 𝝑𝝑
+
+𝑭 𝝑𝝋 
+
+−1. (66) 
+
+B. Derivation of CRB 𝜔 𝜔 
+
+For (28), by vectorizing ˜ˆ𝑪 (2)
+
+, we obtain vec ( ˜ˆ𝑪 (2)
+
+) = ˜ˆ𝒄 (2) = 𝑰 𝑄 ×𝑄 ⊗ ˜𝑪 (2) 𝜹 (2) + ˜𝒆 (2) , (67) where 𝜹 (2) = vec  𝜟 (2) , ˜𝒆 (2) = vec   ˜𝑬 (2) , and ˜ˆ𝒄 (2) can be viewed as a distribution with mean vector 𝝁 (2) = [𝑰 𝑄 ×𝑄 ⊗
+
+˜𝑪 (2) ]𝜹 (2) and covariance matrix 𝑯 (2) = E{ ˜𝒆 (2) ˜𝒆 (2)H } =11 
+
+𝜎 2˜𝑒 (2) 𝑰 𝑀𝑄 ×𝑀𝑄 . Accordingly, the FIM with respect to 𝜔 and 
+
+𝜹 (2) are given by 
+
+𝑭 (2) (𝝎 , 𝜹 (2) ) =  𝑭 𝝎𝝎 𝑭 𝝎𝜹 (2)
+
+𝑭 H 
+
+> 𝝎𝜹 (2)
+
+𝑭 𝜹 (2) 𝜹 (2)
+
+ ∈ C(2𝑄 2+𝑄 ) × ( 2𝑄 2+𝑄 ) , (68) where 
+
+𝑭 𝜹 (2) 𝜹 (2) = 𝑭 ℜ[𝜹 (2) ]ℜ[𝜹 (2) ] 𝑭 ℜ[𝜹 (2) ]ℑ[𝜹 (2) ]
+
+𝑭 H   
+
+> ℜ[𝜹 (2)]ℑ[𝜹 (2)]
+
+𝑭 ℑ[𝜹 (2) ]ℑ[𝜹 (2) ]
+
+ ∈ C2𝑄 2 ×2𝑄 2
+
+, (69) 
+
+𝑭 𝝎𝜹 (2) = 𝑭 𝝎 ℜ[𝜹 (2) ] , 𝑭 𝝎 ℑ[𝜹 (2) ]
+
+. (70) The first-order derivative of 𝝁 (2) with respect to 𝝎 is given by 
+
+𝜕 𝝁 (2)
+
+𝜕 𝝎 = 𝜦 (2)H 
+
+> 1
+
+˜𝑪 (2)H 
+
+> 𝝎
+
+, . . . , 𝜦 (2)H 
+
+> 𝑄
+
+˜𝑪 (2)H
+
+> 𝝎
+
+T
+
+, (71) where 𝜦 (2) 
+
+> 𝑞
+
+= diag ([ 𝜟 (2) ] (:,𝑞 ) ). The matrix ˜𝑪 (2) 
+
+> 𝝎
+
+consists of the derivatives of the columns of ˜𝑪 (2) with respect to the corresponding 𝝎 , and is given by 
+
+˜𝑪 (2) 
+
+> 𝝎
+
+=  𝜕 𝒂 do 
+
+𝜕𝜔 𝜔 =𝜔 1
+
+, . . . , 𝜕 𝒂 do 
+
+𝜕𝜔 𝜔 =𝜔 𝑄 
+
+ ∈ C𝑀 ×𝑄 . (72) Similar to (57), we obtain the following expressions 
+
+𝑭 𝝎𝝎 = 2
+
+𝜎 2˜𝑒 (2)
+
+ℜ 𝐾 𝑁 re ∑︁ 
+
+> 𝑞 =1
+
+𝜦 (2)H 
+
+> 𝑞
+
+˜𝑪 (2)H 
+
+> 𝝎
+
+˜𝑪 (2) 
+
+> 𝝎
+
+𝜦 (2)
+
+> 𝑞
+
+. (73) Since 𝜹 (2) is a complex-valued vector, we consider derivatives with respect to its real and imaginary parts separately 
+
+𝜕 𝝁 (2)
+
+𝜕 ℜ[𝜹 (2) ] = 𝑰 𝑄 ×𝑄 ⊗ ˜𝑪 (2) , 𝜕 𝝁 (2)
+
+𝜕 ℑ[𝜹 (2) ] = j𝑰 𝑄 ×𝑄 ⊗ ˜𝑪 (2) . (74) Thus, we obtain 
+
+𝑭 ℜ[𝜹 (2) ]ℜ[𝜹 (2) ] = 2
+
+𝜎 ˜𝑒 (2)
+
+ℜ𝑰 𝑄 ×𝑄 ⊗   ˜𝑪 (2) ˜𝑪 (2)H , (75) 
+
+𝑭 ℑ[𝜹 (2) ]ℑ[𝜹 (2) ] = − 2
+
+𝜎 ˜𝑒 (2)
+
+ℜ𝑰 𝑄 ×𝑄 ⊗   ˜𝑪 (2) ˜𝑪 (2)H , (76) 
+
+𝑭 ℜ[𝜹 (2) ]ℑ[𝜹 (2) ] = 2
+
+𝜎 ˜𝑒 (2)
+
+ℜ𝑰 𝑄 ×𝑄 ⊗  j ˜𝑪 (2) ˜𝑪 (2)H , (77) 
+
+𝑭 𝝎 ℜ[𝜹 (2)] = 2
+
+𝜎 ˜𝑒 (2)
+
+ℜ𝜦 (2)H 
+
+> 1
+
+˜𝑪 (2)H 
+
+> 𝝎
+
+˜𝑪 (2) , . . . , 𝜦 (2)H 
+
+> 𝑄
+
+˜𝑪 (2)H 
+
+> 𝝎
+
+˜𝑪 (2) , (78) 
+
+𝑭 𝝎 ℑ[𝜹 (2)] = 2
+
+𝜎 ˜𝑒 (2)
+
+ℜj𝜦 (2)H 
+
+> 1
+
+˜𝑪 (2)H 
+
+> 𝝎
+
+˜𝑪 (2), . . . , j𝜦 (2)H 
+
+> 𝑄
+
+˜𝑪 (2)H 
+
+> 𝝎
+
+˜𝑪 (2). (79) Applying the block matrix inversion property, we obtain 
+
+𝑪 𝑹𝑩 𝝎𝝎 = 𝑭 𝝎𝝎 − 𝑭 𝝎𝜹 (2) 𝑭 𝜹 (2) 𝜹 (2) 𝑭 H
+
+> 𝝎𝜹 (2)
+
+−1. (80) 
+
+C. Derivation of CRB 𝜏 𝜏 
+
+For (24), by vectorizing ˆ𝑪 (3) , we obtain vec ( ˆ𝑪 (3) ) = ˆ𝒄 (3) = 𝑰 𝑄 ×𝑄 ⊗ 𝑪 (3) 𝜹 (3) + 𝒆 (3) , (81) where 𝜹 (3) = vec  𝜟 (3) , 𝒆 (3) , and ˆ𝒄 (3) can be viewed as a distribution with mean vector 𝝁 (3) = [𝑰 𝑄 ×𝑄 ⊗ 𝑪 (3) ]𝜹 (3) and covariance matrix 𝑯 (3) = E{𝒆 (3) 𝒆 (3)H } = 𝜎 2 
+
+> 𝑒 (3)
+
+𝑰 𝑁 𝑏𝑠 𝑄 × 𝑁 𝑏𝑠 𝑄 .We construct the FIM with respect to 𝝉 and 𝜷 as 
+
+𝑭 (3) (𝝉 , 𝜷 ) =
+
+𝑭 𝝉𝝉 𝑭 𝝉𝜷 
+
+𝑭 H 
+
+> 𝝉𝜷
+
+𝑭 𝜷𝜷 
+
+
+
+∈ C3𝑄 ×3𝑄 . (82) Since 𝜷 is a complex-valued vector, we need to take derivatives with respect to its real and imaginary parts separately. Thus, 
+
+𝑭 𝜷𝜷 =
+
+𝑭 ℜ[𝜷 ]ℜ[𝜷 ] 𝑭 ℜ[𝜷 ]ℑ[𝜷 ]
+
+𝑭 H 
+
+> ℜ[𝜷 ]ℑ[𝜷 ]
+
+𝑭 ℑ[𝜷 ]ℑ[𝜷 ]
+
+
+
+∈ C2𝑄 ×2𝑄 , (83) 
+
+𝑭 𝝉𝜷 = 𝑭 𝝉 ℜ[𝜷 ] , 𝑭 𝝉 ℑ[𝜷 ]
+
+. (84) The first-order derivative of 𝝁 (3) with respect to 𝝉 is given by 
+
+𝜕 𝝁 (3)
+
+𝜕 𝝉 = 𝜦 (3)H 
+
+> 1
+
+𝑪 (3)H 
+
+> 𝝉
+
+, . . . , 𝜦 (3)H 
+
+> 𝑄
+
+𝑪 (3)H
+
+> 𝝉
+
+T
+
+, (85) where 𝜦 (3) 
+
+> 𝑞
+
+= diag ([ 𝜟 (3) ] (:,𝑞 ) ). The matrix 𝑪 (3) 
+
+> 𝝉
+
+consists of the derivatives of the columns of 𝑪 (3) with respect to the corresponding 𝝉 , and is given by 
+
+𝑪 (3) 
+
+> 𝝉
+
+=
+
+h 𝜕 𝒄 (3)
+
+𝜕𝜏 𝜏 =𝜏 1
+
+, . . . , 𝜕 𝒄 (3)
+
+𝜕𝜏 𝜏 =𝜏 𝑄 
+
+i
+
+∈ C𝑁 bs ×𝑄 . (86) Using (81), we obtain the following expression: 
+
+𝑭 𝝉𝝉 = 2
+
+𝜎 2
+
+> 𝑒 (3)
+
+ℜ 𝑄 ∑︁ 
+
+> 𝑞 =1
+
+𝜦 (3)H 
+
+> 𝑞
+
+𝑪 (3)H 
+
+> 𝝉
+
+𝑪 (3) 
+
+> 𝝉
+
+𝜦 (3)
+
+> 𝑞
+
+. (87) Considering derivatives with respect to the real and imaginary parts of 𝜷 , we obtain: 
+
+𝜕 𝝁 (3)
+
+𝜕 ℜ[𝜷 ] = 𝜦 (3)H 
+
+> 1
+
+𝑪 (3)H 
+
+> ℜ[𝜷 ]
+
+, . . . , 𝜦 (3)H 
+
+> 𝑄
+
+𝑪 (3)H
+
+> ℜ[𝜷 ]
+
+T
+
+, (88) 
+
+𝜕 𝝁 (3)
+
+𝜕 ℑ[𝜷 ] = 𝜦 (3)H 
+
+> 1
+
+𝑪 (3)H 
+
+> ℑ[𝜷 ]
+
+, . . . , 𝜦 (3)H 
+
+> 𝑄
+
+𝑪 (3)H
+
+> ℑ[𝜷 ]
+
+T
+
+, (89) where 𝑪 (3) 
+
+> ℜ[𝜷 ]
+
+and 𝑪 (3) 
+
+> ℑ[𝜷 ]
+
+consist of the derivatives of the columns of 𝑪 (3) with respect to the corresponding ℜ[𝜷 ] and 
+
+ℑ[𝜷 ], respectively, and are given by 
+
+𝑪 (3) 
+
+> ℜ[𝜷 ]
+
+=
+
+h 𝜕 𝒄 (3)
+
+𝜕 ℜ[𝛽 ] 𝛽 =𝛽 1
+
+, . . . , 𝜕 𝒄 (3)
+
+𝜕 ℜ[𝛽 ] 𝛽 =𝛽 𝑄 
+
+i
+
+∈ C𝑁 bs ×𝑄 , (90) 
+
+𝑪 (3) 
+
+> ℑ[𝜷 ]
+
+=
+
+h 𝜕 𝒄 (3)
+
+𝜕 ℑ[𝛽 ] 𝛽 =𝛽 1
+
+, . . . , 𝜕 𝒄 (3)
+
+𝜕 ℑ[𝛽 ] 𝛽 =𝛽 𝑄 
+
+i
+
+∈ C𝑁 bs ×𝑄 . (91) Thus, we obtain 
+
+𝑭 ℜ[𝜷 ]ℜ[𝜷 ] = 2
+
+𝜎 2
+
+> 𝑒 (3)
+
+ℜ 𝑄 ∑︁ 
+
+> 𝑞 =1
+
+𝜦 (3)H 
+
+> 𝑞
+
+𝑪 (3)H 
+
+> ℜ[𝜷 ]
+
+𝑪 (3) 
+
+> ℜ[𝜷 ]
+
+𝜦 (3)
+
+> 𝑞
+
+, (92) 
+
+𝑭 ℑ[𝜷 ]ℑ[𝜷 ] = 2
+
+𝜎 2
+
+> 𝑒 (3)
+
+ℜ 𝑄 ∑︁ 
+
+> 𝑞 =1
+
+𝜦 (3)H 
+
+> 𝑞
+
+𝑪 (3)H 
+
+> ℑ[𝜷 ]
+
+𝑪 (3) 
+
+> ℑ[𝜷 ]
+
+𝜦 (3)
+
+> 𝑞
+
+, (93) 
+
+𝑭 ℜ[𝜷 ]ℑ[𝜷 ] = 2
+
+𝜎 2
+
+> 𝑒 (3)
+
+ℜ 𝑄 ∑︁ 
+
+> 𝑞 =1
+
+𝜦 (3)H 
+
+> 𝑞
+
+𝑪 (3)H 
+
+> ℜ[𝜷 ]
+
+𝑪 (3) 
+
+> ℑ[𝜷 ]
+
+𝜦 (3)
+
+> 𝑞
+
+, (94) 
+
+𝑭 𝜏 ℜ[𝜷 ] = 2
+
+𝜎 2
+
+> 𝑒 (3)
+
+ℜ 𝑄 ∑︁ 
+
+> 𝑞 =1
+
+𝜦 (3)H 
+
+> 𝑞
+
+𝑪 (3)H 
+
+> 𝜏
+
+𝑪 (3) 
+
+> ℜ[𝜷 ]
+
+𝜦 (3)
+
+> 𝑞
+
+, (95) 
+
+𝑭 𝝉 ℑ[𝜷 ] = 2
+
+𝜎 2
+
+> 𝑒 (3)
+
+ℜ 𝑄 ∑︁ 
+
+> 𝑞 =1
+
+𝜦 (3)H 
+
+> 𝑞
+
+𝑪 (3)H 
+
+> 𝝉
+
+𝑪 (3) 
+
+> ℑ[𝜷 ]
+
+𝜦 (3)
+
+> 𝑞
+
+. (96) Applying the block matrix inversion property, we obtain 
+
+𝑪 𝑹𝑩 𝝉𝝉 = 𝑭 𝝉𝝉 − 𝑭 𝝉𝜷 𝑭 −1 
+
+> 𝜷𝜷
+
+𝑭 H
+
+> 𝝉𝜷
+
+−1. (97) To this end, we have derived the expressions for 𝑪 𝑹𝑩 𝝑𝝑 ,
+
+𝑪 𝑹𝑩 𝝋𝝋 , 𝑪 𝑹𝑩 𝝉𝝉 , and 𝑪 𝑹𝑩 𝝎𝝎 , along with explanations for all submatrix parameters. 12 120 1M −01  
+
+> 1( ) 2
+> mlmMl
+> =
+
+ =0M(2) (1)   
+
+> (a) 𝑚 is even.
+
+120 1M −0M(2) (1) 101   
+
+> 1( ) 21
+> ml
+> lmM+=+
+
+ <  
+
+> (b) 𝑚 is odd.
+
+Fig. 9: Illustration of the optimized design of OFDM symbols. 
+
+APPENDIX BSIMPLIFICATION OF CRB S PECIFIC EXPRESSIONS FOR EACH TARGET 
+
+In this appendix, we derive the CRB for each individual target. For the case of a single target source, equations (60) and (61) can be simplified as 
+
+˜𝒂 re , 𝜗 (X , Y, 𝜗, 𝜑 ) = −j 2π
+
+𝜆 𝑐 
+
+𝑫 𝑥 𝒂 re (X , Y, 𝜗, 𝜑 ), (98) 
+
+˜𝒂 re , 𝜑 (X , Y, 𝜗, 𝜑 ) = −j 2π
+
+𝜆 𝑐 
+
+𝑫 𝑦 𝒂 re (X , Y, 𝜗, 𝜑 ), (99) where 𝑫 𝑥 = diag (𝑥 1, . . . , 𝑥 𝑁 re ) and 𝑫 𝑦 = diag (𝑦 1, . . . , 𝑦 𝑁 re ).(62), (63) and (64) can be simplified to 
+
+𝐹 𝜗𝜗 = 2
+
+𝜎 2
+
+> 𝑒 (1)
+
+ℜ𝛿 (1)∗ 𝜕 𝒂 Hre 
+
+𝜕𝜗 𝜕 𝒂 re 
+
+𝜕𝜗 𝛿 (1)  = 8𝜋 2 𝛿 (1) 2
+
+𝜆 2 
+
+> 𝑐
+
+𝜎 2
+
+> 𝑒 (1)
+> 𝑁 re
+
+∑︁ 
+
+> 𝑛 =1
+
+𝑥 2
+
+> 𝑛
+
+, (100) 
+
+𝐹 𝜑 𝜑 = 2
+
+𝜎 2
+
+> 𝑒 (1)
+
+ℜ𝛿 (1)∗ 𝜕 𝒂 Hre 
+
+𝜕𝜑 𝜕 𝒂 re 
+
+𝜕𝜑 𝛿 (1)  = 8𝜋 2 𝛿 (1) 2
+
+𝜆 2 
+
+> 𝑐
+
+𝜎 2
+
+> 𝑒 (1)
+> 𝑁 re
+
+∑︁ 
+
+> 𝑛 =1
+
+𝑦 2
+
+> 𝑛
+
+, (101) 
+
+𝐹 𝜗𝜑 = 2
+
+𝜎 2
+
+> 𝑒 (1)
+
+ℜ𝛿 (1)∗ 𝜕 𝒂 Hre 
+
+𝜕𝜗 𝜕 𝒂 re 
+
+𝜕𝜑 𝛿 (1) = 8π2 |𝛿 (1) |2
+
+𝜆 2 
+
+> 𝑐
+
+𝜎 2
+
+> e(1)
+> 𝑁 re
+
+∑︁ 
+
+> 𝑛 =1
+
+𝑥 𝑛 𝑦 𝑛 . (102) Substituting (100)-(102) into (37) and (38) yields CRB 𝜗 𝜗 =
+
+h 8π2 |𝛿 (1) |2
+
+𝜆 2 
+
+> 𝑐
+
+𝜎 2
+
+> e(1)
+
+  var (Y) − cov (X , Y)
+
+var (X )
+
+i−1
+
+, (103) CRB 𝜑 𝜑 =
+
+h 8π2 |𝛿 (1) |2
+
+𝜆 2 
+
+> 𝑐
+
+𝜎 2
+
+> e(1)
+
+  var (X ) − cov (X , Y)
+
+var (Y)
+
+i−1
+
+. (104) Similarly, by applying the method of (98)-(104), we can obtain (43) and (44), respectively. APPENDIX CPROOF OF THEOREM 1In this appendix, we consider sequentially placing T (𝑚 )
+
+for 𝑚 = 1, . . . , 𝑀 along a finite time axis. Each placement is optimized by establishing an iterative relationship between the current objective function and the next placement. We conceptualize a strip of length 𝑀 0 where each box represents a unit. The optimization problem is to place T to maximize the objective function var (T ).Clearly, to maximize the objective function, the first two placements must be at the extremes T (1) = 0 and T (2) = 𝑀 0.Assuming 𝑚 points have been placed, the variance is given by 
+
+var 𝑚 = 1
+
+𝑚 
+
+> 𝑚
+
+∑︁ 
+
+> 𝑙 =1
+
+T (𝑙 )2 −   1
+
+𝑚 
+
+> 𝑚
+
+∑︁ 
+
+> 𝑙 =1
+
+T (𝑙 )2. (105) After placing the (𝑚 + 1)-th point, the objective function becomes 
+
+var 𝑚 +1 = 1
+
+𝑚 + 1
+
+> 𝑚 +1
+
+∑︁ 
+
+> 𝑙 =1
+
+T (𝑙 )2 −   1
+
+𝑚 + 1
+
+> 𝑚 +1
+
+∑︁ 
+
+> 𝑙 =1
+
+T (𝑙 )2. (106) It should be noted that 
+
+var 𝑚 +1 = 𝑚 𝑚 +1 var 𝑚 + 𝑚 
+
+(𝑚 +1)2
+
+ T (𝑚 +1) − 1
+
+𝑚 
+
+> 𝑚
+
+∑︁ 
+
+> 𝑙 =1
+
+T (𝑙 )2.
+
+(107) For the (𝑚 + 1)-th placement, the term 𝑚 𝑚 +1 var 𝑚 is a fixed constant. To maximize the objective function, we must max-imize the squared distance term, which requires placing the next OFDM symbol at the available position farthest from the current mean position 1
+
+> 𝑚
+
+P𝑚 𝑙 =1 T (𝑙 ).Without loss of generality, we assume 𝑚 is even. As shown in Fig. 9a, the mean position is exactly at the center 𝑀 0/2.To maximize the distance from the mean while satisfying the separation constraint T (𝑚 1) ≠ T (𝑚 2) for all distinct pairs, the (𝑚 + 1)-th OFDM symbol must be placed at the available positions marked in red. Since both candidate positions are symmetric about 𝑀 0/2, we select the left position without loss of generality. After this placement, the number of currently placed points becomes odd, and the new mean position strictly shifts to the left. Consequently, as shown in Fig. 9b, to maximize the variance for the (𝑚 + 2)-th placement, the next OFDM symbol must unequivocally be placed at the rightmost available position. By recursively applying this alternating placement strategy, we guarantee that every single sequential placement strictly maximizes the variance increment. This recursive mathemati-cal approach rigorously ensures that the final distribution of the 
+
+𝑀 OFDM symbols achieves the global optimality. Repeating this process yields the optimal solution 
+
+T (𝑚 )★ =
+
+(
+
+1, 2, . . . , ¯𝑀 𝑚 ≤ ¯𝑀, 𝑀 0 − ¯𝑀 + 1, . . . , 𝑀 0 𝑚 > ¯𝑀, (108) where ¯𝑀 = ⌊𝑀 /2⌋.To this end, we have completed the proof of Theorem 1. REFERENCES [1] Z. Ren, Z. Wang, W. Xu, Y. Guo, Y. Xu, B. Guo, and Z. Yu, “Toward crowd wireless sensing: The framework and open issues,” IEEE Commun. Mag. , vol. 63, no. 8, pp. 132–138, 2025. [2] W. Tong and G. Y. Li, “Nine challenges in artificial intelligence and wireless communications for 6G,” IEEE Wireless Commun. , vol. 29, no. 4, pp. 140–145, 2022. [3] A. M. Molaei, V. Fusco, M. A. B. Abbasi, M. Khalily, C. G. Lopes, and O. Yurduseven, “Efficient active azimuth-elevation DOA estimations via massive MIMO radar,” IEEE Trans. Veh. Technol. , pp. 1–20, 2025. [4] W. Zhou, R. Zhang, G. Chen, and W. Wu, “Integrated sensing and communication waveform design: A survey,” IEEE Open J. Commun. Soc. , vol. 3, pp. 1930–1949, 2022. [5] A. Liu, Z. Huang, M. Li, Y. Wan, W. Li, T. X. Han, C. Liu, R. Du, D. K. P. Tan, J. Lu, Y. Shen, F. Colone, and K. Chetty, “A survey on fundamental limits of integrated sensing and communication,” IEEE Commun. Surv. Tutor. , vol. 24, no. 2, pp. 994–1034, 2022. [6] X. Luo, Q. Lin, R. Zhang, H.-H. Chen, X. Wang, and M. Huang, “ISAC – a survey on its layered architecture, technologies, standardizations, prototypes and testbeds,” IEEE Commun. Surv. Tutor. , pp. 1–1, 2025. [7] R. Zhang, W. Wu, X. Chen, Z. Gao, and Y. Cai, “Terahertz integrated sensing and communication-empowered UAVs in 6G: A transceiver design perspective,” IEEE Veh. Technol. Mag. , pp. 2–11, 2025. 13 
+
+[8] J. A. Zhang, X. Huang, Y. J. Guo, J. Yuan, and R. W. Heath, “Multibeam for joint communication and radar sensing using steerable analog antenna arrays,” IEEE Trans. Veh. Technol. , vol. 68, no. 1, pp. 671– 685, 2019. [9] P. Li, M. Li, R. Liu, Q. Liu, and A. Lee Swindlehurst, “MIMO-OFDM ISAC waveform design for range-doppler sidelobe suppression,” IEEE Trans. Wireless Commun. , vol. 24, no. 2, pp. 1001–1015, 2025. [10] P. Wang, D. Han, Y. Cao, W. Ni, and D. Niyato, “Multi-objective optimization-based waveform design for multi-user and multi-target MIMO-ISAC systems,” IEEE Trans. Wireless Commun. , vol. 23, no. 10, pp. 15 339–15 352, 2024. [11] C. Meng, Z. Wei, D. Ma, W. Ni, L. Su, and Z. Feng, “Multiobjective-optimization-based transmit beamforming for multitarget and multiuser mimo-isac systems,” IEEE Internet Things J. , vol. 11, no. 18, pp. 29 260– 29 274, 2024. [12] F. Liu, L. Zhou, C. Masouros, A. Li, W. Luo, and A. Petropulu, “To-ward dual-functional radar-communication systems: Optimal waveform design,” IEEE Trans. Signal Process. , vol. 66, no. 16, pp. 4264–4279, 2018. [13] X. Liu, T. Huang, N. Shlezinger, Y. Liu, J. Zhou, and Y. C. Eldar, “Joint transmit beamforming for multiuser MIMO communications and MIMO radar,” IEEE Trans. Signal Process. , vol. 68, pp. 3929–3944, 2020. [14] L. Zhu, W. Ma, and R. Zhang, “Movable antennas for wireless commu-nication: Opportunities and challenges,” IEEE Commun. Mag. , vol. 62, no. 6, pp. 114–120, Jun. 2024. [15] B. Ning, S. Yang, Y. Wu, P. Wang, W. Mei, C. Yuen, and E. Bjornson, “Movable antenna-enhanced wireless communications: General architec-tures and implementation methods,” IEEE Wireless Commun. , pp. 1–9, 2025. [16] K. Chen, C. Qi, Y. Hong, and C. Yuen, “Remaa: Reconfigurable pixel antenna-based electronic movable-antenna arrays for multiuser communications,” IEEE Trans. Commun. , pp. 1–1, 2025. [17] C. Ye, R. Zhang, C. Hu, L. Yao, W. Wu, and C. Yuen, “Robust DOA estimation for movable antenna arrays with partial gain and phase errors,” IEEE Wireless Commun. Lett. , vol. 15, pp. 545–549, 2026. [18] W. Ma, L. Zhu, and R. Zhang, “MIMO capacity characterization for movable antenna systems,” vol. 23, no. 4, pp. 3392–3407. [19] L. Zhu, W. Ma, B. Ning, and R. Zhang, “Movable-antenna enhanced multiuser communication via antenna position optimization,” IEEE Trans. Wireless Commun. , vol. 23, no. 7, pp. 7214–7229, 2024. [20] Y. Wu, D. Xu, D. W. K. Ng, W. Gerstacker, and R. Schober, “Globally optimal movable antenna-enabled multiuser communication: Discrete antenna positioning, power consumption, and imperfect CSI,” IEEE Trans. Commun. , pp. 1–1, 2025. [21] G. Chen, R. Zhang, X. Guan, G. Hu, Q. Wu, and W. Wu, “Energy efficiency maximization for multiuser communications with movable an-tennas: Joint beamforming and antenna position design,” IEEE Internet Things J. , pp. 1–1, 2025. [22] X. Shao, Q. Jiang, and R. Zhang, “6D movable antenna based on user distribution: Modeling and optimization,” IEEE Trans. Wireless Commun. , vol. 24, no. 1, pp. 355–370, 2025. [23] L. Chen, M.-M. Zhao, M.-J. Zhao, and R. Zhang, “Antenna position and beamforming optimization for movable antenna enabled ISAC: Optimal solutions and efficient algorithms,” IEEE Trans. Signal Process. , vol. 73, pp. 3812–3828, 2025. [24] X. Wang, X. Liu, F. Du, Z. Zhao, S. Geng, and Z. Zhou, “Movable antenna-assisted integrated sensing, communication, and computation over-the-air: Joint beamforming and antenna position design,” IEEE Trans. Veh. Technol. , pp. 1–6, 2025. [25] H. Qin, W. Chen, Q. Wu, Z. Zhang, Z. Li, and N. Cheng, “Cram´ er-rao bound minimization for movable antenna-assisted multiuser integrated sensing and communications,” IEEE Wireless Commun. Lett. , vol. 13, no. 12, pp. 3404–3408, 2024. [26] W. Ma, L. Zhu, and R. Zhang, “Movable antenna enhanced wireless sensing via antenna position optimization,” IEEE Trans. Wireless Com-mun. , vol. 23, no. 11, pp. 16 575–16 589, 2024. [27] J. Chen, Q. Chen, J. Jia, B. Yin, and X. Wang, “Passive sensing in a near-field multi-ISAC system with imperfect CSI,” IEEE Trans. Cogn. Commun. Netw. , pp. 1–1, 2025. [28] H. Huang, W. Yuan, and A. Nallanathan, “Sensing mobile targets in near-field ISAC systems: A low complexity modified MUSIC approach,” 
+
+IEEE Trans. Veh. Technol. , pp. 1–6, 2025. [29] A. M. Molaei, S. L. Cotton, and O. Yurduseven, “Efficient parameter estimation and communication path identification in ISAC,” IEEE Trans. Veh. Technol. , pp. 1–18, 2025. [30] Y. Liu, G. Liao, Y. Chen, J. Xu, and Y. Yin, “Super-resolution range and velocity estimations with OFDM integrated radar and communications waveform,” IEEE Trans. Veh. Technol. , vol. 69, no. 10, pp. 11 659– 11 672, 2020. [31] R. Xie, D. Hu, K. Luo, and T. Jiang, “Performance analysis of joint range-velocity estimator with 2D-MUSIC in OFDM radar,” IEEE Trans. Signal Process. , vol. 69, pp. 4787–4800, 2021. [32] F. Zhang, Z. Zhang, W. Yu, and T.-K. Truong, “Joint range and velocity estimation with intrapulse and intersubcarrier doppler effects for OFDM-based radcom systems,” IEEE Trans. Signal Process. , vol. 68, pp. 662– 675, 2020. [33] M. F. Keskin, H. Wymeersch, and V. Koivunen, “MIMO-OFDM joint radar-communications: Is ICI friend or foe?” IEEE J. Sel. Topics Signal Process. , vol. 15, no. 6, pp. 1393–1408, 2021. [34] M. L. Rahman, J. A. Zhang, X. Huang, Y. J. Guo, and R. W. Heath, “Framework for a perceptive mobile network using joint communication and radar sensing,” IEEE Trans. Aerosp. Electron. Syst. , vol. 56, no. 3, pp. 1926–1941, 2020. [35] L. Zhou, J. Dai, W. Xu, and C. Chang, “Joint target detection and channel estimation for distributed massive MIMO ISAC systems,” IEEE Trans. Cogn. Commun. Netw. , vol. 11, no. 1, pp. 300–315, 2025. [36] H. Chen, F. Ahmad, S. Vorobyov, and F. Porikli, “Tensor decompositions in wireless communications and MIMO radar,” IEEE J. Sel. Topics Signal Process. , vol. 15, no. 3, pp. 438–453, 2021. [37] N. D. Sidiropoulos, L. De Lathauwer, X. Fu, K. Huang, E. E. Papalex-akis, and C. Faloutsos, “Tensor decomposition for signal processing and machine learning,” IEEE Trans. Signal Process. , vol. 65, no. 13, pp. 3551–3582, 2017. [38] L. Yao, R. Zhang, C. Hu, C. Ye, W. Wu, and B. Shim, “Tensor-based 2-D DOA estimation for uniform planar arrays with unknown mutual coupling,” IEEE Internet Things J. , pp. 1–1, 2025. [39] C. Ye, R. Zhang, J. Du, W. Ma, Q. Wu, W. Wu, and R. Zhang, “Rotatable antenna-enhanced wireless sensing with uniform sparse array via tensor decomposition,” 2026. [Online]. Available: https: //arxiv.org/abs/2605.21895 [40] J. Du, M. Han, Y. Chen, L. Jin, H. Wu, and F. Gao, “Tensor decom-positions for integrated sensing and communications,” IEEE Commun. Mag. , vol. 62, no. 9, pp. 128–134, 2024. [41] R. Zhang, L. Cheng, W. Zhang, X. Guan, Y. Cai, W. Wu, and R. Zhang, “Channel estimation for movable-antenna MIMO systems via tensor decomposition,” IEEE Wireless Commun. Lett. , vol. 13, no. 11, pp. 3089–3093, 2024. [42] R. Zhang, L. Cheng, S. Wang, Y. Lou, Y. Gao, W. Wu, and D. W. K. Ng, “Integrated sensing and communication with massive MIMO: A unified tensor approach for channel and target parameter estimation,” 
+
+IEEE Trans. Wireless Commun. , vol. 23, no. 8, pp. 8571–8587, 2024. [43] R. Zhang, X. Wu, Y. Lou, F.-G. Yan, Z. Zhou, W. Wu, and C. Yuen, “Channel-training-aided target sensing for terahertz integrated sensing and massive MIMO communications,” IEEE Internet Things J. , vol. 12, no. 4, pp. 3755–3770, 2025. [44] J. Tang, Y. Yu, C. Pan, H. Ren, D. Wang, J. Wang, and X. You, “Cooperative ISAC-empowered low-altitude economy,” IEEE Trans. Wireless Commun. , vol. 24, no. 5, pp. 3837–3853, 2025. [45] L. Cheng, Y.-C. Wu, and H. V. Poor, “Probabilistic tensor canonical polyadic decomposition with orthogonal factors,” IEEE Trans. Signal Process. , vol. 65, no. 3, pp. 663–676, Feb. 2017. [46] R. Zhang, L. Cheng, S. Wang, Y. Lou, W. Wu, and D. W. K. Ng, “Tensor decomposition-based channel estimation for hybrid mmWave massive MIMO in high-mobility scenarios,” IEEE Trans. Commun. , vol. 70, no. 9, pp. 6325–6340, Sep. 2022. [47] T. G. Kolda and B. W. Bader, “Tensor decompositions and applications,” 
+
+SIAM Rev. , vol. 51, no. 3, pp. 455–500, Sep. 2009. [48] F. Liu, C. Masouros, A. P. Petropulu, H. Griffiths, and L. Hanzo, “Joint radar and communication design: Applications, state-of-the-art, and the road ahead,” IEEE Trans. Commun. , vol. 68, no. 6, pp. 3834–3862, Jun. 2020.

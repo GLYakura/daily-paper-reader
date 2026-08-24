@@ -1,0 +1,250 @@
+Title: Spin-torque microwave detectors of positive rectangular pulse signals
+
+URL Source: https://arxiv.org/pdf/2608.20323v1
+
+Published Time: Fri, 21 Aug 2026 01:13:53 GMT
+
+Number of Pages: 5
+
+Markdown Content:
+# Spin-torque microwave detectors of positive rectangular pulse signals 
+
+V. Prokopenko, 1, a) O. Shtanko, 1 I. Sotnyk, 1 and O. Prokopenko 1, 2, b) 
+
+> 1)
+
+Educational and Scientific Institute of High Technologies, Taras Shevchenko National University of Kyiv, Kyiv 01601, Ukraine 
+
+> 2)
+
+G. V. Kurdyumov Institute for Metal Physics, National Academy of Sciences of Ukraine, Kyiv 03142, Ukraine 
+
+(Dated: 21 August 2026) 
+
+We analyze the performance of a spin-torque microwave detector (STMD) driven by positive rectangular current pulses 
+
+I(t) of various amplitudes I0, durations τ, and repetition periods T and reveal two distinct regimes of STMD operation. In the first (linear) regime, the time-averaged voltage across the detector, Udc , changes linearly with the pulse amplitude 
+
+I0 and depends on the ratio τ/T : Udc ∼ I0(τ/T ). This regime is observed for a wide range of pulse amplitudes I0
+
+in the case of in-plane (IP) magnetization dynamics and for rather small pulse amplitudes I0 ≤ Ith in an STMD with out-of-plane (OOP) magnetization dynamics. The other (nonlinear) regime is characterized by voltage jumps and drops and is observed only in a structure with OOP magnetization dynamics for input pulses with short repetition periods and large amplitudes I0 ≥ Ith . We believe that the linear regime of STMD operation can be used to unambiguously detect input pulse parameters, which could be important for the development and optimization of spintronic devices capable of detecting and processing non-harmonic (e.g., digital) microwave signals. Nowadays, spin-torque microwave detectors (STMDs) based on magnetic tunnel junctions (MTJs) and utilizing the spin-torque diode effect 1 are considered promising nano-scale detectors of microwave signals that can be useful for a wide range of applications in communications, medical imaging, energy harvesting, material characterization, effi-cient computing, military technology, etc. 1–11 Their noise-handling properties 3,12 are similar to those of semiconduc-tor detectors of microwave signals (e.g., Schottky diode-based detectors), and their fabrication technology is compatible with semiconductor technology 10 . Additionally, unlike semicon-ductor devices, STMDs can be substantially more sensitive to weak signals ( ∼ 10 to 10 3 times better) in certain oper-ating regimes 13–16 , paving the way for their extensive use in next-generation communication, medical, and energy harvest-ing systems. However, despite many years of rigorous theoretical, nu-merical, and experimental study of STMD properties, this re-search has focused only on the case of an input harmonic (sine-wave) current, I0 sin (2π f t + φ ) (see Refs. 1–16 ), or a small set of harmonic signals 17 , where I0, f and φ are the amplitude, frequency, and initial phase of the input signal cur-rent, respectively. Conversely, the response of an STMD to a non-harmonic signal, particularly a pulsed signal current with arbitrary periodic time dependence, has been analyzed only fragmentarily, despite the widespread use of pulsed sig-nals in modern electronics and communication systems. Cur-rently, only the cases of several sine-wave signals acting on an STMD 17 and an oscillator-based spectrum analyzer 18 with a slowly changing input sine-wave signal frequency are consid-ered. Therefore, it is critical to understand how prospective spintronic detectors (e.g., STMDs) respond to pulsed driv-ing signals frequently used in modern low-power electron-ics, including Internet of Things sensors 19 and spiking neural networks 20 .
+
+> a) v.o.prokopenko@gmail.com
+> b) oleksandr.prokopenko@gmail.com
+
+FIG. 1. (a) Layout of a circular STMD consisting of free and pinned magnetic layers separated by a dielectric spacer. When an input pulse current I(t) is applied to the structure, it excites the magnetization dynamics, M(t), described by the normalized magnetization vector 
+
+m ≡ m(t) = M(t)/|M(t)|. The vector m precesses along a particu-lar trajectory, depending on the configuration of the bias dc magnetic field Bdc : an in-plane trajectory (red dotted curve) for an in-plane field Bdc = BIP dc (red dashed arrow) and an out-of-plane trajectory (blue dotted curve) for an out-of-plane field Bdc = BOOP dc (blue dashed arrow). (b) A set of plots illustrating the principle of the device oper-ation (from top to bottom). The input rectangular pulse current I(t),applied to an STMD (top plot), excites the magnetization dynamics in the detector’s free layer (second plot), which gives rise to a vari-ation in the device’s magnetoresistance R(t) (third plot). When the current I(t) flows through the oscillating magnetoresistance R(t), a time-dependent pulsed voltage U(t) is generated across the STMD (bottom plot). The average value of this voltage is the output dc volt-age of an STMD, Udc .
+
+The operation of an STMD of pulsed signals is generally similar to that of an STMD under the action of an input sine-wave signal 1–6 . When an input pulsed signal current I(t) tra-verses an MTJ, it excites magnetization dynamics in the free arXiv:2608.20323v1 [physics.app-ph] 20 Aug 2026 2magnetic layer (FL) of an STMD structure (Fig. 1). Since the magnetization of the pinned magnetic layer (PL) remains fixed in the presence of the input signal, the angle between the magnetizations of the FL and PL varies over time, which gives rise to oscillation of the device’s tunneling magnetoresistance, 
+
+R(t) (Fig. 1(b)). The combination of the current I(t) and mag-netoresistance R(t) oscillations yields a time-dependent volt-age U(t) generated across the junction that can have a non-zero time-averaged value (Fig. 1(b)). In analogy with a con-ventional, harmonic-biased STMD, this value can be treated as the detector output direct current (dc) voltage Udc .In this Letter, we present a numerical and simplified the-oretical analysis of the ability of a passive STMD (no bias dc current) to detect input periodic rectangular pulse signals. We use STMD models developed in 2,3,5,7 with an input sig-nal current I(t) in the form of a periodic sequence of positive rectangular pulses. Our analysis investigates magnetization dynamics excited by input current pulses I(t) of various am-plitudes I0, durations τ, and repetition periods T . Addition-ally, we examine how the detector’s output dc voltage, Udc ,can be estimated from the oscillating instantaneous voltage, 
+
+U(t), generated across the STMD. We also test the possibility of identifying the input signal parameters for a known (e.g., experimentally measured) value of Udc .We consider an STMD as a typical, circular, three-layer MTJ structure, in which the free and pinned magnetic layers are separated by a non-magnetic dielectric spacer (Fig. 1(a)). For simplicity, we assume that the magnetization in the PL is absolutely fixed and directed along the unit vector p =
+
+{1, 0, 0} = ˆx (along the x-axis in Fig. 1(a)). Meanwhile, the magnetization dynamics in the FL is governed by the Landau-Lifshitz-Gilbert-Slonczewski equation, which we write using the macrospin approximation 2,3,5,7 :
+
+dm
+
+dt = γ[Beff × m] + α
+
+
+
+m × dm
+
+dt 
+
+
+
++ σ I(t)[ m × [m × p]] . (1) Here m ≡ m(t) = M/Ms is the normalized magnetization vec-tor associated with the FL magnetization vector M ≡ M(t),the absolute value of M, |M| = Ms, is the saturation mag-netization of the FL, γ is the absolute value of the gyro-magnetic ratio, α is the Gilbert damping parameter, σ =
+
+σ⊥/(1 + η2(m · p)) is the spin-transfer-torque coefficient, 
+
+σ⊥ = ( γ ¯h/2e)( η/MsV ), ¯ h is the reduced Planck constant, e
+
+is the elementary electric charge, η is the spin polarization ef-ficiency of the current I(t), and V = πr2l is the volume of the circular FL with radius r and thickness l.The effective magnetic field induction, Beff , has contribu-tions only from the bias dc magnetic field, Bdc , and the de-magnetization field, Bd , written in the scope of the thin film approximation 21 , Bd = −ˆzμ0Ms(m · ˆz), where ˆ z is the unit vector of the z-axis, and μ0 is the vacuum permeability. We consider two cases of the applied bias dc magnetic field: an in-plane field, Bdc = BIP dc = ˆyBdc , which is typical for the in-plane (IP) resonant regime of STMD operation 1,3,12 , and an out-of-plane field, Bdc = BOOP dc = ˆzBdc , which is typical for the out-of-plane (OOP) non-resonant regime of STMD operation 2–5 
+
+(here Bdc is the field magnitude and ˆ y is the unit vector of the 
+
+y-axis). The input signal current I(t) = I0i(t) in (1) is a periodic sequence of rectangular pulses with a repetition period T , a duration τ and an amplitude I0 > 0: 
+
+I(t) = I0i(t) = I0
+
+ 1 , (n − 1)T ≤ t ≤ (n − 1)T + τ
+
+0 , (n − 1)T + τ ≤ t ≤ nT , (2) where n is the pulse number starting from 1. We introduce the time-dependent voltage U(t) generated across an STMD by the input signal current I(t) = I0i(t) as 
+
+U(t) = I(t)R(t) = I0R⊥
+
+i(t)
+
+1 + η2(m · p) , (3) where R(t) = R⊥/(1 + η2(m · p)) is the device magnetoresis-tance 3, R⊥ = RA /πr2 is the MTJ resistance in the perpendic-ular state when m⊥p, and RA is the junction resistance-area product 3 (note that m · p gives mx(t)). Then, the output dc voltage of an STMD can be estimated as 
+
+Udc = 1
+
+Ti 
+
+> Zt0+Ti
+> t0
+
+U(t)dt = I0R⊥
+
+Ti 
+
+> Zt0+Ti
+> t0
+
+i(t)dt 
+
+1 + η2(m · p) . (4) Here t0 is the time from which the magnetization oscillations can be considered sufficiently stable (we use t0 = 10 T ), and 
+
+Ti = NT is the integration (averaging) time interval, which covers an integer number of pulse repetition periods N ≥ 1. We use the following typical parameters of an STMD to quantitatively analyze the device performance 2,3,5,15,17 : FL radius r = 50 nm and FL thickness l = 1 nm, spin polar-ization efficiency of current η = 0.7, resistance-area product RA = 7.854 Ω · μm2, giving R⊥ = 1 k Ω, Gilbert damping pa-rameter α = 0.01, normalized saturation of the FL μ0Ms =
+
+800 mT, and the bias dc magnetic field Bdc = 200 mT. The total simulation time is Ts = 30 T . The parameters of the in-put pulsed signal vary within the following ranges: pulse am-plitude I0 ∈ (0, 0.7] mA (the current density varies from 0 to 8.91 ·10 6 A/cm 2), pulse duration τ ∈ [0.1, 0.875 ]T (pulse ratio 
+
+T /τ ∈ [1.14 , 10 ]), and pulse repetition period T ∈ [0.5, 4] ns. Fig. 2 shows typical simulation results for an input signal 
+
+I(t) with an amplitude of I0 = 0.5 mA, a pulse duration of 
+
+τ = 2 ns, and a repetition period of T = 4 ns. Since the tran-sient dynamics characterize the initial time interval of 0 ≤ t ≤
+
+t0 = 10 T (see Fig. 2(b) for 0 ≤ t ≤ 5T = 20 ns), this time inter-val is excluded from the analysis and data in Fig. 2(a, c-e) are presented for for the time period of t ≥ 10 T = 40 ns only. As can be seen, rectangular positive current pulses (Fig. 2(a)) ex-cite small quasi-harmonic (red solid line, along the y-axis) and large non-harmonic (blue dashed line, along the z-axis) oscil-lations of the FL magnetization, mx(t), in the IP and OOP regime (see Fig. 2(c)), respectively. These oscillations lead to small and large time variations of the device magnetoresis-tance R(t) as shown in Fig. 2(d). They also result in the gener-ation of a time-dependent, pulse-like voltage, U(t) = I(t)R(t)
+
+(see Fig. 2(e)). The solid red lines and dashed blue lines in Fig. 2(b-e) correspond to the IP and OOP regimes, respec-tively. These distinct STMD operation regimes are clearly visible from the magnetization motion trajectories depicted on the surface of the unit sphere, |m| = 1 (see the red line for the 3                 
+
+> FIG. 2. Typical time dependence of (a) the input rectangular pulse current I(t), (c) the x-component of dynamic magnetization, mx(t), (d) the device magnetoresistance R(t), and (b, e) the voltage U(t)generated across the device. Solid red lines and dashed blue lines in (b)-(e) correspond to the IP and OOP regimes of STMD operation, respectively. Picture (f) shows the trajectory of magnetization motion (red line for an in-plane regime and blue line for an out-of-plane regime) on a surface of unit sphere |m|=1. Calculations performed for pulse parameters
+> I0=0.5 mA, τ=2 ns, T=4 ns. All other calculation parameters are indicated in the text.
+
+IP regime where m oscillates along the y-axis, and the blue line for the OOP regime where m oscillates along the z-axis in Fig. 2(f)). As expected, the generated voltage U(t) has a pulse-like character, mimicking the behavior of the input current I(t),according to the equation U(t) = I(t)R(t). However, the volt-age dynamics differ between the IP and OOP regimes. In the IP regime, when mx(t) and R(t) change weakly over time, U(t) can be approximately estimated as I(t)R0, where 
+
+R0 is the equilibrium (time-averaged) value of R(t). Since in the IP regime m oscillates along the y-axis and m · p ≈ 0, R0 ≈
+
+R⊥ = 1 k Ω. Therefore, U(t) forms almost ideal rectangular voltage positive pulses with an amplitude of I0R0 ≈ 500 mV, a pulse duration, and a repetition period equal to those of the input current I(t), i.e., τ = 2 ns and T = 4 ns, respectively (see the red solid line in Fig. 2(e)). In this case, according to equation (4), the output dc voltage of an STMD Udc can be estimated quite precisely as 
+
+Udc ≈ qI 0R⊥
+
+τ
+
+T , (5) where q = 1 for the considered IP regime. The obtained equa-tion illustrates that in the IP regime, when the current excites small oscillations of the FL magnetization, the output dc volt-age Udc should increase linearly with the input pulse ampli-tude I0 and should be inversely proportional to the pulse ratio 
+
+T /τ. This feature of the IP regime can be used to unambigu-ously detect one of the three parameters of the input pulse sig-nal (its amplitude I0, its duration τ or its repetition period T )using only the known (measured) value of Udc if the other two parameters are known. However, a potential limitation of this “pulse recognition technique” is that Udc depends on the pulse ratio T /τ. For input signals with equal pulse ratios T /τ, but different pulse durations τ and repetition periods T , the value of Udc should be the same. As expected, the behavior of the time-dependent voltage 
+
+U(t) in the OOP regime is more complicated than in the IP regime. Due to the large oscillations of mx(t) and R(t), the voltage pulses have a non-flat top with significantly varying voltage values. However, they certainly have the same dura-tion τ and period T as the input signal (see the dashed blue line in Fig. 2(e)). Despite the clearly visible voltage oscil-lations when I(t) > 0, the voltage behavior over time, U(t),almost repeats itself every repetition period T of the input signal. This quasi-periodicity of U(t) allows one to obtain an approximated equation for Udc similar to that for the IP regime. According to Fig. 2(c), it is natural to present mx(t)
+
+as a superposition of harmonic signals: mx(t) ≈ m1 cos (ω1t +
+
+φ1) + m2 cos (ω2t + φ2) + . . . + m j cos (ω jt + φ j) + . . . , where 
+
+m j, ω j and φ j are the amplitude, angular frequency and initial phase of the jth harmonic, j ∈ [1, ∞). Substituting this expres-sion into (4) yields Udc = ( I0R⊥/T )I . Here we took into ac-count the repeatability of mx(t) and U(t) oscillations, and in-troduce the integral I = R t0+τ 
+
+> t0
+
+dt /[1+η2{m1 cos (ω1t +φ1)+ 
+
+m2 cos (ω2t + φ2) + . . . + m j cos (ω jt + φ j) + . . . }]. We assume that the value of I is proportional to the pulse duration τ.Then, writing the integral in the form I = τq, we obtain the final equation for Udc – the equation (5), where q = I /τ is a dimensionless quantity. The equation (5) differs for the IP and 4                   
+
+> FIG. 3. The detector output dc voltage Udc as a function of the amplitude I0of input pulse current calculated numerically for different pulse durations τand a pulse repetition period of T=2 ns (a, c) and T=4 ns (b, d). All calculations were performed for an STMD with typical parameters (see the main text for details), with IP magnetization dynamics (a, b) and OOP magnetization dynamics (c, d). The curves shown in (a, b, d) demonstrate good agreement with the approximate linear dependence Udc ∼I0(τ/T), however, the curves in (c) contain voltage jumps and drops, which are typical for the nonlinear regime of device operation. To simplify the analysis, the curves with the same T/τratio are drawn in the same color.
+
+OOP regimes by only a factor of q. When q does not depend on I0 and τ, i.e., in the weakly nonlinear or linear regimes, the known (e.g., measured) value of Udc can be used to unam-biguously detect the input pulse parameters. However, in the strongly nonlinear regime, when q is a function of I0 and/or τ,the dependence of Udc on I0 and τ is nonlinear, which prevents the determination of the input pulse parameters from a known 
+
+Udc .To verify the results of our analysis, we numerically cal-culated the dependence of the output dc voltage Udc on the input pulse amplitude I0 for different pulse durations τ and pulse repetition periods T as shown in Fig. 3. As can clearly be seen in Fig. 3(a,b), the dependence of Udc on I0 is linear for any pulse duration τ in the IP regime. This agrees quite well with the theoretical dependence (5) for the IP regime, 
+
+Udc ≈ I0R0(τ/T ), discussed earlier. Note that only one data point, at I0 = 0.7 mA and τ = 1.75 ns in Fig. 3(a), does not precisely fit the linear dependence (5). Additionally, compar-ing the values of Udc calculated for the same I0 and T /τ, but different values of τ and T , one can conclude that the Udc 
+
+value is precisely proportional to τ/T (the curves with the same T /τ are shown in the same colors in Fig. 3(a, b)). In the OOP regime, the dependence Udc (I0) can be con-sidered as precisely linear for a large pulse repetition period of T = 4 ns (Fig. 3(d)). This case corresponds to the previ-ously obtained equation (5) with q ≈ 1.02. However, for input current pulses with a smaller repetition period of T = 2 ns, a more complicated, nonlinear dependence Udc (I0) is observed (Fig. 3(c)). At small values of I0, the dependence Udc (I0) ap-pears quite linear. However, above a threshold, when I0 ≥ Ith ,significant changes occur in the dependence of Udc (I0), in-cluding voltage jumps or drops. For instance, this threshold is clearly seen at Ith ≈ 0.29 mA for the top curve in Fig. 3(c), which was calculated for τ = 1.75 ns and T = 2 ns. The mag-nitude of these voltage jumps or drops depends on the voltage value (it can be higher for higher voltage values). Our pre-5liminary analysis indicates that these voltage deviations from linear dependence can be explained by the specific features of magnetization dynamics excited by the input current, how-ever, this requires additional study. The linearity of the dependence Udc on I0τ/T observed in the IP regime (Fig. 3(a, b)) and partially in the OOP regime (Fig. 3(d) and when I0 ≤ Ith in Fig. 3(c)), demonstrates the possibility of unambiguous detection of the parameters of pos-itive rectangular pulse signals in an STMD. Using a single Udc 
+
+value, one can determine one of the three input signal param-eters – the pulse amplitude I0, its duration τ, and repetition period T – if other two pulse parameters are known. How-ever, the efficiency of this technique is severely limited by the linear relationship between Udc , I0, and τ/T . Therefore, the IP regime of STMD operation is preferable for pulse detection. In conclusion, we have demonstrated that an STMD with an applied input positive rectangular pulse current can oper-ate in two distinct regimes: linear and nonlinear. In the linear regime, which is easily observed in an STMD with IP mag-netization dynamics, the detector’s output dc voltage Udc is proportional to the pulse amplitude I0 and its duration τ and inversely proportional to the pulse repetition period T , which can be used for the unambiguous determination of the input pulse signal parameters. In the nonlinear regime, which is re-vealed in an STMD with OOP magnetization dynamics and is excited by input pulses with a sufficiently large amplitude 
+
+I0 ≥ Ith , the generated dc voltage undergoes voltage jumps and drops, which prevents the unambiguous determination of the input signal parameters. The developed formalism can be use-ful for the development and optimization of spintronic devices capable of detecting and processing non-harmonic (e.g., digi-tal) microwave signals. This work was supported by grant No. 2025.07/0237 from the National Research Foundation of Ukraine. The authors would like to thank all the brave defenders of Ukraine who made the finalization of this publication possible. 
+
+> 1
+
+A.A. Tulapurkar, Y. Suzuki, A. Fukushima, H. Kubota, H. Maehara, K. Tsunekawa, D.D. Djayaprawira, N. Watanabe, and S. Yuasa, Nature 438 ,339 (2005). 
+
+> 2
+
+O.V. Prokopenko, I.N. Krivorotov, E. Bankowski, T. Meitzler, S. Jaroch, V.S. Tiberkevich and A.N. Slavin, J. Appl. Phys. 111 , 123904 (2012). 
+
+> 3
+
+O.V. Prokopenko, I.N. Krivorotov, T.J. Meitzler, E. Bankowski, V.S. Tiberkevich, A.N. Slavin, in S.O. Demokritov and A.N. Slavin (Eds.), 
+
+Magnonics: From Fundamentals to Applications (Springer, 2013), pp. 143– 161. 
+
+> 4
+
+B. Fang, M. Carpentieri, S. Louis, V. Tiberkevich, A. Slavin, I.N. Krivoro-tov, R. Tomasello, A. Giordano, H. Jiang, J. Cai et al., Phys. Rev. Appl. 11 ,014022 (2019). 
+
+> 5
+
+R. Tomasello, B. Fang, P. Artemchuk, M. Carpentieri, L. Fasano, A. Gior-dano, O.V. Prokopenko, Z.M. Zeng and G. Finocchio, Phys. Rev. Appl. 14 ,024043 (2020). 
+
+> 6
+
+G. Finocchio, R. Tomasello, B. Fang, A. Giordano, V. Puliafito, M. Carpen-tieri, and Z. Zeng, Appl. Phys. Lett. 118 , 160502 (2021). 
+
+> 7
+
+P.Yu. Artemchuk, O.V. Prokopenko, E.N. Bankowski, T.J. Meitzler, V.S. Tyberkevych, A.N. Slavin, AIP Adv. 11 , 025234 (2021). 
+
+> 8
+
+L. Mazza, V. Puliafito, E. Raimondo, A. Giordano, Z. Zeng, M. Carpentieri and G. Finocchio, Phys. Rev. Appl. 17 , 014045 (2022). 
+
+> 9
+
+R. Sharma, T. Ngo, E. Raimondo, A. Giordano, J. Igarashi, B. Jinnai, S. Zhao, J. Lei, Y.-X. Guo, G. Finocchio et al., Nat. Electron. 7, 653 (2024). 
+
+> 10
+
+S. Liu, R. Tomasello, B. Fang, A. Chen, L. Zhang, Z. Liu, R. Hu, W. Lin, M. Carpentieri, B. Zhang et al., Nat. Nanotechnol. 21 , 546 (2026). 
+
+> 11
+
+H. Kurebayashi, G. Finocchio, K. Everschor-Sitte, J.C. Gartside, T. Taniguchi, A. Litvinenko, A. Kumar, J. Åkerman, E. Vasilaki, K. Selçuk et al., Nat. Rev. Phys. 8, 208 (2026). 
+
+> 12
+
+O. Prokopenko, G. Melkov, E. Bankowski, T. Meitzler, V. Tiberkevich, and A. Slavin, Appl. Phys. Lett. 99 , 032507 (2011). 
+
+> 13
+
+L. Zhang, B. Fang, J. Cai, M. Carpentieri, V. Puliafito, F. Garescì, P. Khalili Amiri, G. Finocchio, and Z. Zeng, Appl. Phys. Lett. 113, 102401 (2018). 
+
+> 14
+
+M. Goto, Y. Yamada, A. Shimura, T. Suzuki, N. Degawa, T. Yamane, S. Aoki, J. Urabe, S. Hara, H. Nomura et al., Nat. Commun. 12 , 536 (2021). 
+
+> 15
+
+L. Zhang, H. Tu, Y. Luo, K. Zeng, X. Tao, D. Zhao, B. Fang, and Z. Zeng, Appl. Phys. Lett. 122 , 092405 (2023). 
+
+> 16
+
+R. Thilakaraj, K. Natarajan, A. Rajamani and B. Arumugam, Phys. Scr. 
+
+101 , 055910 (2026). 
+
+> 17
+
+D. Berkov and E.K. Semenova, Phys. Rev. Appl. 22 , 044040 (2024). 
+
+> 18
+
+S. Louis, O. Sulymenko, V. Tiberkevich, J. Li, D. Aloi, O. Prokopenko, I. Krivorotov, E. Bankowski, T. Meitzler, and A. Slavin, Appl. Phys. Lett. 
+
+113 , 112401 (2018). 
+
+> 19
+
+M.A. Jamshed, K. Ali, Q. H. Abbasi, M. A. Imran, and M. Ur-Rehman, IEEE Sensors J. 22 , 5482 (2022). 
+
+> 20
+
+K. Yamazaki, V.-K. Vo-Ho, D. Bulsara, and N. Le, Brain Sci. 12 , 863 (2022). 
+
+> 21
+
+A.G. Gurevich and G.A. Melkov, Magnetization Oscillations and Waves 
+
+(CRC Press, 1996).

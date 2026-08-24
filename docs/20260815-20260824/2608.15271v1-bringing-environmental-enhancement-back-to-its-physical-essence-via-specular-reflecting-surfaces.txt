@@ -1,0 +1,1435 @@
+Title: Bringing Environmental Enhancement Back to Its Physical Essence via Specular Reflecting Surfaces
+
+URL Source: https://arxiv.org/pdf/2608.15271v1
+
+Published Time: Tue, 18 Aug 2026 00:41:32 GMT
+
+Number of Pages: 13
+
+Markdown Content:
+> 1
+
+# Bringing Environmental Enhancement Back to Its Physical Essence via Specular Reflecting Surfaces 
+
+Qingxiao Huang, Graduate Student Member, IEEE , Qianyao Ren, Yiqin Deng, Member, IEEE ,Jun Huang, Member, IEEE , Yang Kun, Fellow, IEEE and Yuguang Fang, Fellow, IEEE 
+
+Abstract —Intelligent control of wireless propagation environ-ments is crucial for future network capacity and reliability. Unlike circuit-controlled reconfigurable intelligent surfaces (RIS), mechanically actuated specular reflecting surfaces (SRS) o ff er a simpler and potentially more cost-e ff ective alternative. In this paper, based on the tractable ray-based cascaded channel model with power-projection correction, we investigate the fundamental operational behaviors of an ideal SRS in free space. Specif-ically, in the angle-aligned near field, edge reflections cause non-constructive combining, resulting in a damped oscillatory convergence of the gain to an aperture-independent constant. We further obtain the far-field behavior, unbounded-aperture asymptotics, an optimal aperture size and reflection angle, and a gain-based near /far-field boundary. For misalignment, we provide accurate approximations for small and large apertures via center-point and stationary-point analyses. We also define the SRS beam pattern, derive analytical 3-dB beamwidths, and quantify the e ff ective region where a main lobe exists. Finally, we derive a closed-form achievable-rate for an SRS-aided communication system. Numerical results validate the proposed expressions, reveal distinct near-/far-field behaviors of specular reflection, and show that SRS can outperform RIS in the far field due to continuous aperture and angular-resolution control and stronger power projection. 
+
+Index Terms —Specular reflecting surface (SRS), reconfigurable intelligent surface (RIS), near-field communication, environmen-tal enhancement. 
+
+I. I ntroduction 
+
+A. Background 
+
+Smart cities are evolving into highly interconnected cyber– physical ecosystems, where large-scale Internet-of-Things (IoT) deployments, real-time digital twins, immersive ex-tended reality (XR), and autonomous transportation demand massive data-exchange [1]. Meanwhile, dense deployments 
+
+The research work described in this paper was conducted in the JC STEM Lab of Smart City funded by The Hong Kong Jockey Club Charities Trust under Contract 2023-0108. This work was supported in part by a grant from the Research Grants Council of the Hong Kong Special Administrative Region, China (Project No. CityU 11216324) and in part by the Hong Kong SAR Government under the Global STEM Professorship and Research Talent Hub. This paper will be presented in part at the IEEE GLOBECOM’26. Qingxiao Huang, Qianyao Ren, Jun Huang and Yuguang Fang are with the Hong Kong Jockey Club STEM Lab of Smart City and the Department of Computer Science, City University of Hong Kong, Hong Kong, e-mail: qx.huang@my.cityu.edu.hk, qianyaren2-c@my.cityu.edu.hk, jun.huang@cityu.edu.hk and my.Fang@cityu.edu.hk. Yiqin Deng is with the School of Data Science, Lingnan University, Hong Kong, e-mail: yiqindeng@ln.edu.hk. Kun Yang is with the State Key Laboratory of Novel Software Technology, Nanjing University, Nanjing, 210008, China, Institute of Intelligent Networks and Communications (NINE), Nanjing University (Suzhou Campus), Suzhou, 215163, China, e-mail: kunyang@nju.edu.cn. 
+
+and complex urban propagation conditions, such as severe blockage and strong interference, make it increasingly di ffi cult to sustain stable links. Collectively, these trends call for next-generation wireless networks that must not only deliver higher capacity but also satisfy stringent and diverse quality-of-service (QoS) requirements, including low latency, high reliability, and massive connectivity [1]. Since the fifth-generation (5G) wireless networks, massive multiple-input multiple-output (MIMO) has become a key enabling technology. Looking towards 6G, even larger-scale arrays are expected to be deployed, and the resulting paradigm shift in propagation physics, namely spherical-wave channels in the near field, will be further exploited to improve spectral effi ciency [2]. In addition, a variety of aggressive transceiver architectures have emerged, such as holographic MIMO [3], [4] and flexible intelligent metasurfaces (FIM) [5]. Beyond op-timizing transmitters and receivers, enhancing and controlling the wireless propagation environment [6] is also essential for further spectral-e ffi ciency gains, particularly in dense urban scenarios where coverage holes and blockage are prevalent. 
+
+B. Related Works 
+
+Reconfigurable intelligent surfaces (RIS) have emerged as a promising paradigm for building smart radio environments [7]. An RIS typically consists of a large number of sub-wavelength reflecting elements whose electromagnetic responses can be tuned by control circuits [8]. By adjusting the phase shifts (and possibly amplitudes) across the surface, RIS can reshape the impinging wavefronts and steer the reflected signals toward in-tended directions, thereby enhancing coverage and improving spectral e ffi ciency without deploying additional active radio-frequency chains [9]. Although increasing the number of RIS elements can pro-vide higher spatial gains and enable simplified beamforming designs thanks to the extremely high spatial resolution [10], [11], it also poses significant challenges for practical deploy-ment. In particular, RIS is inherently passive and cannot per-form channel estimation by itself, making channel acquisition dependent on additional active elements or base stations [12]. The resulting channel-estimation overhead can be prohibitive, especially for large-scale RIS deployments or multi-hop RIS networks [13]. Moreover, due to circuit coupling among closely spaced unit cells and impedance mismatches [8], it is di ffi cult for practical RIS elements to achieve high-precision, high-resolution discrete phase control. As a result, compared with certain relay or signal-boosting devices, RIS does not arXiv:2608.15271v1 [cs.IT] 15 Aug 2026 2
+
+necessarily o ff er a clear cost advantage. These limitations motivate alternative approaches that can retain the key benefit of environmental enhancement while substantially simplifying hardware and control. In early studies, parabolic reflectors were used to enhance the received signals of radio telescopes by exploiting geo-metric focusing [14]. Reflecting surfaces were also advocated as passive satellite reflectors to enable long-distance com-munication links with low complexity and cost [15]. This idea was echoed by Project Echo, which employed metallized balloon satellites as passive reflectors to conduct long-range communication experiments and measure link losses [16]. In millimeter-wave (mmWave) wireless, reflection-based mech-anisms have also been widely exploited [17]–[20]. Xue et al. [17] investigated a single-user mmWave communication system, where environmental reflections from walls and floors were leveraged to enable multi-beam transmission. Besides, Zhou et al. [18] enabled mmWave communications among multiple transceiver pairs by deploying metallic reflectors on the data-center ceiling, and validated the e ff ectiveness of the proposed design using a hardware testbed. Moreover, Li et al. 
+
+[19] investigated a multi-target localization system around cor-ners, where a non-line-of-sight (NLOS) localization algorithm was designed by exploiting multiple specular reflections from walls. Furthermore, Anjinappa et al. [20] studied an mmWave base-station communication system, where a joint deployment strategy for base stations and reflecting panels was developed to expand network coverage and reduce deployment cost. To further increase the controllability, reflecting surfaces can be mounted on motor-driven rotational shafts to enable rotation control, or placed on sliding platforms to enable position control. Such mechatronic actuation techniques have already been widely adopted in transceiver architectures, e.g., in movable antenna systems [21], [22]. Specifically, Lu et al. [23] established an electromagnetic theory based far-field channel model for specular reflecting surface (SRS) in free-space and then validated it via real-world measurements. Furthermore, based on the channel model, they studied an SRS-aided communication system in the sub-6 GHz band, where both translation- and rotation-based actuation were considered [24]. They proposed a joint placement-and-rotation optimization algorithm to maximize the minimum received power over the target coverage regions of multiple SRSs. Moreover, Xu et al. [25] investigated an SRS-aided visible light communication system, where ray tracing was employed to model indoor light propagation, and a rotation-optimization algorithm was proposed to increase the received optical power. A prototype was also built to experimentally validate the proposed approach. Besides, Zheng et al. [26] extended SRS to transmissive surfaces and studied a mechanically actuated double-layer transmissive-surface-aided wireless sensing sys-tem, where a mechanical beamforming algorithm was pro-posed to maximize the minimum SINR of the echo signals. Our prior work [27], [28] investigated a mechanically actu-ated SRS-assisted mmWave vehicular communication system, where a learning-based scheme was proposed to reshape the propagation environment. Specifically, the SRS reflection angle was adaptively adjusted based on observable tra ffi cpatterns to improve link quality under dynamic mobility and blockage. We further extended this line of research to multi-SRS-assisted mmWave WLANs [6], where the system archi-tecture, operational procedures, and signaling process were developed to enhance coverage and reliability. We also studied a sub-6 GHz vehicular network enhanced by continuously deployed roadside SRSs, where a dynamic rotation strategy was designed for a group of virtual SRSs to enable large-area signal enhancement and interference management [29]. The proposed schemes can be transparently integrated into existing communication systems, and the channel rank is significantly improved with the aid of SRSs. 
+
+C. Motivation and Contributions 
+
+However, existing researches have the following drawbacks.  
+
+> •
+
+Most current SRS-based radio frequency systems are developed under a far-field channel assumption, while the near-/far-field behavior of a single SRS has not been su ffi ciently investigated. For an SRS that cannot control the signal over every point on the surface, reflections from the edge aperture may be combined in a non-costructive fashion in the near field.  
+
+> •
+
+Over a su ffi ciently large service region, a single large-aperture SRS may already be adequate to establish a new line-of-sight (LOS) link, making an array of multiple small SRSs unnecessary.  
+
+> •
+
+Although various optimization algorithms have been pro-posed for SRS-aided communication and sensing systems, several fundamental properties of single-SRS reflection remain underexplored, such as the near-/far-field regimes, beam pattern, beamwidth, and e ff ective operating region.  
+
+> •
+
+While many works highlight the ultra-low-cost advantage of natural reflections from metallic panels over circuit-based RIS, other potential benefits have yet to be demon-strated, including the advantages of a continuous reflect-ing surface and the higher control resolution enabled by continuous mechanical rotation. Therefore, this work aims to explore the fundamental prop-erties of a single SRS, with a particular focus on near-field e ff ects, to facilitate more advanced and diversified SRS research in the future. In light of these, our novel contributions are summarized as follows:  
+
+> •
+
+Based on a ray-based channel model with power-projection correction, we derive closed-form expressions for the cascaded near-field channel and gain of an aligned SRS link, and further analyze their far-field behavior and the asymptotics as the aperture size tends to infinity. In addition, we obtain the optimal aperture size and reflec-tion angle, as well as the SRS near-/far-field boundary defined in terms of channel gain.  
+
+> •
+
+Furthermore, we analyze the general misaligned case where the reflection angle is not equal to the angle of incidence, and derive closed-form expressions for the channel and gain in both the near- and far-field regimes. By exploiting the stationary point of the phase, we characterize the asymptotic behavior for finite apertures 3
+
+and provide analytical expressions for SRS with large apertures.  
+
+> •
+
+In addition, we define the SRS beam pattern and derive the 3-dB beamwidth in the far field, the beamwidth equa-tion in the near field, and the e ff ective operating region of SRS in which a main lobe exists. Moreover, building on previous results, we establish an SRS-aided wireless communication system model and obtain a closed-form solution for the optimal rotation angle.  
+
+> •
+
+Simulation results validate the accuracy of the derived closed-form expressions, reveal the distinct near- and far-field characteristics and e ff ective operating range of specular SRS reflection, and demonstrate that, compared with RIS, SRS o ff ers multiple advantages in forming a new NLOS multipath component with two LOS hops (the so-called cascade channel), including a continuous aperture, continuous angular control, and stronger power projection. The rest of this paper is organized as follows. In Section II, we investigate the angle-aligned channel and the near-/far-field boundary, while the angle-misaligned channel as well as the beam pattern and beamwidth are studied in Section III. The SRS-aided communication system is examined in Sec-tion IV. Then, our numerical results are presented in Section V, followed by the conclusions in Section VI. Notations: |a| and || a|| are the magnitude and norm of a scalar a and vector a, respectively; || A|| denotes the Frobenius norm of the matrix A; A(i, j) represents the specific element in the i-th row and j-th column of A; a(i) denotes the i-th element of the vector a; “: =” is signified as “is defined as”. II. A nalysis of SRS: the Angle -aligned Case 
+
+A. Overview of SRS 
+
+Unlike RIS, SRS dispenses with the expensive circuit-based phase-control architecture. Instead, it aims to employ low-cost materials, such as metallic panels that have been widely considered in existing studies. Moreover, in contrast to RIS unit cells, SRS does not su ff er from circuit-coupling e ff ects among half-wavelength-spaced elements. A high reflection coe ffi cient and a wide reflection-angle range are key criteria for material selection. Beyond rigid panels, flexible surfaces as well as liquid-, gas-, or hybrid-material implementations remain promising directions for further exploration. In this paper, we focus on a smooth reflecting surface with rotation-based control. Moreover, although mechanical actuation is typically slower than electronic control, many slowly varying tasks, such as coverage enhancement, region-of-interest signal boosting, and periodic environmental monitoring, do not strictly require sub-millisecond reconfiguration agility. In these settings, beam up-dates are typically required only on the millisecond-to-second timescale, which is well within the capability of mechanical reconfiguration. Furthermore, SRS focuses on forming a new NLOS multi-path component with two LOS hops between the transmitter and receiver to enhance the end-to-end channel gain and de-grees of freedom. Accordingly, channel estimation can some-times be simplified to estimating the LOS links between the SRS and the transceivers, where emerging application-layer sensing techniques, such as vision-based sensing or millimeter-wave radar, can be leveraged. When SRS is employed for coverage enhancement or signal boosting, additional SRS-specific cascaded channel estimation may not be necessary. Instead, existing base-station–to–user channel estimates can be reused, and the SRS naturally appears to be a dominant multipath component with a large eigenvalue in the channel. Finally, although electromagnetic theory based analyses can further reveal polarization-related e ff ects, we focus on fundamental beam behaviors, especially near-field eff ects. Therefore, we adopt a simpler and more intuitive ray-based model in the sequel, which has long been widely used as a tractable abstraction in wireless communication analysis. 
+
+B. Cascaded Channel and Channel Gain   
+
+> -axis x
+> -axis y
+> 2
+> T
+> 1
+> T2r
+> 1r
+> l
+> Fig. 1. Planar schematic of the SRS-aided communication system
+
+SRS aims to align the transmitter and receiver via specular reflection by rotating the entire surface, which means the angle of incidence from the transmitter to the SRS center equals the angle of reflection from the SRS center to the receiver. Therefore, we first analyze the channel and gain of SRS under the angle-aligned configuration. Without loss of generality, we conduct analysis under a coplanar setting: all nodes lie in the same x−o −y plane, and the structure is assumed to have unit extent along z axis. As illustrated in Fig. 1, we establish a Cartesian coordinate system with the SR center as the origin and the SRS coincident with the x-axis. The width of the SRS is l. Consider an arbitrary point in space and an arbitrary point (x, 0) on the SRS, the angle and distance between them are denoted by θ and r, respectively, and the channel between them is expressed as [30], [31] 
+
+h(r, θ, x) = √α(r, θ, x)e jk √(r sin θ−x)2 +(r cos θ)2
+
+(1) where 
+
+α(r, θ, x) = 14π ((r sin θ − x)2 + (r cos θ)2)︸ ︷︷ ︸
+
+> Free-space propagation
+
+r cos θ
+
+√(r sin θ − x)2 + (r cos θ)2
+
+︸ ︷︷ ︸
+
+> Eff ective power projection
+
+,
+
+(2) where k = 2πλ and λ is the wavelength. The first part of α(r, θ, x)accounts for the free-space propagation loss, while the second part represents the e ff ective power projection induced by the placement of the SRS. 4
+
+Let the angle of incidence from the transmitter to the SR center and the angle of reflection from the SR center to the receiver both be θ, and denote the corresponding distances by 
+
+r1 and r2, respectively. Assuming an ideal specular reflection, with a reflection coe ffi cient of 1 and no di ff use scattering, the cascaded channel between the transmitter and receiver via the SRS reflection can be expressed as 
+
+h(r1, r2, θ ) =
+
+∫ l/2
+
+> −l/2
+
+√r1r2 cos θ
+
+4π ((r1 sin θ + x)2 + (r1 cos θ)2) 34
+
+× 1
+
+((r2 sin θ − x)2 + (r2 cos θ)2) 34
+
+× e jk (
+
+√(r1 sin θ+x)2+(r1 cos θ)2 +
+
+√(r2 sin θ−x)2+(r2 cos θ)2)dx
+
+=
+
+∫ l/2
+
+> −l/2
+
+A(x) exp { jk (d1(x) + d2(x)) } dx (3) where A(x) : = √r1r2 cos θ   
+
+> 4πd3/22(x)d3/21(x)
+
+, d1(x) : = √(r1 sin θ + x)2 + (r1 cos θ)2
+
+and d2(x) : = √(r2 sin θ − x)2 + (r2 cos θ)2.In general, to achieve a better specular reflection e ff ect, both the transmitter and receiver are preferably located in the far-field region of the SRS. Since electromagnetic waves can be approximated as plane waves in the far field, the phase di ff erence of the incident and reflected channels across di ff erent points on the continuous surface depends only on the angle. When the angle of incidence equals the angle of reflection, the phases at all points become identical, thus the signals add constructively. Moreover, since l ≪ r1, r2,the amplitude factor A(x) can be approximated by its value 
+
+A(0) = cos θ  
+
+> 4πr1r2
+
+at the center. In this case, the reflection gain reaches its maximum and thus, the cascaded channel can be written as 
+
+h(r1, r2)(far) = l cos θ
+
+4πr1r2
+
+e jk (r1+r2). (4) However, when the SRS width is excessively large or the transceivers are too close, the far-field assumption breaks down and the signals will not add perfectly in phase. Next, we analyze this near-field interference e ff ect. Using the second-order Taylor expansion √1 + x = 1 + x 
+
+> 2
+
+− x2 
+
+> 8
+
++ O(x3), d1(x) and 
+
+d2(x) can be approximated as 
+
+d1(x) = √(r1 sin θ + x)2 + (r1 cos θ)2 = r1
+
+√
+
+1 + 2 sin θ xr1
+
++
+
+( xr1
+
+)2
+
+≈ r1 + x sin θ + cos 2 θ
+
+2r1
+
+x2, (5) 
+
+d2(x) = √(r2 sin θ − x)2 + (r2 cos θ)2 = r2
+
+√
+
+1 − 2 sin θ xr2
+
++
+
+( xr2
+
+)2
+
+≈ r2 − x sin θ + cos 2 θ
+
+2r2
+
+x2, (6) for |x| ≪ r1, r2. Then, the phase φ(x) can be expressed as 
+
+φ(x) = d1(x) + d2(x) = r1 + r2 + cos 2 θ
+
+2
+
+( 1
+
+r1
+
++ 1
+
+r2
+
+)
+
+x2, (7) while the amplitude is approximated by A(x) ≈ A(0) = cos θ  
+
+> 4πr1r2
+
+.Substituting Eq. (7) into Eq. (3), the cascaded channel can be rewritten as 
+
+h(r1, r2, θ ) = e jk (r1 +r2) cos θ
+
+4πr1r2
+
+∫ l/2
+
+> −l/2
+
+exp 
+
+{ jk cos 2 θ
+
+2
+
+( 1
+
+r1
+
++ 1
+
+r2
+
+)
+
+x2
+
+}
+
+dx,
+
+> (a)
+
+= e jk (r1 +r2) cos θ
+
+4πr1r2
+
+√ 4π
+
+k cos 2 θ ( 1 
+
+> r1
+
++ 1
+
+> r2
+
+)∫ √ k cos 2 θ   
+
+> 4π
+> (1
+> r1+1
+> r2
+> )
+> l
+> 0
+
+e j π 
+
+> 2t2
+
+dt
+
+> (b)
+
+= e jk (r1+r2 ) cos θ
+
+4πr1r2
+
+1
+
+β
+
+[
+
+C(βl) + j S (βl)
+
+]
+
+(8) where β :=
+
+√ k cos 2 θ
+
+> 4π
+
+( 1 
+
+> r1
+
++ 1
+
+> r2
+
+), (a) is realized by letting 
+
+t =
+
+√ k cos 2 θπ
+
+( 1 
+
+> r1
+
++ 1
+
+> r2
+
+) x and (b) is realized by using Fresnel integrals C(v) : = ∫ v 
+
+> 0
+
+cos ( π 
+
+> 2
+
+u2) du, S (v) : = ∫ v 
+
+> 0
+
+sin ( π 
+
+> 2
+
+u2) du [32]. Then, the cascaded channel gain can be obtained as 
+
+g(r1, r2, θ ) = ∣∣∣h(r1, r2, θ )∣∣∣2 = cos 2 θ
+
+16 π2r21 r22
+
+1
+
+β2
+
+(C(βl)2 + S (βl)2).
+
+(9) 
+
+C. Asymptotic Analysis 
+
+Using the asymptotic limits of the Fresnel functions, C(v) ≈
+
+v and S (v) ≈ 0 as v → 0, we obtain the same far-field channel expression as in Eq. (4), along with the corresponding channel-gain expression: 
+
+g(far) (r1, r2) = ∣∣∣h(far) (r1, r2)∣∣∣2 = l2 cos 2 θ
+
+16 π2r21 r22
+
+. (10) Another interesting case is the limit where the SRS width tends to infinity, which corresponds to continuously deploying direction-aligned SRS panels along both sides of a roadway to realize continuous-area signal enhancement; for a user located on the roadway, the SRS can be regarded as infinitely wide. Noting that x = 0 is the unique stationary point of the phase φ(x), the value of the improper integral is dominated by the adjacent domain of this stationary point. As l → ∞ ,the integral can therefore be approximated by the contribution around x = 0, and we can analyze it by directly taking the limit of Eq. (8). The channel and gain can then be computed as 
+
+h(∞)(r1, r2, θ ) = lim 
+
+> l→∞
+
+e jk (r1+r2) cos θ
+
+4πr1r2
+
+1
+
+β
+
+[C(βl) + j S (βl)]
+
+> (a)
+
+= e jk (r1+r2) cos θ
+
+4πr1r2
+
+1 + j
+
+2 β , (11) 
+
+g(∞)(r1, r2, θ ) = ∣∣∣h(∞)(r1, r2, θ )∣∣∣2 = cos 2 θ
+
+32 π2r21 r22
+
+1
+
+β2 , (12) where (a) is realized by using the Fresnel limits C(v) → 12 ,
+
+S (v) → 12 as v → ∞ in Eq. (7.3.20) of [33]. 
+
+D. Maximum Value Analysis on g (r1, r2, θ )
+
+1) With respect to width l: An interesting question is at which value of l the channel gain g(r1, r2, θ ) reaches its maximum, i.e., 
+
+l∗ = arg max  
+
+> l
+
+g(r1, r2, θ ; l). (13) 5
+
+For simplicity, we define Q(v) : = C(v)2 + S (v)2, where v := βl.Then, g(r1, r2, θ ; l) = 116 π2 r21 r22 
+
+> 1
+> β2
+
+Q(v) and the problem can be transformed as max  
+
+> l≥0
+
+g(r1, r2, θ ; l) ⇐⇒ max  
+
+> v≥0
+
+Q(v). (14) According to the first-order optimality conditions for v, the stationary points v∗ satisfies 
+
+C(v∗) cos ( π 
+
+> 2
+
+v∗2) + S (v∗) sin ( π 
+
+> 2
+
+v∗2) = 0, (15) while the second derivative 
+
+Q′′ (v) = 2[1 + πv( − C(v) sin( π 
+
+> 2
+
+v2) + S (v) cos( π 
+
+> 2
+
+v2))] , (16) is used to determine whether a stationary point is a maximum or minimum. Since Eq. (15) is a transcendental equation involving Fresnel integrals and trigonometric functions of the same quadratic argument, no closed-form solution is known in terms of elementary or standard special-function inverses. Therefore, we provide a numerical solution as an approxi-mation. Noting that Q(v) → 12 as v → ∞ and decays with oscillations, Q(v) exhibits a sequence of diminishing local maxima. Thus, the first radial maximum corresponds to the global maximum. Based on numerical evaluation of the radial first maximum of Eq. (15), we obtain 
+
+v∗ ≈ 1.209378 , Q(v∗) ≈ 0.90070817 , (17) and Q′′ (v∗) < 0, confirming that it is a maximum. Then the optimal width can be obtained as 
+
+l∗ = v∗
+
+β ≈ 1.209378 
+
+√ 4π
+
+k cos 2 θ ( 1 
+
+> r1
+
++ 1
+
+> r2
+
+) . (18) 
+
+2) With respect to angle θ: The channel gain g(r1, r2, θ ) can be rewritten as 
+
+g(r1, r2, θ ) = 116 π2r21 r22
+
+4π
+
+k ( 1 
+
+> r1
+
++ 1
+
+> r2
+
+) Q
+
+√
+
+k cos 2 θ
+
+4π
+
+( 1
+
+r1
+
++ 1
+
+r2
+
+)l
+
+ .
+
+(19) Since Q(v) attains its global maximum at the first peak v∗ ≈
+
+1.209378, the maximum angle θ∗ can be obtained as: 
+
+θ∗ =
+
+
+
+0, l
+
+√
+
+k
+
+4π
+
+( 1
+
+r1
+
++ 1
+
+r2
+
+)
+
+≤ v∗,
+
+arccos 
+
+
+
+v∗
+
+l
+
+√
+
+k
+
+4π
+
+( 1
+
+r1
+
++ 1
+
+r2
+
+)
+
+, otherwise .
+
+(20) Therefore, when r1 and r2 are su ffi ciently large compared with the aperture width l, the maximum gain is achieved at the front side, i.e., at the direction θ = 0 to the surface. Otherwise, the maximum occurs at the other certain angle. 
+
+E. Near-field and Far-field Boundary 
+
+Since the classical phase-discrepancy-based near-field range  
+
+> 2l2
+> λ
+
+relies on the paraxial approximation sin θ ≈ θ, cos θ ≈ 1and is not applicable to reflecting scenarios, we study an SRS near–far-field boundary defined in terms of channel gain. This boundary captures the e ff ective validity range of the far-field channel in Eq. (10). By setting a small threshold δ, the far-field range is determined by the following inequality: 
+
+∣∣∣g(r1, r2, θ ) − g(far) (r1, r2)∣∣∣
+
+g(far) (r1, r2) ≤ δ (21) Substituting Eq. (9) and Eq. (10) into Eq. (21) yields 
+
+∣∣∣∣∣
+
+Q(v)
+
+v2 − 1
+
+∣∣∣∣∣ ≤ δ. (22) By using the power-series expansions of the Fresnel integrals in Eq. (7.3.11) and Eq. (7.3.13) of [33], for small v we have 
+
+Q(v) = C(v)2 + S (v)2 = v2 − π2
+
+45 v6 + O(v10 ) (23) Since v = βl and β2 = k cos 2 θ
+
+4π
+
+( 1
+
+r1
+
++ 1
+
+r2
+
+)
+
+, we have 1
+
+r1
+
++ 1
+
+r2
+
+≤ 12 √5 δ
+
+k cos 2 θ l2 , (24) which gives the far-field range in terms of ( r1, r2) for a given (l, θ, λ ). Without loss of generality, setting δ = 0.05 in Eq. (24) gives a near–far-field boundary as 1
+
+r1
+
++ 1
+
+r2
+
+= 6
+
+k cos 2 θ l2 . (25) In this regime, the gain loss due to phase discrepancies across the surface can be regarded as negligible. III. A nalysis of SRS: the Angle -misaligned Case 
+
+Next, we investigate the case where the transmitter azimuth 
+
+θ1 di ff ers from the receiver azimuth θ2. This setting charac-terizes the co-channel interference observed by users at other locations, as well as the mainlobe width and sidelobe levels of the reflected beam. 
+
+A. Cascaded Channel and Channel Gain 
+
+Assuming an ideal specular reflection, the cascaded channel between the transmitter and receiver via an SRS reflector can be expressed as 
+
+h(r1, r2, θ 1, θ 2) =
+
+∫ l/2
+
+> −l/2
+
+A(x; θ1, θ 2) exp { jk [d1(x; θ1) + d2(x; θ2)]} dx,
+
+(26) where A(x; θ1, θ 2) :=          
+
+> √r1cos θ1r2cos θ2
+> 4πd3/22(x;θ2)d3/21(x;θ1)
+
+, d1(x; θ1) :=
+
+√(r1 sin θ1 + x)2 + (r1 cos θ1)2 and d2(x; θ2) :=√(r2 sin θ2 − x)2 + (r2 cos θ2)2. Similarly, since |x| ≪ r1, r2, the amplitude factor A(x; θ1, θ 2) can be approximated by its value 
+
+A(0) = √cos θ1 cos θ2  
+
+> 4πr1r2
+
+at the center. By using the second-order Taylor expansion, we have 
+
+d1(x; θ1) = √(r1 sin θ1 + x)2 + (r1 cos θ1)2
+
+≈ r1 + x sin θ1 + cos 2 θ1
+
+2r1
+
+x2, (27) 6
+
+d2(x; θ2) = √(r2 sin θ2 − x)2 + (r2 cos θ2)2
+
+≈ r2 − x sin θ2 + cos 2 θ2
+
+2r2
+
+x2, (28) Then, the cascaded channel h(r1, r2, θ 1, θ 2) can be rewritten as 
+
+h(r1, r2, θ 1, θ 2) = e jk (r1+r2 ) √cos θ1 cos θ2
+
+4πr1r2
+
+∫ l/2
+
+> −l/2
+
+e j(a x 2 +b x )dx,
+
+> (a)
+
+= e jk (r1+r2) √cos θ1 cos θ2
+
+4πr1r2
+
+e− j b24a
+
+√ π
+
+2a
+
+∫ t+
+
+> t−
+
+e j π 
+
+> 2t2
+
+dt
+
+> (b)
+
+= e jk (r1+r2) √cos θ1 cos θ2
+
+4πr1r2
+
+e− j b24a
+
+√ π
+
+2a
+
+× ( [C(t+) − C(t−)] + j [S (t+) − S (t−)] ), (29) where a := k
+
+> 2
+
+( cos 2 θ1 
+
+> r1
+
++ cos 2 θ2
+
+> r2
+
+), b := k( sin θ1 − sin θ2
+
+), (a) is achieved by letting t =
+
+√ 2a
+
+> π
+
+(x + b
+
+> 2a
+
+) and t± =
+
+√ 2a
+
+> π
+
+(± l 
+
+> 2
+
++ b
+
+> 2a
+
+),(b) is obtained by using Fresnel integrals. Then, the channel gain can be expressed as 
+
+g(r1, r2, θ 1, θ 2) = |h(r1, r2, θ 1, θ 2)|2
+
+=cos θ1 cos θ2
+
+16 π2r21 r22
+
+π
+
+2a
+
+{ [C(t+) − C(t−)] 2 + [S (t+) − S (t−)] 2 }. (30) 
+
+B. Asymptotic Analysis 
+
+Under the far-field assumption a l 2 ≪ 1 and neglecting the quadratic term, the channel and the corresponding gain can be obtained as: 
+
+h(far) (r1, r2, θ 1, θ 2) = e jk (r1+r2 ) √cos θ1 cos θ2
+
+4πr1r2
+
+∫ l/2
+
+> −l/2
+
+e jbx dx
+
+= e jk (r1+r2 ) √cos θ1 cos θ2
+
+2bπr1r2
+
+sin( bl  
+
+> 2
+
+) (31) 
+
+g(far) (r1, r2, θ 1, θ 2) = cos θ1 cos θ2
+
+4k(sin θ1 − sin θ2)2π2r21 r22
+
+sin 2( k(sin θ1 −sin θ2)l 
+
+> 2
+
+)(32) which implies that the interfering signal will not experience a focusing gain in the far field. Instead, it fluctuates with a small amplitude in a sinc-type manner. For the case when l → ∞, since x = 0 is no longer the stationary point of the phase φ(x; θ1, θ 2), we cannot analyze the limit directly from Eq. (29). When 
+
+θ1 , θ2, the stationary point xsp is obtained from the first-order condition of φ(x; θ1, θ 2) = d1(x; θ1) + d2(x; θ2) =√(r1 sin θ1 + x)2 + (r1 cos θ1)2 + √(r2 sin θ2 − x)2 + (r2 cos θ2)2.Then, we have 
+
+φ′(xsp ; θ1, θ 2) = xsp + r1 sin θ1
+
+d1(xsp ; θ1) + xsp − r2 sin θ2
+
+d2(xsp ; θ2) = 0. (33) Since 
+
+φ′′ (x; θ1, θ 2) = (r1 cos θ1)2
+
+d1(x; θ1)3 + (r2 cos θ2)2
+
+d2(x; θ2)3 > 0, (34) 
+
+φ′(x; θ1, θ 2) is strictly increasing on R, hence the unique xsp 
+
+can be obtained by solving Eq. (33) as 
+
+xsp = r1r2 sin( θ2 − θ1)
+
+r1 cos θ1 + r2 cos θ2
+
+. (35) For simplicity, we denote d1,sp := d1(xsp ; θ1), d2,sp :=
+
+d2(xsp ; θ2), φsp := φ(xsp ; θ1, θ 2) and φ′′  
+
+> sp
+
+:= φ′′ (xsp ; θ1, θ 2). Then, the Taylor expansion for the phase at xsp is 
+
+φ(x; θ1, θ 2) = φsp + 12 φ′′ 
+
+> sp
+
+(x − xsp )2 + O((x − xsp )3), (36) and the amplitude A(x) can be approximated by A(xsp ) =√r1 cos θ1 r2 cos θ2  
+
+> 4πd3/21,sp d3/22,sp
+
+. Then, the channel can be obtained as 
+
+h(r1, r2, θ 1, θ 2)(∞) = A(xsp ) e jk φsp 
+
+∫ ∞−∞ 
+
+exp 
+
+{
+
+jk φ′′ 
+
+> sp
+
+2 (x − xsp )2
+
+}
+
+dx
+
+> (a)
+
+= A(xsp ) e jk φsp e jπ/ 4
+
+√
+
+2π
+
+k φ′′ 
+
+> sp
+
+. (37) where ( a) is obtained by using ∫ ∞ 
+
+> 0
+
+e−t2
+
+dt = √π/ 2 in Eq. (7.4.1) of [33]. Then, the cascaded channel gain can be expressed as 
+
+g(∞)(r1, r2, θ 1, θ 2) = 2π
+
+k φ′′ 
+
+> sp
+
+∣∣∣A(xsp )∣∣∣2
+
+= r1r2 cos θ1 cos θ2
+
+8π k ((r1 cos θ1)2d32,sp + (r2 cos θ2)2d31,sp 
+
+) .
+
+(38) Furthermore, using the quadratic expansion of the phase at xsp 
+
+and taking A(x) ≈ A(xsp ) in the stationary region, we have 
+
+h(sp) (r1, r2, θ 1, θ 2) = A(xsp ) e jk φsp 
+
+∫ l/2
+
+> −l/2
+
+exp 
+
+{
+
+j k φ′′ 
+
+> sp
+
+2 (x − xsp )2
+
+}
+
+dx.
+
+= A(xsp ) e jk φsp 
+
+√ π
+
+k φ′′ 
+
+> sp
+
+( [C(t(sp)  
+
+> +
+
+) − C(t(sp)  
+
+> −
+
+)] + j [S (t(sp)  
+
+> +
+
+) − S (t(sp)  
+
+> −
+
+)] ).
+
+(39) where t(sp)  
+
+> ±
+
+=
+
+√ k φ′′ 
+
+> sp
+> π
+
+(± l 
+
+> 2
+
+− xsp 
+
+). Then, g(sp) (r1, r2, θ 1, θ 2) can be obtained as 
+
+g(sp) (r1, r2, θ 1, θ 2)
+
+≈ ∣∣∣A(xsp )∣∣∣2 π
+
+k φ′′ 
+
+> sp
+
+{[C(t(sp)  
+
+> +
+
+) − C(t(sp)  
+
+> −
+
+)] 2 + [S (t(sp)  
+
+> +
+
+) − S (t(sp)  
+
+> −
+
+)] 2}.
+
+(40) The approximation Eq. (39)–Eq. (40) is most accurate when the stationary point is well contained inside the aperture, i.e., 
+
+xsp ∈ (−l/2, l/2) and not too close to an edge. 
+
+C. Beam Pattern and Beamwidth 
+
+The conventional far-field beam pattern is obtained from the steering vector and does not need to be normalized by path loss, since there is no distance resolution. Near-field beam patterns are often normalized by path loss to illustrate the energy-focusing e ff ect [34], [35]. For an SRS, the received signal strength is a ff ected by path loss, coherent signal com-bining, and power projection. By normalizing the beam pattern with respect to path loss, we can reveal the e ff ective operating region of the SRS in both the near and far field, where the signals add mostly constructively and the power projection is large. The SRS beam pattern function is defined via the path-loss–normalized channel gain as 7
+
+F(r2, θ 2; r1, θ 1) = cos θ1 cos θ2
+
+π
+
+2a
+
+{ [C(t+)−C(t−)] 2+[S (t+)−S (t−)] 2}.
+
+(41) When r2 is larger than a certain threshold, F(r2, θ 2; r1, θ 1)attains its maximum at θ2 = θ1, i.e., the main beam is formed in the direction θ2 = θ1. Then, the mainlobe width can be defined according to the 3-dB beamwidth as BW (3dB) = θ(max) 2 − θ(min) 2 , (42) where θ(max) 2 and θ(min) 2 are the two solutions of 
+
+F(r2, θ 2; r1, θ 1) = 12 F(r2, θ 1; r1, θ 1). (43) 
+
+1) Far-field closed-form 3-dB beamwidth: Based on Eq. (32), the beam pattern in far-field can be written as 
+
+F(r2, θ 2; r1, θ 1) = 2l cos θ1 cos θ2
+
+
+
+sin ( kl  
+
+> 2
+
+(sin θ2 − sin θ1)) 
+
+> kl
+> 2
+
+(sin θ2 − sin θ1)
+
+
+
+> 2
+
+.
+
+(44) Substituting Eq. (44) into Eq. (43), we have 2 cos θ2
+
+( sin u3dB 
+
+u3dB 
+
+)2
+
+= cos θ1 (45) where u3dB := kl 
+
+> 2
+
+( sin θ2 − sin θ1
+
+). Near the main beam ( θ2 ≈
+
+θ1), we have cos θ2 ≈ cos θ1. Then, u3dB can be numerically obtained by Eq (45) as u3dB ≈ 1.3916 rad. Since both θ(max) 2
+
+and θ(min) 2 are close to θ1, by a first–order Taylor expansion around θ1 we obtain sin θ(max) 2 − sin θ(min) 2 ≈ cos θ1
+
+(θ(max) 2 − θ(min) 2
+
+) . (46) Using Eq. (46) and u3dB = kl 
+
+> 2
+
+∣∣∣ sin θ2 − sin θ1
+
+∣∣∣, the 3-dB beamwidth in far-field can be obtained as BW (3dB) ≈ 0.886 λ
+
+l cos θ1
+
+. (47) 
+
+2) Near-field 3-dB beamwidth: Substituting Eq. (41) into Eq. (43), the 3-dB angles θ(max) 2 and θ(min) 2 are the two real roots of 
+
+Φ(θ2) = [C(t+) − C(t−)] 2 + [S (t+) − S (t−)] 2
+
+− 2a cos θ1
+
+a0 cos θ2
+
+(C(t0)2 + S (t0)2) = 0, (48) where a0 := k cos 2 θ1
+
+> 2
+
+( 1 
+
+> r1
+
++ 1
+
+> r2
+
+) and t0 := l
+
+√ a0 
+
+> 2π
+
+, with θ(min) 2 < θ 1 <θ(max) 2 . Then, the near-field 3-dB main-lobe width is obtained by Eq. (42). Since Eq. (48) is a transcendental equation involving Fresnel integrals and trigonometric functions, the closed-form solution in terms of elementary functions is hard to obtain. However, it is one-dimensional, and when r is su ffi ciently large, it has a unique value for θ(min) 2 < θ 1 < θ (max) 2 .Consequently, standard scalar root-finding algorithms, such as bisection and Newton methods can be employed to compute 
+
+θ(min) 2 and θ(max) 2 with arbitrary numerical accuracy. 
+
+3) The eff ective region of 3-dB beamwidth: When the receiver is very close to an SRS, the main lobe located at 
+
+θ2 = θ1 is no longer the maximum and may even vanish. In the following, we analyze this threshold to reveal the e ff ective usage range of the 3-dB beamwidth. Since F(r2, θ 2; r1, θ 1)in Eq. (41) involves both the near-field geometric curvature factor and the Fresnel pattern, it is di ffi cult to solve for the actual threshold r2,th at which the main lobe ceases to be the maximum. As the beam pattern varies slowly with the near-field geometric curvature factor cos θ1 cos θ2 π 
+
+> 2a
+
+, we first carry out the analysis based on the Fresnel pattern, which is given by ¯F(r2, θ 2; r1, θ 1) = [C(t+) − C(t−)] 2 + [S (t+) − S (t−)] 2 (49) Since ¯F′(r2, θ 2; r1, θ 1)|θ2=θ1 = 0, whether the main lobe is a local maximum is determined by the value of the second derivative ¯F′′ (r2, θ 2; r1, θ 1). The range of r2 for which a local maximum is attained at θ2 = θ1 can be obtained by solving the following equation: ¯F′′ (r2, θ 2; r1, θ 1)|θ2=θ1 = 8πu [ S (u) cos ( π 
+
+> 2
+
+u2) − C(u) sin ( π 
+
+> 2
+
+u2)] < 0,
+
+(50) where u :=
+
+√ k
+
+> 4π
+
+( cos 2 θ1 
+
+> r1
+
++ cos 2 θ2
+
+> r2
+
+)l and the smallest positive solution of u in Eq. (50) can be numerically calculated as 1.6345. Then, the r2,th can be obtained as 
+
+r2,th > 1   
+
+> 5.3437 μλ
+> l2cos 2θ1
+
+− 1
+
+> r1
+
+. (51) where μ is an introduced factor related to the near-field geometric curvature factor. Numerically, choosing μ = 0.87 provides a good approximation to the e ff ective range. IV. SRS aided Communication Systems 
+
+In this section, we establish a single SRS-aided communica-tion system to demonstrate the advantages of SRS. Typically, an SRS employs a motor-driven rotation to achieve beam alignment. Suppose that, at the initial position, the angles of incidence and departure of the transmitter and receiver with respect to the SRS surface normal are θ1 and θ2, and their distances are r1 and r2, respectively. The motor then rotates by an angle ψ in the direction that increases the incidence angle. The transmitted symbol s follows a complex Gaussian distribution, i.e. , s ∼ CN (0 , 1). Then, the received signal can be expressed as 
+
+yk = √Pth(r1, r2, θ 1 − ψ, θ 2 + ψ)s + nk, (52) where Pt is the transmit power. The achievable rate can be expressed as 
+
+R = log 2
+
+(
+
+1 + Pt
+
+σ2 g(r1, r2, θ 1 − ψ, θ 2 + ψ)
+
+)
+
+. (53) Without loss of generality, we assume that the locations of the transmitter and receiver satisfy Eq. (51), i.e., the reflected beam of the SRS attains its maximum gain at the main-lobe direction θ2 = θ1. Then, the optimal ψ∗ can be obtained as 
+
+ψ∗ = max  
+
+> ψ
+
+R = 12 (θ2 − θ1), (54) and the optimal achievable rate is 
+
+R∗ = log 2
+
+(
+
+1 + Pt
+
+σ2 g(r1, r2, θ1 + θ2
+
+2 )
+
+)
+
+. (55) where g(r1, r2, θ1 +θ2 
+
+> 2
+
+) can be obtained by Eq. (9). Moreover, to better serve nearby users, the SRS can be partitioned into 8
+
+smaller SRS panels and assembled into an SRS array. Furthermore, since projected power ∝ cos( θ1 − ψ) cos( θ2 +
+
+ψ), the rotation angle that maximizes the projected power is 
+
+ψ⋆ = arg max ψ
+
+[ cos( θ1 − ψ) cos( θ2 + ψ)] = θ1 +θ2 
+
+> 2
+
++ kπ, k ∈ Z,which exactly coincides with ψ∗. Therefore, by adopting the rotational control scheme, a larger projected power can be achieved compared to an ideal RIS. V. N umerical Results 
+
+In this section, we conduct numerical performance analysis to demonstrate the channel gain and its asymptotic behavior of SRS under both aligned and misaligned configurations, as well as the near-/far-field boundary, beam pattern, and performance in wireless communication systems. As illustrated in Fig. 1, the center of the SRS is located at the origin, and the SRS is placed along the x-axis. 
+
+A. Angle-aligned case 
+
+We first analyze the performance of SRS under the aligned configuration. Unless otherwise specified, we set the wave-length λ = 0.1 m, the transceiver–SRS and SRS–receiver distances r1 = r2 = 20 m, and the incidence /reflection angle 
+
+θ = 30 ◦, and the width of SRS l = 2 m. The Calculated curve is obtained by numerically evaluating g = |h|2 by Eq. (3), while the Estimated curve uses the close-form expression in Eq. (8) and Eq. (9). We also include the Far-field curve using Eq. (4) for the small-l and the asymptotic limit in Eq. (12) for the large-l, respectively.             
+
+> 0246810 0123
+> Magnitude
+> ×10 -4
+> Calculated Estimated
+> SRS width l [m]
+> 0246810
+> Phase (rad)
+> 00.2 0.4 0.6 0.8 1
+> Calculated Estimated
+> Fig. 2. Magnitude and phase of channel vs width of SRS l.
+
+We investigate the impact of the SRS width on the channel amplitude and on the phase deviation with respect to areference phase e− jk (r1+r2 ) in Fig. 2. It can be observed from Fig. 2 that the derived closed-form expressions for both the channel amplitude and phase accurately match the numerical results. As the SRS aperture increases, the channel amplitude and the relative phase first grows to their maximum values and then exhibit a damped oscillatory behavior, whose upper envelope gradually decreases and converges to a constant. This phenomenon can be explained as follows. When the transceiver is located in the far field of the SRS, all reflected components add up constructively. As the aperture further increases, the transceiver enters the near-field region, where the phases of the reflected signals from the edge region of the SRS vary periodically, leading to local reflection regions that are partially out of phase with the overall contribution. Meanwhile, the path loss associated with the edge reflections increases with the aperture size, which gradually reduces the oscillation magnitude.            
+
+> 00.5 11.5 22.5
+> SRS width l [m]
+> 00.2 0.4 0.6 0.8 11.2 1.4 1.6 1.8 2
+> Channel gain
+> ×10 -7
+> l* = v */β
+> gmax
+> Near-far boundary
+> Calculated Far-field Estimated
+> (a)
+> 0100 200 300 400 500
+> SRS width l [m]
+> 012345678
+> Channel gain
+> ×10 -8
+> Calculated Estimated Infinite-width limit
+> (b) Fig. 3. Channel gain versus width of SRS l: (a) small aperture case, (b) large aperture case.
+
+We characterize the impact of the SRS width on the channel gain in Fig. 3 (a). The near-field boundary given in Eq. (25) and the aperture that achieves the maximum channel gain in Eq. (18) are indicated by dotted black lines. We observe from Fig. 3 (a) that the channel gain first increases and then decreases as the aperture size grows, which is due to the non-constructive combining of the reflected signals from the edge regions when the aperture becomes large. Moreover, the maximum gain is attained exactly at the aperture predicted by our derived expression for the optimal channel gain, thereby validating its correctness. In addition, the derived near-/far-field boundary accurately captures the transition between the two regimes. When the aperture is small and the transceiver lies in the far field, the channel gain coincides with the far-field approximation. As the aperture increases, the far-field gain gradually becomes inaccurate, since it fails to account for the non-constructive contributions from the edge reflections. We investigate the asymptotic case where the SRS aperture tends to infinity in Fig. 3 (b). We notice from Fig. 3 (b) that, as the aperture increases, the accuracy of the Fresnel-based 9
+
+analytical expression gradually degrades. This is because only a second-order approximation is adopted; when the aperture becomes very large, higher-order analyses are required to maintain accuracy. In contrast, the derived closed-form ex-pression in the asymptotic regime is shown to be accurate, revealing that the channel gain converges to a constant value that is independent of the aperture size. This behavior can be explained by the fact that, when the aperture is infinite, only the e ff ective reflection region around the SRS center contributes significantly to the channel gain, while reflections from other regions have negligible impact due to increased path loss and position-dependent periodic phase variations. Physically, this implies that there always exists an e ff ective reflection path, and the channel gain does not vanish as the aperture grows without bound.         
+
+> 020 40 60 80
+> Angle θ[deg]
+> 0246810 12 14 16
+> Channel gain
+> ×10 -8
+> Calculated, r = 15 m Calculated, r = 20 m Calculated, r = 40 m Estimated, r = 15 m Estimated, r = 20 m Estimated, r = 40 m
+> Fig. 4. Channel gain vs angle θ.
+
+We characterize the impact of the incident /reflection angle on the channel gain in Fig. 4. The angle that achieves the maximum gain, as given in Eq. (20), is indicated by dotted lines. We can observe from Fig. 4 that, in the far-field regime, the channel gain is maximized when the incident and reflected rays are perpendicular to the SRS. As the system moves into the near-field regime, however, the optimal reflection angle gradually deviates from this perpendicular direction. This is because the e ff ective aperture gradually decreases as the angle increases. When the transceiver is su ffi ciently far from the SRS, reflections from all points on the surface combine approximately constructively, and increasing the angle only reduces the e ff ective reflected power, so the maximum gain is achieved at normal incidence. When the transceiver is close to the SRS, a smaller e ff ective aperture helps suppress non-constructive contributions from the edge regions, and thus the maximum gain is attained at a certain nonzero angle. More-over, the derived analytical expression accurately captures the angle that maximizes the channel gain. We investigate the impact of distance on the channel gain in Fig. 5. We observe from Fig. 5 that the channel gain exhibits an overall decreasing trend as the distance increases. When the SRS aperture is small and the channel operates in the far-field regime, the gain decreases monotonically with distance. In contrast, when the SRS aperture is su ffi ciently large and the channel lies in the near-field regime, the channel gain        
+
+> Distance r [m]
+> 510 15 20 25 30
+> Channel gain [dB]
+> -90 -85 -80 -75 -70 -65 -60 -55 -50
+> Calculated, l = 0.5 m Estimated, l = 0.5 m Calculated, l = 1 m Estimated, l = 1 m Calculated, l = 2 m Estimated, l = 2 m Calculated, l = 4 m Estimated, l = 4 m
+> Fig. 5. Channel gain vs distance r.
+
+decreases in a damped oscillatory manner. This is because the free-space propagation loss increases with distance, while in the near field the combination of reflected signals from di ff erent positions on the SRS varies periodically with the distance.           
+
+> y [m]
+> 010 20 30 40 50
+> x [m]
+> -20 -15 -10 -5 0510 15 20
+> SRS (y=0) r1= 10 m r1= 15 m r1= 20 m r1= 30 m
+> Fig. 6. Near-far field boundary of the receiver.
+
+We characterize the near-/far-field boundary in Fig. 6, where the SRS aperture is set to 1 m. It can be observed from Fig. 6 that, when the transmitter is su ffi ciently far from the SRS, the near-/far-field boundary of the receiver exhibits a lemniscate-like shape; as the reflection angle increases, the boundary curve gradually moves closer to the SRS. When the transmitter is located closer to the SRS, however, the boundary curve becomes non-closed, and the near-field region extends to infinity for relatively small reflection angles. This is because the boundary is jointly determined by the transceiver distances to the SRS, the carrier frequency, and the SRS aperture. If either the transmitter or the receiver is very close to the SRS, the near-field non-constructive-combining e ff ect becomes unavoidable in the cascaded channel. 
+
+B. Angle-misaligned case 
+
+Next, we analyze the performance of SRS under the angle-misaligned configuration. Unless otherwise specified, we set the incidence angle to 20 ◦ and the reflection angle to 40 ◦.The results obtained from the center-point-based closed-form 10 
+
+expressions in Eq. (29) and Eq. (30) are labeled as CP-estimated , while the curve obtained from the stationary-point-based closed-form expression in Eq. (40) is labeled as SP-estimated .            
+
+> SRS width l [m]
+> 0123450123
+> Magnitude
+> ×10 -5
+> Calculated CP-estimated
+> SRS width l [m]
+> 012345
+> Phase
+> -30 -20 -10 0
+> Calculated CP-estimated
+> Fig. 7. Channel vs width of SRS l.
+
+We investigate the impact of the SRS aperture on the angle-misaligned channel’s amplitude and the phase deviation with respect to a reference phase e− jk (r1+r2 ) in Fig. 7. We observe from Fig. 7 that the closed-form estimation based on the SRS midpoint is highly accurate for small apertures, whereas a noticeable deviation gradually appears for large apertures. This deviation stems from two reasons: i) as the aperture grows, higher-order approximations are required to maintain accuracy; and ii) unlike the aligned case, x = 0 is no longer a stationary point of the phase function, and thus the approximation based on A(0) becomes less accurate as the aperture increases. Moreover, as we increase the aperture, the channel amplitude starts from a relatively small value and then grows with oscillations. Meanwhile, the phase no longer oscillates back as in the aligned case; instead, it drifts away from the reference in a periodic manner. This is because the true stationary point of the phase now lies outside the physical aperture; as the aperture expands, it gradually approaches and eventually encompasses the stationary point, leading to periodically increasing oscillations in both the amplitude and the phase deviation. We characterize the impact of the SRS aperture on the channel gain under the angle-misaligned configuration in Fig. 8 (a). It can be observed from Fig. 8 (a) that the channel gain is very small when the angles are misaligned, and it increases with mild oscillations as the aperture grows. Our analytical expression accurately captures both the overall increasing trend and the nonzero local minima. In contrast, the far-field expression exhibits noticeable errors around each local minimum and fails to reflect the increasing trend with the aperture. This is because, in practice, phase cancellation does not drive the cascaded-channel gain exactly to zero, whereas the far-field approximation incorrectly predicts perfect nulls and thus cannot capture the gradual gain increase. We illustrate the asymptotic regime where the SRS aperture tends to infinity in Fig. 8 (b). We observe from Fig. 8 (b) that, even under angle misalignment, the channel gain first increases with the aperture, then decreases, and finally converges to a               
+
+> SRS width l [m]
+> 012345
+> Channel gain g [dB]
+> -140 -135 -130 -125 -120 -115 -110 -105 -100 -95 -90
+> Calculated Far-field CP-estimated
+> (a)
+> 020 40 60 80 100
+> SRS width l [m]
+> 0123456
+> Channel gain
+> ×10 -8
+> Calculated Far-fi eld SP-estimated SP l→ ∞ limit
+> (b) Fig. 8. Channel gain versus width of SRS l: (a) small aperture case, (b) large aperture case.
+
+constant through damped oscillations. From the perspective of the intended user, this implies a wider angular coverage of non-negligible gain; meanwhile, it also indicates potentially stronger co-channel interference to other users. Moreover, the stationary-point-based closed-form expression remains accu-rate over a larger range of aperture sizes, although higher-order approximations are still required when the aperture becomes extremely large. In addition, the stationary-point-based asymptotic limit is highly accurate, whereas the far-field expression merely fluctuates around a small value that is far from the true gain. We examine the channel gain under di ff erent reflection angles in Fig. 9. It can be observed from Fig. 9 that the closed-form expressions remain accurate across di ff erent angles. When the transceivers are closer to the SRS, the channel gain becomes higher and the angular region with non-negligible gain also expands. However, when the distance is relatively small, the maximum gain is no longer achieved at the specular-reflection angle; instead, the main beam shifts and splits into two lobes. We show the impact of the transceiver distance on the angle-misaligned channel gain in Fig. 10. We observe from Fig. 10 that, when the aperture is small, the center-point-based estimate is accurate and the channel gain decreases monotonically as the distance increases. When the aperture is large, the stationary-point-based estimate is accurate; as the 11       
+
+> 020 40 60 80
+> Receiver angle θ2[deg]
+> 00.5 11.5 2
+> Channel gain
+> ×10 -7
+> Calculated, r = 13 m CP-estimated, r = 13 m Calculated, r = 20 m CP-estimated, r = 20 m Calculated, r = 40 m CP-estimated, r = 40 m
+
+Fig. 9. Channel gain vs reflected angle θ2.       
+
+> Distance r [m]
+> 510 15 20 25 30 35 40
+> Channel gain [dB]
+> -140 -130 -120 -110 -100 -90 -80 -70 -60 -50
+> Calculated, l=0.5 m CP-estimated, l=0.5 m Calculated, l=1 m CP-estimated, l=1 m Calculated, l=10 m SP-estimated, l=10 m Calculated, l=12 m SP-estimated, l=12 m
+
+Fig. 10. Channel gain vs distance. 
+
+distance increases, the gain decreases in an oscillatory manner at short ranges and then transitions to a monotonic decay at long ranges.          
+
+> θ2[deg]
+> 10 15 20 25 30
+> Beam pattern  F (r2, θ2; r1, θ1)
+> 00.5 11.5 22.5 3
+> 3 dB (FF) 3 dB (NF) 3 dB (NF)  Calculated, r 2= 15 m Estimated, r 2= 15 m Calculated, r 2= 50 m Estimated, r 2= 50 m
+
+Fig. 11. Angular reflected beam pattern. 
+
+We demonstrate the proposed beam pattern under di ff erent reflection angles in Fig. 11. Specifically, we calculate the exact beam pattern normalized by the path loss, and compare it with the estimation obtained from Eq. (41). It can be observed from Fig. 11 that the proposed approximation is accurate. Moreover, at long distances, the angular beamwidth is narrow, and the far-field 3-dB beamwidth closely matches the near-field 3-dB beamwidth. In contrast, at short distances, the angular beamwidth becomes wider, and only the near-field 3-dB beamwidth provides a valid characterization, while the far-field approximation breaks down. 
+
+Fig. 12. Reflected beam pattern in the planar view. 
+
+We show the reflected beam pattern of SRS over the entire plane in Fig. 12. It can be observed from Fig. 12 that our estimated beam pattern is accurate across the whole plane. Moreover, the reflected beam mainly a ff ects only a small angular region centered around the specular-reflection direction. Although a single SRS cannot achieve near-field focusing, it exhibits a distance-dependent signal-combining eff ect: when the observation point is su ffi ciently far, the re-flected components combine more constructively. In the near-field region, however, the main lobe may even vanish. Our derived threshold accurately characterizes the critical distance beyond which a main lobe exists. 
+
+Fig. 13. Eff ective reflecting area. 
+
+We set r1 = 20 m and use the beam pattern in Eq. (41) with the reflection angle equal to the incidence angle, i.e., the path-loss-normalized gain at each point under the angle-aligned configuration, to characterize the e ff ective reflection region over the entire plane in Fig. 13. We observe from Fig. 13 that, the e ff ective region is constrained by both a minimum-distance threshold and a maximum-angle threshold. This is because longer distances are more favorable for constructive 12 
+
+combining, while smaller reflection angles yield higher pro-jected power. Note that this figure is obtained by sweeping the incidence and reflection angles with respect to a fixed (non-rotating) SRS. In a practical system, rotating the SRS can further enlarge the e ff ective region over the plane. 
+
+C. SRS-aided communication systems 
+
+Finally, we investigate the performance of the SRS-aided communication systems. For the performance comparison, we consider the following benchmark schemes:  
+
+> •
+
+Lower bound: To highlight the necessity of rotation for achieving angle alignment, we take the performance of a non-rotating SRS as a lower bound.  
+
+> •
+
+Upper bound: When the transmitter and receiver are located in the absolute far field of the SRS, all reflected signals add up constructively and the gain is maximized. In this case, the rate can be computed using the far-field approximation in Eq. (12), and this rate can be regarded as a performance upper bound for the SRS.  
+
+> •
+
+RIS: For the RIS, the channel between the transmitter and the n-th RIS element (or between the n-th RIS element and the receiver) is modeled as hn =
+
+√
+
+α(RIS)  
+
+> n
+
+e j 2πλ rn , where 
+
+α(RIS)  
+
+> n
+
+= A
+
+> 4πr2
+> n
+
+cos θn, rn denotes the distance between them, 
+
+A is the e ff ective width of each RIS element, and θn is the angle of incidence or reflection with respect to the element’s surface normal. The optimal RIS beamforming can be expressed as φn = exp( − j 2πλ (r(Tx −RIS)  
+
+> n
+
++ r(RIS −Rx)  
+
+> n
+
+)). Typically, the e ff ective aperture is set as λ2 
+
+> 4π
+
+, corresponding to an e ff ective width A =
+
+√ λ2 
+
+> 4π
+
+, and in practice RIS beamforming with m discrete controllable phase levels is obtained by minimizing the Euclidean-distance.  
+
+> •
+
+SRS array (SRS-A): To better serve nearby users, the SRS can be partitioned into smaller SRS pan-els and assembled into an SRS array. Here, we keep the overall aperture size unchanged and, according to Eq. (54), steer each SRS-A element toward the user to preliminarily demonstrate the advantage of SRS-A. The achievable rate is computed as R(SRS −A) = log 2
+
+(1 +
+
+> Pt
+> σ2
+
+∣∣∣ ∑n hn(r(n)1 , r(n)2 , θ(n)1 +θ(n)2 
+
+> 2
+
+)∣∣∣2), where n is the index of the SRS-A element. A more refined design is left for future work. We investigate the impact of the SRS width on the achiev-able rate In Fig. 14. We set the incidence and reflection angles of the transmitter and receiver with respect to the SRS before rotation to 20 ◦ and 50 ◦, respectively. We observe from Fig. 14 that the analytical estimation is accurate. Moreover, rotating the SRS always yields a higher rate than the non-rotating case. When the user lies in the far-field region, the rotated SRS can essentially achieve the upper-bound performance. In the near field, however, a performance loss emerges because the reflected signals cannot be perfectly combined in phase. This limitation can be alleviated by employing an SRS array, which provides additional rotational degrees of freedom to better align the reflected components. In this example, each SRS element is aligned independently without joint optimization         
+
+> SRS width l [m]
+> 0123456
+> Achievable rate R [bits/s/Hz]
+> 0246810 12 14 16 18
+> Calculated Estimated Lower bound Upper bound SRS-A (N=3)
+> Fig. 14. Achievable rate vs width of SRS l.
+
+across elements. Hence, the performance of SRS-A is not yet optimal and exhibits noticeable fluctuations.                      
+
+> Transmit power Pt[dBm]
+> -10 -5 0510 15 20 25 30
+> Rate  R [bits/s/Hz]
+> 0246810 12 14 SRS (Practically achieved) SRS (Upper bound, far-fi eld) RIS ( A=λ/2, continuous phase) RIS ( A=√λ2/4π, continuous phase) RIS ( A=√λ2/4π, 4-level) RIS ( A=λ/2, 4-level)
+> Fig. 15. Achievable rate vs transmit power Pt.
+
+We illustrate the impact of the transmit power on the achievable rate in Fig. 15. We set the SRS width to 0 .5 m, and the incidence /reflection angles of the transmitter and receiver before rotation to 20 ◦ and 70 ◦, respectively. We observe from Fig. 15 that, with a proper aperture size and distance, an SRS can achieve the far-field upper bound on the achievable rate. Furthermore, even an ideal RIS with a continuous aperture and continuous phase control yields a lower achievable rate than SRS. This is because the optimal power-projection direction coincides with the specular-reflection direction, and SRS can realize it via simple mechanical rotation, thereby achieving a higher power projection than RIS. Moreover, when considering a practically implementable RIS with the actual e ff ective aper-ture and finite-resolution phase control, the performance gap between RIS and SRS becomes even larger. It should be noted that these results are obtained in free space, indicating that a single SRS may be more advantageous than an RIS with many elements when the objective is to establish a single strong LOS path. In practical scattering-rich environments, however, an RIS may better exploit NLOS components introduced by scatterers to achieve improved performance, albeit with substantially higher channel-estimation overhead than a single SRS. 13 
+
+VI. C onclusions 
+
+In this paper, we have provided a comprehensive perfor-mance analysis for specular reflecting surface systems (SRS) in both the desired specular angle-aligned configuration and the general angle-misaligned case. The derived closed-form expressions reveal how the cascaded channel gain depends on the SRS aperture, carrier frequency, transceiver distances, and incidence angles. We have also investigated the far-field behavior and the asymptotic regime with an unbounded aperture, and characterized a channel-gain-based near-/far-field boundary. In addition, we have studied the SRS beam pattern and beamwidth, and e ff ective operating region where a main lobe exists. Building on these analytical results, we have derived a closed-form achievable-rate expression for an SRS-aided communication system. Numerical results have validated the accuracy of the proposed expressions, highlighted the dis-tinctive near-field behavior of SRS caused by non-constructive edge-aperture combining, and demonstrated that an SRS with a continuous aperture, continuous angular-resolution control, and stronger power projection can outperform RIS in the far-field regime. References 
+
+[1] Y. Fang, Y. Deng, and X. Chen, “Resources on the move for smart city: A disruptive perspective on the grand convergence of sensing, commu-nications, computing, storage, and intelligence,” IEEE Communications Magazine , vol. 63, no. 4, pp. 200–206, 2025. [2] J. An, C. Yuen, L. Dai, M. Di Renzo, M. Debbah, and L. Hanzo, “Near-field communications: Research advances, potential, and challenges,” 
+
+IEEE Wireless Communications , vol. 31, no. 3, pp. 100–107, 2024. [3] C. Huang, S. Hu, G. C. Alexandropoulos, A. Zappone, C. Yuen, R. Zhang, M. D. Renzo, and M. Debbah, “Holographic MIMO surfaces for 6g wireless networks: Opportunities, challenges, and trends,” IEEE Wireless Communications , vol. 27, no. 5, pp. 118–125, 2020. [4] Y. Zhao, L. Zhang, H. Yang, K. Yang, R. Zhang, L. Song, and Y. Liu, “Reconfigurable antennas for next-generation mobile communication networks: A comprehensive survey and tutorial,” IEEE Communications Surveys & Tutorials , vol. 28, pp. 5267–5306, 2026. [5] J. An, C. Yuen, M. D. Renzo, M. Debbah, H. V. Poor, and L. Hanzo, “Flexible intelligent metasurfaces for downlink multiuser MISO com-munications,” IEEE Transactions on Wireless Communications , vol. 24, no. 4, pp. 2940–2955, 2025. [6] L. Zhang, L. Yan, B. Lin, H. Ding, Y. Fang, and X. Fang, “Augmenting transmission environments for better communications: Tunable reflector assisted MmWave wlans,” IEEE Transactions on Vehicular Technology ,vol. 69, no. 7, pp. 7416–7428, 2020. [7] Q. Wu and R. Zhang, “Towards smart and reconfigurable environment: Intelligent reflecting surface aided wireless network,” IEEE Communi-cations Magazine , vol. 58, no. 1, pp. 106–112, 2020. [8] M. Di Renzo, A. Zappone, M. Debbah, M.-S. Alouini, C. Yuen, J. de Rosny, and S. Tretyakov, “Smart radio environments empowered by reconfigurable intelligent surfaces: How it works, state of research, and the road ahead,” IEEE Journal on Selected Areas in Communications ,vol. 38, no. 11, pp. 2450–2525, 2020. [9] H. Zhang, B. Di, L. Song, and Z. Han, Reconfigurable intelligent surface-empowered 6G . Springer, 2021. [10] Q. Huang, J. Hu, and K. Yang, “Intelligent reflecting surface assisted integrated data and energy multicast system in terahertz-bands,” IEEE Transactions on Green Communications and Networking , vol. 9, no. 1, pp. 152–163, 2025. [11] Q. Huang, J. Hu, Q. Yue, and K. Yang, “Beamforming design in intel-ligent reflecting surface aided multicast system in ultra-high frequency bands with large-scale antenna array,” IEEE Wireless Communications Letters , vol. 13, no. 5, pp. 1429–1433, 2024. [12] Y.-C. Liang, J. Chen, R. Long, Z.-Q. He, X. Lin, C. Huang, S. Liu, X. S. Shen, and M. Di Renzo, “Reconfigurable intelligent surfaces for smart wireless environments: Channel estimation, system design and applications in 6G networks,” Science China Information Sciences ,vol. 64, no. 10, pp. 200301:1–200301:21, 2021. [13] X. Ma, H. Zhang, X. Chen, Y. Fang, and D. Yuan, “Multi-hop multi-RIS wireless communication systems: Multi-reflection path scheduling and beamforming,” IEEE Transactions on Wireless Communications , vol. 23, no. 7, pp. 6778–6792, 2024. [14] G. Reber, “Cosmic static,” Proceedings of the IRE , vol. 28, no. 2, pp. 68– 70, 1940. [15] J. L. Ryerson, “Passive satellite communication,” Proceedings of the IRE , vol. 48, no. 4, pp. 613–619, 1960. [16] W. Jakes, “A transatlantic communication experiment via echo i satel-lite,” Nature , vol. 190, p. 709, 1961. [17] Q. Xue, X. Fang, and C.-X. Wang, “Beamspace SU-MIMO for future millimeter wave wireless communications,” IEEE Journal on Selected Areas in Communications , vol. 35, no. 7, pp. 1564–1575, 2017. [18] X. Zhou, Z. Zhang, Y. Zhu, Y. Li, S. Kumar, A. Vahdat, B. Y. Zhao, and H. Zheng, “Mirror mirror on the ceiling: flexible wireless links for data centers,” in Proceedings of the ACM SIGCOMM 2012 Conference on Applications, Technologies, Architectures, and Protocols for Computer Communication , SIGCOMM ’12, (New York, NY, USA), p. 443–454, Association for Computing Machinery, 2012. [19] S. Li, S. Guo, J. Chen, X. Yang, S. Fan, C. Jia, G. Cui, and H. Yang, “Multiple targets localization behind l-shaped corner via UWB radar,” 
+
+IEEE Transactions on Vehicular Technology , vol. 70, no. 4, pp. 3087– 3100, 2021. [20] C. K. Anjinappa, F. Erden, and I. Güvenç, “Base station and passive reflectors placement for urban mmWave networks,” IEEE Transactions on Vehicular Technology , vol. 70, no. 4, pp. 3525–3539, 2021. [21] B. Ning, S. Yang, Y. Wu, P. Wang, W. Mei, C. Yuen, and E. Björnson, “Movable antenna-enhanced wireless communications: General archi-tectures and implementation methods,” IEEE Wireless Communications ,vol. 32, no. 5, pp. 108–116, 2025. [22] B. Zheng, Q. Wu, T. Ma, and R. Zhang, “Rotatable antenna enabled wireless communication: Modeling and optimization,” 2025. [23] Z. Yu, C. Feng, Y. Zeng, T. Li, and S. Jin, “Wireless communication using metal reflectors: Reflection modelling and experimental verifica-tion,” in ICC 2023 - IEEE International Conference on Communications ,pp. 4701–4706, 2023. [24] H. Lu, Z. Yu, Y. Zeng, S. Ma, S. Jin, and R. Zhang, “Wireless communication with flexible reflector: Joint placement and rotation optimization for coverage enhancement,” IEEE Transactions on Wireless Communications , vol. 24, no. 10, pp. 8252–8266, 2025. [25] B. Xu, B. Lin, J. Chen, B. Zheng, G. Pang, J. Luo, and Z. Ghassemlooy, “OIRS-assisted NLOS visible light communication systems: Modeling, optimization, and experimental validation,” IEEE Internet of Things Journal , vol. 12, no. 19, pp. 40458–40469, 2025. [26] Z. Zheng, Q. Wu, Y. Zhu, W. Chen, Y. Gao, and H. Wang, “Wireless sensing with movable intelligent surface,” 2025. [27] L. Zhang, X. Chen, Y. Fang, X. Huang, and X. Fang, “Learning-based mmwave v2i environment augmentation through tunable reflectors,” in 
+
+2019 IEEE Global Communications Conference (GLOBECOM) , pp. 1– 6, 2019. [28] L. Zhang, L. Yan, B. Lin, Y. Fang, and X. Fang, “Tunable reflec-tors enabled environment augmentation for better mmWave WLANs,” in IEEE /CIC International Conference on Communications in China (ICCC) , (Changchun, Jilin, China), August 11-13 2019. [29] Q. Ren, Q. Huang, Y. Deng, X. Chen, P. Lin, and Y. Fang, “Shatter throughput ceilings: Leveraging reflection surfaces to enhance transmis-sions for vehicular fast data exchange,” 2026. [30] B. Zheng and R. Zhang, “Simultaneous transmit diversity and passive beamforming with large-scale intelligent reflecting surface,” IEEE Trans-actions on Wireless Communications , vol. 22, no. 2, pp. 920–933, 2023. [31] E. Björnson and L. Sanguinetti, “Power scaling laws and near-field behaviors of massive MIMO and intelligent reflecting surfaces,” IEEE Open Journal of the Communications Society , vol. 1, pp. 1306–1324, 2020. [32] J. Sherman, “Properties of focused apertures in the fresnel region,” IRE Transactions on Antennas and Propagation , vol. 10, no. 4, pp. 399–408, 1962. [33] M. Abramowitz and I. A. Stegun, eds., Handbook of Mathematical Functions with Formulas, Graphs and Mathematical Tables . New York: Dover Publications, Inc., 1965. [34] Q. Huang, J. Hu, Y. Zhao, and K. Yang, “Holographic integrated data and energy transfer,” IEEE Transactions on Wireless Communications ,vol. 23, no. 12, pp. 18987–19002, 2024. [35] Q. Huang, Y. Zhao, J. Hu, K. Yang, and Y. Fang, “Circular holographic MIMO beamforming for integrated data and energy multicast systems,” 
+
+IEEE Transactions on Wireless Communications , vol. 25, pp. 5733– 5748, 2026.

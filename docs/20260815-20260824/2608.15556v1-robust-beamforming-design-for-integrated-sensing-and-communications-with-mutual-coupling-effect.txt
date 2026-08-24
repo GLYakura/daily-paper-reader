@@ -1,0 +1,448 @@
+Title: Robust Beamforming Design for Integrated Sensing and Communications with Mutual Coupling Effect
+
+URL Source: https://arxiv.org/pdf/2608.15556v1
+
+Published Time: Tue, 18 Aug 2026 00:58:36 GMT
+
+Number of Pages: 5
+
+Markdown Content:
+> 1
+
+# Robust Beamforming Design for Integrated Sensing and Communications with Mutual Coupling Effect 
+
+Jieon Maeng, Student Member, IEEE, and Kawon Han, Member, IEEE 
+
+Abstract —Integrated sensing and communications (ISAC) is a key technology for next-generation wireless networks, enabling communication and radar sensing over shared spectral and hard-ware resources. In practical multi-user multiple-input multiple-output (MU-MIMO) ISAC transmitters, however, mutual cou-pling (MC) between antenna elements distorts the array steering vector and each communication user (CU) channel, so that the sensing beampattern deviates from the desired one and the com-munication link to each user degrades. To address this limitation, we propose a robust MC-compensated beamforming design that guarantees both the sensing and communication performance of MU-MIMO ISAC transmitters against the residual MC error. We introduce a residual error on the MC matrix, so that a norm-bounded residual error induces both the sensing beampattern uncertainty and the communication channel uncertainty. The transmit covariance is then optimized against the worst-case of each uncertainty, minimizing the worst-case beampattern match-ing mean-squared error (MSE) for sensing while guaranteeing the signal-to-interference-plus-noise ratio (SINR) for each CU. Each worst-case constraint is converted into a linear matrix inequality, and the problem becomes a convex semidefinite program (SDP). Numerical results show that the proposed robust design attains both a lower sensing beampattern matching MSE and a higher communication SINR than those of the conventional designs, with an advantage that widens as the residual error grows. 
+
+Index Terms —Integrated sensing and communications (ISAC), mutual coupling, robust beamforming, patch antenna array, worst-case robust optimization 
+
+I. I NTRODUCTION 
+
+# INTEGRATED sensing and communications (ISAC) is a key technology for next-generation wireless systems, al-lowing a single transceiver to simultaneously perform commu-nication and radar sensing over shared spectral and hardware resources [1], [2]. In multi-user multiple-input multiple-output (MU-MIMO) ISAC systems, transmit beamforming shapes a desired sensing beampattern while guaranteeing the signal-to-interference-plus-noise ratio (SINR) requirement of each communication user (CU) [3]. Conventional ISAC beamforming is built on the ideal steer-ing vector of the antenna array, which assumes no electro-magnetic (EM) interaction between elements. In the antenna arrays of practical ISAC transmitters, however, this assump-tion breaks down. The mutual coupling (MC) effect between closely spaced elements becomes non-negligible, as the fields radiated by each element couple into the adjacent elements [4]. This MC-induced distortion can be mitigated by MC-compensated beamforming, which replaces the ideal array 
+
+J. Maeng and K. Han are with the Department of Electrical Engineer-ing, Ulsan National Institute of Science and Technology (UNIST) (e-mail: jemaeng@unist.ac.kr). 
+
+Fig. 1. MU-MIMO ISAC beamforming with an Nt-element patch array, where mutual coupling degrades both sensing and communication. 
+
+response with the coupled one obtained from an MC model of the antenna array. Such a model, however, relies on idealized physical conditions that hold only approximately in practice, leaving a residual MC uncertainty. Under this uncertainty, in MIMO radar sensing, MC distorts the transmit beampattern and degrades target detection and parameter estimation, while in MU-MIMO communication it reduces the beamforming gain at each user equipment (UE) and corrupts the channel state information (CSI), as illustrated in Fig. 1. Although MC-compensated designs replace the ideal array response with the one predicted by a physics-based MC model [5], [6], they evaluate the sensing beampattern and the channel at a fixed response, offering no robustness against the residual MC error. Existing robust ISAC designs ensure the worst-case performance against CSI errors [7], [8] and target location uncertainty [9], [10]. However, their uncertainty sets are centered at the ideal response, so the error bounds must absorb the full MC-induced deviation in addition to the residual error, making the design unnecessarily conservative. Since the residual error lies on the MC matrix and distorts steering vectors and user channels, the uncertainty set should be centered at the MC model. Such ISAC beamforming, robust to the residual MC error in both radar sensing and communication, has not yet been investigated. To address this limitation, we propose a robust MC-compensated ISAC beamforming design that provides a worst-case performance guarantee for both radar sensing and MU-MIMO communication under residual MC errors. The main contributions of this paper are summarized as follows. First, unlike the ideal-centered robust designs of [7]–[10], we place a common norm-bounded residual error on the MC matrix of a physics-based model [11], which induces the sensing steer-ing vector and communication channel uncertainties. Every uncertainty set is thus centered at the physics-based response, and each error bound covers only the residual MC error via an interpretable parameter. Second, we minimize the worst-case beampattern matching mean-squared error (MSE) while arXiv:2608.15556v1 [eess.SP] 16 Aug 2026 2
+
+guaranteeing the worst-case SINR of every CU. We cast both worst-case constraints into one common quadratic form, con-vert them into linear matrix inequalities (LMIs), and develop a convex semidefinite program (SDP) that enforces both worst-case guarantees, at a complexity of the same polynomial order as the non-robust designs. II. S YSTEM MODEL 
+
+A. Communication Model 
+
+Consider the MU-MIMO ISAC scenario in Fig. 1, where a transmitter with an Nt-element patch antenna array serves 
+
+K single-antenna CUs while sensing a radar target within the region-of-interest (ROI). Following the standard ISAC signal model [12], the transmitted signal is 
+
+x = Wc c + Ws s, (1) where Wc = [ wc, 1, . . . , wc,K ] ∈ CNt×K collects the com-munication beamformers, c ∈ CK is the data-symbol vector of the K CUs, and Ws ∈ CNt×Nt and s ∈ CNt are the beamforming matrix and waveform of a dedicated sensing signal. The symbols and waveforms are zero-mean, unit-power, and mutually uncorrelated, 
+
+Ecc H  = IK , Ess H  = INt , Esc H  = 0. (2) The channel of user k follows the Rician model hk =pκ/ (κ + 1) hLoS ,k + p1/(κ + 1) hNLoS ,k , where hLoS ,k is the line-of-sight (LoS) component along the steering vector toward the user angle θk, hNLoS ,k ∼ CN (0, INt ) is the Rayleigh-scattered non-line-of-sight (NLoS) component, and 
+
+κ is the Rician factor. The received signal of user k is 
+
+yk = hHk x + nk with noise nk ∼ CN (0 , σ 2). Since the multi-user and sensing components act as interference, the SINR γk
+
+of user k is given by [12] 
+
+γk = hHk wc,k 
+
+> 2
+
+PKi=1 ,i ̸=k hHk wc,i  
+
+> 2
+
++ hHk Ws 
+
+> 22
+
++ σ2 . (3) All beamforming designs investigated in the following sections utilize the SINR as the communication performance metric. 
+
+B. Sensing Model 
+
+For sensing, the transmit array is operated as a MIMO radar system. For a uniform linear array (ULA) with element spacing 
+
+d, the ideal steering vector is 
+
+a(θ) = 
+
+h
+
+1, e j 2πd λ0 sin θ , . . . , e j 2πd λ0 (Nt−1) sin θ iT
+
+, (4) where λ0 is the carrier wavelength and d = λ0/2 is assumed throughout this paper, with ∥a(θ)∥2 = √Nt. With the per-user covariance Rc,k = wc,k wHc,k and the sensing covariance 
+
+Rs = WsWHs , the total transmit covariance under (2) is 
+
+R = Exx H  = WcWHc + WsWHs =
+
+> K
+
+X
+
+> k=1
+
+Rc,k + Rs, (5) and the transmit beampattern is 
+
+P (θ) = aH (θ) R a (θ). (6) We minimize the beampattern matching MSE between P (θ)
+
+and a desired sensing beampattern Pd(θ) over a grid of M
+
+angles {θm}Mm=1 , and utilize this MSE to formulate the ob-jectives of all beamforming designs in the following sections. 
+
+C. Antenna Mutual Coupling Model 
+
+The ideal steering vector (4) assumes no EM interaction between elements, which breaks down under MC. We there-fore model the MC of a patch-element ULA, widely adopted in practical ISAC transmitters, by the physics-based MC model of [11]. The MC is set by two admittances: the self-admittance Yself ∈ C of an isolated patch, and the mutual admittance Ymut (|p−q| d) between two patches whose centers are separated by |p − q| d, where p, q ∈ { 1, . . . , N t} index the array elements. These assemble into the admittance matrix 
+
+Y of the Nt-port array, relating the port currents to the port voltages, with [11] 
+
+[Y]pq =
+
+(
+
+Yself , p = q, Ymut (|p − q| d), p̸ = q. (7) Inverting it yields the open-circuit impedance matrix Zoc =
+
+Y−1, where the inversion automatically accounts for all multiple-scattering paths between elements. Each port is then terminated with the load impedance ZL, giving the MC matrix of the load-terminated array as [4] 
+
+Z = ( Zself + ZL) ( Zoc + ZL INt )−1 , (8) where Zself = 1 /Y self is the self-impedance. For given port voltages, (Zoc +ZL INt )−1 returns the currents of the coupled array and (Zself + ZL)−1INt those of the uncoupled array. Z
+
+therefore maps the uncoupled currents to the coupled ones, which are the currents that set the radiated pattern, and reduces to INt when coupling is absent ( Zoc = Zself INt ). Finally, we normalize Z by its average element gain g =
+
+∥Z∥F /√Nt as ¯Z = Z/g , so that the coupling alters only the pattern shape, not the average gain. Replacing the ideal steering vector (4) by its coupled counterpart gives 
+
+aMC (θ) = ¯Z a (θ), (9) on which MC-compensated beamforming evaluates the beam-pattern (6). The same matrix acts on the channel [13], giving 
+
+hMC ,k = ¯Z h k. (10) Both multiplications are linear because the coupling acts on the element currents, which set the field radiated toward every angle and along every path alike. III. P ROBLEM FORMULATION AND PROPOSED SOLUTION 
+
+A. Problem Formulation 
+
+In this section, we present a robust beamforming design under a residual MC error. We start from the original problem 
+
+(P0) [14], which minimizes the sensing beampattern matching MSE subject to the SINR constraint of every CU, 
+
+min 
+
+> Wc,Ws
+
+fr (11a) s.t. γk ≥ Γ, ∀k, (11b) 
+
+[R]nn = Pt/N t, ∀n, (11c) where Γ is the SINR target and (11c) is the per-antenna power constraint. The sensing metric fr is the beampattern matching MSE given by 
+
+fr = 1
+
+M
+
+> M
+
+X
+
+> m=1
+
+ Pd(θm) − aH (θm)R a (θm)2, (12) where Pd(θ) is a fixed desired pattern. 3
+
+Problem (P0) is non-convex due to the quadratic SINR con-straint (11b), and is relaxed to a convex problem by semidef-inite relaxation (SDR) over the covariances of (5), under which (11b) becomes  1+ 1Γ
+
+hHk Rc,k hk ≥ hHk R h k +σ2. The relaxed MC-uncompensated design (P1) is then formulated as 
+
+min  
+
+> R,{Rc,k }
+
+1
+
+M
+
+> M
+
+X
+
+> m=1
+
+
+
+Pd(θm) − aH (θm)R a (θm)
+
+2
+
+(13a) s.t.  1 + 1Γ
+
+hHk Rc,k hk ≥ hHk Rh k + σ2, ∀k, (13b) 
+
+[R]nn = Pt/N t, ∀n, (13c) 
+
+R − P 
+
+> k
+
+Rc,k ⪰ 0, Rc,k ⪰ 0, ∀k, (13d) which is convex. Here, R−P 
+
+> k
+
+Rc,k ⪰ 0 preserves the covari-ance structure (5), ensuring a valid sensing covariance Rs ⪰ 0.The relaxation is tight: since the objective and (13c) depend only on R, and Rc,k enters (13b) only through hHk Rc,k hk,rank-one beamformers attaining the same objective can be constructed from the solution of (P1) [?]. The MC-compensated design (P2) has the same form as (13), with the ideal a(θ) and hk replaced throughout by the coupled aMC (θ) of (9) and hMC ,k of (10), so that both the beampattern and the channel are evaluated on the coupled array. It is noted that both (P1) and (P2) are non-robust designs, as they evaluate the beampattern and the channel at a fixed array response and offer no guarantee against the residual uncertainty left by the MC model. Therefore, we propose a robust MC-compensated design that places the residual error on the MC model, via the norm-bounded error model of [15], 
+
+Zrob = ¯Z + ∆, ∥∆∥2 ≤ ε, (14) where ∆ ∈ CNt×Nt is the residual coupling matrix, ε > 
+
+0 is the design error bound, and ∥ · ∥ 2 denotes the spectral norm. Here, ε bounds the spectral norm of the residual error, expressed on a decibel scale as η = 10 log 10 ε2.
+
+1) Radar beampattern uncertainty: For the radar sensing uncertainty, replacing ¯Z in (9) by Zrob yields the steering vector under the residual MC error, 
+
+arob (θm) = Zrob a(θm) = aMC (θm) + ∆ a (θm). (15) Writing its residual as es,m = ∆ a (θm), the norm bound in (14) together with ∥a(θm)∥2 = √Nt from (4) gives the sensing error bound εs,
+
+∥es,m ∥2 ≤ ∥ ∆∥2 ∥a(θm)∥2 ≤ pNt ε = εs, ∀m. (16) Replacing a(θm) by arob (θm) in the objective (13a) therefore makes the matching MSE a function of the residual. 
+
+2) Communication channel uncertainty: For the commu-nication channel uncertainty, replacing ¯Z in (10) by Zrob gives the channel of user k under the residual error, 
+
+hrob ,k = Zrob hk = hMC ,k + ∆ h k. (17) Writing its residual as ec,k = ∆ h k, the same norm bound gives the per-user error bound εc,k ,
+
+∥ec,k ∥2 ≤ ∥ ∆∥2 hk 2 ≤ ε hk 2 = εc,k , ∀k. (18) The bound εc,k varies from user to user through ∥hk∥2, and is computable at the transmitter from ε and the available CSI. Replacing hk by hrob ,k in the SINR constraint (13b) makes it depend on the residual error. The proposed robust design (P3) minimizes the worst-case sensing beampattern matching MSE subject to γk ≥
+
+Γ for every communication user and any residual within the error bound. Substituting arob (θm) of (15) for a(θm)
+
+in (12) gives the matching MSE under the residual error, 
+
+fr, rob = 1
+
+> M
+
+PMm=1 
+
+ Pd(θm) − aH
+
+> rob
+
+(θm)R a rob (θm)2, and 
+
+(P3) is formulated as 
+
+min   
+
+> R,{Rc,k }
+
+max  
+
+> ∥∆∥2≤ε
+
+fr, rob (19a) s.t.  1 + 1Γ
+
+hH
+
+> rob ,k
+
+Rc,k hrob ,k 
+
+≥ hH
+
+> rob ,k
+
+R h rob ,k + σ2, ∀k, (19b) (13c) , (13d) ,
+
+where the common residual error ∆ enters the objective through es,m and the SINR constraint through ec,k .
+
+B. Proposed Solution for Robust Design (P3)
+
+In (P3), the objective (19a) carries a maximization over the residual ∆ with ∥∆∥2 ≤ ε, and the SINR constraint (19b) is semi-infinite over the same set. Therefore, we develop a convex SDP (P′
+
+> 3
+
+) that guarantees the worst-case performance of (P3) as follows. To turn the min–max objective (19a) into a minimization, we introduce the auxiliary variable Sm to upper-bound the worst-case matching error, 
+
+Sm ≥ max 
+
+> ∥es,m ∥2≤εs
+
+Pd(θm) − aH
+
+> rob
+
+(θm)R a rob (θm) . (20) Then the min–max objective of (P3) is replaced by minimizing 
+
+> 1
+> M
+
+P 
+
+> m
+
+S2 
+
+> m
+
+subject to (20). Writing the absolute value in (20) as a two-sided bound and substituting arob (θm) = aMC (θm)+ 
+
+es,m from (15) then yields the two constraints 
+
+ aMC (θm) + es,m 
+
+H R aMC (θm) + es,m 
+
+
+
+≥ Pd(θm) − Sm, (21a) 
+
+ aMC (θm) + es,m 
+
+H (−R) aMC (θm) + es,m 
+
+
+
+≥ − Pd(θm) − Sm, (21b) whose sum yields Sm ≥ 0, so the bound is automatically nonnegative. For the SINR constraint (19b), since the residual enters only through the channel, we collect its terms into a quadratic form in the channel and substitute hrob ,k = hMC ,k +ec,k from (17), giving 
+
+ hMC ,k + ec,k 
+
+H h 1 + 1Γ
+
+Rc,k − R
+
+i hMC ,k + ec,k 
+
+ ≥ σ2,
+
+(22) required for every ∥ec,k ∥2 ≤ εc,k .The beampattern constraints (21) and the SINR con-straint (22) remain semi-infinite, but now share one common algebraic form, 
+
+(x + e)H Q(x + e) ≥ β, ∀ ∥ e∥2 ≤ r. (23) Here, x is the nominal vector, Q is a Hermitian matrix, β is the required level, and r is the error bound of the uncertainty set. The beampattern constraints (21a) and (21b) take this form with x = aMC (θm), Q = ±R, β = ±Pd(θm) − Sm and 
+
+r = εs, and the SINR constraint (22) with x = hMC ,k , Q = 1+ 1Γ
+
+Rc,k −R, β = σ2 and r = εc,k , where εc,k > 0 for any 4   
+
+> (a) (b) (c)
+> Fig. 2. Beampatterns of the (a) MC-uncompensated, (b) MC-compensated, and (c) robust MC-compensated designs.
+
+nonzero hk. In both cases, the constraint and the norm bound are quadratic in es,m and ec,k , respectively, and the following lemma converts this pair of quadratic conditions into a linear matrix inequality (LMI). 
+
+Lemma 1: Let Q = QH and r > 0. Then (23) holds if and only if there exists λ ≥ 0 such that 
+
+L(Q, x, β, r, λ ) = 
+
+Q + λINt Qx xH Q xH Qx − β − λr 2
+
+
+
+⪰ 0,
+
+(24) an LMI in λ and the entries of (Q, β ) for fixed x.
+
+Proof: Expanding the left side of (23) gives the quadratic function f0(e) = eH Qe +2Re  (Qx )H e+xH Qx −β, and the norm bound is f1(e) = r2 − eH e ≥ 0. Since f1(0) = r2 > 0,the S-procedure, lossless for complex-valued quadratics [16], states that f0 ≥ 0 on {f1 ≥ 0} if and only if there exists 
+
+λ ≥ 0 with f0(e) − λf 1(e) ≥ 0 for all e. Writing this difference as [eH , 1] L(Q, x, β, r, λ ) [ eT , 1] T shows, by the standard homogenization argument, that its nonnegativity for all e is equivalent to (24). Applying Lemma 1 to the beampattern constraints (21a) and (21b) with multipliers νm ≥ 0 and μm ≥ 0 gives 
+
+Φm = L R, aMC (θm), P d(θm) − Sm, ε s, ν m
+
+ ⪰ 0, (25) 
+
+Ψm = L  − R, aMC (θm), −Pd(θm) − Sm, ε s, μ m
+
+ ⪰ 0,
+
+(26) and to the SINR constraint (22) with multiplier λk ≥ 0 gives 
+
+Ξk = L
+
+ 1 + 1Γ
+
+Rc,k − R, hMC ,k , σ 2, ε c,k , λ k
+
+
+
+⪰ 0. (27) Since Φm and Ψm are linear in (R, S m, ν m, μ m) and 
+
+Ξk is linear in (R, Rc,k , λ k), replacing the beampattern constraints (21) and the SINR constraint (22) by (25)–(27) yields the convex SDP (P′
+
+> 3
+
+). With the optimization variables collected as V = R, {Rc,k }, {Sm}, {νm}, {μm}, {λk} , the proposed robust design (P′
+
+> 3
+
+) is formulated as 
+
+min 
+
+> V
+
+1
+
+M
+
+> M
+
+X
+
+> m=1
+
+S2
+
+> m
+
+s.t. Φm ⪰ 0, Ψm ⪰ 0, ν m ≥ 0, μ m ≥ 0, ∀m, 
+
+Ξk ⪰ 0, λ k ≥ 0, ∀k, (13c) , (13d) .
+
+(28) Coupling-agnostic robust designs [7]–[10] center the un-certainty at the ideal a(θm), so their error bound must ab-sorb the full coupling deviation and cannot be smaller than 
+
+∥(¯Z − INt )a(θm)∥2 + εs, whereas the proposed design centers it at the physics-based aMC (θm) and covers only the residual 
+
+εs, yielding a far less conservative design. The LMI Ξk depends on the full matrix Rc,k , not only on the scalar hHk Rc,k hk as in (P1), so the optimal Rc,k of (P′
+
+> 3
+
+)
+
+may have rank greater than one. The beamformers {wc,k } can then be obtained by solving (P′
+
+> 3
+
+) with Rc,k = pkukuHk , where 
+
+uk is the principal eigenvector of the optimal Rc,k and pk ≥ 0
+
+is the per-user power to be optimized. This problem remains convex, and its constraint Ξk ⪰ 0 guarantees via Lemma 1 that the resulting wc,k = √pk uk satisfies γk ≥ Γ for all 
+
+∥∆∥2 ≤ ε.
+
+C. Computational Complexity 
+
+Problems (P1), (P2), and (P′
+
+> 3
+
+) are SDPs solved by an interior-point method, whose cost is governed by the number of variables and the sizes of the semidefinite blocks. The for-mer mainly sets the cost of each iteration, the latter the number of iterations. The non-robust designs (P1) and (P2) optimize the K+1 covariance matrices R, {Rc,k } ∈ HNt and M
+
+residuals under K+1 blocks of size Nt, giving the per-solve complexity O p (K+1) Nt
+
+ (K+1) N 2t + M 3 log(1 /ϵ ) for accuracy ϵ. The robust design (P′
+
+> 3
+
+) adds only 3M +K scalar variables, so each iteration costs the same order, but its worst-case bounds impose one pair Φm, Ψm per angle and one 
+
+Ξk per user, adding 2M +K blocks of size Nt+1 that raise the iteration count to O √M N t
+
+. The complexity therefore remains polynomial of the same order in Nt, higher only by the factor pM/ (K+1) , the price of enforcing the worst-case bounds at every angle and user. IV. N UMERICAL RESULTS 
+
+We consider an Nt = 16 -element patch array with d =
+
+λ0/2. Each rectangular patch ( W = 0 .49 λ0, L = 0 .44 λ0)is terminated with ZL = 50 Ω , and Yself , Ymut follow the physics-based MC model [11], with adjacent radiating slots separated by 0.06 λ0. The array serves K = 2 users at −45 ◦
+
+and 40 ◦ over Rician channels ( κ = 1 ). The desired pattern 
+
+Pd(θ) is 5 dB over [−20 ◦, 20 ◦] with a −10 dB floor elsewhere, on a uniform grid of M = 91 angles. We set the normalized transmit power Pt = 1 under the per-antenna constraint (13c). We use Pt/σ 2 = 10 dB and η = −30 dB. Unless stated otherwise, the realized mismatch level is ˜η = −12 dB. Each realization of ∆ has independent complex-Gaussian entries scaled to ∥∆∥2 = ˜ε, where ˜η = 10 log 10 ˜ε2; the same realization perturbs both the steering vectors in (15) and the channels. All designs are evaluated on the optimal covariances 
+
+{Rc,k , R}. Over 1,000 Monte Carlo realizations we report the mean beampattern, the 95 th-percentile matching MSE, and the 5th-percentile achieved SINR, where the tail percentiles 5
+
+(a) (b) Fig. 3. Beampattern matching MSE versus the achieved SINR trade-off at (a) ˜η = −12 dB and (b) ˜η = −6 dB. 
+
+Fig. 4. Beampattern matching MSE versus the realized mismatch ˜η.
+
+Fig. 5. Trade-off of the robust MC-compensated design for K = 2 –5 users. 
+
+reflect the worst-case-oriented nature of the proposed design. The realized mismatch ˜η is set beyond the design bound η to evaluate the robustness of the proposed design. Fig. 2 shows the beampatterns as Γ is swept from 10 to 
+
+17 dB. The uncompensated design is distorted over the target region and forms the weakest beams toward the users, whereas the robust design matches the target region closely and forms the strongest user beams. Fig. 3 shows the trade-off between the beampattern matching MSE and the achieved SINR at ˜η =
+
+−12 dB and −6 dB, both beyond the design bound. At equal achieved SINR, the robust design attains a lower MSE, and its margin widens with the mismatch. Fig. 4 plots the beampattern matching MSE versus the mismatch ˜η at a fixed target Γ = 10 dB. Near the design bound the two compensated designs perform alike, but as the mismatch grows the robust design outperforms the MC-compensated one. Fig. 5 shows the trade-off of the robust design for K = 2 –5 users, where users are added at −60 ◦, 55 ◦, and 75 ◦ to the two at −45 ◦ and 40 ◦. Up to moderate SINR, the MSE is unaffected by K; beyond that it rises earlier for larger K.V. C ONCLUSION 
+
+In this paper, we have proposed robust MC-compensated beamforming for MU-MIMO ISAC, which models the residual uncertainty of the MC model as a norm-bounded error on the MC matrix. Since the residual error distorts both the sensing beampattern and the communication channel, we have cast both worst-case constraints in one common algebraic form, converted them into LMIs, and developed a convex SDP of polynomial complexity. Numerical results confirm that the worst-case guarantees of the proposed design yield a lower matching MSE and a higher achieved SINR than the conventional designs in the presence of the residual MC error. REFERENCES [1] F. Liu, Y. Cui, C. Masouros, J. Xu, T. X. Han, Y. C. Eldar, and S. Buzzi, “Integrated Sensing and Communications: Toward Dual-Functional Wireless Networks for 6G and Beyond,” IEEE Journal on Selected Areas in Communications , vol. 40, no. 6, pp. 1728–1767, 2022. [2] K. Han, K. Meng, X.-Y. Wang, and C. Masouros, “Network-Level ISAC Design: State-of-the-Art, Challenges, and Opportunities,” IEEE Journal of Selected Topics in Electromagnetics, Antennas and Propagation ,vol. 1, no. 1, pp. 65–83, 2025. [3] F. Liu, C. Masouros, A. Li, H. Sun, and L. Hanzo, “MU-MIMO Commu-nications With MIMO Radar: From Co-Existence to Joint Transmission,” 
+
+IEEE Transactions on Wireless Communications , vol. 17, no. 4, pp. 2755–2770, 2018. [4] I. Gupta and A. Ksienski, “Effect of mutual coupling on the performance of adaptive arrays,” IEEE Transactions on Antennas and Propagation ,vol. 31, no. 5, pp. 785–791, 1983. [5] S. Zeng, H. Zhang, B. Di, H. Zhang, Z. Shao, Z. Han, H. Vincent Poor, and L. Song, “Holographic Beamforming for Integrated Sensing and Communication With Mutual Coupling Effects,” IEEE Journal on Se-lected Areas in Communications , vol. 44, pp. 480–497, 2026. [6] Y. Sun, T. Li, C. Pan, D. Xia, C. Wang, H. Ren, J. Jin, M. Lou, Q. Wang, S. Ma, Z. Zhang, and J. Wang, “Mutual Coupling-Aware RIS-Aided Integrated Sensing and Communication,” IEEE Transactions on Communications , vol. 74, pp. 9452–9467, 2026. [7] Z. Ren, L. Qiu, J. Xu, and D. W. K. Ng, “Robust Transmit Beamforming for Secure Integrated Sensing and Communication,” IEEE Transactions on Communications , vol. 71, no. 9, pp. 5549–5564, 2023. [8] Z. Chen, F. Wang, G. Han, X. Wang, and V. K. N. Lau, “Robust Beamforming Design for Secure Near-Field ISAC Systems,” IEEE Wireless Communications Letters , vol. 14, no. 10, pp. 3089–3093, 2025. [9] W. Lyu, S. Yang, Y. Xiu, X. Chen, Z. Zhang, C. Assi, and C. Yuen, “Dual-Robust Integrated Sensing and Communication: Beamforming Under CSI Imperfection and Location Uncertainty,” IEEE Wireless Communications Letters , vol. 13, no. 11, pp. 3124–3128, 2024. [10] M. Luan, B. Wang, Z. Chang, T. H¨ am¨ al¨ ainen, and F. Hu, “Robust Beamforming Design for RIS-Aided Integrated Sensing and Com-munication System,” IEEE Transactions on Intelligent Transportation Systems , vol. 24, no. 6, pp. 6227–6243, 2023. [11] C. A. Balanis, Antenna Theory: Analysis and Design . John Wiley & Sons, 2016. [12] K. Han, C. Masouros, T. Riihonen, and M. G. Amin, “Next-Generation MIMO Transceivers for Integrated Sensing and Communications: Unique Security Vulnerabilities and Solutions,” Proceedings of the IEEE ,vol. 114, no. 1, pp. 18–51, 2026. [13] J. Wallace and M. Jensen, “Mutual coupling in MIMO wireless systems: a rigorous network theory analysis,” IEEE Transactions on Wireless Communications , vol. 3, no. 4, pp. 1317–1325, 2004. [14] X. Liu, T. Huang, Y. Liu, and J. Zhou, “Joint Transmit Beamforming for Multiuser MIMO Communication and MIMO Radar,” in 2019 IEEE International Conference on Signal, Information and Data Processing (ICSIDP) , 2019, pp. 1–6. [15] T. Zhang and W. Ser, “Robust Beampattern Synthesis for Antenna Arrays With Mutual Coupling Effect,” IEEE Transactions on Antennas and Propagation , vol. 59, no. 8, pp. 2889–2895, 2011. [16] A. Beck and Y. C. Eldar, “Strong duality in nonconvex quadratic opti-mization with two quadratic constraints,” SIAM Journal on optimization ,vol. 17, no. 3, pp. 844–860, 2006.

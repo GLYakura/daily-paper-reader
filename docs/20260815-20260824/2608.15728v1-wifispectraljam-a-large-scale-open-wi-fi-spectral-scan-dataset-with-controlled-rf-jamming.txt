@@ -1,0 +1,1253 @@
+Title: WiFiSpectralJam: A Large-Scale Open Wi-Fi Spectral Scan Dataset with Controlled RF Jamming
+
+URL Source: https://arxiv.org/pdf/2608.15728v1
+
+Published Time: Tue, 18 Aug 2026 01:30:02 GMT
+
+Number of Pages: 40
+
+Markdown Content:
+# WiFiSpectralJam: A Large-Scale Open Wi-Fi Spectral Scan Dataset with Controlled RF Jamming 
+
+Dania Herzalla 1* , Govind Singh 1, Willian T. Lunardi 1, Martin Andreoni 2
+
+> 1
+
+Technology Innovation Institute, Abu Dhabi, United Arab Emirates 
+
+> 2
+
+Khalifa University, Abu Dhabi, United Arab Emirates 
+
+> *
+
+Corresponding author 
+
+Data Descriptor Abstract 
+
+WiFiSpectralJam is a Wi-Fi spectral-scan dataset comprising 14.52 GB, 96,090 CSV files, and 522,771,130 ordered spectral observations using commodity Wi-Fi sensing hardware. Measurements were acquired with a Raspberry Pi Compute Module 4 equipped with a Qualcomm Atheros QCA9880 802.11ac network interface and the Linux ath10k spectral-scan interface. The dataset spans active and passive scan modalities across the 2.4 and 5 GHz bands and includes real-world benign background captures, benign RF-chamber floor captures, and controlled RF-jamming captures generated with a HackRF One. Jamming con-ditions vary by transmit power, target channel, and, in the active subset, waveform type. The release pro-vides the raw spectral-scan records together with a file-level metadata manifest, derived spectral-summary features, validation outputs, and reproducible benchmark protocols. These resources support reuse in RF interference characterisation, jamming detection, spectrum monitoring, distribution-shift evaluation, and machine-learning studies using commodity-NIC spectral measurements. The dataset is publicly available at: https://www.kaggle.com/datasets/daniaherzalla/radio-frequency-jamming/data .
+
+## 1 Background & Summary 
+
+Benchmark datasets have played a central role in advancing data-driven security research. In Wi-Fi jamming detection, however, open datasets containing physical-layer RF measurements remain scarce, making it difficult to reproduce and compare methods that use spectral or signal-strength features. This challenge is compounded by the accessibility of RF jamming: an attacker can disrupt connectivity without network association or credential compromise, and low-cost software-defined radios have made intentional interference increasingly practical [1, 3, 2]. Without common datasets collected under documented interference conditions, reported detection results remain difficult to reproduce, compare, or extend across experimental settings. Public RF dataset releases span diverse wireless domains, hardware platforms, and signal representations; Table S1 surveys selected adversarial-jamming datasets and experimental benchmarks most relevant to the present work. The comparison includes vehicular jamming traces [10, 11], IoT and UAV jamming datasets [13, 14], and indoor raw-I/Q jamming measurements [12], together with Wi-Fi-specific jamming studies and datasets [9, 15, 5, 6, 8]. Adjacent spectrum-sensing, signal-classification, and incumbent-detection datasets are useful for broader RF-sensing context, but they are not adversarial jamming benchmarks and are therefore not included in the survey table. Within the Wi-Fi domain specifically, existing jamming datasets and experimental studies occupy distinct measurement regimes. DeepWiFi provides a simulated 802.11ac I/Q benchmark for distinguishing idle, Wi-Fi, and jammer conditions [15]; Panitsas et al. release cross-layer PHY/MAC/network KPI measurements collected with a consumer access point and USRP jammer [8]; and Ali et al. provide a gated commodity-NIC 
+
+1arXiv:2608.15728v1 [cs.NI] 16 Aug 2026 spectral-scan archive comprising 6,750 scans collected with QCA9880-based hardware and controlled RF jamming [5, 6]. Our dataset, WiFiSpectralJam, is most directly related to the latter sensing regime because it also uses commodity-NIC spectral scanning. The present release is, however, a separate collection campaign rather than a scaled-up repackaging of the earlier Ali et al. deposit. Beyond its substantially larger scale, our dataset adds dual-band coverage, a passive scanning modality, active-scan waveform variation, RF-chamber benign floor captures, scan-mode-specific real-world backgrounds, and explicit matched-distribution, held-out-condition, chamber-control, and cross-scan-mode benchmark protocols. WiFiSpectralJam is a large-scale commodity-NIC spectral-scan dataset comprising 14.5 GB across 96,090 CSV files and 522,771,130 spectral-scan observations collected with a Raspberry Pi Compute Module 4 (CM4) and Qualcomm Atheros QCA9880 802.11ac NIC, with a HackRF One used as the jammer. Figure 1 summarises the collection setup, acquisition environments, processing pipeline, and benchmark protocols. Captures span the 2.4 and 5 GHz bands under active and passive scanning, with real-world benign backgrounds, RF-chamber benign floor captures, and controlled jamming across multiple powers, target channels, and waveform conditions. The release also includes a file-level metadata manifest, precomputed aggregate features, and documented benchmark splits for reproducible reuse. 
+
+## 2 Methods 
+
+This section provides an overview of the collection hardware, environments, and downstream processing pipeline, as outlined in Figure 1. 
+
+2.1 Experimental Setup 
+
+The receiving system comprised a Raspberry Pi Compute Module 4 (CM4) host equipped with a Qualcomm Atheros QCA9880 802.11ac NIC operating under the Linux ath10k driver. Spectral measurements were retrieved from the driver’s debugfs interface using an open-source spectral scan utility released with the collection tooling. 1 The QCA9880 reports FFT-derived spectral fields through this interface, making the receiver a representative commodity spectrum monitor deployable without specialised RF instrumentation. Jamming signals were generated by a HackRF One software-defined radio equipped with a dual-band SMA Wi-Fi antenna with 3 dBi gain, positioned 20 cm from the CM4 receiver with an unobstructed line-of-sight path. The HackRF One was controlled via the JamRF framework [7], a HackRF/GNU Radio toolkit for programmable Wi-Fi jamming waveforms, transmit powers, and target frequencies. The fixed 20 cm separation provides a repeatable jammer–receiver geometry for comparing transmit-power settings. Figure 2 shows the chamber testbed, including the CM4 receiver, HackRF One jammer, and the control laptop used for acquisition. Benign floor and all malicious captures were collected inside a Candela CT840A RF-shielded chamber, 2
+
+providing a controlled RF environment. All intentional jamming transmissions were confined to the chamber, and no separate legitimate Wi-Fi association or traffic stream was operated during these captures. The benign floor condition therefore contains the receiver alone, whereas the malicious condition contains the same receiver with the transmitting HackRF One. These labels represent controlled jammer-absent versus jammer-present spectral conditions, not end-to-end link degradation. Real-world backgrounds were collected separately at indoor locations with varying ambient 2.4 and 5 GHz activity (Section 2.3).       
+
+> 1Spectral-scan collection utility: https://github.com/daniaherzalla/ath-spectral-scan .
+> 2Candela CT840A RF-shielded chamber product page: https://www.candelatech.com/ct840a_product.php .HackRF One SDR
+> jammer, dual-band SMA antenna, 3 dBi
+> QCA9880 NIC
+> CM4 host, ath10k driver
+> JamRF framework
+> waveform, power, channel
+> Spectral-scan interface
+> debugfs FFT export
+> Candela CT840A RF-shielded chamber 20 cm LOS
+> Chamber floor
+> controlled baseline
+> Real-world indoor
+> 2–3 locations
+> Chamber jamming
+> Gaussian / single tone
+> Benign Benign Malicious
+> 96,090 raw CSV files
+> 8 spectral fields, 522 M rows
+> Metadata manifest
+> labels, conditions, validation
+> File-level feature table
+> 63 spectral-summary features
+> Held-out
+> power, waveform, loc.
+> Random splits
+> file-level
+> Cross-mode
+> active ↔passive
+
+Figure 1. Dataset collection and processing workflow. Inside the Candela CT840A RF-shielded chamber, a HackRF One SDR jammer controlled by the JamRF framework and a QCA9880 receiver on a Raspberry Pi Compute Module 4 (CM4) running the ath10k spectral-scan driver are separated by 20 cm line-of-sight. The three collection environments produce benign (chamber floor and real-world indoor) and malicious (chamber jamming) captures. Raw CSV files flow through a metadata manifest and file-level feature aggregation into the benchmark protocol families. 
+
+2.2 Active and passive spectral scanning 
+
+The dataset includes active and passive spectral scanning. In active scanning, the CM4 receiver remained anchored to an operating channel while briefly visiting other centre frequencies and returning between scan visits (Fig. 3). Active files therefore alternate between the operating channel and off-channel discovery frequencies; the operating channel was 5805 MHz. In passive scanning, the receiver operated in monitor mode and swept the configured frequencies sequentially without repeated returns to an operating channel. Table 1 quantifies the resulting exposure pattern in a fixed validation sample: active files contain roughly 600–700 observations at most off-channel 5 GHz frequencies but substantially more at 5805 MHz because of repeated returns, whereas passive observations are distributed across the sequentially visited frequencies. These are empirical observation counts, not measured dwell times, because the raw records contain no explicit timestamps or inter-visit timing. Figure 3 illustrates these two sequence patterns using representative 5 GHz files from the release. The distinction is important because the two modalities differ not only in channel order, but also in operational interpretation: active scans may include scan-related management-frame activity and repeated operating-channel revisits, whereas passive scans provide a receive-only sweep through the configured scan frequencies. Figure 2. WiFiSpectralJam collection testbed inside the Candela CT840A RF-shielded chamber. The image shows the Raspberry Pi Compute Module 4 (CM4) spectral-sensing host with the Qualcomm Atheros QCA9880 NIC and the HackRF One SDR jammer placed approximately 20 cm apart with clear line of sight inside the chamber. The laptop is connected to and controls the HackRF One using the JamRF toolkit during jamming collection. 
+
+For this reason, the benchmark protocols report modality-specific results and include cross-mode transfer experiments rather than assuming that active and passive scans are directly interchangeable. 
+
+Active Passive               
+
+> 5805 5180 5805 5200 5805 5240 5805 · · ·
+> 5180 5200 5220 5240 5260 5280 5300 · · ·
+
+operating channel off-channel scan frequency 
+
+Figure 3. Illustrative scan-sequence patterns for representative 5 GHz files. Active scans return to the operating channel (5805 MHz) between off-channel visits; passive scans sweep the 5 GHz list sequentially. 
+
+2.3 Data collection design 
+
+The data comprise benign (no jamming) and malicious (jamming) conditions. Benign floor captures were recorded inside the RF-shielded chamber under both scan modalities, while benign background captures were collected in real-world indoor environments. The background location identifiers are scan-mode-specific acquisition labels rather than global physical-site identifiers: in the active subset, location1 denotes an open workspace and location2 a laboratory environment; in the passive subset, location1 and location2 
+
+denote open-workspace environments and location3 the laboratory environment. All malicious captures were collected under the controlled RF-chamber setup described above. Active malicious captures targeted 5805 MHz using Gaussian-noise and single-tone waveforms at −40, 
+
+−10, 0, and +10 dBm. Active files report seven 5 GHz receiver centre frequencies: 5180, 5200, 5240, Table 1. Empirical numbers of driver-reported spectral observations per file at each reported centre frequency in the fixed validation sample used to characterise scan-mode channel exposure. Values are mean ± standard deviation across sampled files, with the median in parentheses. Benign and malicious columns therefore report observation counts per file rather than numbers of files. These counts describe empirical channel exposure and should not be interpreted as measured dwell times. 
+
+(a) Active 5 GHz scans                                             
+
+> Freq. (MHz) Benign obs./file Malicious obs./file
+> 5180 678.6 ±33.2 (684) 707.2 ±0.5 (707) 5200 664.8 ±50.1 (673) 707.1 ±0.3 (707) 5240 682.3 ±48.2 (691) 706.9 ±0.4 (707) 5745 687.0 ±23.6 (691) 706.9 ±0.3 (707) 5765 628.3 ±98.9 (705) 701.3 ±21.7 (707) 5785 703.6 ±12.6 (707) 706.9 ±0.3 (707) 5805 3705.2 ±1757.0 (4791.5) 3680.5 ±1799.4 (4793)
+
+(b) Passive 2.4 GHz scans                                                                     
+
+> Freq. (MHz) Benign obs./file Malicious obs./file
+> 2412 157.4 ±40.3 (157) 234.7 ±0.7 (235) 2417 191.1 ±28.1 (197) 216.5 ±0.7 (217) 2422 193.3 ±27.8 (206.5) 215.4 ±2.3 (216) 2427 204.9 ±16.2 (212) 213.4 ±2.7 (213) 2432 195.8 ±27.5 (206) 210.4 ±6.0 (212) 2437 170.2 ±41.8 (171.5) 212.6 ±4.5 (215) 2442 184.0 ±34.8 (193) 214.1 ±2.5 (214) 2447 199.5 ±21.1 (210.5) 215.9 ±1.8 (216) 2452 198.6 ±27.8 (210) 216.5 ±0.6 (217) 2457 194.0 ±45.3 (213) 216.5 ±0.6 (217) 2462 179.4 ±45.1 (195) 213.3 ±26.9 (217)
+
+(c) Passive 5 GHz scans                                                                                 
+
+> Freq. (MHz) Benign obs./file Malicious obs./file
+> 5180 333.1 ±191.2 (235) 235.0 ±0.1 (235) 5200 305.3 ±206.5 (202) 217.1 ±0.4 (217) 5220 308.1 ±197.4 (212) 216.8 ±0.4 (217) 5240 320.4 ±199.7 (216) 216.7 ±0.5 (217) 5260 677.9 ±27.6 (687) 688.5 ±0.5 (688) 5280 657.5 ±31.9 (661) 688.2 ±0.4 (688) 5300 561.0 ±119.1 (588) 688.0 ±0.0 (688) 5320 610.6 ±127.4 (676) 688.1 ±0.3 (688) 5745 327.9 ±192.1 (216) 216.6 ±0.5 (217) 5765 296.3 ±183.3 (217) 217.0 ±0.4 (217) 5785 340.3 ±205.0 (217) 216.6 ±0.5 (217) 5805 338.8 ±203.7 (217) 216.9 ±0.4 (217) 5825 328.9 ±216.0 (217) 205.6 ±48.5 (217)
+
+5745, 5765, 5785, and 5805 MHz. Passive malicious captures used Gaussian-noise jamming at 3, 6, 9, and 12 dBm, targeting 2412, 2457, 5180, or 5745 MHz. Passive files are band-specific, covering 11 channels from 2412–2462 MHz in 2.4 GHz or 13 channels from 5180–5805 MHz plus 5825 MHz in 5 GHz (Table 5). Because active and passive scans use different power grids, power settings are treated as modality-specific rather than directly matched across modes. Condition counts are unequal because acquisition duration, time constraints, and collection adjustments varied over the campaign; all valid captures were retained rather than post-hoc equalised. 
+
+2.4 Dataset labelling and metadata extraction 
+
+Labels were assigned deterministically from the raw folder hierarchy and filenames, with no post-hoc inference. Directory levels encode scan mode, class label, benign subtype and location, or malicious waveform and transmit power; the complete hierarchy is provided in Supplementary Note S1. The manifest-generation script, 3 extracts scan_mode , label , benign_subtype , location , waveform , power_dbm , channel_mhz ,
+
+band , and collection_environment . Structurally inapplicable fields, such as waveform for benign files, are recorded as N/A rather than inferred. 
+
+> 3
+
+WiFiSpectralJam manifest-generation code: https://www.kaggle.com/code/daniaherzalla/ manifest-validation-feature-extraction .2.5 Preprocessing and feature aggregation 
+
+Raw CSV files were processed through an automated validation pipeline that verified parsability, confirmed the presence and numeric validity of all eight spectral columns, and checked that each file contained at least one non-empty record. File-level row counts and column dimensionality were recorded in the manifest, and reported in Table 7. For the baseline benchmarking layer, a file-level aggregate feature table was derived by computing summary statistics within every raw CSV file. The benchmark feature set and its construction rationale are described in Section 5.3. The raw spectral CSV files remain the primary data source; researchers interested in temporal dynamics, sequence models, online detection, or deep learning should work directly from those files. 
+
+2.6 Benchmarking protocol 
+
+Baseline classification establishes reproducible reference results and tests whether the dataset contains learnable jamming-related signal. All train/test splits are constructed at the file level so that observations from one raw recording cannot appear in both partitions. The validation suite spans matched-distribution classification, held-out-condition generalisation, RF-chamber floor controls, and cross-scan-mode transfer. Random file-level splits are reported for pooled, active-only, passive-only, passive 2.4 GHz, and passive 5 GHz subsets. Held-out experiments withhold jammer power, active waveform, or a scan-mode-specific benign background location. The primary location protocol balances the training classes by down-sampling non-held-out benign files, with an unresampled sensitivity analysis retaining all available training data. Six classifiers are evaluated throughout: logistic regression (LogReg), random forest (RandomForest), histogram-based gradient boosting (HistGB), XGBoost, LightGBM, and a multilayer perceptron (MLP). Results are reported for all six classifiers. Metrics include accuracy, balanced accuracy, precision, recall, F1-score, ROC-AUC, and average precision (AP), with mean and standard deviation reported over random seeds 1, 7, and 42. F1 uses the fixed decision threshold of 0.5; ROC-AUC and AP are reported alongside it so that ranking quality can be distinguished from threshold-transfer or calibration failures under distribution shift. The canonical benchmark representation contains 63 spectral-summary features. An ablation repeats the benchmark suite after removing all nine features derived from the driver-reported noise field, yielding a 54-feature spectral_no_noise representation. The ablation tests whether the near-fixed active malicious noise floor acts as the sole shortcut behind the strong matched-distribution results. Permutation importance is additionally evaluated for pooled random-split logistic-regression and random-forest models under both feature sets. 
+
+## 3 Data Records 
+
+3.1 Repository and access 
+
+WiFiSpectralJam is distributed through the Kaggle dataset record cited in the Data Availability statement [19]. The dataset package contains the raw spectral-scan CSV files together with reusable release artefacts including the file-level metadata manifest, derived aggregate feature tables, and validation outputs. The raw CSV files are the primary research object, while the accompanying artefacts support efficient subset construction, auditing, and reproducible analysis. Public notebooks and source code are distributed separately, as described in the Code Availability section. Table 2. Current release structure. Raw spectral-scan records are stored under rf_jamming/ , while reusable processed artefacts are grouped under release_artifacts/ . Public notebooks and code are distributed separately and are described in the Code Availability section.            
+
+> Release component Path in dataset Role in the dataset package
+> Raw active scans rf_jamming/active_scan/ Primary active-scan CSV records organised by class label and experimental condition. Raw passive scans rf_jamming/passive_scan/ Primary passive-scan CSV records organised by class label and experimental condition. Metadata manifest release_artifacts/metadata/manifest.csv File-level index containing parsed labels, condition metadata, validation fields, and paths to the raw captures. Derived features release_artifacts/derived/ file_level_features.csv file_level_features.parquet
+> Precomputed file-level spectral summaries for reproducible tabular analysis and benchmark reproduction. Validation outputs release_artifacts/validation/ Dataset-integrity, composition, row-count, field-range, and related validation summaries generated from the raw release.
+
+Table 3. Raw spectral-scan fields and observed ranges across the complete release. The ranges report raw stored values before file-level aggregation.                            
+
+> Field Description Unit / representation Observed range
+> freq1 Reported centre frequency for the spectral observation. MHz 2412 to 5825
+> noise Driver-estimated noise floor associated with the observation. dBm −114 to −95
+> max_magnitude Maximum FFT-bin magnitude reported by the spectral-scan interface. Linear, driver-reported 1 to 640
+> total_gain_db Total receiver-chain gain applied during the spectral measurement. dB 0 to 511
+> base_pwr_db Base power value reported by the spectral-scan interface. dB 371 to 472
+> rssi Received signal-strength indicator on the driver-internal scale. Driver-reported scale −53 to 109
+> relpwr_db Relative power summary reported for the observation. dB 0 to 63
+> avgpwr_db Average power over the FFT-derived spectral report. dB 0 to 72
+
+3.2 Folder structure 
+
+The Kaggle release has two top-level components: rf_jamming/ contains the raw spectral-scan files or-ganised by scan mode, class, and experimental condition, while release_artifacts/ contains metadata, derived feature tables, and validation outputs. The complete folder tree is provided in Supplementary Note S1. 
+
+3.3 File inventory 
+
+Table 2 summarises the release structure. Raw CSV files are stored under rf_jamming/ , reusable processed artefacts under release_artifacts/ , and public notebooks are distributed separately. 
+
+3.4 Raw spectral-scan schema 
+
+Each raw CSV file contains a sequence of driver-reported spectral-scan observations exported by the ath10k spectral-scan pipeline. The QCA9880 performs spectral analysis and exposes FFT-derived summary fields through the driver interface. Each row corresponds to one reported observation at a centre frequency. Table 3 reports the schema together with the observed range over the complete release. The raw rssi field is retained exactly as exported by the collection pipeline. The released derived feature table additionally contains rssi_dbm summaries produced using the transformation rssi_dbm = rssi − 95, following the documented Atheros RSSI conversion [4]. Because the mapping is vendor-specific and RSSI is fundamentally a relative indicator, the converted values should be interpreted as an approximate dB-referenced representation rather than an independently calibrated absolute-power measurement. The transformation is a constant offset and therefore preserves ordering; users requiring the original driver scale should use the raw 
+
+rssi values. 
+
+3.5 Metadata manifest 
+
+The metadata manifest ( release_artifacts/metadata/manifest.csv ) provides a file-level index with one record per raw CSV file. It contains the relative file path, parsed scan modality and class label, condition metadata such as benign subtype, location, waveform, transmit power, target channel, band, and collection environment, and validation fields such as row count, feature count, and metadata status. The manifest enables reproducible subset construction without repeatedly traversing the raw folder tree. The complete manifest field list is provided in Supplementary Table S3. 
+
+3.6 Derived feature and benchmark resources 
+
+The file-level feature table, distributed as CSV and Parquet under release_artifacts/derived/ , provides a precomputed tabular representation for baseline machine learning. Each of its 96,090 rows corresponds to one raw file and contains aggregate spectral statistics joined with manifest metadata, for 108 columns in total. The classifier feature subset is defined in Section 5.3. The reported benchmark outputs are produced by the public technical-validation notebook. The notebook reconstructs the train/test splits from the released manifest by applying the documented metadata filters, held-out-condition definitions, and fixed random seeds, and writes detailed per-run and summary result files during execution. The derived feature table is intended as a reproducible baseline representation for standard tabular machine-learning models. Researchers interested in sequence models, online detection, or within-file spectral dynamics can instead work directly with the raw CSV files, which preserve the order of driver-reported observations within each file. Because the raw records do not include explicit timestamps, however, this ordering should be interpreted as scan order rather than as a uniformly sampled multivariate time series. 
+
+## 4 Data Overview 
+
+The dataset contains 96,090 raw CSV spectral scan files, 522,771,130 spectral-scan observations, and 14.52 GB of data. Active scans account for 4,358 files and 130,711,308 observations; passive scans account for 91,732 files and 392,059,822 observations. The class distribution is benign-majority, with 77,408 benign files (80.56 %) and 18,682 malicious files (19.44 %). Figure 4 summarises the release by scan mode, class label, and scan-mode-specific jamming condition. Active captures include Gaussian-noise and single-tone jamming, whereas passive malicious captures use Gaussian noise only. Table 4 provides the corresponding aggregate file, observation, and storage inventory; the full condition-level breakdown is given in Supplementary Table S2. The passive subset is much larger by file count, while passive collection produces shorter per-file channel-sweep records than the longer, near-fixed-length active captures (Table 7). Similarly, the benign-majority class distribution reflects the greater number of benign background and floor captures relative to the condition-specific malicious captures (Table 4). These design characteristics should be considered when constructing train/test splits and selecting evaluation metrics. Table 5 summarises the jammed centre frequencies used in malicious captures together with the receiver centre frequencies reported in the released raw files for each scan mode and band. Passive files are band-specific, so the passive 2.4 GHz and 5 GHz receiver-frequency sets are listed separately. A. Scan mode composition 
+
+full dataset 
+
+Active scan 
+
+> 4,358 files · 4.5% · 130.7M obs.
+
+Passive scan   
+
+> 91,732 files · 95.5% · 392.1M obs. 050 100
+
+No. scan files (k) 
+
+> Active Passive
+> 4.4k 91.7k
+
+Files   
+
+> 050 100
+
+% of scans 
+
+> Active Passive
+> 4.5% 95.5%
+
+Proportion   
+
+> 0200 400
+
+FFT-derived obs. (M) 
+
+> Active Passive
+> 130.7M 392.1M
+
+Observations B. Class label composition 
+
+full dataset 
+
+Benign 
+
+> 77,408 files · 80.6% · 426.0M obs.
+
+Malicious   
+
+> 18,682 files · 19.4% · 96.8M obs. 050 100
+
+No. scan files (k)   
+
+> Benign Malicious
+> 77.4k 18.7k
+> 050 100
+
+% of scans   
+
+> Benign Malicious
+> 80.6% 19.4%
+> 0200 400
+
+FFT-derived obs. (M) 
+
+> Benign Malicious
+> 426.0M 96.8M
+
+C. Active-scan condition composition 
+
+active subset 
+
+Benign 
+
+> 3,261 files · 74.8% · 97.8M obs.
+
+Gaussian noise 
+
+> 457 files · 10.5% · 13.7M obs.
+
+Single tone    
+
+> 640 files · 14.7% · 19.2M obs. 050 100
+
+No. scan files (k)   
+
+> Benign Gaussian noise Single tone
+> 3.3k 0.5k 0.6k
+> 050 100
+
+% within mode   
+
+> Benign Gaussian noise Single tone
+> 74.8% 10.5% 14.7%
+> 0200 400
+
+FFT-derived obs. (M) 
+
+> Benign Gaussian noise Single tone
+> 97.8M 13.7M 19.2M
+
+D. Passive-scan condition composition 
+
+passive subset 
+
+Benign 
+
+> 74,147 files · 80.8% · 328.2M obs.
+
+Gaussian noise   
+
+> 17,585 files · 19.2% · 63.9M obs. 050 100
+
+No. scan files (k)   
+
+> Benign Gaussian noise
+> 74.1k 17.6k
+> 050 100
+
+% within mode   
+
+> Benign Gaussian noise
+> 80.8% 19.2%
+> 0200 400
+
+FFT-derived obs. (M) 
+
+> Benign Gaussian noise
+> 328.2M 63.9M
+
+Figure 4. Dataset composition and condition breakdown. Panels summarise the WiFiSpectralJam release by scan mode, class label, and scan-mode-specific capture condition. Panel A shows the active/passive scan-mode split. Panel B shows the benign/malicious class-label split. Panel C separates active-scan benign captures from Gaussian-noise and single-tone jamming captures. Panel D separates passive-scan benign captures from Gaussian-noise jamming captures. Each panel reports file count, proportion, and FFT-derived observation count. 
+
+Table 4. Aggregated file, observation, and storage breakdown by dataset label and broad capture category. Rows pool active and passive scans; percentages are relative to the full 96,090-file release. The complete condition-level inventory is provided in Supplementary Table S2. 
+
+Label Category Files Percent Observations Size (MB) 
+
+Benign Background 56,572 58.87% 334,624,472 9,302.5 Floor 20,836 21.68% 91,356,985 2,499.8 
+
+Benign total 77,408 80.56% 425,981,457 11,802.2 
+
+Malicious Gaussian noise 18,042 18.78% 77,589,673 2,154.8 Single tone 640 0.67% 19,200,000 565.2 
+
+Malicious total 18,682 19.44% 96,789,673 2,720.0 Dataset total All files 96,090 100.00% 522,771,130 14,522.2 Table 5. Jammed and receiver-reported centre frequencies by scan mode and band. Frequencies are given in MHz and correspond to the freq1 values used in the released raw files.            
+
+> Scan mode Band Jamm. freq. Receiver scan centre frequencies (MHz)
+> Active 5 GHz 5805 5180, 5200, 5240, 5745, 5765, 5785, 5805 Passive 2.4 GHz 2412, 2457 2412, 2417, 2422, 2427, 2432, 2437, 2442, 2447, 2452, 2457, 2462 5 GHz 5180, 5745 5180, 5200, 5220, 5240, 5260, 5280, 5300, 5320, 5745, 5765, 5785, 5805, 5825
+
+4.1 Malicious capture conditions 
+
+Because waveform, transmit power, scan mode, and jammed frequency jointly define the malicious collection design, their structure is summarised separately from the aggregate dataset inventory. Table 6 reports the malicious-file distribution by scan mode, waveform, and jammed frequency, while listing file counts under the actual transmit-power values used in each scan mode. Active malicious captures target 5805 MHz and include both Gaussian-noise and single-tone jamming at −40, −10, 0, and +10 dBm. Passive malicious captures use Gaussian-noise jamming only, with transmit powers of +3, +6, +9, and +12 dBm split across the four passive jammed frequencies. 
+
+Table 6. Malicious-file distribution by scan mode, waveform, jammed frequency, and transmit power. Table entries are file counts. Frequencies are reported in MHz and transmit powers are reported in dBm. Active and passive captures are shown separately because they use different transmit-power settings. The complete condition-level inventory, including observation counts and storage sizes, is provided in Supplementary Table S2.                                                         
+
+> (a) Active scans
+> Waveform Freq. −40 −10 0+10 Total files
+> Gaussian noise 5805 101 102 153 101 457 Single tone 5805 101 205 104 230 640
+> All files 202 307 257 331 1,097 (b) Passive scans
+> Waveform Freq. +3+6+9+12 Total files
+> Gaussian noise 2412 1,004 1,016 1,128 1,013 4,161 2457 1,006 1,005 1,006 1,012 4,029 5180 1,002 1,019 1,109 1,010 4,140 5745 1,076 1,171 1,985 1,023 5,255
+> All files 4,088 4,211 5,228 4,058 17,585
+
+This design supports active-scan waveform comparisons within a fixed 5 GHz jamming setting, where both Gaussian-noise and single-tone captures are available. Passive validation results should instead be interpreted as Gaussian-noise power and frequency-response diagnostics across the passive jammed-frequency set, rather than waveform-generalisation experiments. 
+
+## 5 Technical Validation 
+
+Technical validation is organised around six validation axes: file integrity, metadata consistency, acquisition-composition checks, spectral-field behaviour, active/passive scan-mode differences, and baseline learnability under matched-distribution, held-out-condition, and cross-scan-mode evaluation. All validation results reported here are generated at the file level unless explicitly stated otherwise. The classification benchmarks use the conservative 63-feature spectral-summary representation described in Section 5.3 and keep raw CSV files intact across train/test partitions to avoid row-level leakage. 
+
+5.1 Data Integrity and Composition 
+
+The validation pipeline confirms that all 96,090 raw CSV files contain the expected eight spectral fields (freq1 , noise , max_magnitude , total_gain_db , base_pwr_db , rssi , relpwr_db , and avgpwr_db ) and at least one non-empty row. The generated schema-issue and metadata-warning outputs contained no failed records. Row counts, file sizes, header status, and parse status were propagated into the manifest to support file-level auditing. Metadata validation also distinguishes missing values from fields that are structurally non-applicable. For example, waveform and power_dbm apply to malicious files but not to benign files. Recording such fields as non-applicable prevents their absence from being mistaken for metadata-extraction errors. Table 7 validates the file-length structure of the release by summarising the number of spectral-scan observations per raw CSV file. Active-scan recordings are nearly fixed in length at approximately 30,000 rows per file, whereas passive-scan recordings are shorter and more variable. 
+
+Table 7. File-length validation by scan mode, label, and file group. Statistics report the number of spectral-scan observations per raw CSV file, confirming the near-fixed active recording length and the shorter, more variable passive channel-sweep files.                                                                
+
+> Scan mode Label File group Files Mean ±SD obs. Median obs. Min obs. Max obs.
+> Active Benign Background 2,857 29,990 ±134 30,000 26,331 30,000 Floor 404 30,000 ±030,000 30,000 30,000 Malicious Gaussian noise 457 30,000 ±030,000 30,000 30,000 Single tone 640 30,000 ±030,000 30,000 30,000 Passive Benign Background 53,715 4,635 ±2,287 4,341 1,184 17,040 Floor 20,432 3,878 ±1,131 4,721 2,162 4,732 Malicious Gaussian noise 17,585 3,633 ±1,167 4,720 2,343 4,729
+
+File-length variation is largest for passive benign backgrounds and reflects the passive collection process rather than a data-quality failure. Differences in channel-visit structure affect per-channel exposure and the number of observations accumulated per file, which matters for sequence models and batching strategies. Because the raw records contain no explicit timestamps, such analyses should preserve observation and scan-frequency order without assuming fixed inter-sample timing. Dataset composition was checked against the intended collection design at the level of scan mode, label, benign subtype, location, waveform, transmit power, band, and target channel. Active-scan malicious captures are confined to jamming the 5805 MHz target channel, whereas passive-scan malicious captures cover the four intended target channels: 2412, 2457, 5180, and 5745 MHz. Each passive malicious file corresponds to one target channel and one transmit-power setting. The condition counts in Supplementary Table S2 are therefore the result of deterministic parsing of the dataset hierarchy and validation against expected condition fields. The active scan malicious subset is comparatively small at the per-condition level, with 101–230 files per waveform-power combination. The passive scan malicious subset is larger, with 4,058–5,228 files per transmit-power condition. This difference affects the statistical stability of fine-grained held-out evaluations and motivates reporting active, passive, and pooled benchmark slices separately. 
+
+5.2 Signal-level validation 
+
+Signal-level validation focuses on frequency-bin summaries and stratified spectral-response plots. Each raw file contains observations at multiple reported centre frequencies; therefore, the heatmaps in Figure 5 summarise spectral fields by the reported freq1 value and class label. Heatmap cells are computed from file-level means: for each sampled file, observations are first averaged within each freq1 bin, and the resulting file-frequency means are then averaged across sampled files within each class. This prevents longer files from contributing more heavily than shorter files to the displayed class-wise frequency-bin summaries. The main heatmap panels use two matched metrics: RSSI and maximum magnitude. RSSI provides a receiver-strength view of class- and frequency-dependent changes, while maximum magnitude captures peak-like spectral behaviour. In this setting, RSSI and related power summaries should be interpreted as aggregate received RF energy at the NIC, not as source-attributed useful-link quality. A jammer can therefore increase the reported RSSI by raising the total received energy, even though the added energy is interference rather than decodable communication. This behaviour is expected because the spectral-scan interface does not distinguish legitimate Wi-Fi energy from jammer energy when reporting aggregate channel measurements. Passive heatmaps are shown separately for 2.4 GHz and 5 GHz. Supplementary Figure S1 provides the corresponding average-power and noise-floor frequency-bin heatmaps, while power- and waveform-stratified supplementary summaries are reported in the Supplementary Information for the spectral fields that add distinct visual information. Table 8 summarises the same signal fields at the file level for each scan-mode and class pair. Each entry is computed from the released file-level feature table: observations are first aggregated within each raw CSV file, and the table then reports the mean and standard deviation of those per-file means across files. This file-level aggregation matches the benchmark design and avoids allowing longer recordings to dominate the class summaries. Table 9 reports the corresponding malicious-minus-benign shift within each scan mode, while Supplementary Table S4 provides the full distributional version of these summaries, including medians, interquartile ranges, and observed extrema. Active-scan malicious captures produce the largest file-level shifts, with higher RSSI, maximum mag-nitude, base power, and relative power and lower total gain than active-scan benign captures. Passive-scan shifts are weaker and less uniformly signed, indicating greater overlap between benign and malicious files and stronger dependence on band, target frequency, and ambient occupancy. As shown in Supplementary Table S4, the driver-reported noise-floor field is comparatively stable across benign and malicious conditions. This is most pronounced in the active subset, where malicious files report an almost fixed noise-floor value, while jamming-related differences appear more clearly in RSSI, average power, base power, maximum magnitude, relative power, and total gain. In the passive subset, the noise-floor summaries show slightly greater variation, but the benign and malicious ranges remain strongly overlapping. This behaviour is consistent with interpreting the noise floor as a calibrated driver-reported baseline rather than a direct instantaneous measure of jammer power. Accordingly, the noise-floor field should be treated as contextual calibration metadata rather than as a standalone jamming indicator. This observation motivates the noise-feature ablation and permutation-importance analyses in Section 5.3, which test whether the strong benchmark performance depends disproportionately on noise-derived features. 
+
+Table 8. File-level spectral metric statistics by scan mode and class label. Values are mean ± standard deviation across files, where each file contributes its own mean value for the corresponding spectral field. Units follow the raw spectral-field definitions in Table 3; RSSI is reported using the derived dBm conversion.                                                                                              
+
+> Scan mode Label Files RSSI (dBm) Max mag. (linear) Base pwr. (dB) Total gain (dB) Avg. pwr. (dB) Rel. pwr. (dB) Noise (dBm)
+> Active Benign 3,261 −88 .06 ±2.06 47 .31 ±2.94 381 .88 ±4.24 81 .42 ±6.61 54 .18 ±2.49 9.49 ±0.13 −104 .61 ±2.53 Malicious 1,097 −73 .05 ±10 .50 108 .72 ±65 .31 394 .05 ±11 .36 66 .45 ±11 .36 54 .91 ±3.60 11 .95 ±2.26 −102 .00 ±0.00 Passive Benign 74,147 −86 .86 ±3.95 52 .57 ±9.09 380 .66 ±4.32 80 .16 ±7.10 56 .39 ±1.88 11 .16 ±2.21 −102 .05 ±3.48 Malicious 17,585 −83 .71 ±6.77 52 .16 ±4.16 385 .46 ±9.08 75 .84 ±11 .59 55 .96 ±1.97 12 .20 ±3.55 −102 .68 ±2.75
+
+Table 9. Jamming-minus-non-jamming shifts in file-level spectral metrics. Each entry is the malicious mean minus the benign mean from Table 8 within the same scan mode. Positive RSSI values indicate that the received energy became less negative under jamming.                
+
+> Scan mode ∆RSSI (dBm)
+> ∆Max mag. (linear)
+> ∆Base pwr. (dB)
+> ∆Total gain (dB)
+> ∆Avg. pwr. (dB)
+> ∆Rel. pwr. (dB)
+> ∆Noise (dBm)
+> Active +15 .02 +61 .41 +12 .17 −14 .97 +0.73 +2.47 +2.61 Passive +3.15 −0.41 +4.80 −4.32 −0.43 +1.04 −0.64
+
+Table 10. Band-stratified passive file-level spectral summaries. Values are means of per-file means. Separating 2.4 and 5 GHz reveals that several malicious-minus-benign feature shifts reverse direction across bands and are obscured by pooled passive statistics. 
+
+Band Label Files RSSI (dBm) Max mag. (linear) Base pwr. (dB) Total gain (dB) Rel. pwr. (dB) Noise (dBm) 
+
+2.4 GHz Benign 21,336 -83.82 61.66 385.63 71.13 12.80 -97.42 Malicious 8,190 -76.81 49.85 394.84 63.72 15.62 -99.94 5 GHz Benign 52,811 -88.08 48.90 378.66 83.81 10.49 -103.91 Malicious 9,395 -89.73 54.17 377.28 86.41 9.21 -105.07 
+
+The band-stratified summaries reveal qualitatively different passive regimes: several malicious–benign shifts, including RSSI, base power, relative power, and total gain, reverse direction between 2.4 and 5 GHz. Passive benchmarks should therefore be reported separately by band rather than treating passive scans as homogeneous. 5180 5200 5240 5745 5765 5785 5805             
+
+> Frequency bin (MHz)
+> Benign Malicious
+> -88.2 -88.4 -87.8 -87.8 -85.7 -87.8 -88.2 -83.5 -84.1 -83.9 -84.7 -82.7 -81.6 -71.4
+> 90
+> 85
+> 80
+> 75
+> 70
+> Mean RSSI (dBm)
+
+(a) Active, RSSI. 5180 5200 5240 5745 5765 5785 5805              
+
+> Frequency bin (MHz)
+> Benign Malicious
+> 53.3 53.6 53.8 45.7 58.1 46.8 46.6 40.1 38.3 38.3 36.2 50.8 56.3 120.0
+> 40 60 80 100 120
+> Mean max magnitude (driver units)
+
+(b) Active, maximum magnitude. 2412 2417 2422 2427 2432 2437 2442 2447 2452 2457 2462                     
+
+> Frequency bin (MHz)
+> Benign Malicious
+> -78.9 -84.9 -83.3 -83.7 -83.8 -84.4 -84.2 -83.9 -82.9 -83.0 -83.6 -74.7 -74.8 -75.2 -76.5 -78.1 -78.8 -78.3 -77.2 -76.9 -76.8 -77.1
+> 90
+> 85
+> 80
+> 75
+> 70
+> Mean RSSI (dBm)
+
+(c) Passive 2.4 GHz, RSSI. 2412 2417 2422 2427 2432 2437 2442 2447 2452 2457 2462                      
+
+> Frequency bin (MHz)
+> Benign Malicious
+> 61.2 62.3 61.8 61.7 61.9 60.4 60.7 61.3 62.4 63.1 61.9 49.4 50.0 50.6 50.0 55.1 52.5 48.2 49.9 48.0 48.1 48.6
+> 40 60 80 100 120
+> Mean max magnitude (driver units)
+
+(d) Passive 2.4 GHz, maximum magnitude. 5180 5200 5220 5240 5260 5280 5300 5320 5745 5765 5785 5805 5825 
+
+> Frequency bin (MHz)
+> Benign Malicious
+> -88.5 -88.6 -88.4 -88.6 -88.7 -86.8 -86.9 -88.5 -88.2 -86.4 -88.3 -88.5 -88.0 -87.1 -90.0 -90.4 -90.4 -90.4 -89.9 -90.0 -90.4 -84.7 -89.3 -90.2 -90.2 -90.1
+> 90
+> 85
+> 80
+> 75
+> 70
+> Mean RSSI (dBm)
+
+(e) Passive 5 GHz, RSSI. 5180 5200 5220 5240 5260 5280 5300 5320 5745 5765 5785 5805 5825                          
+
+> Frequency bin (MHz)
+> Benign Malicious
+> 49.7 59.0 48.8 49.0 48.0 53.2 50.4 47.7 42.9 49.1 43.8 44.2 43.7 53.3 56.8 58.2 57.6 55.9 61.4 54.2 54.1 44.4 47.0 47.7 48.1 48.5
+> 40 60 80 100 120
+> Mean max magnitude (driver units)
+
+(f) Passive 5 GHz, maximum magnitude. 
+
+Figure 5. Frequency-bin validation across scan modes and bands. Cells report class-wise file-level means by reported 
+
+freq1 centre frequency; within each sampled file, observations are first averaged within each rounded frequency bin before averaging across files. Active malicious captures target 5805 MHz. Passive malicious captures include Gaussian-noise jamming at 2412 and 2457 MHz in the 2.4 GHz band and at 5180 and 5745 MHz in the 5 GHz band. 
+
+Beyond the frequency-bin heatmaps, we also provide per-condition spectral-response summaries that stratify the scanned centre frequencies by jammer transmit power and waveform. In these summaries a value at a non-target centre frequency represents the feature observed at that scanned frequency while the jamming condition was active, not an additional jammed channel. Stratifying by transmit power isolates waveform effects from power effects: active scan single-tone jamming produces a localised response concentrated near the 5805 MHz target (most visible in maximum magnitude), whereas Gaussian-noise jamming produces a broader, less sharply concentrated profile (most visible in aggregate RSSI). For passive scans, which contain Gaussian-noise jamming only, the corresponding power sweeps show that low-power passive jamming can sit closer to benign passive variability than low-power active scan jamming, motivating the feature-space diagnostics and held-out-condition analysis below. The complete supplementary spectral-response set is provided for the metrics most relevant to the raw spectral fields: RSSI, base power, maximum magnitude, and noise floor. These figures include active scan waveform comparisons at matched transmit powers (Figs. S2–S5), active waveform-conditioned power sweeps (Figs. S6–S9), and passive Gaussian-noise power sweeps (Figs. S10–S13). The file-level distributional consequences of these effects are summarised in the supplementary active/passive feature-distribution diagnostics in Figs. S14 and S15. Figure 6 provides a complementary t-SNE view of the aggregate feature space, coloured by class, scan mode, waveform, and transmit power. Each point represents one file after aggregation, imputation, standardisation, and PCA pre-reduction, using a fixed-seed stratified sample capped at 20,000 files. The embeddings show class- and condition-related local structure and distinct active/passive neighbourhoods, but are interpreted qualitatively because t-SNE is sensitive to sampling and hyperparameters. benign malicious           
+
+> (a) Class label. active passive (b) Scan mode. No jam Gaussian noise Single tone (c) Waveform type. -40 -10 No jam +0 +3 +6 +9 +10 +12 (d) Transmit power.
+
+Figure 6. t-SNE embeddings of file-level aggregate spectral features, coloured by (a) class label, (b) scan mode, (c) waveform type, and (d) transmit power. Each point corresponds to one scan file after file-level aggregation, imputation, standardisation, and PCA pre-reduction; a fixed-seed stratified sample capped at 20,000 files is used. The embedding is a qualitative diagnostic of feature-space structure and is not used for model scoring. 
+
+5.3 File-level spectral-summary feature representation and benchmark setup 
+
+For all reported tabular benchmarks, each raw file is converted into a file-level spectral-summary vector. The canonical representation contains 63 features derived from seven measurement quantities: avgpwr_db ,
+
+base_pwr_db , max_magnitude , noise , relpwr_db , rssi_dbm , and total_gain_db . For each quantity, nine summaries are retained: mean, standard deviation, minimum, first quartile, median, third quartile, maximum, skewness, and kurtosis. Centre-frequency summaries, unique-count features, raw unconverted RSSI summaries, row counts, file size, target-channel metadata, jammer power, and validation-only quantities are excluded from classifier inputs. Because the active malicious noise field is nearly fixed at −102 dBm, the complete benchmark suite is also repeated after removing every noise_* feature. This complementary representation contains 54 features and is used as an ablation rather than as a replacement for the canonical 63-feature release benchmark. All six classifiers are reported for each experiment. 
+
+5.4 Baseline and held-out classification 
+
+5.4.1 Matched-distribution benign-versus-malicious file classification 
+
+Table 11 reports F1 for all six classifiers under matched-distribution random file-level splits. Performance is saturated or near saturated for the tree and boosting models across all slices, while logistic regression and the MLP perform weaker in the larger pooled and passive 5 GHz settings. All classifiers reach F1 = 1.000 on the active-only split. Passive 2.4 GHz is similarly saturated, and passive 5 GHz remains highly separable when the relevant conditions are represented in training. These results demonstrate strong within-distribution separability but should not be interpreted as evidence of generalisation to unseen jammer conditions or acquisition domains. 
+
+Table 11. Matched-distribution random file-level F1-score for all six classifiers using the canonical 63-feature spectral-summary representation. Values are mean ± standard deviation across seeds 1, 7, and 42. ROC-AUC and AP are retained in the released all-model result files; both are approximately saturated for the high-performing tree and boosting models.                                                                                                
+
+> Model Active 5 GHz Passive 2.4 GHz Passive 5 GHz Passive pooled All data
+> LogReg 1.0000 ±0.0000 1.0000 ±0.0000 0.9651 ±0.0031 0.9796 ±0.0024 0.9721 ±0.0032 RandomForest 1.0000 ±0.0000 1.0000 ±0.0000 0.9996 ±0.0004 0.9994 ±0.0001 0.9996 ±0.0002 HistGB 1.0000 ±0.0000 0.9994 ±0.0005 0.9996 ±0.0002 0.9995 ±0.0004 0.9997 ±0.0002 XGBoost 1.0000 ±0.0000 0.9994 ±0.0005 0.9999 ±0.0002 0.9996 ±0.0003 0.9998 ±0.0003 LightGBM 1.0000 ±0.0000 0.9993 ±0.0012 0.9995 ±0.0000 0.9997 ±0.0002 0.9998 ±0.0003 MLP 1.0000 ±0.0000 1.0000 ±0.0000 0.9948 ±0.0014 0.9933 ±0.0004 0.9948 ±0.0041
+
+5.4.2 Held-out jammer transmit-power and active-waveform generalisation 
+
+Held-out-condition experiments expose substantially more structure than the matched-distribution splits. Figure 7 reports F1 for every classifier and held-out condition, while Table 12 gives F1, ROC-AUC and AP for three representative difficult shifts. Moderate and high held-out powers generally transfer well, but active 
+
+−40 dBm is classifier-dependent and low-power passive transfer is strongly band-dependent. Passive +3 dBm is strongly band-dependent. The held-out 2.4 GHz test set reaches F1 = 1.000 for multiple classifiers, whereas the similarly sized 5 GHz test set yields poor fixed-threshold F1 across all six models. This is consistent with the band-stratified feature shifts in Table 10, several of which reverse direction across bands. High ROC-AUC for several 5 GHz models despite low F1 further indicates a threshold-transfer problem rather than complete loss of ranking information. The pooled passive result therefore combines an easy 2.4 GHz regime with a much harder 5 GHz regime. Held-out waveform transfer is also asymmetric. Gaussian-noise holdout remains strong, whereas single-tone F1 is near zero for every classifier at the default threshold. Yet RandomForest reaches ROC-AUC/AP = 1.000 and XGBoost/LightGBM remain near one, showing that the failure is largely one of score-scale transfer rather than intrinsic class indistinguishability. 
+
+5.4.3 Noise-feature ablation and shortcut audit 
+
+Removing all nine noise_* summaries leaves matched-distribution performance and the RF-chamber floor control saturated, showing that the strong benchmark is not explained solely by the driver-reported noise floor. Noise summaries nevertheless contribute under selected shifts: pooled −40 dBm and several Passive →Active models degrade after removal, while Active →Passive changes slightly. Thus, noise features are unnecessary for matched-condition separability but can improve robustness in specific transfer settings. 
+
+5.4.4 Permutation-importance audit 
+
+Permutation importance supports the same conclusion. In pooled logistic regression, noise_max is the strongest 63-feature predictor, but after noise removal importance shifts to gain, base-power, relative-power, and RSSI summaries while matched performance remains saturated. Random forest relies most strongly on 
+
+relpwr_db_std in both representations. Noise therefore contributes signal without being the sole basis for classification. LogReg RandomForest HistGB XGBoost LightGBM MLP 
+
+Classifier 
+
+Active -40 dBm Active -10 dBm Active 0 dBm Active +10 dBm Passive 2.4 GHz +3 dBm Passive 2.4 GHz +6 dBm Passive 2.4 GHz +9 dBm Passive 2.4 GHz +12 dBm Passive 5 GHz +3 dBm Passive 5 GHz +6 dBm Passive 5 GHz +9 dBm Passive 5 GHz +12 dBm Passive +3 dBm Passive +6 dBm Passive +9 dBm Passive +12 dBm Pooled -40 dBm Pooled -10 dBm Pooled 0 dBm Pooled +3 dBm Pooled +6 dBm Pooled +9 dBm Pooled +10 dBm Pooled +12 dBm Waveform: Gaussian noise Waveform: Single tone                                                                                                                                   
+
+> Held-out setting
+> 0.71 0.63 0.93 0.40 0.46 0.94 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 0.99 0.99 1.00 1.00 1.00 0.94 0.65 0.77 0.93 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 0.11 0.00 0.26 0.13 0.31 0.27 1.00 1.00 1.00 1.00 1.00 1.00 0.99 1.00 1.00 1.00 1.00 1.00 0.98 0.78 0.99 0.99 1.00 1.00 0.68 0.66 0.60 0.66 0.61 0.70 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 0.99 0.98 0.99 0.99 0.99 1.00 0.59 0.69 0.80 0.74 0.73 0.79 0.50 1.00 1.00 1.00 1.00 0.99 1.00 1.00 0.97 0.98 0.98 1.00 0.68 0.66 0.60 0.64 0.62 0.69 1.00 1.00 1.00 1.00 1.00 1.00 0.99 1.00 1.00 1.00 1.00 1.00 1.00 1.00 0.96 0.97 0.98 1.00 0.99 0.99 0.99 1.00 0.99 1.00 0.95 0.86 0.70 0.72 0.29 0.99 0.01 0.00 0.00 0.01 0.00 0.01
+
+0.0 0.2 0.4 0.6 0.8 1.0 
+
+> F1-score
+
+Figure 7. Per-model held-out-condition F1-score heatmap using the canonical 63-feature representation. Rows are held-out power or waveform settings and columns are classifiers. 
+
+5.4.5 Scan-mode-specific robustness to unseen benign background locations 
+
+Background-location evaluation is performed within scan mode. Active held-out backgrounds and passive 
+
+location2 /location3 remain strong, while passive location1 is consistently hardest (best fixed-threshold F1 ≈ 0.873, ROC-AUC ≈ 0.977). The same ordering persists without training rebalancing. Because passive 
+
+location3 contains substantially more observations per file than locations 1 and 2, residual sample-count sensitivity in higher-order summaries cannot be excluded. 
+
+5.4.6 RF-chamber floor-control validation against chamber-domain shortcuts 
+
+The RF-chamber floor control compares benign floor captures with chamber-collected malicious captures. Performance is saturated or near saturated across active, passive, and pooled scopes and remains so after noise removal, reducing the likelihood that matched results arise only from a coarse real-world-versus-chamber domain difference. The control does not establish transfer to unseen chamber geometries, jammer placements, or real-world jamming conditions. Table 12. All-model results for representative difficult held-out conditions using the canonical 63-feature representation. Values are mean ± standard deviation across three seeds. ROC-AUC and AP are threshold-free and should be interpreted alongside the fixed-threshold F1.                                                                                                                                                                            
+
+> Held-out setting Model F1 ROC-AUC AP
+> Active −40 dBm LogReg 0.711 ±0.002 1.000 ±0.000 1.000 ±0.000 RandomForest 0.632 ±0.056 0.999 ±0.001 0.999 ±0.002 HistGB 0.932 ±0.002 0.941 ±0.037 0.956 ±0.017 XGBoost 0.404 ±0.046 0.993 ±0.003 0.992 ±0.004 LightGBM 0.458 ±0.000 0.992 ±0.001 0.992 ±0.002 MLP 0.939 ±0.037 1.000 ±0.000 1.000 ±0.000 Passive 5 GHz +3 dBm LogReg 0.105 ±0.002 0.969 ±0.004 0.961 ±0.008 RandomForest 0.000 ±0.000 0.973 ±0.007 0.973 ±0.007 HistGB 0.259 ±0.020 0.730 ±0.024 0.738 ±0.013 XGBoost 0.129 ±0.028 0.958 ±0.008 0.950 ±0.009 LightGBM 0.311 ±0.140 0.744 ±0.068 0.788 ±0.029 MLP 0.266 ±0.145 0.954 ±0.027 0.959 ±0.023 Active single tone LogReg 0.006 ±0.000 0.017 ±0.000 0.319 ±0.000 RandomForest 0.000 ±0.000 1.000 ±0.000 1.000 ±0.000 HistGB 0.004 ±0.004 0.896 ±0.087 0.866 ±0.080 XGBoost 0.006 ±0.000 0.992 ±0.001 0.979 ±0.008 LightGBM 0.002 ±0.004 0.996 ±0.002 0.991 ±0.010 MLP 0.006 ±0.000 0.159 ±0.002 0.454 ±0.002
+
+Table 13. Noise-feature ablation for all six classifiers. Each entry reports F1 as 63-feature / 54-feature-no-noise. Matched-distribution performance remains near saturated without noise summaries, while the transfer effect is model-and direction-dependent.                                    
+
+> Model Active matched Passive 5 GHz matched All-data matched A→PP→A
+> LogReg 1.000/1.000 0.965/0.957 0.972/0.967 0.426/0.439 0.000/0.002 RandomForest 1.000/1.000 1.000/0.999 1.000/1.000 0.349/0.411 0.037/0.039 HistGB 1.000/1.000 1.000/1.000 1.000/1.000 0.364/0.364 0.262/0.091 XGBoost 1.000/1.000 1.000/1.000 1.000/1.000 0.439/0.438 0.197/0.004 LightGBM 1.000/1.000 0.999/1.000 1.000/1.000 0.424/0.424 0.564/0.133 MLP 1.000/1.000 0.995/0.990 0.995/0.991 0.415/0.417 0.000/0.002
+
+5.4.7 Held-out single-tone score-threshold diagnostic 
+
+Held-out single tone shows the clearest divergence between thresholded and ranking metrics. Several models retain high ranking performance despite near-zero fixed-threshold F1; RandomForest is the most extreme example, with ROC-AUC/AP = 1.000 but F1 = 0.000. Fixed-threshold F1 here therefore reflects threshold transfer as much as ranking separability. 
+
+5.5 Cross-scan-mode transfer 
+
+Cross-scan-mode transfer is substantially harder than matched classification. Active →Passive F1 peaks around 0.44, while Passive →Active reaches about 0.56 for LightGBM; ROC-AUC and AP also fall, confirm-ing a genuine acquisition-domain shift. The MLP fails particularly strongly under Passive →Active transfer, with a below-1% predicted-positive rate and F1 = 0, unlike the high-AUC/low-F1 calibration pattern seen for single tone. The validation results should be interpreted within the collection design. Active malicious conditions contain comparatively few files per waveform–power combination, and residual sensitivity of higher-order file-level summaries to variable passive file length cannot be excluded even though row count and file size are not model features. Broader dataset-level limitations, including hardware specificity, sequential channel scanning, absence of explicit timestamps, and the controlled-chamber scope of malicious captures, are summarised in the Usage Notes section. Table 14. Highest permutation-importance features for pooled random-split models. Importance is the mean decrease in average precision under feature permutation, reported as mean ± standard deviation over repeated permutations on the fixed importance subset. 
+
+Feature set Model Feature Importance 
+
+63 features LogReg noise_max 0.2890 ± 0.0092 
+
+relpwr_db_q75 0.2033 ± 0.0057 
+
+rssi_dbm_skew 0.1581 ± 0.0060 
+
+base_pwr_db_mean 0.1513 ± 0.0061 
+
+rssi_dbm_std 0.1243 ± 0.0070 RandomForest relpwr_db_std 0.0010 ± 0.0001 
+
+rssi_dbm_min 0.0003 ± 0.0002 
+
+rssi_dbm_kurtosis 0.0001 ± 0.0000 
+
+noise_q25 0.0000 ± 0.0000 
+
+relpwr_db_skew 0.0000 ± 0.0000 54 no-noise LogReg total_gain_db_mean 0.4409 ± 0.0083 
+
+base_pwr_db_mean 0.3420 ± 0.0101 
+
+total_gain_db_min 0.3299 ± 0.0086 
+
+relpwr_db_mean 0.3284 ± 0.0121 
+
+rssi_dbm_std 0.2289 ± 0.0106 RandomForest relpwr_db_std 0.0202 ± 0.0024 
+
+rssi_dbm_min 0.0003 ± 0.0002 
+
+relpwr_db_skew 0.0001 ± 0.0001 
+
+rssi_dbm_kurtosis 0.0001 ± 0.0000 
+
+relpwr_db_mean 0.0001 ± 0.0000 Active loc 1 Active loc 2 Passive loc 1 Passive loc 2 Passive loc 3 
+
+Held-out scan-mode-specific background location 
+
+> LogReg MLP RandomForest HistGB LightGBM XGBoost
+> Model
+
+1.00 1.00 0.87 0.94 0.99 1.00 1.00 0.80 0.98 1.00 0.96 1.00 0.73 1.00 0.97 0.83 0.97 0.75 0.99 0.96 0.78 0.97 0.73 0.99 0.96 0.75 0.97 0.73 0.99 0.96 0.0 0.2 0.4 0.6 0.8 1.0 
+
+> F1-score
+
+Figure 8. Per-model F1-score heatmap for scan-mode-specific held-out background-location evaluation. Columns are held-out benign background locations and rows are classifiers. The primary protocol uses class-balanced training and balanced held-out test sets. Active Passive Pooled              
+
+> RF-chamber control setting
+> RandomForest LightGBM XGBoost HistGB MLP LogReg
+> Model 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 0.99 0.99 0.0 0.2 0.4 0.6 0.8 1.0
+> Mean F1-score
+
+(a) F1-score. Active Passive Pooled               
+
+> RF-chamber control setting
+> RandomForest LightGBM XGBoost HistGB MLP LogReg
+> 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 0.0 0.2 0.4 0.6 0.8 1.0
+> Mean ROC-AUC
+
+(b) ROC-AUC. 
+
+Figure 9. Per-model RF-chamber floor-control results. The task uses only chamber-domain files and reports all six classifiers rather than selecting a test-set winner. 
+
+Table 15. Cross-scan-mode transfer results for all six classifiers using the canonical 63-feature representation. Values are mean ± standard deviation across three seeds. 
+
+Direction Model F1 ROC-AUC AP 
+
+Active → Passive LogReg 0.426 ± 0.000 0.750 ± 0.000 0.311 ± 0.000 RandomForest 0.349 ± 0.040 0.632 ± 0.011 0.379 ± 0.019 HistGB 0.364 ± 0.000 0.706 ± 0.000 0.459 ± 0.000 XGBoost 0.439 ± 0.001 0.703 ± 0.002 0.444 ± 0.007 LightGBM 0.424 ± 0.000 0.745 ± 0.000 0.470 ± 0.000 MLP 0.415 ± 0.010 0.746 ± 0.031 0.367 ± 0.079 Passive → Active LogReg 0.000 ± 0.000 0.708 ± 0.000 0.388 ± 0.000 RandomForest 0.037 ± 0.032 0.861 ± 0.022 0.701 ± 0.052 HistGB 0.262 ± 0.070 0.793 ± 0.056 0.572 ± 0.114 XGBoost 0.197 ± 0.009 0.909 ± 0.008 0.702 ± 0.011 LightGBM 0.564 ± 0.000 0.897 ± 0.000 0.777 ± 0.000 MLP 0.000 ± 0.000 0.055 ± 0.013 0.140 ± 0.001 
+
+## 6 Usage Notes 
+
+6.1 Loading and exploring the data 
+
+The metadata manifest ( release_artifacts/metadata/manifest.csv ) is the recommended entry point for selecting subsets by scan mode, label, band, channel, location, power, or waveform without loading raw files. Filtered raw files can then be loaded from rf_jamming/ using the manifest paths. For ready-to-use tabular analysis, the CSV and Parquet files under release_artifacts/derived/ provide the 96,090-row aggregate feature table used by the reported benchmarks. The public Kaggle notebooks demonstrate release preparation, benchmark reproduction, and figure generation. 
+
+6.2 Recommended evaluation protocols 
+
+File-level splits are required for valid generalisation evaluation. Row-level random splitting places highly correlated rows from the same recording session into both partitions simultaneously. Because observations within a single file are drawn from an identical experimental condition (same label, same location, same jammer power), a row-level split produces training and test sets that are effectively identically distributed, yielding performance estimates that do not reflect any meaningful generalisation. All splits must ensure that every observation from a given file is assigned exclusively to one partition. The accompanying technical-validation notebook reconstructs the reported evaluation protocols from the released manifest and fixed random seeds and writes the corresponding per-run and summary result files during execution. Researchers who define custom splits should verify that no file contributes observations to more than one partition and should explicitly account for scan modality, frequency band, and held-out experimental conditions where relevant. Exact file-level assignments can be regenerated from the notebook using the same seed and split-construction logic. 
+
+6.3 Active versus passive scan interpretation 
+
+Active and passive scans should be treated as distinct acquisition domains rather than interchangeable samples. This distinction is reflected in the cross-scan-mode benchmark setting, where direct transfer between acquisition regimes is substantially more challenging than matched scan-mode evaluation (see Table 15). Models trained on active scans should therefore be interpreted as calibrated to the operating-channel-anchored active-scan context described in Section 2.2, while models trained on passive scans should be interpreted as calibrated to the sequential spectrum-monitoring context. Within active scans, waveform should be treated as a condition variable. Gaussian-noise and single-tone jamming produce different feature responses at the same nominal power, and the held-out waveform results show that ranking separability can persist even when the default decision threshold fails. Stronger cross-mode or cross-waveform transfer may be possible with scan-aware preprocessing, calibration, representation learning, or domain adaptation, but results should explicitly report scan modality, waveform condition, and preprocessing choices. 
+
+6.4 Signal representation and scope 
+
+The released files contain FFT-derived, driver-reported spectral-scan measurements. Each observation contains the eight fields described in Table 3, and the records preserve observation order but not explicit timestamps or measured inter-sample intervals. The dataset should therefore be interpreted as ordered multivariate spectral-scan sequences rather than uniformly timestamped multivariate time series. The release does not preserve phase, complex samples, precise timing, or the complete FFT-bin vector for each spectral report. It is consequently well suited to commodity-NIC spectrum monitoring and spectral-summary learning, but not to tasks requiring raw baseband access such as phase-sensitive channel estimation, custom demodulation, or waveform-level I/Q modelling. 
+
+6.5 Recommended use cases and limitations 
+
+The dataset supports RF jamming detection, interference classification, spectral anomaly detection, spectrum monitoring, and distribution-shift studies. Tasks may use binary benign/malicious labels or condition metadata such as benign subtype, location, jammer power, scan mode, and waveform. Benign chamber-floor or real-world backgrounds can also serve as reference distributions for one-class, semi-supervised, or out-of-distribution studies. Because the raw records contain no explicit timestamps, event-level temporal localisation should not be assumed. Several limitations should be considered. The collection is tied to a specific CM4/QCA9880 receiver platform, Linux driver stack, HackRF One jammer, antenna configuration, and fixed chamber geometry, so models may require adaptation for other hardware or deployment environments. Channel observations are sequential rather than simultaneous, and the raw records preserve scan order without explicit timestamps; they should therefore not be interpreted as instantaneous wideband snapshots or uniformly sampled time series. This is especially relevant for mobile or rapidly changing environments, where the sensed state may evolve between channel visits. Passive file lengths are also more variable than active file lengths, and although row count and file size are not classifier features, higher-order file-level summaries can retain some sensitivity to the number of observations used to estimate them. Finally, all malicious captures were collected in the RF-shielded chamber and did not include a separate legitimate Wi-Fi traffic stream. The malicious labels therefore characterise controlled jammer-present spectral conditions rather than packet-level link degradation, and the release does not represent mobile jammers, multiple simultaneous jammers, reactive attacks, or uncontrolled real-world malicious deployments. 
+
+6.6 Hardware replication notes and possible extensions 
+
+Researchers wishing to replicate or extend the collection pipeline should account for the hardware and driver dependencies of the CM4/ath10k setup used here. For direct replication, a CM4 remains closest to the original sensing platform; however, if CM4 availability is constrained, a Compute Module 5 (CM5) or Raspberry Pi 5 host could be used as a practical replacement, provided that the selected Wi-Fi adapter and kernel stack expose the required spectral-scan interface. The same collection methodology may also be extended to newer Qualcomm Wi-Fi driver families where comparable spectral-scan functionality is exposed by the selected chipset, firmware, and kernel stack. In particular, the ath11k driver is documented for Qualcomm IEEE 802.11ax devices and exposes optional spectral-scan support through CONFIG_ATH11K_SPECTRAL [16, 17], while ath12k is documented as the Linux driver for Qualcomm Wi-Fi 7/IEEE 802.11be devices [18]. Future datasets collected on such platforms could extend the present release toward Wi-Fi 6/6E and Wi-Fi 7 deployments, including 6 GHz operation where supported, and would enable studies of cross-hardware generalisation, wider-band interference observability, and continuity of spectral-scan analytics across Wi-Fi driver generations. These extensions should be validated empirically because spectral-scan availability, reported fields, FFT configuration, and timing behaviour may differ across chipsets, firmware versions, and kernel implementations. 
+
+## 7 Data Availability 
+
+WiFiSpectralJam is publicly available on Kaggle [19]. The dataset record contains the raw scans, manifest, derived feature tables, and validation summaries; notebooks and source code are provided in the Code Availability section. 
+
+## 8 Code Availability 
+
+The ath10k spectral-scan collection utility is available online. 4 The WiFiSpectralJam preprocessing and analysis code is available on Kaggle. 5 The executable technical-validation and benchmark-reproduction notebook is also available on Kaggle, 6 reproducing the validation checks, split logic, and benchmark outputs. 
+
+## 9 Author Contributions 
+
+D.H. and G.S. configured the CM4/QCA9880 spectral-sensing platform, HackRF One jammer, RF-shielded chamber setup, and acquisition tools. D.H. collected the dataset; developed the metadata, validation, and feature-extraction pipelines; led the design and implementation of the experiments; analysed the results; generated the figures and tables; prepared the dataset release; and wrote the manuscript. M.A. contributed to the design of technical-validation experiments. D.H., M.A., and G.S. contributed to interpretation of the results. D.H., G.S., W.T.L., and M.A. contributed to manuscript revision and editing. All authors approved the final manuscript.    
+
+> 4Spectral-scan collection utility: https://github.com/daniaherzalla/ath-spectral-scan .
+> 5Preprocessing code: https://www.kaggle.com/code/daniaherzalla/manifest-validation-feature-extraction .
+> 6Technical-validation: https://www.kaggle.com/code/daniaherzalla/technical-validation-benchmark-reproduction .
+
+## 10 Competing Interests 
+
+The authors declare no competing interests. 
+
+## References 
+
+[1] Pelechrinis, K., Iliofotou, M. and Krishnamurthy, S. V. Denial of Service Attacks in Wireless Networks: The Case of Jammers. IEEE Communications Surveys & Tutorials 13 (2), 245–257 (2011). [2] Pirayesh, H. and Zeng, H. Jamming Attacks and Anti-Jamming Strategies in Wireless Networks: A Comprehensive Survey. IEEE Communications Surveys & Tutorials 24 (2), 767–809 (2022). [3] Xu, W., Trappe, W., Zhang, Y. and Wood, T. The Feasibility of Launching and Detecting Jamming Attacks in Wireless Networks. In Proceedings of the 6th ACM International Symposium on Mobile Ad Hoc Networking and Computing (MobiHoc) , 46–57 (2005). [4] WildPackets, Inc. Converting Signal Strength Percentage to dBm Values . Technical note (2002). 
+
+https://d2cpnw0u24fjm4.cloudfront.net/wp-content/uploads/Converting_Signal_ Strength.pdf .[5] Ali, A. S., Lunardi, W. T., Singh, G., Bariah, L., Baddeley, M., Lopez, M. A., Giacalone, J.-P. and Muhaidat, S. RF Jamming Dataset: A Wireless Spectral Scan Approach for Malicious Interference Detection. IEEE Communications Magazine 62 (11), 114–120 (2024). [6] Ali, A. S. RF Jamming Dataset Using CM4 and JamRF enabled HackRF. IEEE DataPort (2022). doi:10.21227/mekj-vw56. [7] Ali, A. S. et al. JamRF: Performance Analysis, Evaluation, and Implementation of RF Jamming Over Wi-Fi. IEEE Access 10 , 133370–133384 (2022). [8] Panitsas, I., Yigit, Y., Tassiulas, L., Maglaras, L. and Canberk, B. JamShield: A Machine Learning Detection System for Over-the-Air Jamming Attacks. In ICC 2025, IEEE International Conference on Communications , 1067–1072 (2025). [9] Puñal, O., Akta¸ s, I., Schnelke, C.-J., Abidin, G., Wehrle, K. and Gross, J. Machine Learning-based Jamming Detection for IEEE 802.11: Design and Experimental Evaluation. In 2014 IEEE 15th In-ternational Symposium on a World of Wireless, Mobile and Multimedia Networks (WoWMoM) , 1–10 (2014). [10] Puñal, O., Pereira, C., Aguiar, A. and Gross, J. CRAWDAD dataset upor-torwthaachen/vanetjamming2012 (v. 2014-05-12). IEEE DataPort / CRAWDAD (2014). doi:10.15783/C7F31Z. [11] Puñal, O., Pereira, C., Aguiar, A. and Gross, J. CRAWDAD dataset upor-torwthaachen/vanetjamming2014 (v. 2014-05-12). IEEE DataPort / CRAWDAD (2014). doi:10.15783/C7Q306. [12] Alhazbi, S., Sciancalepore, S. and Oligeri, G. A Dataset of Physical-Layer Measurements in Indoor Wireless Jamming Scenarios. Data in Brief 46 , 108773 (2023). [13] Hussain, A., Abughanam, N., Qadir, J. and Mohamed, A. Jamming Detection in IoT Wireless Networks: An Edge-AI Based Approach. In Proceedings of the 12th International Conference on the Internet of Things (IoT ’22) , 57–64, ACM (2022). [14] Li, Y., Pawlak, J., Price, J., Al Shamaileh, K., Niyaz, Q., Paheding, S. and Devabhaktuni, V. Jamming Detection and Classification in OFDM-Based UAVs via Feature- and Spectrogram-Tailored Machine Learning. IEEE Access 10 , 16859–16870 (2022). doi:10.1109/ACCESS.2022.3150020. [15] Davaslioglu, K., Soltani, S., Erpek, T. and Sagduyu, Y. E. DeepWiFi: Cognitive WiFi With Deep Learning. IEEE Transactions on Mobile Computing 20 (2), 429–444 (2021). [16] Linux Wireless. About ath11k. https://wireless.docs.kernel.org/en/latest/en/users/ drivers/ath11k.html . Accessed 2026-06-13. [17] Linux Kernel Configuration. CONFIG_ATH11K_SPECTRAL : QCA ath11k spectral scan support. https: //www.kernelconfig.io/CONFIG_ATH11K_SPECTRAL . Accessed 2026-06-13. [18] Linux Wireless. About ath12k. https://wireless.docs.kernel.org/en/latest/en/users/ drivers/ath12k.html . Accessed 2026-06-13. [19] Herzalla, D. WiFiSpectralJam: A Large-Scale Open Wi-Fi Spectral-Scan Dataset with Controlled RF Jamming . Kaggle, https://www.kaggle.com/datasets/daniaherzalla/ radio-frequency-jamming (2026). Supplementary Information 
+
+The Supplementary Information is organised into dataset documentation, extended signal-level validation, and extended benchmark diagnostics. It provides the repository folder structure, related-dataset survey, condition-level inventory, manifest field list, detailed spectral summaries, and additional diagnostics generated from the same validation pipeline used for the main manuscript. 
+
+S1 Repository Folder Structure 
+
+The released Kaggle dataset follows the folder structure below. Raw captures are stored under rf_jamming/ 
+
+and preserve the scan-mode and experimental-condition hierarchy, while reusable processed outputs are grouped under release_artifacts/ .
+
+dataset_root/ rf_jamming/ active_scan/ benign/ background/ location1/ location2/ floor/ malicious/ gaussian_noise/ 0dbm/ 10dbm/ neg10dbm/ neg40dbm/ singletone/ 0dbm/ 10dbm/ neg10dbm/ neg40dbm/ passive_scan/ benign/ background/ location1/ location2/ location3/ floor/ malicious/ gaussian_noise/ 12dbm/ 3dbm/ 6dbm/ 9dbm/ release_artifacts/ metadata/ manifest.csv derived/ file_level_features.csv file_level_features.parquet validation/ Table S1.  Characteristics of selected adversarial-jamming datasets and experimental benchmarks relevant to the present work. Entries are separated into non-Wi-Fi or cross-technology jamming benchmarks and Wi-Fi-specific jamming studies. The table reports only attributes supported by the cited source; dashes indicate information not reported or not established from the cited publication. 
+
+> Category Dataset / study  Year  Scope  Signal Rep.  Capture Hardware  Freq. Band Size  Observables  Interference / Scenario  Format  Access
+> Other / cross-technology  Puñal  et al.  /CRAWDAD [10, 11] 2012– 14 802.11p VANET jamming Packet/link traces Commodity 802.11p vehicular hardware 5.9 GHz  ∼1.3 GB  Packet-level traces including timing/sequence information and received-signal measurements Experimental vehicular jamming traces spanning multiple jammer behaviours PCAP  Gated Hussain  et al.  [13]  2022  IoT/Wi-Fi jamming detection Scalar RSS  Raspberry Pi + software-defined radio Wi-Fi  – Received-signal-strength measurements  Normal, constant-jamming, and periodic-jamming conditions – Open Li  et al.  [14]  2022  UAV/OFDM jamming detection and classification PHY features; spectro-grams COEX Clover UAV platform + HackRF One / GNU Radio 2.4 GHz  23,565 samples Eight OFDM/PHY-derived features and spectrogram representations Barrage, single-tone, successive-pulse, and protocol-aware jamming – Open Alhazbi  et al.  [12]  2023  Indoor physical-layer jamming Raw I/Q  USRP X310 ( ×7); BPSK link – – Raw I/Q samples under jammer-present and jammer-absent conditions Tone and Gaussian-noise jamming with variable transmitter–receiver geometry and jammer power MAT  Open Wi-Fi jamming  Davaslioglu  et al.
+> (DeepWiFi) [15] 2021  Wi-Fi jamming detection Simulated I/Q MATLAB WLAN Toolbox; 802.11ac TGac channel models 5.25 GHz  12,000 samples Synthetic 802.11ac VHT I/Q frames across six TGac channel models; idle/Wi-Fi/jammer classification Probabilistic, sensing-based, and adaptive jamming under simulated channel fading MAT  Not released Ali  et al.  [5, 6]  2022– 24 Wi-Fi jamming characterisa-tion Commodity-NIC spectral scan CM4 / QCA9880-class Wi-Fi hardware + HackRF One / JamRF 5 GHz  6,750 scans Frequency, noise, maximum magnitude, total gain, base power, RSSI/received-power, relative power, and average power Controlled Wi-Fi jamming conditions across multiple jammer behaviours and bandwidth configurations; limited benign reference CSV  Gated JamShield [8]  2024– 25 Wi-Fi jamming detection Cross-layer KPIs ASUS RT-AX88U Pro + USRP X310 2.4 GHz; AP on ch. 6 39,861 samples PHY/MAC/network KPIs; 40 collected features with 20 selected for modelling Constant, random, and reactive jamming using multiple jammer waveforms and channel/gain settings CSV  Open
+> WiFiSpectralJam (ours) 2023-24 Wi-Fi jamming detection Commodity-NIC spectral scan CM4 / QCA9880 + HackRF One 2.4/5 GHz  14.52 GB; 96,090 scans Frequency, noise, max magnitude, gain, base power, RSSI, relative power, average power Continuous Gaussian-noise and single-tone jamming; multiple powers and target channels; waveform variation in active subset CSV  Open
+
+S2 Condition-level inventory 
+
+Supplementary Table S2 provides the complete condition-level inventory referenced from the Data Records and Technical Validation sections. 
+
+S3 Manifest field list 
+
+Supplementary Table S3 lists the main fields included in release_artifacts/metadata/manifest.csv .Structurally inapplicable fields are recorded as N/A rather than inferred. 
+
+S4 Detailed file-level spectral metric statistics 
+
+Supplementary Table S4 expands the compact metric summaries in Tables 8 and 9. For each raw CSV file, the relevant spectral field is first reduced to a per-file mean; the table then summarises those per-file means within each scan-mode and class group. The median, interquartile range (IQR), and extrema are included to show the degree of overlap and skew that is hidden by mean–standard-deviation summaries alone. The detailed table reinforces the interpretation in the main text. In the active subset, the malicious RSSI distribution is shifted upward by about 15 dB relative to benign files, and the maximum-magnitude distribution is both larger and much more variable, indicating a strong jammer-induced spectral signature. Active total gain shifts downward, which is consistent with stronger received energy causing the receiver chain to operate at lower gain. In the passive subset, the malicious and benign distributions overlap more strongly: the RSSI mean increases, but the malicious median remains close to the lower end of the benign range, and several metrics show small or opposite-signed mean shifts. This supports treating passive detection as the more heterogeneous setting and motivates the separate passive-only and held-out-condition evaluations reported in the benchmark section. 
+
+S5 Additional frequency-bin heatmaps 
+
+Supplementary Figure S1 extends the main frequency-bin validation heatmaps by reporting average power and noise floor across the same scan-mode and band partitions. As in the main heatmaps, each cell is computed from file-level frequency-bin means: observations are first averaged within each rounded freq1 
+
+bin inside each sampled file, and those file-level values are then averaged across files within each class label. These panels are provided as supplementary diagnostics because they complement the RSSI and maximum-magnitude views in Fig. 5 without changing the main interpretation. 
+
+S6 Benchmark Classifier Configuration 
+
+Table S5 reports the preprocessing and hyperparameter configurations used for the six baseline classifiers. Parameters not listed in the table retain the corresponding library defaults. All experiments used random seeds 1, 7, and 42, and binary predictions were obtained using a decision threshold of 0.5. 
+
+S7 Stratified spectral summaries 
+
+The main text summarises the power- and waveform-stratified spectral response in prose and in compact feature-distribution diagnostics. The supplementary figures below provide the full spectral-response validation set for RSSI, base power, maximum magnitude, and noise floor. These views are intentionally retained because different spectral fields respond differently to jamming: some show clear changes at jammed frequencies, while others show weak or compressed responses that are also informative for dataset reuse. In all panels, the x-axis denotes scanned centre frequency; dashed vertical lines indicate jammed frequencies. Table S2. Condition-level file, observation, and storage breakdown for benign and malicious subsets. Percentages are relative to the full 96,090-file dataset. Background locations correspond to real-world indoor captures; floor and all malicious captures were collected inside the RF-shielded chamber. Active malicious captures target 5805 MHz; passive malicious captures use Gaussian-noise jamming across the passive target-channel set. Power values are in dBm. 
+
+Label Scan mode Interference Category Files Percent Observations Size (MB) 
+
+Benign Active Background location1 (high-activity) 1,333 1.39% 39,990,000 1,097.9 location2 (low-activity) 1,524 1.59% 45,691,308 1,266.4 Floor RF chamber 404 0.42% 12,120,000 337.8 Passive Background location1 (high-activity) 18,188 18.93% 67,371,597 1,851.9 location2 (high-activity) 17,792 18.52% 65,368,570 1,806.3 location3 (low-activity) 17,735 18.46% 116,202,997 3,280.0 Floor RF chamber 20,432 21.26% 79,236,985 2,162.0 
+
+Benign total 77,408 80.56% 425,981,457 11,802.2 
+
+Malicious Active Gaussian noise 
+
+−40 dBm 101 0.11% 3,030,000 84.6 
+
+−10 dBm 102 0.11% 3,060,000 88.0 0 dBm 153 0.16% 4,590,000 132.4 
+
++10 dBm 101 0.11% 3,030,000 86.9 Single tone 
+
+−40 dBm 101 0.11% 3,030,000 86.2 
+
+−10 dBm 205 0.21% 6,150,000 180.8 0 dBm 104 0.11% 3,120,000 92.7 
+
++10 dBm 230 0.24% 6,900,000 205.5 Passive Gaussian noise 
+
++3 dBm 4,088 4.25% 14,605,665 403.1 
+
++6 dBm 4,211 4.38% 15,156,003 418.5 
+
++9 dBm 5,228 5.44% 19,698,681 543.2 
+
++12 dBm 4,058 4.22% 14,419,324 398.1 
+
+Malicious total 18,682 19.44% 96,789,673 2,720.0 
+
+Dataset total 96,090 100.00% 522,771,130 14,522.2 
+
+Table S3. Metadata manifest fields. The manifest contains one row per raw spectral-scan file and provides the file paths, parsed labels, condition metadata, and validation fields used to construct dataset subsets and reproduce the reported splits. 
+
+Column Description 
+
+file_path Relative path to the raw CSV file. 
+
+scan_mode Scan modality: active or passive. 
+
+label Class label: benign or malicious. 
+
+benign_subtype Benign subtype, either floor or background, for benign files. 
+
+location Location identifier for real-world background files. 
+
+waveform Jamming waveform for malicious files, either Gaussian noise or single tone. 
+
+power_dbm Jamming transmit power for malicious files. 
+
+channel_mhz Jammed centre frequency for malicious files. 
+
+band Wi-Fi band associated with the file or target channel: 2.4 GHz or 5 GHz. 
+
+collection_environment Collection environment, either RF chamber or real-world. 
+
+num_rows Number of spectral-scan observations in the raw CSV file. 
+
+num_features Number of raw spectral/FFT columns in the file. 
+
+metadata_status Metadata completeness status used by the validation pipeline. 5180 5200 5240 5745 5765 5785 5805 
+
+Frequency bin (MHz)             
+
+> Benign Malicious
+> 57.3 56.7 55.7 55.3 54.3 54.3 54.0 57.8 56.6 56.7 56.3 56.3 54.6 54.7
+> 50 52 54 56 58 60
+> Mean avg. power (dB)
+
+(a) Active, average power. 5180 5200 5240 5745 5765 5785 5805 
+
+Frequency bin (MHz)               
+
+> Benign Malicious
+> -103.1 -103.2 -103.1 -104.5 -104.5 -104.8 -104.8 -102.0 -102.0 -102.0 -102.0 -102.0 -102.0 -102.0 110
+> 105
+> 100
+> 95
+> Mean noise floor (dBm)
+
+(b) Active, noise floor. 2412 2417 2422 2427 2432 2437 2442 2447 2452 2457 2462 
+
+Frequency bin (MHz) 
+
+> Benign Malicious
+
+54.6 54.5 54.4 53.9 54.2 54.4 54.7 54.1 54.5 54.7 54.8 55.5 55.4 55.3 54.5 52.3 51.7 54.2 55.3 55.0 54.6 54.3 
+
+> 50 52 54 56 58 60
+> Mean avg. power (dB)
+
+(c) Passive 2.4 GHz, average power. 2412 2417 2422 2427 2432 2437 2442 2447 2452 2457 2462 
+
+Frequency bin (MHz)                       
+
+> Benign Malicious
+> -103.5 -97.0 -97.0 -97.2 -97.3 -97.0 -96.8 -96.4 -96.5 -96.8 -97.5 -100.5 -100.1 -99.9 -99.7 -99.6 -99.3 -99.3 -99.8 -100.0 -100.4 -100.4 110
+> 105
+> 100
+> 95
+> Mean noise floor (dBm)
+
+(d) Passive 2.4 GHz, noise floor. 5180 5200 5220 5240 5260 5280 5300 5320 5745 5765 5785 5805 5825 
+
+Frequency bin (MHz) 
+
+> Benign Malicious
+
+57.8 57.7 57.7 57.6 57.3 57.3 57.6 57.3 57.4 56.9 56.7 56.6 54.9 57.9 57.4 57.7 57.8 57.8 58.0 57.9 57.8 57.5 56.2 55.5 55.3 55.1 
+
+> 50 52 54 56 58 60
+> Mean avg. power (dB)
+
+(e) Passive 5 GHz, average power. 5180 5200 5220 5240 5260 5280 5300 5320 5745 5765 5785 5805 5825 
+
+Frequency bin (MHz)                           
+
+> Benign Malicious
+> -103.2 -103.3 -103.3 -103.2 -103.3 -103.3 -103.4 -103.3 -104.9 -105.4 -105.5 -105.6 -105.9 -104.0 -104.3 -104.6 -104.3 -104.6 -104.3 -104.7 -104.6 -105.3 -106.7 -107.4 -107.5 -108.1 110
+> 105
+> 100
+> 95
+> Mean noise floor (dBm)
+
+(f) Passive 5 GHz, noise floor. 
+
+Figure S1. Supplementary frequency-bin validation heatmaps for average power and noise floor. Cells report class-wise file-level means by reported freq1 centre frequency. Active-scan malicious captures target 5805 MHz. Passive-scan malicious captures include Gaussian-noise jamming at 2412 and 2457 MHz in the 2.4 GHz band and at 5180 and 5745 MHz in the 5 GHz band. 
+
+Values at non-target centre frequencies correspond to measurements collected at those scanned frequencies while the relevant jamming condition was active, not to additional jammed channels. 
+
+Active-scan waveform comparison stratified by transmit power. Figures S2–S5 compare Gaussian-noise and single-tone active jamming at matched transmit powers. This family is the most direct way to inspect waveform effects without conflating them with jammer transmit power. 
+
+Active-scan waveform-stratified transmit-power sweeps. Figures S6–S9 show the complementary active view: each panel holds waveform fixed and varies transmit power. These should be interpreted as waveform-conditioned power responses rather than pooled active malicious trends. 
+
+Passive-scan Gaussian-noise transmit-power sweeps. Figures S10–S13 show the passive power response for both 2.4 GHz and 5 GHz. Unlike the active subset, passive malicious captures contain Gaussian-noise jamming only, so these panels provide the cleanest power-conditioned view of the passive collection. 5180 5200 5240 5745 5765 5785 5805 
+
+Center frequency (MHz) 
+
+−90 −80 −70 −60 −50 
+
+> Mean RSSI (dBm)
+
+(a) −40 dBm. 5180 5200 5240 5745 5765 5785 5805 
+
+Center frequency (MHz) 
+
+−90 −80 −70 −60 −50 
+
+> Mean RSSI (dBm)
+
+Benign Gaussian noise Single tone Jammed freq (b) −10 dBm. 5180 5200 5240 5745 5765 5785 5805 
+
+Center frequency (MHz) 
+
+−90 −80 −70 −60 −50 
+
+> Mean RSSI (dBm)
+
+(c) 0 dBm. 5180 5200 5240 5745 5765 5785 5805 
+
+Center frequency (MHz) 
+
+−90 −80 −70 −60 −50  
+
+> Mean RSSI (dBm)
+
+(d) +10 dBm. 
+
+Figure S2. Active-scan waveform comparison using RSSI, stratified by transmit power. 5180 5200 5240 5745 5765 5785 5805 
+
+Center frequency (MHz) 
+
+380 390 400 410 
+
+> Mean base power (dB)
+
+(a) −40 dBm. 5180 5200 5240 5745 5765 5785 5805 
+
+Center frequency (MHz) 
+
+380 390 400 410 
+
+> Mean base power (dB)
+
+Benign Gaussian noise Single tone Jammed freq (b) −10 dBm. 5180 5200 5240 5745 5765 5785 5805 
+
+Center frequency (MHz) 
+
+380 390 400 410 
+
+> Mean base power (dB)
+
+(c) 0 dBm. 5180 5200 5240 5745 5765 5785 5805 
+
+Center frequency (MHz) 
+
+380 390 400 410  
+
+> Mean base power (dB)
+
+(d) +10 dBm. 
+
+Figure S3. Active-scan waveform comparison using base power, stratified by transmit power. 5180 5200 5240 5745 5765 5785 5805 
+
+Center frequency (MHz) 
+
+50 100 150 200 
+
+> Mean maximum magnitude
+
+(a) −40 dBm. 5180 5200 5240 5745 5765 5785 5805 
+
+Center frequency (MHz) 
+
+50 100 150 200 
+
+> Mean maximum magnitude
+
+Benign Gaussian noise Single tone Jammed freq (b) −10 dBm. 5180 5200 5240 5745 5765 5785 5805 
+
+Center frequency (MHz) 
+
+50 100 150 200 
+
+> Mean maximum magnitude
+
+(c) 0 dBm. 5180 5200 5240 5745 5765 5785 5805 
+
+Center frequency (MHz) 
+
+50 100 150 200  
+
+> Mean maximum magnitude
+
+(d) +10 dBm. 
+
+Figure S4. Active-scan waveform comparison using maximum magnitude, stratified by transmit power. 5180 5200 5240 5745 5765 5785 5805 
+
+Center frequency (MHz) 
+
+−108 −106 −104 −102 
+
+> Mean noise floor (dBm)
+
+(a) −40 dBm. 5180 5200 5240 5745 5765 5785 5805 
+
+Center frequency (MHz) 
+
+−108 −106 −104 −102 
+
+> Mean noise floor (dBm)
+
+Benign Gaussian noise Single tone Jammed freq (b) −10 dBm. 5180 5200 5240 5745 5765 5785 5805 
+
+Center frequency (MHz) 
+
+−108 −106 −104 −102 
+
+> Mean noise floor (dBm)
+
+(c) 0 dBm. 5180 5200 5240 5745 5765 5785 5805 
+
+Center frequency (MHz) 
+
+−108 −106 −104 −102  
+
+> Mean noise floor (dBm)
+
+(d) +10 dBm. 
+
+Figure S5. Active-scan waveform comparison using noise floor, stratified by transmit power. Table S4. Detailed file-level spectral metric statistics by scan mode, metric, and class label. Each row summarises the distribution across files of the corresponding per-file mean spectral field. RSSI is reported using the derived dBm conversion. IQR denotes the interquartile range. The table shows that power- and magnitude-related fields exhibit larger shifts under jamming than the driver-reported noise-floor field, which remains comparatively stable and should be interpreted as a calibration-related baseline rather than a standalone jamming indicator. 
+
+Scan mode Metric Label Files Mean Std. Median IQR Min. Max. 
+
+> Active
+
+RSSI (dBm) Benign 3,261 -88.06 2.06 -86.94 4.30 -91.07 -79.66 Malicious 1,097 -73.05 10.50 -72.26 21.13 -85.80 -52.00 Noise floor (dBm) Benign 3,261 -104.61 2.53 -102.93 5.14 -108.43 -102.00 Malicious 1,097 -102.00 0.00 -102.00 0.00 -102.00 -102.00 Average power (dB) Benign 3,261 54.18 2.49 55.19 4.99 48.20 57.53 Malicious 1,097 54.91 3.60 55.78 6.93 47.77 58.56 Base power (dB) Benign 3,261 381.88 4.24 380.69 8.10 376.73 394.35 Malicious 1,097 394.05 11.36 395.87 23.48 378.10 413.89 Max magnitude (linear) Benign 3,261 47.31 2.94 47.21 4.06 38.34 67.85 Malicious 1,097 108.72 65.31 76.57 138.01 37.03 182.07 Relative power (dB) Benign 3,261 9.49 0.13 9.44 0.18 9.12 10.56 Malicious 1,097 11.95 2.26 11.55 4.34 9.03 15.27 Total gain (dB) Benign 3,261 81.42 6.61 80.80 13.52 66.18 89.73 Malicious 1,097 66.45 11.36 64.63 23.47 46.60 82.40 Passive RSSI (dBm) Benign 74,147 -86.86 3.95 -87.88 3.97 -91.53 -55.75 Malicious 17,585 -83.71 6.77 -89.27 13.04 -91.05 -69.54 Noise floor (dBm) Benign 74,147 -102.05 3.48 -102.44 3.34 -106.03 -95.00 Malicious 17,585 -102.68 2.75 -104.46 5.11 -105.88 -95.67 Average power (dB) Benign 74,147 56.39 1.88 57.18 2.52 47.68 58.40 Malicious 17,585 55.96 1.97 56.13 3.17 47.92 58.34 Base power (dB) Benign 74,147 380.66 4.32 380.06 6.16 374.71 411.63 Malicious 17,585 385.46 9.08 379.41 18.03 375.04 401.74 Max magnitude (linear) Benign 74,147 52.57 9.09 50.70 9.87 35.31 119.58 Malicious 17,585 52.16 4.16 52.03 5.62 39.96 64.15 Relative power (dB) Benign 74,147 11.16 2.21 10.76 3.80 8.55 25.33 Malicious 17,585 12.20 3.55 9.36 5.77 8.93 19.75 Total gain (dB) Benign 74,147 80.16 7.10 80.86 10.09 45.17 88.37 Malicious 17,585 75.84 11.59 83.78 22.97 57.96 88.13 5180 5200 5240 5745 5765 5785 5805 
+
+> Center frequency (MHz)
+> 90
+> 80
+> 70
+> 60
+> 50
+> Mean RSSI (dBm)
+> Benign -40 dBm -10 dBm 0 dBm +10 dBm Jammed freq
+
+(a) Gaussian noise. 5180 5200 5240 5745 5765 5785 5805  
+
+> Center frequency (MHz)
+> 90
+> 85
+> 80
+> 75
+> 70
+> 65
+> 60
+
+(b) Single tone. 
+
+Figure S6. Active-scan waveform-stratified transmit-power sweeps using RSSI. Table S5. Preprocessing and hyperparameter configurations used for the baseline classifiers. Median imputation was applied to all models. Standardisation was applied only to logistic regression and the multilayer perceptron. Parameters not listed retain their corresponding library defaults. 
+
+Classifier Preprocessing Configuration 
+
+LogReg Median imputation; standardisation Maximum iterations: 3,000; seed-specific random_state .RandomForest Median imputation 300 trees; class_weight=balanced_subsample ; unrestricted tree depth; seed-specific random_state .HistGB Median imputation Scikit-learn default histogram-gradient-boosting configuration; seed-specific random_state .XGBoost Median imputation 300 trees; maximum depth 6; learning rate 0.05; row subsampling 0.9; column subsampling 0.9; binary logistic objective; log-loss evaluation metric; histogram tree method. LightGBM Median imputation 300 trees; learning rate 0.05; balanced class weighting; seed-specific 
+
+random_state .MLP Median imputation; standardisation Hidden layers of 256, 128, and 64 units with ReLU activation; batch normalisation after the first two hidden layers; dropout rates of 0.30, 0.25, and 0.20; Adam optimiser with learning rate 10 −3; binary cross-entropy loss; maximum 25 epochs; batch size 256; validation fraction 0.15; early-stopping patience of four epochs with restoration of the best weights. 5180 5200 5240 5745 5765 5785 5805 
+
+> Center frequency (MHz)
+> 380 390 400 410
+> Mean base power (dB)
+
+(a) Gaussian noise. 5180 5200 5240 5745 5765 5785 5805  
+
+> Center frequency (MHz)
+> 375 380 385 390 395 400 405 410
+
+(b) Single tone. 
+
+Figure S7. Active-scan waveform-stratified transmit-power sweeps using base power. 5180 5200 5240 5745 5765 5785 5805 
+
+> Center frequency (MHz)
+> 35 40 45 50 55 60 65 70
+> Mean maximum magnitude
+
+(a) Gaussian noise. 5180 5200 5240 5745 5765 5785 5805  
+
+> Center frequency (MHz)
+> 50 75 100 125 150 175 200
+
+(b) Single tone. 
+
+Figure S8. Active-scan waveform-stratified transmit-power sweeps using maximum magnitude. 5180 5200 5240 5745 5765 5785 5805 
+
+Center frequency (MHz) 
+
+107 
+
+106 
+
+105 
+
+104 
+
+103 
+
+102 
+
+> Mean noise floor (dB)
+
+(a) Gaussian noise. 5180 5200 5240 5745 5765 5785 5805 
+
+Center frequency (MHz) 
+
+107 
+
+106 
+
+105 
+
+104 
+
+103 
+
+102 (b) Single tone. 
+
+Figure S9. Active-scan waveform-stratified transmit-power sweeps using noise floor. 2412 2417 2422 2427 2432 2437 2442 2447 2452 2457 2462 
+
+Center frequency (MHz) 
+
+90 
+
+80 
+
+70 
+
+60 
+
+50 
+
+> Mean RSSI (dBm)
+
+(a) 2.4 GHz. 5180 5200 5220 5240 5260 5280 5300 5320 5745 5765 5785 5805 5825 
+
+Center frequency (MHz) 
+
+90 
+
+85 
+
+80 
+
+75 Benign +3 dBm +6 dBm +9 dBm +12 dBm Jammed freq (b) 5 GHz. 
+
+Figure S10. Passive-scan Gaussian-noise transmit-power sweeps using RSSI. 2412 2417 2422 2427 2432 2437 2442 2447 2452 2457 2462 
+
+Center frequency (MHz) 
+
+380 390 400 410 
+
+> Mean base power (dB)
+
+(a) 2.4 GHz. 5180 5200 5220 5240 5260 5280 5300 5320 5745 5765 5785 5805 5825 
+
+Center frequency (MHz) 
+
+374 376 378 380 382 384 386 388 (b) 5 GHz. 
+
+Figure S11. Passive-scan Gaussian-noise transmit-power sweeps using base power. 2412 2417 2422 2427 2432 2437 2442 2447 2452 2457 2462 
+
+Center frequency (MHz) 
+
+40 50 60 70 
+
+> Mean maximum magnitude
+
+(a) 2.4 GHz. 5180 5200 5220 5240 5260 5280 5300 5320 5745 5765 5785 5805 5825 
+
+Center frequency (MHz) 
+
+40 50 60 70 (b) 5 GHz. 
+
+Figure S12. Passive-scan Gaussian-noise transmit-power sweeps using maximum magnitude. 2412 2417 2422 2427 2432 2437 2442 2447 2452 2457 2462                
+
+> Center frequency (MHz)
+> 107.5
+> 105.0
+> 102.5
+> 100.0
+> 97.5
+> 95.0
+> Mean noise floor (dB) (a) 2.4 GHz. 5180 5200 5220 5240 5260 5280 5300 5320 5745 5765 5785 5805 5825
+> Center frequency (MHz)
+> 108
+> 106
+> 104
+> 102 (b) 5 GHz.
+
+Figure S13. Passive-scan Gaussian-noise transmit-power sweeps using noise floor. 
+
+Active-scan file-level feature-distribution summaries. Figure S14 collects the active-scan file-level feature-distribution diagnostics for the same file-level mean features used in the spectral validation: RSSI, maximum magnitude, noise floor, base power, and average power. The visual encoding uses a single active benign reference distribution as a box plot, while Gaussian-noise and single-tone malicious conditions are shown at each nominal transmit power as waveform-specific mean ± standard-deviation marker/whisker summaries. This avoids implying two different benign waveform conditions and makes the active-scan waveform–power comparison more compact. All values are computed from file-level aggregate features across all observations in each file, not from a single centre frequency. 
+
+Passive-scan file-level feature-distribution summaries. Figure S15 collects the passive scan box-plot diagnostics for the matched file-level mean features. Passive-scan malicious captures contain Gaussian-noise jamming only, so the passive panels show benign reference files and passive malicious files stratified by transmit power. As in the active case, each box summarises a file-level aggregate feature computed across all observations in the corresponding file rather than a single centre frequency. 
+
+S8 Weak-condition and waveform-transfer diagnostics 
+
+The following diagnostics expand on the held-out results in the main text. They are reported here, rather than in the main Technical Validation, because they characterise how baseline detectors behave under distribution shift rather than establishing dataset integrity; they illustrate the kind of analysis the released features support. The feature-space separability table, the matched-feature weak-condition distributions, the unresampled background-location sensitivity check, and the held-out partition sizes are collected below. To interpret the weakest held-out settings reported in Fig. 7, distinguishing conditions that are intrinsically close to benign scans from those where only the decision threshold fails to transfer, we computed feature-space separability diagnostics comparing the weakest active and passive jamming conditions against their scan-mode-matched benign baselines. Table S6 reports standardised mean differences (SMDs), distribution-overlap coefficients, univariate AUC summaries, and a balanced cross-validated logistic diagnostic. SMD and overlap are computed feature by feature over the 63 benchmark features; the diagnostic classifier is used only as a separability probe and is not part of the baseline benchmark model selection. These diagnostics show that active −40 dBm jamming is weak in nominal transmit power but not weak in feature separability: it has larger standardised feature differences, lower distribution overlap, and stronger univariate AUCs relative to active benign scans. The additional feature-level summary reinforces this distinction. For active −40 dBm, 37 of the 63 benchmark features have univariate AUC at least 0.7, 31 features have absolute SMD at least 1.0, and the strongest individual feature is rssi_dbm_mean with univariate AUC 0.994. For passive +3 dBm, only 13 of 63 features have univariate AUC at least 0.7 and only three have absolute SMD at least 1.0, with a substantially higher median overlap coefficient. Thus, Benign -40 dBm -10 dBm 0 dBm +10 dBm 
+
+Jammer transmit power (dBm) 
+
+> −90 −80 −70 −60
+> Mean RSSI (dBm)
+> Benign Gaussian noise Single tone
+
+(a) RSSI. Benign -40 dBm -10 dBm 0 dBm +10 dBm 
+
+Jammer transmit power (dBm)  
+
+> 40 60 80 100 120 140 160 180
+> Mean maximum magnitude
+
+(b) Maximum magnitude. Benign -40 dBm -10 dBm 0 dBm +10 dBm 
+
+Jammer transmit power (dBm) 
+
+> −108 −107 −106 −105 −104 −103 −102
+> Mean noise floor (dBm)
+
+(c) Noise floor. Benign -40 dBm -10 dBm 0 dBm +10 dBm 
+
+Jammer transmit power (dBm)  
+
+> 380 390 400 410
+> Mean base power (dB)
+
+(d) Base power. Benign -40 dBm -10 dBm 0 dBm +10 dBm 
+
+Jammer transmit power (dBm) 
+
+> 48 50 52 54 56 58 60
+> Mean average power (dB)
+
+(e) Average power. 
+
+Figure S14. Active-scan file-level feature-distribution diagnostics by waveform and transmit power. The benign active baseline is shown as a file-level distribution box plot; Gaussian-noise and single-tone malicious conditions are shown as waveform-specific mean ± standard-deviation marker/whisker summaries at each transmit power. Benign +3 dBm +6 dBm +9 dBm +12 dBm 
+
+Jammer transmit power (dBm) 
+
+−90 −85 −80 −75 −70 −65 
+
+> Mean RSSI (dBm)
+
+Benign Gaussian noise (a) RSSI. Benign +3 dBm +6 dBm +9 dBm +12 dBm 
+
+Jammer transmit power (dBm) 
+
+40 50 60 70 80 90  
+
+> Mean maximum magnitude
+
+(b) Maximum magnitude. Benign +3 dBm +6 dBm +9 dBm +12 dBm 
+
+Jammer transmit power (dBm) 
+
+−106 −104 −102 −100 −98 −96 
+
+> Mean noise floor (dBm)
+
+(c) Noise floor. Benign +3 dBm +6 dBm +9 dBm +12 dBm 
+
+Jammer transmit power (dBm) 
+
+375 380 385 390 395 400  
+
+> Mean base power (dB)
+
+(d) Base power. Benign +3 dBm +6 dBm +9 dBm +12 dBm 
+
+Jammer transmit power (dBm) 
+
+48 50 52 54 56 58 
+
+> Mean average power (dB)
+
+(e) Average power. 
+
+Figure S15. Passive-scan file-level feature-distribution diagnostics by transmit power. Each box summarises a file-level mean feature, computed across all observations in the corresponding passive file. Table S6. Feature-space separability diagnostics for weak jamming conditions relative to scan-mode-matched benign baselines. Lower overlap and higher SMD/AUC indicate stronger feature-level separation. The cross-validated diagnostic classifier is balanced and is used only to quantify separability, not as an optimized detector.                  
+
+> Comparison Mean abs. SMD Median abs. SMD Median overlap Median univ. AUC CV AUC CV F1
+> Active −40 dBm vs active benign 1.10 0.97 0.22 0.76 1.00 1.00 Passive +3 dBm vs passive benign 0.50 0.46 0.54 0.59 0.997 0.974
+
+passive +3 dBm jamming is much closer to passive benign variability at the individual-feature level, even though multivariate combinations remain informative when the condition is represented during training. The passive +3 dBm held-out difficulty should therefore be interpreted as a generalisation challenge to a low-power passive condition, not as evidence that the condition is undetectable in principle. Figures S14 and S15 visualise these weak-condition diagnostics while also resolving a potential confound in the active subset. To keep the main diagnostic figure comparable across scan modes, the same two interpretable features are shown for active and passive scans: RSSI and maximum magnitude. Because active malicious files include both Gaussian-noise and single-tone captures at the same nominal transmit powers, active weak-power feature distributions are plotted with the two waveforms side by side at each power level rather than pooled into a single malicious distribution. This combined representation shows that waveform and transmit power jointly shape the active feature distributions. In RSSI, Gaussian-noise captures are generally stronger than single-tone captures at several powers, while in maximum magnitude the single-tone waveform produces the clearest peak-like separation. This behaviour is physically consistent with the measurement setup: Gaussian-noise jamming perturbs broader aggregate measures, whereas a single-tone jammer concentrates energy into a narrow spectral component and therefore appears strongly in peak-based features. The passive panels are simpler to interpret because passive malicious captures contain Gaussian-noise jamming only; showing the same RSSI and maximum-magnitude summaries prevents active–passive comparisons from being driven by different feature choices. 
+
+S9 Unresampled-training sensitivity analysis 
+
+For the scan-mode-specific held-out background-location experiment, the main text reports the class-balanced training protocol. As a sensitivity analysis, the same held-out evaluation is repeated without training-set rebalancing and reported for all six classifiers in Fig. S16. The test sets are unchanged and remain balanced between held-out benign background files and same-mode malicious files; only the training-set sampling differs. In the unresampled protocol, all available non-held-out benign training files are retained, so the active training splits contain approximately 22–24% malicious files and the passive training splits contain approximately 13.5–13.6% malicious files. This sensitivity analysis is included to show whether the held-out background-location conclusions depend on class-balanced training. The qualitative pattern is stable: active held-out locations remain near saturated, passive location2 and passive location3 remain strong, and passive_location1 remains the hardest held-out background environment. The unresampled results are therefore treated as a robustness check rather than as the primary benchmark protocol. 
+
+S10 MLP transfer-failure diagnostic 
+
+The all-model outputs include explicit diagnostics for degenerate MLP predictions. The clearest case occurs for Passive →Active cross-scan transfer: across seeds, the MLP predicts fewer than one percent of active test files as malicious, misses all 1,097 malicious active files, and consequently produces F1 = 0 with ROC-AUC close to chance or worse. This differs from the held-out single-tone behaviour of several tree/boosting models, Active loc 1 Active loc 2 Passive loc 1 Passive loc 2 Passive loc 3                          
+
+> Held-out scan-mode-specific background location
+> LogReg MLP RandomForest XGBoost LightGBM HistGB
+> Model 0.99 1.00 0.89 0.95 0.98 0.99 1.00 0.81 0.99 0.99 1.00 1.00 0.73 1.00 1.00 0.97 0.98 0.73 1.00 0.99 0.67 0.98 0.77 1.00 0.97 0.67 0.98 0.73 1.00 0.98 0.0 0.2 0.4 0.6 0.8 1.0
+> F1-score
+
+Figure S16. Supplementary per-model F1-score heatmap for the unresampled-training sensitivity analysis of scan-mode-specific held-out background-location evaluation. The held-out test sets are identical to the main balanced-training protocol, but the training set is not class-balanced. 
+
+where ranking metrics remain high despite a failed fixed threshold. The MLP result is therefore treated as a genuine cross-domain optimisation/generalisation failure rather than as evidence that the underlying active malicious class is inseparable. 
+
+Held-out partition construction 
+
+The passive +3 dBm band-specific held-out tests contain comparable numbers of files: approximately 4,020 balanced test files for 2.4 GHz and 4,156 for 5 GHz. The markedly poorer 5 GHz F1 therefore cannot be attributed to a smaller held-out sample. Table S7 reports the train/test sizes and class priors for the held-out malicious-condition protocols. Test partitions are balanced by construction to make threshold-dependent metrics interpretable across held-out power and waveform conditions. The scan-mode-specific background-location protocol is reported separately in Fig. 8. Table S7. Train and test partition sizes for the held-out malicious-condition experiments reported in Fig. 7. Positive rate denotes the fraction of malicious files in each partition; test partitions are balanced by design (positive rate ≈ 0.50). Power values are in dBm.                                                                                 
+
+> Condition Scope Held-out value Train files Test files Train pos. Test pos.
+> Power (dBm) Active
+> −40 3,954 404 0.226 0.500
+> −10 3,744 614 0.211 0.500 03,844 514 0.219 0.500
+> +10 3,696 662 0.207 0.500 Passive 383,556 8,176 0.162 0.500 683,310 8,422 0.161 0.500 981,276 10,456 0.152 0.500 12 83,616 8,116 0.162 0.500 Pooled
+> −40 95,686 404 0.193 0.500
+> −10 95,476 614 0.192 0.500 095,576 514 0.193 0.500
+> +10 95,428 662 0.192 0.500 387,914 8,176 0.166 0.500 687,668 8,422 0.165 0.500 985,634 10,456 0.157 0.500 12 87,974 8,116 0.166 0.500 Waveform Active Gaussian noise 3,444 914 0.186 0.500 Single tone 3,078 1,280 0.148 0.500
+
+S11 Active-scan waveform metric contrasts 
+
+Table S8 quantifies the active waveform comparison at matched transmit powers. For each metric and power level, it reports Gaussian-noise and single-tone means, their raw difference, a pooled-standard-deviation-normalised difference, and a direction-adjusted univariate AUC. This table supports the main active waveform figures by showing which metrics separate the two waveform families beyond visual inspection. Table S8.  Power-matched waveform contrasts within the active-scan malicious subset for file-level aggregate metrics. Difference is single-tone mean minus Gaussian-noise mean. The standardised difference divides this contrast by the pooled standard deviation. Direction-adjusted univariate AUC reports single-feature separability regardless of which waveform has the larger feature value. The final column,  nG/nS, reports the number of Gaussian-noise files ( nG) and single-tone files (nS) included at each transmit-power setting.

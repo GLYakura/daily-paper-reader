@@ -1,0 +1,1348 @@
+Title: Exact spherical-wave forward model for radio reflection from stratified media
+
+URL Source: https://arxiv.org/pdf/2608.15989v1
+
+Published Time: Tue, 18 Aug 2026 01:27:41 GMT
+
+Number of Pages: 28
+
+Markdown Content:
+# Exact spherical-wave forward model for radio reflection from stratified media 
+
+Paramita Dasgupta 1, 2, 3, ∗
+
+> 1
+
+Center for Cosmology and AstroParticle Physics (CCAPP), Ohio State University, Columbus, OH 43210 
+
+> 2
+
+Department of Physics, Ohio State University, Columbus, OH 43210 
+
+> 3
+
+Department of Astronomy, Ohio State University, Columbus, OH 43210 
+
+(Dated: August 18, 2026) Radio detection of ultra-high energy particles ( ≳ 10 18 eV) depends on the propagation and re-flection of broadband radio pulses at natural media boundaries. We extend the spherical-wave (Sommerfeld–Weyl) treatment of reflection from a single homogeneous interface to stratified media by replacing the Fresnel coefficient of each plane wave component with the characteristic-matrix re-flection coefficient of the layered medium. The calculation retains the spherical geometry, with the layered coefficient evaluated in the tangent plane at each incident point. Removing the layer con-trast recovers the single-boundary result to machine precision, while comparison with the published spherical-surface calculation gives agreement better than 1 .1% at ten HiCal-2 elevation angles, with a mean deviation of 0 .6%. We apply the formalism to shallow firn stacks proposed as explanations for the anomalous-polarity ANITA events. For realistic firn contrasts, the layers change the reflected amplitude but do not reverse the pulse polarity over 150–850 MHz for the elevations considered. In a reference s-polarized two-layer model, a sign change of the reflection coefficient requires a buried refractive index of 
+
+n2 ≃ 2.56, 2 .04, and 1 .79 at local elevation angles of 8 ◦, 15 ◦, and 25 ◦, respectively. We also test the specular factorization used in fast propagation calculations and find agreement with the full angular integral at the 0 .2% level for high-altitude balloon geometries. Sources close to the boundary require the full angular integral because the stationary-phase region becomes broad. Finally, the calculated reflected pulses reproduce the expected polarity inversion in 101 of 106 HiCal-1 direct/reflected pulse pairs. Because the medium enters through its complex refractive index, the framework applies to ice, lunar regolith, and conducting media. 
+
+I. INTRODUCTION 
+
+Radio detection of ultra-high energy (UHE) neutri-nos and cosmic rays, here referring to primaries above roughly 10 18 eV, relies on coherent radio emission from particle cascades [1–3]. For UHE cosmic rays (UHE-CRs), the air-shower radio emission is dominated by the geomagnetic mechanism [3–6] and can be detected af-ter reflection from the Antarctic ice surface. In-ice neu-trino interactions produce Askaryan emission [1, 2, 7, 8], which can be observed after refraction through the ice– air boundary. We focus here on the reflection of UHECR signals. The same boundary formalism gives the corre-sponding transmission coefficient, but transmission from in-medium sources is beyond the scope of this work. The Antarctic Impulsive Transient Antenna (ANITA) provides the main high-altitude data set for this reflection channel. At an altitude of about 37 km, ANITA viewed 
+
+O(10 6) km 2 of Antarctic ice with dual-polarization an-tennas over roughly 200–1200 MHz [9]. ANITA ob-served UHECR air showers through their geomagnetic radio emission reflected from the ice surface [10, 11]. For the horizontally polarized component, reflection from the higher-index ice reverses the pulse polarity. The non-inverted polarity of a small number of below-horizon events therefore remains unexplained [12–14]. To inves-tigate the effect of a stratified spherical surface on the  
+
+> ∗dasgupta.80@osu.edu
+
+reflected pulse polarity, we apply our calculation to the two steep ANITA-I/III events and the four near-horizon ANITA-IV events reported in Refs. [12–14]. Surface reflectivity is an important part of balloon-borne UHECR measurements, as it enters directly into the reconstructed primary energy. ANITA flew with the High-Altitude Calibration (HiCal) transmitters, which emitted calibration pulses that were recorded by the ANITA payload both directly and after reflection from the Antarctic surface. The reflected-to-direct power ra-tio, denoted by r/d , provides a measure of the surface power reflection coefficient for each direct-reflected (D-R) pulse pair. HiCal-1 flew with ANITA-3 [15], while HiCal-2 flew with ANITA-4 during the 2016–2017 aus-tral flight season and provided more than 2500 direct-reflected pulse pairs for surface-reflectivity studies [16, 17]. The spherical single-boundary calculation was de-veloped and validated using these data [17] and later re-fined in Refs. [18, 19]. We use both HiCal data sets here: the HiCal-2 reflectivity results to validate the spherical single-boundary limit against the published calculation of Ref. [17], and HiCal-1 direct/reflected pulse pairs to validate the reflected-pulse calculation in Sec. V D. The calculation is then extended to stratified media. The same boundary response is relevant to radio-neutrino detectors that view the ice from within. The Askaryan Radio Array (ARA) is an in-ice radio ar-ray at the South Pole consisting of five independent stations, with antennas deployed at depths of up to about 200 m [20]. Its event reconstruction and neutrino searches include both refracted and reflected propagation arXiv:2608.15989v1 [astro-ph.IM] 17 Aug 2026 2through the ice [21–23]. The fifth ARA station also in-cludes a low-threshold phased array for improved sen-sitivity to low signal-to-noise-ratio (SNR) signals [24]. Askaryan emission from cosmic ray showers in ice has also been observed with ARA [25]. The Payload for Ultrahigh Energy Observations (PUEO), the balloon-borne successor to ANITA, com-pleted its Antarctic flight in 2025–2026 and extends the balloon-borne approach with improved sensitivity through a phased-array trigger [26, 27]. An accurate treatment of the boundary response is therefore relevant to both balloon-borne and in-ice radio detectors, as well as to radio sounding of ice, lunar regolith, and other sub-surface media. The HiCal geometry is not well described by a flat, smooth surface. At shallow incidence angles, the region contributing coherently to the reflected field can extend over hundreds of meters, so both surface curvature and height variations across this region can affect the mea-sured signal [15, 17, 18]. The spherical single-boundary treatment of Refs. [17, 19] accounts for these effects by writing the source field as a Hertz potential and using the Sommerfeld–Weyl identity, Eq. (5), to decompose the spherical wave into plane wave components. Each component is reflected from the local tangent plane at its incidence angle α0, as shown in Fig. 1, with surface roughness included in the angular integral. Evaluating the calculation across the measured frequency band and transforming back to the time domain gives the simulated reflected pulse. This treatment reproduces the HiCal-2 reflectivity and was later extended to reflected pulse waveforms [18, 19]. Stratification is especially relevant for Antarctic firn and for proposed subsurface explanations of the ANITA anomalous-polarity events. Antarctic firn has a radio-frequency refractive index that rises from about 1 .3 near the surface toward the deep-ice value n ≃ 1.78; in the South Pole parameterization used in ARA analyses, the near-surface index deficit has an e-folding depth of about 50 m [22, 23]. Smooth firn profiles are used in ray-tracing reconstructions, while discrete density contrasts from wind crusts, ice lenses, refrozen melt layers, and buried surfaces can add internally reflected components. Such structures have been proposed as possible con-tributors to the non-inverted polarity of several ANITA events [28], and subsequent ANITA and HiCal measure-ments have constrained these scenarios [29]. Here we ex-tend the spherical single-boundary calculation to a strat-ified medium by replacing the Fresnel coefficient of each plane wave component with the characteristic-matrix re-flection coefficient of the layered medium. This coefficient includes the coherent sum of the direct surface reflection and all contributions involving internal reflections and transmission through the layers. The spherical geom-etry, local angle construction, surface roughness treat-ment, and frequency-domain construction of broadband fields are otherwise unchanged. The characteristic-matrix treatment follows directly from the Maxwell boundary conditions and reduces to the single-boundary Fresnel coefficient when the layer con-trast is removed [30]. The same formulation applies to other stratified media, including lunar regolith, planetary ice, and lossy or conducting subsurface layers [31–34]. For the shallow firn stacks considered here, realistic firn contrasts change the reflected amplitude and phase but do not reverse the pulse polarity. The buried-layer in-dex required for a reversal depends strongly on the local elevation angle, approaching dense-ice values at higher elevations but rising well above measured firn and dense-ice values near the horizon. The resulting constraint on subsurface explanations of ANITA anomalous-polarity events is therefore elevation dependent, rather than set by a single material threshold. This paper has three main results. First, we de-velop a spherical-wave forward model for reflection from stratified media and show that it reduces to the vali-dated single-boundary calculation at machine precision. Second, we determine the elevation-dependent index re-quired for polarity reversal in shallow firn stacks moti-vated by the ANITA anomalous-polarity events. Third, we test the specular factorization against the full angu-lar integral. For the balloon-altitude geometry, the two agree at the 0 .2% level, while sources close to the bound-ary require the full angular integral. Section II reviews and validates the single-boundary formalism. Section III derives the stratified exten-sion. Section IV examines the specular factorization, and Sec. V presents the numerical results. Section VI discusses applications to dielectric and conducting me-dia beyond Antarctic ice. Transmission from in-medium sources, near-field source geometries, anisotropic ice, and local surface-slope structure are beyond the scope of this work.  
+
+> II. SPHERICAL-WAVE FORMALISM AND VALIDATION
+
+We first review the reflection of a spherical wave from a spherical boundary between two homogeneous media, following Refs. [17, 19], and validate the numerical imple-mentation against the published reflectivity calculation of Ref. [17]. Section III then extends the same framework to a stratified medium by replacing the single-boundary reflection coefficient. We use the following terminology throughout. The 
+
+boundary is the upper surface where air meets the medium. A layer is a homogeneous slab beneath that surface, specified by its refractive index and thickness; the ordered set of layers is the stack . The semi-infinite medium below the deepest layer is the substrate . In this section the stack is empty, so N = 0, and the boundary separates air directly from the substrate. The geometry is shown in Fig. 1. Two spherical geome-tries enter the calculation. The first is the source field: a Hertz dipole radiates a spherical wave, which Eq. (5) 3
+
+FIG. 1. Geometry of the reflection calculation for a spherical boundary, following Fig. 12 of Ref. [17] with the single air–ice interface replaced by a stratified medium. The spherical surface has center C and radius R. A Hertz dipole source is located at S, at height z0 = h above the surface point O, and the reflected field is evaluated at the observer position P (x, y, z ). The spherical wave is expanded by the Sommerfeld–Weyl identity, Eq. (5), into plane-wave components represented by their wave-vector directions. In the plane shown, one component has incident wave vector ⃗ ki at angle α from the downward vertical and intersects the surface at Q. The local normal is ˆ n = ˆ z′, and the local tangent plane defines the incidence angle α0 of Eq. (8). The quantity h′ is the perpendicular distance from S to this tangent plane. A different component intersects the surface at 
+
+Q′, where the local normal ˆ n′′ = ˆ z′′ and tangent plane are different, so its local incidence angle is evaluated separately. Thus the reflected field is described locally by plane waves at each incident point, but not by a single global plane-wave reflection. Beneath the surface are concentric layers, the jth with refractive index nj and thickness dj , above a semi-infinite substrate 
+
+ns. The transmitted ray into the stack is drawn only at Q for clarity; the same layered response is evaluated at every other incident point, including Q′, in the angular integral. Section II treats the single-boundary limit N = 0, while Sec. III treats the general stratified case. The azimuth β, not shown here, rotates the plane of incidence about the local normal. 
+
+decomposes into plane wave components. The second is the reflecting surface: a convex sphere of radius R, whose local geometry is determined by the tangent plane at the point where each plane wave component intersects the surface. These two geometries are independent. We use the unprimed ( x, y, z ) axes of Fig. 1 as the global frame. The origin O lies on the surface directly below the source. The source is at S = (0 , 0, z 0) with 
+
+z0 = h, and the observer position is specified as P (x, y, z )in this frame. At each incident point Q, we also introduce a local tangent frame, whose ˆ z′ axis is the local surface normal. Boundary conditions are applied in that local frame, while the angular integral and the final reflected and transmitted fields are calculated in the global frame, as in Ref. [17]. The sources considered here are broadband, including the HiCal calibration pulses [15, 16] and the radio emis-sion from UHECR air showers [3, 10, 11]. The calcula-tion is performed one Fourier component at a time. Since Maxwell’s equations and the boundary conditions are lin-ear, each frequency component can be treated indepen-dently, and the full signal is reconstructed only after the field has been calculated at each frequency. All quanti-ties below therefore refer to a single frequency f , with 
+
+ω = 2 πf and time dependence e−iωt . This convention also fixes the branch of the complex square roots intro-duced below. The total field calculation depends on the observable. For band-averaged reflectivity, such as the validation in Table I, the power ratio is evaluated across the HiCal-2 band and then averaged, following the com-4parison calculation [17]. For time-domain pulses, such as those in Sec. V D, the complex field is evaluated across the band and then Fourier transformed, retaining the rel-ative phases of the Fourier components. In both cases, the reflected field is first computed at each frequency, including the appropriate s- and p-polarized plane wave contributions, and only then averaged over frequency or reconstructed as a resultant pulse. This order matters because a frequency-dependent boundary response can contain structure that is hidden by band-averaged power. Above the spherical surface, we express the total field as the sum of the direct and reflected fields, which we write in terms of Hertz potentials, ⃗
+
+Π = ⃗ Πdir +⃗ Πref . (1) For a horizontal dipole at S, polarized along ˆ y, the direct potential is ⃗
+
+Πdir = eikr 
+
+4πϵr ˆy. (2) Here k = 2 πf /c is the free-space wavenumber, c is the speed of light in vacuum, ϵ is the permittivity of the air above the surface, and 
+
+r = px2 + y2 + ( z − z0)2 (3) is the distance from the source to the field point. The electric and magnetic fields follow from ⃗E =⃗ ∇(⃗∇ · ⃗ Π) + k2⃗ Π,⃗ H = k2
+
+iωμ⃗ ∇ × ⃗ Π, (4) with μ the permeability [17, 35]. The reflected term in Eq. (1) is determined by the boundary conditions. Fol-lowing Refs. [17, 19], we construct it below. The horizontal Hertz dipole is used for the power re-flection ratio r/d and for the HiCal-1 pulse validation in Sec. V D. The boundary treatment does not depend on this source choice. It acts independently on each plane wave component, so the same construction applies to any source that can be represented as an angular spectrum of plane waves. A higher multipole changes the weights of these components, while an extended source such as a cosmic ray air shower requires an additional integration over the emitting current distribution. The boundary operator is unchanged in both cases. This treatment is valid for the far zone, r ≫ λ, where 
+
+λ = c/f is the free-space wavelength. The near-field terms of the dipole field are then negligible, and the plane wave components computed below propagate over the distances of interest. For the balloon geometry, r is tens of kilometers while λ is of order half a meter, so this condition is well satisfied. A spherical wave cannot be reflected from the bound-ary by applying Fresnel coefficients directly, because those coefficients are defined for plane waves. The spher-ical wave can, however, be written exactly as a super-position of plane waves through the Sommerfeld–Weyl representation [35], 
+
+eikr 
+
+r = ik 
+
+2π
+
+Z 2π
+
+> 0
+
+Z π/ 2−i∞
+
+> 0
+
+eiΦ0 sin α dα dβ, (5) with phase Φ0 = kx sin α cos β + y sin α sin β + ( z0 − z) cos α. (6) The boundary problem is then solved component by com-ponent. Each plane wave component is matched to the local tangent plane at its point of incidence on the spher-ical surface. The appropriate reflection and transmission coefficients are obtained from Maxwell’s boundary condi-tions in that local frame, and the reflected contributions are then added coherently in the field integral. Following Refs. [17, 19], α is measured from the downward verti-cal −ˆz, so α = 0 corresponds to a vertically down-going plane wave, and β is the azimuth about ˆ z. For a flat surface, α is also the incidence angle. For the spherical surface, the local incidence angle is instead α0(α), defined below. Equation (5) is an identity and therefore intro-duces no approximation. The representation is valid for 0 ≤ z ≤ z0.The upper limit π/ 2 − i∞ of the polar angle integral in Eq. (5) carries the contour into imaginary values of α.These are the evanescent components, which decay rather than propagate away from the source. They are negligi-ble in the far-field balloon geometry and were omitted in Ref. [17]. This contribution is quantified in Sec. III, where the layered coefficient retains them automatically. Each component of the Sommerfeld–Weyl integral is specified by its propagation direction. In the global frame this incident direction is ˆki = (sin α cos β, sin α sin β, − cos α). (7) On a flat surface, α would also be the incidence angle. But on a spherical surface, it is not. The wave reaches the surface at Q, whose normal ˆ n = ˆ z′ is tilted relative to the global ˆ z axis (Fig. 1), so the relevant incidence angle is the local angle α0 measured from that normal. For a spherical surface the relation is fixed by geometry [17], sin α0 = R + hR sin α, (8) and is rederived in Appendix A. Thus α0 > α for a convex surface, while α0 → α as R → ∞ .Equation (8) also determines which components of the angular spectrum reach the spherical surface. An inci-dent component must satisfy sin α ≤ R/ (R+h), or equiv-alently α0 ≤ 90 ◦. Components outside this range do not intersect the surface and contribute only to the direct field in Eq. (1). Throughout this work, elevation is de-fined as 90 ◦ −α0, measured above the local tangent plane at the point where the plane wave component strikes the spherical surface. The specular point is where the path 
+
+S → Q → P is stationary, and the region around it dom-inates the coherent reflected field. 5The reflected and transmitted directions in the global coordinate system are ˆkr = (sin θr cos β, sin θr sin β, cos θr ), (9) ˆkt = (sin θt cos β, sin θt sin β, − cos θt), (10) with 
+
+θr = 2 α0 − α, θt = α + αt − α0. (11) Here αt is the angle of refraction in the medium below the boundary. These relations follow from reflection and refraction at the local tangent plane at Q. The incident, reflected, and transmitted directions lie in the same plane of incidence, whose azimuth is β. In the flat-surface limit 
+
+α0 → α, these expressions reduce to the usual relations 
+
+θr = α and θt = αt.At each incident point Q, the reflected plane wave com-ponent is multiplied by the Fresnel coefficient evaluated at the local incidence angle. For a boundary between air, 
+
+n0 = 1, and a homogeneous medium of index n1, taken here as n1 = 1 .4 for Antarctic ice following Ref. [17], the reflection coefficients are 
+
+f sr = n0 cos α0 − n1 cos αt
+
+n0 cos α0 + n1 cos αt
+
+, (12) 
+
+f pr = n1 cos α0 − n0 cos αt
+
+n1 cos α0 + n0 cos αt
+
+, (13) where αt is the transmitted angle, fixed by Snell’s law, 
+
+n0 sin α0 = n1 sin αt. The labels s and p denote electric field components perpendicular and parallel to the plane of incidence, respectively. The single-index approxima-tion is replaced by the stratified treatment in Sec. III. Curvature does not change the form of the Fresnel co-efficients. They are still the plane wave coefficients evalu-ated at the local tangent plane. Curvature enters through the local incidence angle α0, the reflected direction ˆkr ,and the propagation phase along the path S → Q → P .Plane wave components that reach the surface at differ-ent points therefore leave in different directions (Fig. 1). The reflected field is locally a plane wave near each inci-dent point, but it is not a single global plane wave. The coefficients in Eqs. (12)–(13) do not require the lower medium to be denser than the upper medium, nor do they require either medium to be lossless. They fol-low from Maxwell’s boundary conditions and apply, with the same branch convention, to real or complex refrac-tive indices in non-magnetic media. The refractive in-dices set the coefficient values but do not change the boundary-matching calculation. Three consequences are useful here. First, for air-to-ice reflection, n1 > n 0, the s-polarized coefficient is negative at every incidence angle: 
+
+n1 cos αt =
+
+q
+
+n21 − n20 sin 2 α0 > n 0 cos α0.
+
+Thus, the s-polarized reflected field is polarity-inverted at all incidence angles. The p-polarized coefficient, by contrast, changes sign at the Brewster angle, arctan( n1/n 0) = 54 .5◦ for n1 = 1 .4, so its sign must be evaluated separately from that of the s coefficient. The two conventions also differ at normal incidence, where 
+
+f pr = −f sr . The projection onto the horizontal field di-rection provides a compensating geometric sign, so the physical reflected field remains single-valued there (Ap-pendix B). Second, if the source is in the denser medium and the wave travels toward the air boundary, the same equations describe total internal reflection. Above the critical angle 
+
+αc = arcsin( n0/n 1),
+
+which is 45 .6◦ for ice, cos αt becomes imaginary and 
+
+|fr | = 1. The reflected field acquires a phase shift, while the field in air is evanescent. The sign of the imaginary root is fixed by the e−iωt convention, with the decaying solution chosen so that Im kz ≥ 0. This regime is rel-evant to transmission from in-ice sources but is outside the far-field reflection calculation considered here. Third, for a lossy or conducting medium, the refractive index is complex and the reflection coefficients are gen-erally complex at all incidence angles. There is then no sharp critical angle, and the reflected field can be both at-tenuated and phase-shifted. Section VI applies the same formalism to lunar regolith and seawater. The calcula-tion itself is unchanged. A real ice surface is not smooth on the scale of the wavelengths considered here. We include surface rough-ness through the validated weight 
+
+Frough = exp  − 2k2σ2
+
+> h
+
+(ρ⊥) cos 2 αspec 0
+
+,σh(ρ⊥) = σh(L0) ( ρ⊥/L 0)H , (14) where αspec 0 is the local incidence angle of Eq. (8) evalu-ated at the specular point, denoted θz in Ref. [17]. The superscript marks it as a single fixed value, in contrast to α0(α), which varies across the angular integral. The roughness weight is the only factor evaluated at this fixed angle: the boundary coefficients are evaluated at each plane wave’s own α0(α) inside the integral of Eq. (15), and σh itself varies with ρ⊥ across the footprint. Here 
+
+σh is the root-mean-square surface height variation over a horizontal baseline, H is the Hurst parameter, and 
+
+ρ⊥ is the transverse distance from the specular point in the tangent plane [17, 19]. We use L0 = 150 m, 
+
+σh(150 m) = 0 .041 m, and H = 0 .65 from the validated HiCal-2 treatment [17–19]. A second parameter set with 
+
+σh(150 m) = 0 .051 m and the same H gives comparable agreement with the HiCal-2 data [18]. Two features of Eq. (14) are important here. First, be-cause αspec 0 is measured from the local normal, the effect of surface roughness becomes weaker toward grazing in-cidence. The path difference produced by a given height variation decreases as the incidence angle approaches 90 ◦.Second, Frough is a spatially varying weight inside the an-gular integral, not a single factor applied after the field is 6computed. It is unity at the specular point and decreases away from it as the transverse baseline grows and samples larger surface-height variations. Roughness therefore fur-ther concentrates the reflected field around the specular region. This framework can also be used with other surface models without changing the rest of the calculation. Ref-erence [18] considered anisotropic roughness and local surface slopes motivated by Antarctic sastrugi, using the Reference Elevation Model of Antarctica (REMA) [36]. Those extensions are left to a companion study. Here we use the isotropic form of Eq. (14), with parameters fixed by the HiCal-2 reflectivity data [17]. Combining the spherical-wave decomposition, local re-flection coefficient, and roughness weight, the horizon-tally polarized reflected field at the observer is 
+
+EH 
+
+> ref
+
+(f ) = ik 
+
+2π
+
+Z 2π
+
+> 0
+
+Z π/ 2−i∞
+
+> 0
+
+W (α, β )Frough eiΦr sin α dα dβ, 
+
+(15) with polarization weight 
+
+W (α, β ) = f sr cos 2β − f pr cos α cos(2 α0 − α) sin 2β. (16) Here Φ r = k(|SQ | + |QP |) is the geometric phase along the reflected path. In the flat limit it reduces to Eq. (6) with ( z0 − z) replaced by ( z0 + z), the usual image-source result. Equation (16) comes from projecting the ˆy-oriented dipole field onto the local s and p directions at incident point Q and reflecting each component with its own coefficient. Appendix A gives |SQ | and the po-sition of Q, and Appendix B derives the projection and the companion transmitted field. The quantity compared with the Antarctic measure-ments is the H-Pol component, which matches the HiCal transmitter and the predominantly horizontal geomag-netic emission from Antarctic UHECR air showers. The relative strength of the two polarizations depends on the observation geometry. The geomagnetic emission is po-larized along ⃗v ×⃗ B, and the steeply inclined geomagnetic field over Antarctica suppresses its vertical component [13]. We nevertheless compute both f sr and f pr , so the same calculation applies when the other polarization is significant. In Sec. III, the single-boundary coefficients f s,p r are replaced by the corresponding coefficients for a layered medium. The spherical geometry, polarization decom-position, and roughness weight remain unchanged. We first validate this spherical single-boundary calculation against the HiCal-2 result before introducing the layered boundary. Initial numerical estimates of the reflectivity as a func-tion of incidence angle at an interface between two me-dia were presented in Ref. [15], and the spherical-surface treatment including Earth curvature and surface rough-ness was developed in Ref. [17]. We reproduce that cal-culation before extending it. Specifically, we recompute the reflected-to-direct power ratio r/d for Antarctic ice, including the roughness weight of Eq. (14), averaged over                                    
+
+> TABLE I. Validation of the numerical pipeline against the spherical-surface power reflection ratio r/d of Ref. [17]. Both calculations include Earth curvature, the roughness correction of Eq. (14), and are averaged over 200–650 MHz. Elevation (deg) Ref. [17] This work Ratio 50.191 0.191 1.000 60.228 0.229 1.004 70.256 0.258 1.008 10 0.290 0.293 1.010 12 0.285 0.288 1.011 15 0.259 0.260 1.004 17 0.238 0.240 1.008 20 0.204 0.205 1.005 22 0.184 0.184 1.000 25 0.157 0.158 1.006
+
+200–650 MHz as in the HiCal-2 comparison of Ref. [17]. The ratio r/d denotes the surface-reflected power divided by the directly received power for the same calibration pulse geometry. Band averaging is necessary because the spherical-surface calculation varies rapidly with elevation at a fixed frequency. These oscillations arise from interference be-tween contributions with different path lengths in the angular integral. For a smooth boundary, their angular scale is about 0 .05 ◦ (see Fig. 13 of Ref. [17]). A com-parison at a single frequency and elevation can therefore depend on the angular grid used in the calculation. Av-eraging over the HiCal-2 frequency band smooths out these oscillations and provides a stable benchmark for the stratified extension. Table I compares the two calculations at ten HiCal-2 elevation angles. They agree to better than 1 .1% at every angle, with a mean deviation of 0 .6%, consistent with nu-merical truncation of the finite integration window. The normalization contains no free parameter: in the flat-interface limit, r/d reduces to the Fresnel power reflec-tion coefficient for a flat air–ice boundary with n0 = 1 .0and n1 = 1 .4, independent of frequency, and the present implementation reproduces that limit to the precision re-ported in Ref. [17].  
+
+> III. REFLECTION FROM A SPHERICAL STRATIFIED BOUNDARY
+
+Section II gives the reflected field of a dipole above a single spherical boundary. We now develop a first-principles framework for a stratified medium beneath that boundary. The only change is the coefficient that describes the reflection of each plane wave in Eq. (5). The Sommerfeld–Weyl decomposition of the source, the tangent-plane geometry of Eq. (8), the polarization weights, and the roughness factor remain unchanged. The Fresnel coefficients of Eqs. (12)–(13) are replaced by the characteristic-matrix coefficients of the layered medium [30], obtained from the same Maxwell bound-ary conditions. 7The layered medium, or stack, consists of N homoge-neous layers beneath the boundary. The jth layer, with 
+
+j = 1 , . . . , N , has refractive index nj and thickness dj ,and the stack lies above a semi-infinite substrate with index ns. The case N = 0 gives the single boundary con-sidered in Sec. II. The indices may be complex, so the same formalism applies to dielectric, lossy, and conduct-ing media, as demonstrated in Sec. VI for lunar regolith and seawater. The substrate represents the material be-low the structure of interest, such as deep glacial ice be-neath a firn column, seawater beneath an overlying layer, or bedrock beneath lunar regolith. Since the substrate has no lower boundary in the model, a wave transmitted into it does not return. A continuous depth profile n(z)can be approximated by a stack of sufficiently thin layers, as discussed at the end of this section. We treat the reflection of the dipole field one plane wave at a time. Each plane wave in Eq. (5) is labeled by (α, β ) and reaches the spherical boundary at an incident point, denoted by Q, Q′, and so on for different plane waves (Fig. 1). At each incident point, we introduce the plane tangent to the spherical surface (Fig. 1). Within the region around the incident point that contributes co-herently, the spherical shells can be treated as parallel layers. The incident field is then locally planar, and the response of the stack is that of a plane wave incident on a plane layered medium. This response is evaluated at the local incidence angle α0 of Eq. (8). The tangent plane and the angle α0 are different for each plane wave component because each component meets the spherical boundary at a different point (see Fig. 1). The reflected field therefore remains globally non-planar, as in Sec. II. Panel (a) of Fig. 2 shows the size of the coherent region relative to the surface radius, while panel (b) gives a closer view of the geometry. The quantitative condition for treating the shells as parallel is given later in this section and derived in Appendix A. At incident point Q it is convenient to resolve the wavevector along and across the local interface. In the tangent frame at Q, with the local normal ˆ n(Q) taken as the third axis, the arriving plane wave has ⃗k0 =  κ cos β, κ sin β, −kz, 0
+
+, κ2 + k2 
+
+> z, 0
+
+= k2n20,
+
+(17) with tangential magnitude κ = k n 0 sin α0 and normal component kz, 0 = k n 0 cos α0. Because every layer is uni-form in the two directions parallel to the boundary, only the normal component can change on crossing an inter-face. The tangential part takes the same value through-out the stack, 
+
+κ = k n 0 sin α0 = k n j sin αj = k n s sin αs, βj = β, 
+
+(18) which is Snell’s law written in wavevector form and the same continuity condition used in Refs. [17, 19]. Equa-tion (18) also implies that the refracted wavevector stays in the plane of incidence of that plane wave, and that for isotropic layers the stack coefficient depends on the direction of ⃗κ only through α 0, not on β. The azimuth still enters the full calculation, through the s and p basis vectors at Q and the geometric phase in Eq. (15). Two points about Eq. (18) are useful to mention. First, 
+
+κ is conserved across interfaces for a given frequency and plane wave direction. It is not fixed throughout the calcu-lation. It depends on both frequency and direction of the wavevector, κ = κ(f, α ) = k n 0 sin α0, with k = 2 πf /c 
+
+and α0 = α0(α) from Eq. (8). The angular integrations in Eq. (15) therefore sweep κ over 0 ≤ κ ≤ kn 0 for the propagating plane waves, with larger values correspond-ing to the evanescent part of the contour. The Fourier sum over the frequency band similarly sweeps over k.Second, the normal component of the wavevector is not conserved. Instead, it takes a different value in each layer, 
+
+kz,j =
+
+q
+
+k2n2 
+
+> j
+
+− κ2 = k n j cos αj , (19) and this variation determines the phase accumulated by each plane wave as it propagates through the lay-ers. A single traversal of layer j advances the phase by 
+
+δj = kz,j dj , so a round trip through the layer contributes 2δj = 2 kz,j dj = 2 k n j dj cos αj .The response of a single buried interface is fixed by Maxwell’s boundary conditions at that interface: conti-nuity of the tangential electric and magnetic fields de-termines the reflected and transmitted amplitudes. The same conditions apply at each of the N + 1 interfaces in the stack. It is convenient to write the coefficients for the two polarizations in a common form. We define 
+
+qj =
+
+(nj cos αj , s polarization ,
+
+cos αj /n j , p polarization , (20) where αj follows from Eq. (18). For s polarization the electric field is perpendicular to the plane of incidence and lies in the plane of the interface, while for p polar-ization the magnetic field has this property. Thus, qj
+
+is the corresponding relative admittance for each polar-ization. The coefficients for the interface between media 
+
+j − 1 and j are 
+
+rj−1,j = qj−1 − qj
+
+qj−1 + qj
+
+, tj−1,j = 2qj−1
+
+qj−1 + qj
+
+, (21) for each polarization separately. For j = 1, the re-flection coefficient reduces to the Fresnel coefficients of Eqs. (12)–(13). For s polarization, q0 = n0 cos α0 and 
+
+q1 = n1 cos α1 give r0,1 = f sr , while the p-polarization form gives r0,1 = f pr .The transmission coefficient has a different meaning for the two polarizations. For s polarization, tj−1,j is the ratio of electric-field amplitudes, while for p po-larization it is the ratio of magnetic-field amplitudes. The corresponding electric-field ratio for p polarization is ( nj−1/n j ) tj−1,j . This factor cancels in the reflection coefficient, which depends on transmission only through the product tj−1,j tj,j −1. It must, however, be included when calculating the transmitted field in Eq. (30). 8
+
+(a) (b) 
+
+FIG. 2. Geometry of the layered reflection calculation at the spherical surface and in the local tangent plane. (a) A plane-wave component from the source S reaches the spherical surface at Q and contributes to the reflected field at the observer P (x, y, z ). The local normal is ˆ n = ˆ z′, and h′ is the perpendicular distance from S to the tangent plane at Q. The coordinate system is rotated so that O′ is the origin for this local plane. Only a finite region around Q contributes coherently. For the ANITA/HiCal balloon geometry shown here, with h = 37 km, f = 650 MHz, and a local elevation of 15 ◦, the exact spherical path length is Lsph = 2 h′/ cos α0 = 275 km. Equation (A6) gives a cross-track footprint diameter of 2 ρF ≃ 356 m. The corresponding diameter along the plane of incidence is 2 ρF / cos α0 ≃ 1.4 km. The stratified calculation treats the layers as locally parallel across the cross-track footprint. Curvature in the plane of incidence is retained through the local angle α0(α). (b) In the local tangent plane, the surface reflection has amplitude r01 . A wave that enters the first layer and returns from the 1–2 interface has amplitude t01 r12 t10 e2iδ 1 , where δ1 = kz, 1d1. A return from the next interface has amplitude t01 t12 r23 t21 t10 e2i(δ1+δ2). If layer 2 borders the substrate directly, r23 is replaced by r2s. All higher-order internal reflections are included coherently through the characteristic matrix in Eq. (24). The substrate ns is semi-infinite, so waves transmitted into it do not return. 
+
+A plane wave incident on a laterally uniform boundary does not couple the s and p polarizations. We therefore calculate their contributions to the field independently throughout the formalism, with a superscript s or p de-noting the corresponding quantity. Each layer transfers the wave across its thickness. Con-tinuity of the tangential electric and magnetic fields at every interface can be written as the transfer of a pair of boundary variables, and for layer j that transfer is the characteristic matrix 
+
+Mj =
+
+ cos δj −i sin δj /q j
+
+−iq j sin δj cos δj
+
+
+
+, δj = kz,j dj . (22) The pair of variables and the derivation of Eq. (22) from Maxwell’s boundary conditions are given in Appendix C. The product 
+
+M =
+
+> N
+
+Y
+
+> j=1
+
+Mj =
+
+m11 m12 
+
+m21 m22 
+
+
+
+(23) transfers the same pair across the whole stack, from the top of the substrate to the upper surface. Imposing continuity at the two ends of the stack, with an incident plus a reflected wave above and a single out-going wave below, gives the reflection and transmission coefficients of the complete stack (Appendix C), 
+
+r s,p  
+
+> stack
+
+= (m11 + m12 qs)q0 − (m21 + m22 qs)(m11 + m12 qs)q0 + ( m21 + m22 qs) , (24) 
+
+t s,p  
+
+> stack
+
+= 2q0
+
+(m11 + m12 qs)q0 + ( m21 + m22 qs) , (25) where q0 and qs are Eq. (20) evaluated in the upper medium and the substrate, at the angles α0 and αs, re-spectively. The subscript s on qs refers to the substrate, not to s polarization. The quantities in Eqs. (24)–(25) are determined by the layer indices nj , the thicknesses dj ,the frequency through k, and the local incidence angle α0.The incidence angle is set separately for each plane wave component by Eq. (8), rather than being a free input as it would be for a planar interface. The substrate angle 
+
+αs then follows from Eq. (18). In this way, the curvature of the boundary sets the local incidence angle, while the subsurface structure determines the reflection coefficient. Two properties of Eqs. (24)–(25) provide useful numer-ical checks. Each layer matrix has unit determinant, so det M = 1 for any number of layers and any complex indices. For N = 0, there are no finite layers, so the product in Eq. (23) is the identity: m11 = m22 = 1 and 
+
+m12 = m21 = 0. Equation (24) then reduces to 
+
+r s,p  
+
+> stack
+
+= q0 − qs
+
+q0 + qs
+
+, (26) 9which is the Fresnel coefficient for a single boundary be-tween the upper medium n0 and the substrate ns. We use this single-boundary case as a reference when testing the effect of layering, with the substrate index chosen for each case: ns = 1 .4 in the validation of Sec. II and 
+
+ns = 1 .35 in the reference stack of Sec. V. The coefficient in Eq. (24) includes all reflections and transmissions in the stack. A wave arriving at Q splits: part reflects with r0,1, and part crosses into the stack with t0,1. Once inside, it can reflect from any buried in-terface, propagate through the layers, and cross back out through the upper surface with t1,0. It can also reflect from the underside of that surface with r1,0 and make fur-ther passes through the stack. Maxwell’s boundary con-ditions are satisfied at every interface the wave meets, and each crossing and each reflection carries the corre-sponding coefficient of Eq. (21) obtained from them. All of these contributions have the same κ and therefore re-main parallel. They must therefore be added as complex amplitudes, with their relative phases set by the δj of Eq. (22). Appendix C sums these multiple reflection and transmission terms explicitly and shows that the result is identical to Eq. (24); the two calculations agree to ma-chine precision in our implementation. The construction does not require the refractive index to increase with depth. If a wave enters a lower-index medium, Eq. (21) gives the corresponding change in the sign of rj−1,j , which is retained by the matrix calculation. This is important for determining the threshold refractive index of the buried layer at which the reflected pulse changes polarity, as discussed in Sec. V C. The sign of the reflected amplitude is therefore not fixed in advance, but is determined by the calculation. The reflected field for a stratified boundary now follows by substituting f s,p r → r s,p  
+
+> stack
+
+in Eq. (16) and leaving Eq. (15) otherwise untouched: 
+
+EH 
+
+> ref
+
+(f ) = ik 
+
+2π
+
+Z 2π
+
+> 0
+
+Z π/ 2−i∞
+
+> 0
+
+Wref Frough eiΦr sin α dα dβ, 
+
+(27) 
+
+Wref = r s
+
+> stack
+
+(f, α 0) cos 2β
+
+− r p
+
+> stack
+
+(f, α 0) cos α cos(2 α0 − α) sin 2β, (28) where α0 = α0(α) is given by Eq. (8). Equations (27)– (28) are the result this paper computes and validates. Both coefficients are evaluated at the local incidence an-gle of the plane wave in question, so r s,p  
+
+> stack
+
+sits inside the angular integral and varies across it. The transmitted field requires no new construction, since the same matrix product already gives t s,p 
+
+> stack
+
+. Re-peating the projection of Appendix B for the transmitted direction ˆkt of Eq. (10) gives 
+
+EH
+
+> trans
+
+(f ) = ik 
+
+2π
+
+Z 2π
+
+> 0
+
+Z π/ 2−i∞
+
+> 0
+
+Wtrans F t 
+
+> rough
+
+eiΦt sin α dα dβ, 
+
+(29) 
+
+Wtrans = t s 
+
+> stack
+
+cos 2β
+
++ n0
+
+ns
+
+t p 
+
+> stack
+
+cos α cos( α + αs − α0) sin 2β, (30) where the factor n0/n s is the conversion noted above: it takes t p 
+
+> stack
+
+from the magnetic-field ratio returned by Eq. (25) to the electric-field ratio that the projection onto ˆy requires. Its value is fixed by azimuthal symmetry at normal incidence, where Eq. (20) gives t s 
+
+> stack
+
+= 2 n0/(n0 +
+
+ns) and t p 
+
+> stack
+
+= 2 ns/(n0 + ns), so that only with the factor present does Wtrans become independent of β. The remaining quantities are Φ t = k|SQ | + k n sℓs, where ℓs is the path from the base of the stack to the field point in the substrate. The phase accumulated inside the finite layers is already contained in t s,p  
+
+> stack
+
+through the δj and must not be added again. The surface weight for the transmitted field is computed as 
+
+F t 
+
+> rough
+
+= exp 
+
+h
+
+− 12 σ2
+
+> h
+
+(ρ⊥) kz, 0 − kz,s 
+
+2i
+
+. (31) This is the Kirchhoff coherent-field factor exp[ − 12 σ2
+
+> h
+
+(∆ kz )2] [37], where ∆kz is the change in the normal wavenumber across the boundary. For transmission, ∆ kz = kz, 0 − kz,s . For reflection, taking 
+
+kz,s → −kz, 0 gives ∆ kz = 2k cos αspec 0 and recovers exp[ −2k2σ2 
+
+> h
+
+cos 2 αspec 0 ] in Eq. (14). Equations (29)–(31) replace the transmitted-field expressions of Ref. [17] and are included for completeness. They may be useful for in-medium sources and for sounding pulses entering a layered medium. These cases are outside the scope of the far-field reflection calculation presented here, so the numerical results below use only Eq. (27). To isolate the effect of the layers from the propagation geometry, we define the layering ratio at fixed frequency and polarization, 
+
+Q σ (f ) = E σ
+
+> layered
+
+(f )
+
+E σ
+
+> single
+
+(f ) , σ = s, p. (32) This is the reflected field with the layers present divided by the field with the layers removed, using the same ge-ometry, frequency, and polarization in both cases. The same definition applies after recombining the s and p
+
+polarization components into any calculated field com-ponent, provided the same projection weights are used in the numerator and denominator. Propagation phase and geometric spreading are common to both fields and therefore cancel in the ratio. Thus, |Q| gives the change in reflected amplitude due to the finite layers, while arg Q
+
+gives the additional phase relative to the single-boundary case. We omit the superscript when the polarization is clear from context. The ratio is evaluated for the refer-ence firn stack in Sec. V B. The roughness weight is independent of the layering. Equation (14) describes the upper air–medium interface and depends on the surface geometry, not on the dielec-tric structure below it. The same validated Antarctic roughness parameters [17, 18] therefore apply to the lay-ered and single-boundary calculations for the same sur-face. Absolute quantities such as the power ratio r/d 10 retain the roughness weight, and the results of Sec. V include it. In the ratio Q, the same roughness factor appears in the numerator and denominator and therefore cancels in the specular approximation. The same cancellation holds to the accuracy of this approximation in the full angu-lar integral. This separation of the boundary coefficient from the surface roughness allows the same layered for-malism to be used for other surfaces. For example, lunar or Martian roughness parameters can replace the Antarc-tic values without changing the layered part of the calcu-lation. Such applications require roughness parameters appropriate to the surface and wavelength range of inter-est and do not rely on the Antarctic validation. The layers of a planetary surface are concentric shells rather than parallel planes. With R the radius of the up-per surface, the interfaces lie at radii R, R−d1, R−d1−d2,and so on (Fig. 1). The coefficient of Eq. (24) is evalu-ated in the tangent plane at each incident point, using the local incidence angle α0. Curvature in the plane of in-cidence is therefore treated exactly, plane wave by plane wave. The only additional geometric approximation is transverse to that plane: across the coherent footprint around Q, the shells are treated as parallel. Its size is bounded rather than assumed. Writing ρF = pλL/ 4for the first Fresnel radius of the reflected path of total length L, a shell departs from its tangent plane by the sagitta s = R − pR2 − ρ 2 
+
+> F
+
+≃ ρ 2 
+
+> F
+
+/2R. The phase er-ror from the sag is smaller still. Because a displacement along the normal costs less path at oblique incidence, the induced phase is ∆ ϕ = 2 ks cos α0, and with ρ 2 
+
+> F
+
+= λL/ 4and L = 2 h′/ cos α0 both the wavelength and the angle cancel (Appendix A), ∆ϕ = 2 k cos α0
+
+ρ 2
+
+> F
+
+2R = πh ′
+
+R ≤ πh R , (33) which is independent of frequency and, since h′ < h on a convex surface, is bounded by πh/R = 0 .018 rad (about 1◦) for h = 37 km above the Earth at every elevation angle and frequency in the band; the exact values are 0.0176 rad at 15 ◦ and 0 .0141 rad at 5 ◦. Since s ∝ 1/R 
+
+at fixed footprint, the approximation improves for larger bodies. At the same source height, frequency and 15 ◦
+
+elevation the sag would be 4 .5 mm for Mars and 8 .4 mm for the Moon, the latter 1 .8% of a wavelength, with ∆ ϕ =0.032 and 0 .059 rad respectively. All results in Secs. IV and V use a spherical Earth of mean radius R = R⊕ =6371 km; the polar radius would change these estimates by about 0 .2%. The flat limit R → ∞ is retained only as a numerical check, in which α0 → α and Eq. (24) becomes the planar stack. A stack need not represent physically distinct slabs. It can also provide a numerical representation of any later-ally uniform, depth-dependent index n(z), provided the slabs are thin enough to resolve the propagation phase and the variation of n(z). Convergence is checked by halving the slab thickness until r s,p  
+
+> stack
+
+no longer changes. Polar firn provides a relevant example. In-ice radio anal-yses parameterize the depth-dependent ice model as 
+
+n(z) = A − B e −Cz , (34) where z is the depth below the surface in meters, A is the deep-ice index, B is the near-surface index deficit, and C−1 is its e-folding depth. The Askaryan Radio Ar-ray analyses at the South Pole fit A = 1 .780, B = 0 .454, and C = 0 .0202 m −1 to calibration pulses from a local transmitter and the SPIceCore borehole, giving a surface index n(0) = 1 .326 and an e-folding depth of about 50 m [22, 23]. Timing differences between direct and refracted or reflected ray paths from an englacial transmitter to re-ceivers at depths up to 200 m provide further constraints and have been used to compare Eq. (34) with a glacio-logically motivated three-phase densification model [38]. Because this profile varies slowly on the scale of a wavelength, it is nearly impedance matched and reflects weakly. Replacing the discrete reference stack of Sec. V with a smoothly graded firn column would therefore re-duce, rather than enhance, the layering signature. The discrete stack is thus conservative: it gives an upper esti-mate of the modulation that a smooth firn gradient alone can produce. It is intended to represent discrete density anomalies superposed on this background profile, such as wind crusts, ice lenses, and refrozen melt layers. The effects of birefringence and evanescent waves on the total field are found to be negligible for this work. Polar ice is weakly birefringent because of its crystal-orientation fabric [39, 40]. This effect is absent in the lunar regolith and seawater examples of Sec. VI, which are treated as isotropic effective media. For surface re-flection, the in-medium path is short. A ray reaching the deepest interface of the reference two-layer stack and returning travels 
+
+Lice = 2 X
+
+> j
+
+dj
+
+cos αj
+
+, (35) with the sum over traversed layers and the angles fixed by Eq. (18). For d1 = d2 = 2 m, n1 = 1 .35, n2 =1.75, and the geometries considered below, Lice ≲ 11 m. Taking a representative birefringent index splitting δn ∼
+
+3 × 10 −3 for deep South Pole ice [40], the differential delay is ∆ t ∼ δn L ice /c ≃ 0.1 ns. The corresponding phase difference is ≲ 0.6 rad across the 150–850 MHz band and ∼ 0.8 rad at 1200 MHz, the upper edge of the ANITA band and the PUEO main-instrument trigger band [9, 27]. Changes in the interface coefficients are smaller, at the relative scale δn/n ∼ 2 × 10 −3. Thus, birefringence is too small to produce the π phase shift required for a polarity reversal. It can become important for kilometer-scale in-ice propagation in UHE-neutrino detectors [39, 40] and for sources embedded in the ice, where an anisotropic treatment is needed. The second effect is the evanescent part of the con-tour in Eq. (5), reached at imaginary α. In the air above the surface, kz, 0 = k cos α = √k2 − κ2, so a plane wave is evanescent when κ > k , giving kz, 0 = iγ with 11 
+
+γ = √κ2 − k2 > 0 and a factor e−γh over a vertical distance h. The decay length is 1 /γ . For a substantially evanescent component, say κ = √2 k, it is λ/ 2π, between 5.6 and 32 cm over the 150–850 MHz band. Compared with h = 37 km, no evanescent component of the source field survives propagation to the surface, which is why these components were omitted in Ref. [17]. Evanescent behavior inside the medium is different and is handled automatically by the characteristic-matrix coefficient. If 
+
+κ makes kz,j imaginary in a layer, then eik z,j dj describes decay or tunnelling through that layer. For the air-to-firn reflections considered here, this does not occur because propagating components have κ ≤ k while every layer has nj > 1, so kz,j remains real at all elevation angles. Evanescent coupling within the medium is therefore rel-evant to near-field and transmission problems, not to the far-field reflection calculation developed here. Finally, the stratified extension builds directly on the validated single-boundary formalism. It adds the multiple-beam interference within the stack, a standard effect in layered media at optical and radio frequen-cies [30]. In the N = 0 limit, Eq. (24) reduces to the single-boundary calculation validated against HiCal-2 data in Sec. II. The resulting framework therefore pre-serves the established spherical-surface treatment while extending it to naturally stratified boundaries, providing a basis for testing layered-media effects in future mea-surements.  
+
+> IV. FACTORIZATION AND ITS VALIDITY LIMITS
+
+Sections II and III evaluate the boundary coefficient in-side the angular integral, at the local incidence angle of each plane wave. Radar-sounding practice instead eval-uates it once, at the specular direction, and multiplies it onto a separately computed field. This section quantifies when that shortcut is adequate. As defined in Sec. II, the specular point is the point on the surface for which the reflected path S → Q → P is stationary. In the Sommerfeld–Weyl integral of Eq. (5), the neighborhood of this point is the stationary-phase region: the range of incident directions over which the phase changes slowly enough for the contributions to add coherently. Outside this region, rapid phase oscil-lations cancel the integral. For the balloon-borne geome-tries relevant to the ANITA/HiCal measurements and to ANITA’s successor mission PUEO [26, 27], the reflected field is dominated by plane-wave components whose inci-dent points lie close to the specular point on the spherical surface [17, 19]. Appendix D gives the angular half-width of this re-gion as w ≃ p2π/ (kL ), where k = 2 πf /c and L is the total geometric path length from the source to the surface and then to the observer along the stationary re-flected path. For the h = 37 km balloon geometry, taking 
+
+f = 650 MHz near the upper end of the 200–650 MHz HiCal-2 analysis band gives w = 0 .05 ◦ at 5 ◦ elevation and 0 .07 ◦ at 15 ◦ elevation. Because w ∝ f −1/2, the cor-responding widths at 200 MHz are larger by p650 /200, reaching 0 .13 ◦ at 15 ◦ elevation. Across such a narrow angular interval, the boundary coefficient for each polar-ization changes only slightly. At fixed Fourier frequency, the layered field component may therefore be factorized as 
+
+E σ
+
+> layered
+
+(f ) ≃ E σ
+
+> single ,exact
+
+(f ) r σ
+
+> stack
+
+(f, α spec 0 )
+
+f σr (f, α spec 0 ) , σ = s, p. 
+
+(36) This is the standard specular tangent-plane factoriza-tion used in radar sounding [41], here applied to the lay-ered boundary coefficient. The coefficients are evaluated at αspec 0 , the incidence angle already used in Eq. (14): fixed at the specular point rather than varying with α
+
+across the integral, which is what allows the ratio to be taken outside it. E σ 
+
+> single ,exact
+
+denotes the correspond-ing single-boundary field component obtained from the full Sommerfeld–Weyl angular integral, while f σr is the Fresnel coefficient for the same polarization. The H-Pol field used for the HiCal comparison is then obtained by combining the s and p components with the projection weights given in Appendix B. Equation (36) follows because the Sommerfeld–Weyl representation of the source field is the same in the lay-ered and single-boundary calculations. The propagation phase, spherical geometry, polarization projection, and roughness weight are also identical; the only change at the boundary is f σr → r σ
+
+> stack
+
+. If the ratio r σ
+
+> stack
+
+/f σr
+
+varies little across the stationary-phase window, it can be taken outside the angular integral, giving Eq. (36). The factorization is applied frequency by frequency. Be-cause the layered coefficient can vary strongly with f , the frequency-dependent ratio remains inside the frequency sum or inverse Fourier transform used to construct a broadband pulse. We test this approximation against the full Sommerfeld–Weyl calculation, with r σ 
+
+> stack
+
+retained in-side the angular integral. At the balloon altitude used for the HiCal-2 compar-ison, h = 37 km, the factorized and full-angular calcu-lations agree to 0 .21% for the reference two-layer stack. The difference increases as the source approaches the re-flecting surface because L decreases and the stationary-phase window widens. For the same 650 MHz, 15 ◦ geom-etry, w increases from 0 .074 ◦ at h = 37 km to 1 .98 ◦ at 
+
+h = 50 m and 6 .26 ◦ at h = 5 m. The full integral is there-fore needed for near-field, low-altitude, and in-medium sources. For the balloon reflection geometry, the factor-ized expression provides a controlled approximation to the full calculation. The angular factorization and the tangent-plane treat-ment involve two independent approximations. The first is controlled by the stationary-phase window w and the angular variation of r σ
+
+> stack
+
+/f σr . The second is con-trolled by the shell sag ρ 2 
+
+> F
+
+/2R relative to the wave-length. The resulting sag /λ values are given in Table II. These two approximations can behave differently as the 12 source approaches the surface: the coherent footprint 
+
+ρF = pλL/ 4 becomes smaller, improving the tangent-plane approximation, while the angular window w be-comes wider, making the factorization less accurate. A third condition applies when the layering varies lat-erally, as in Appendix B 9. The lateral scale Llateral over which the stratification changes must exceed the coher-ent footprint, so that each footprint samples essentially one layered column. Thus, 
+
+ρ 2 
+
+> F
+
+/2R ≪ λ and Llateral ≫ ρF , (37) define the geometric regime in which a curved external surface can be combined with a layered subsurface. All results in this paper are computed for a laterally uniform medium, for which the second condition holds identically. The calculation contains two distinct sources of oscilla-tion. The first is geometric. The phase in Eq. (5) changes rapidly with the incident direction ( α, β ), dividing the surface into Fresnel zones whose contributions alternate in sign. The reflected field is the small residual left af-ter these contributions largely cancel, giving the expected 1/R scaling of a spherical wave. As the elevation changes, the specular point moves across the Fresnel-zone pattern, producing oscillations in the smooth-surface reflectivity calculation. The second source of oscillation is frequency depen-dence. At fixed geometry and polarization, the layering ratio Q σ (f ) of Eq. (32) changes with frequency, with a period set by the optical thickness of the layers. This is separate from the geometric oscillation of the angular integral. Two effects smooth the geometric oscillation. Sur-face roughness reduces the contribution from regions far from the specular point, while averaging over the frequency band smooths the elevation dependence. Asmooth-surface single-frequency result can therefore look quite different from a rough-surface band-averaged result. The same applies to Q σ (f ), whose frequency-dependent structure can be smoothed by band averaging. For this reason, we examine the layering response at individual frequencies before forming a broadband pulse or a band-averaged observable.  
+
+> V. NUMERICAL RESULTS
+
+All results in this section use a spherical surface with Earth’s mean radius, R = R⊕ = 6371 km, and a source height of h = 37 km, with the local incidence angle given by Eq. (8). The surface curvature is retained in the prop-agation geometry. The remaining geometric approxima-tion is the treatment of the concentric subsurface shells as parallel layers over the coherent footprint, as discussed in Sec. III and Appendix A. Results are shown for both smooth and rough sur-faces. The smooth surface sets the roughness factor of Eq. (14) to unity, while the rough surface uses the vali-dated roughness parameters of Sec. II. Reflection coeffi-cients are quoted for s polarization unless stated other-wise. In the HiCal reflection geometry, the s-polarized component gives the dominant contribution to the H-Pol response. The full H-Pol field includes both s and p com-ponents, with the azimuthal angle β entering through the weights given in Appendix B. Frequency-dependent layer ratios are computed one Fourier frequency at a time, as allowed by the linearity of the boundary problem. Broadband observables, such as band-averaged reflectivities and time-domain waveforms, are formed only after the complex field components have been evaluated across the band.  
+
+> A. Reduction to the single-boundary limit
+
+The first numerical check is the reduction of the lay-ered calculation to the validated single-boundary result. For the reference two-layer geometry used below, we set 
+
+n1 = ns = 1 .35 and write the buried-layer index as 
+
+n2 = ns + ∆ n. As ∆ n → 0, the buried interface has no index contrast and therefore produces no reflection. The layer thicknesses then become irrelevant, and the stack must reduce to a single boundary between the up-per medium and the substrate for any d1 and d2. This test checks the matrix ordering, phase convention, and normalization of the stratified calculation. Figure 3 shows the result at 15 ◦ elevation; the same test was also performed at other elevation angles. As the buried-layer contrast decreases, the frequency-dependent layering fringes disappear. At ∆ n = 0, the layered and single-boundary calculations agree to machine precision, with a largest fractional deviation of 9 .99 × 10 −16 across the band. Repeating the test at the ten validation eleva-tions in Table I gives the same agreement, with a largest fractional deviation of 1 .22 × 10 −15 over the full scan.  
+
+> B. Effect of stratified media on field polarity
+
+We quantify the effect of the layers using the ratio 
+
+Q σ (f ) defined in Eq. (32). Here we focus on the s-polarized field and write the ratio as Q(f ). The reference stack has a 2 m surface layer with n1 = 1 .35, a 2 m buried layer with n2 = 1 .75, and a semi-infinite substrate with 
+
+ns = 1 .35. This configuration was proposed in Ref. [28] and tested experimentally in Ref. [29]. Over 150–850 MHz, |Q| ranges from 0 .62 to 1 .20 at 8 ◦
+
+elevation, from 0 .36 to 1 .39 at 15 ◦, and from 0 .14 to 1 .68 at 25 ◦. The largest phase shift is | arg Q| = 63 .5◦ over the frequencies and elevations considered here (Fig. 4). The layers can therefore change the reflected amplitude substantially and introduce a sizable phase shift, but for these firn contrasts they do not reverse the pulse polarity. The oscillations in Fig. 4 are the usual Airy fringes caused by multiple reflections within the layers. Their spacing is set by the round-trip phase through the layers. For a layer of thickness dj and refractive index nj , the 13 200 300 400 500 600 700 800                  
+
+> Frequency (MHz)
+> 0.0 0.1 0.2 0.3 0.4 0.5 0.6
+> |rs
+> stack |2
+> Δn= 0.40 Δn= 0.20 Δn= 0.10 Δn= 0.02 Δn= 0 / single boundary
+> FIG. 3. Reduction of the layered calculation to the single-boundary limit at 15 ◦elevation. The curves show |rs
+> stack |2for the reference two-layer geometry as the buried-layer contrast ∆nis reduced. As ∆ n→0, the layering fringes disappear and the result approaches the single-boundary value (dashed). At ∆n= 0, the agreement with the validated single-boundary calculation is at machine precision, with a largest fractional deviation of 9 .99 ×10 −16 across the band. No measured data are used in this calculation.
+
+characteristic fringe spacing is ∆f ∼ c
+
+2nj dj cos αj
+
+.
+
+For the meter-scale layers considered here, this gives a spacing of order 50 MHz, so the analysis band contains several fringe periods. This frequency scale is also rel-evant when averaging over the band, since such aver-aging can smooth the layering structure. For the 15 ◦
+
+reference scan, repeating the calculation over the 200– 650 MHz HiCal-2 band, the 150–850 MHz band used here, the 200–1200 MHz ANITA band [9], and the 300– 1200 MHz PUEO main-instrument band [27] gives the same |Q| range to the quoted precision and the same polarity-threshold value, nth 2 = 2 .043, to three decimal places. The roughness weight cancels in Q because it is de-termined by the surface and is therefore the same in the layered and single-boundary calculations at fixed geom-etry. Within the specular factorization of Eq. (36), this cancellation is exact, and we verify it numerically to ma-chine precision (2 × 10 −16 ) for the validated roughness parameters, the alternative parameter set, and a delib-erately exaggerated case. In the full angular integral, the cancellation is accurate to the factorization error be-cause the roughness weight and the boundary coefficient vary slightly across the stationary-phase region. At bal-loon altitude the difference is 0 .2%, with the accuracy de-creasing for near-surface sources as discussed in Sec. IV. Thus, the layering signature and the polarity threshold are insensitive to the roughness model within this accu-racy, including the anisotropic and local-slope variants of Ref. [18]. Absolute quantities such as the power ratio r/d 
+
+retain the roughness weight and are quoted below with it included.  
+
+> C. A polarity-reversal threshold for buried layers
+
+Polarity reversal of the reflected pulse, relative to the single-boundary inversion, requires the total reflected field from the layered boundary to change sign. That field is the coherent sum of the reflection from the up-per surface and the contributions that enter the stack, reflect from buried interfaces, and re-emerge into the up-per medium. The sum depends on both the amplitudes of these contributions and their relative radio-frequency phase, which is set by the optical path length through the layers at the local incidence angle. The threshold there-fore depends on geometry. Scanning the index n2 of the middle layer in the reference stack shows this dependence directly (Fig. 5). For the s-polarized coefficient over 150– 850 MHz, the first crossing occurs at n2 ≃ 2.56, 2 .04, and 1.79 for elevations 8 ◦, 15 ◦, and 25 ◦, respectively. The threshold is therefore not a universal material number. The realistic firn contrast tested here, n2 =1.75, stays below threshold at all three elevations. Dense ice, n ≃ 1.78, is below threshold at 8 ◦ and 15 ◦ by wide margins, but at 25 ◦ the crossing is at 1 .79, so a buried dense-ice layer sits essentially at threshold. The margin, about 0 .01 in refractive index, is smaller than the spread in reported dense-ice values. A strongly reflecting buried layer such as water or brine lies far above these dielectric thresholds at any elevation and would leave a distinctive polarity signature relevant to planetary and subglacial sounding. The thresholds quoted above are deterministic out-puts of a forward calculation rather than measurements, so they carry no statistical uncertainty. What they do carry is a dependence on the assumed stack, and it is worth quantifying which inputs matter for this calcula-tion. Three were varied at 15 ◦ elevation, where the ref-erence value is nth 2 = 2 .04. The layer thicknesses matter least. Varying the equal layer thicknesses over d1 = d2 = 1, 2, 3, 4, and 8 m shifts the threshold between 2 .16 and 2 .04, and unequal thicknesses in the range 1–4 m change it by less than 0 .04. The reason is that the threshold is set by the sign of the coherent sum somewhere in the band, and once a layer is thick enough to contribute several Airy fringes across the test frequency band 150–850 MHz, adding more fringes does not change whether a sign change occurs. Only for sub-meter layers, which contribute less than one fringe across the band, does the threshold begin to rise. The upper-layer index matters most. Taking n1 = ns
+
+and varying it over 1 .30–1 .45, a range that brackets near-surface firn, moves the threshold from 1 .87 to 2 .41. The 14 200 300 400 500 600 700 800            
+
+> Frequency (MHz)
+> 0.0 0.5 1.0 1.5
+> |s|
+> 200 300 400 500 600 700 800
+> Frequency (MHz)
+> −60 −40 −20 020 40 60
+> arg  s (deg)
+> 8∘15 ∘25 ∘
+
+FIG. 4. Layering signature of the reference firn stack for the s-polarized reflection coefficient at 8 ◦, 15 ◦, and 25 ◦ elevation. Left: amplitude ratio |Q| . Right: additional phase arg Q relative to the single-boundary result. The gray dashed horizontal lines mark the no-layer-change references, |Q| = 1 and arg Q = 0. The oscillations are Airy multiple-reflection fringes, produced by interference between paths that reflect from different interfaces in the stack. Across 150–850 MHz, |Q| ranges from 0 .14 to 1.68, while the largest phase excursion is 63 .5◦. The buried layer therefore changes the reflected amplitude and phase but does not invert the polarity. No measured data are used in this calculation. 1.50 1.75 2.00 2.25 2.50 2.75 3.00              
+
+> Buried-layer index n2
+> −0.8 −0.6 −0.4 −0.2 0.0 0.2 0.4 0.6
+> Band maximum of Re [ rs
+> stack (f)]
+> reference  n2
+> dense ice
+> 8∘:nth 2= 2.56 15 ∘:nth 2= 2.04 25 ∘:nth 2= 1.79
+
+FIG. 5. Polarity-reversal threshold for the reference two-layer stack. The vertical axis shows the band maximum of Re[ r s
+
+> stack
+
+(f )] over 150–850 MHz, for the same air/ n1/n2/ns
+
+geometry as in Fig. 4. A positive value means that at least one frequency in the band has the sign needed to cancel and then reverse the ordinary single-boundary inversion. The threshold depends strongly on elevation, with first crossings at n2 ≃ 2.56, 2 .04, and 1 .79 for 8 ◦, 15 ◦, and 25 ◦, respectively. The realistic firn contrasts tested here remain below thresh-old at all three elevations. Dense ice, n ≃ 1.78, lies essentially at the 25 ◦ crossing. Liquid water and brine lie far above the plotted dielectric range, so the high-index thresholds would indicate a qualitatively different material from firn or dense ice. No measured data are used in this calculation. 
+
+threshold is therefore a statement about the contrast 
+
+n2 − n1 rather than about n2 alone, and quoting it re-quires the surrounding firn index to be specified, as done throughout this paper. We find that frequency sampling has little effect on the result. In the 15 ◦ scan over the 150–850 MHz band, the threshold changes from nth 2 = 2 .056 with 200 frequency samples to 2 .043 with 2500 samples, and remains un-changed with 8000 samples. The quoted threshold val-ues are therefore numerically converged. Including the sensitivity to layer thickness, the thresholds are stable to about ±0.05 for a fixed n1. The main systematic uncer-tainty comes from the choice of n1.
+
+D. Validation with HiCal-1 direct/reflected pulse pairs 
+
+We validate the reflected-pulse calculation using HiCal-1 direct/reflected pulse pairs [15]. Each pair con-tains a direct pulse and the corresponding pulse reflected from the Antarctic surface. The pairs considered here lie at approximately 5 ◦ and 3 .5◦ elevation, the two near-grazing geometries sampled by that flight, with an un-certainty of about 0 .5◦ from the elevation-to-incidence conversion. We compare the horizontally polarized field component, matching the HiCal transmitter and the ANITA channels that recorded these events. Its decom-position into s and p components is given in Appendix B, in particular Eq. (B8). These pairs are used because they are matched direct/reflected waveforms recorded at the near-grazing elevations where surface curvature and roughness matter most, which is the regime this formal-ism was constructed for; the reflectivity validation of Sec. II uses the published HiCal-2 results [17], so the two tests are independent and complementary. For each pair, we Fourier transform the measured di-rect H-Pol waveform and apply the reflected-field trans-fer function over the 200–650 MHz analysis band used throughout this paper. We then transform the result back to the time domain and compare it with the mea-15 −6 −4 −2 0 2 4 6        
+
+> Time (ns)
+> −1.0 −0.5 0.0 0.5 1.0
+> Normalized amplitude
+> measured direct computed re fl ected −6 −4 −2 0246
+> Time (ns)
+> measured re fl ected computed re fl ected
+
+FIG. 6. A matched HiCal-1 direct/reflected pair at ≈ 5◦ elevation, band-limited to 200–650 MHz. Left: the measured direct waveform and the reflected pulse computed from it, which is inverted relative to the direct pulse. Right: the same computed pulse against the measured reflected partner, which it reproduces with signed correlation 0 .83 at envelope alignment. Multiplying the computed pulse by −1 gives −0.83 under the same fixed-alignment statistic. The pair shown is the best-correlating of the 106; the full distribution is Fig. 7. 
+
+sured reflected waveform. At the near-grazing elevations considered here, the single-boundary s-polarized reflection coefficient is real and negative across the band, so the calculated reflected pulse is polarity-inverted relative to the direct pulse. The validation comes from comparing this calculation with the independently measured reflected pulse. For the best-correlating pair, the calculated and measured waveforms have a signed correlation of 0 .83 at envelope alignment (Fig. 6). Multiplying the calculated waveform by −1 changes the correlation to −0.83 under the same alignment, as expected for a fixed-lag signed correlation. The elevation does not enter this comparison: over 200– 650 MHz the single-boundary s coefficient is a real neg-ative constant, −0.84 at 5 ◦ and −0.88 at 3 .5◦, and the signed correlation is normalized by both waveform norms, so a common scale factor cancels identically. Across all 106 matched pairs, the median signed correlation is 0 .70. Applying the reference-stack transfer function used in the layering study to the same direct waveforms gives a slightly lower median correlation of 0 .68. The HiCal-1 pulse pairs therefore validate the single-boundary re-flection calculation, while the particular buried stack is tested separately. Because the pulses are bipolar and band-limited, their cross-correlation can have positive and negative extrema of similar size, separated by about half a cycle. Choosing the largest positive or negative extremum can therefore give an ambiguous polarity. We determine the time align-ment from the maximum of the analytic envelope of the cross-correlation and then evaluate the signed correlation at that lag. In Fig. 7, a positive value means that the measured reflected waveform correlates better with the inverted direct waveform than with the direct waveform. Using this criterion, 101 /106 (95%) of the matched pairs have the polarity expected for an inverted reflected pulse (Fig. 7). This provides a population-level check of the polarity inversion reproduced by the calculation. −0.5 0.0 0.5 1.0 1.5   
+
+> corr( R, − D) − corr( R,D)
+> 0510 15 20 25
+> Number of HiCal-1 pairs
+> favors inversion (101) does not favor inversion (5)
+
+FIG. 7. Population-level polarity test across all 106 matched HiCal-1 direct/reflected pulse pairs, the sample also used in Refs. [18, 19]. For each pair the direct and reflected wave-forms are band-limited to 200–650 MHz, aligned at the peak of the cross-correlation envelope, and the signed correlation is read there. Positive values indicate that the reflected pulse is better matched by the inverted direct pulse, corr( R, −D), than by the direct pulse, corr( R, D ). Blue bars show pairs that favor inversion, while orange bars show the five pairs that do not. The inversion is favored in 101 /106 (95%) of pairs. 
+
+Applying the same test to the vertically polarized control channel gives 50 /106, consistent with chance and provid-ing a null test. The five pairs that do not favor inversion fall into two groups. Three have cross-correlation envelope peaks of only 0 .25–0 .33, well below the population median, so nei-ther polarity gives a strong match. The other two have larger envelope peaks of 0 .73 and 0 .76, comparable to the population median, and therefore merit inspection on an event-by-event basis. Together, these two pairs make up 2 /106 (1 .9%), compared with the 6 /64 (9 .4%) anomalous-polarity fraction reported for ANITA cosmic-16 ray candidates [12–14]. These two pairs do not support the shallow-firn lay-ering scenario considered here. As shown in Sec. V C, producing a polarity reversal at this elevation requires a buried-layer index well above realistic values for firn or dense ice. Surface topography and local-slope effects are separate possibilities and are not addressed by the present model. Related roughness and slope models were studied in Ref. [18]. The two pairs therefore do not affect the validation of the reflected-pulse calculation.  
+
+> VI. APPLICATIONS TO OTHER MEDIA
+
+The formalism also applies to other isotropic, non-magnetic media with real or complex refractive indices. For a conducting medium, 
+
+n2 = ε′ 
+
+> r
+
++ i σωε 0
+
+, (38) where ε0 is the permittivity of free space and σ is the conductivity. For μr = 1, the admittances in Eq. (22) for a layer j are q sj = nj cos αj and q pj = cos αj /n j .These forms apply to ice, firn, lunar regolith, and sea-water at radio frequencies. The superscript labels the polarization and should not be confused with the sub-strate admittance qs in Eq. (24). For magnetic media, the corresponding expressions are q sj = pεj /μ j cos αj
+
+and q pj = pμj /ε j cos αj [30], which are not considered here. The results below use s polarization. This choice is only for convenience. The s and p components are defined with respect to the local plane of incidence at Q, and the same calculation applies to either polarization. Lunar regolith, with ε ≃ 2.7–3 .0, provides a natural example beyond ice. Layered regolith is relevant to the Cosmic Ray Lunar Sounder concept [31, 42] and to re-flected Galactic emission observed by low-frequency in-struments on and around the Moon [43, 44]. Seawater, with σ ≃ 4 S/m, provides an example of a conduct-ing medium. Its conductivity makes the refractive index complex and leads to strong, frequency-dependent reflec-tion. Figure 8 shows both cases alongside the validated ice calculation, using the same formalism without modi-fication. The seawater result is intended as a demonstra-tion of the generality of the method. A detailed treat-ment of grazing incidence and skin-depth effects requires a separate study. Bright reflections from beneath the Martian south po-lar layered deposits have been interpreted as possible ev-idence for basal liquid water, but they can also arise from constructive interference between thin, closely spaced layers [45, 46]. The frequency dependence of the reflected power can help distinguish these cases. In the present formalism, this dependence is described by the layering ratio Q σ (f ) of Eq. (32). Its frequency scale is set by the layer thickness, so measurements at only a few frequen-cies may not resolve the interference pattern. A similar issue arises for icy moons. REASON on Europa Clip-per operates at 9 and 60 MHz, while RIME on JUICE operates at 9 MHz. Both instruments must distinguish reflections from layered ice, including possible salt-rich layers, from reflections associated with deeper ice–ocean interfaces [33, 34]. These cases also probe the limits of the specular ap-proximation, as shown in Table II. For orbital sounders, the region contributing coherently is typically much wider than in the balloon geometry, and the locally pla-nar approximation becomes less accurate for smaller bod-ies. The difference becomes especially important for a source only a few meters above the surface. In that case, the coherent region can span tens of degrees, the stationary-phase approximation used in Eq. (36) breaks down, and the full angular integral is needed. This regime is relevant to future lander or rover bistatic measure-ments, where the reflected-to-direct field ratio could be used to study shallow subsurface structure. Plane-wave layered models are already widely used in radar sounding. The exact angular calculation developed here provides a way to test these approximations when the source is close to the surface. The same formalism can be applied to other layered media by changing the stack and its refrac-tive indices. Examples include layered ice shells of ocean worlds [32], orbital sounding of embedded dielectric lay-ers, and lunar reflection problems. Salt formations, which have been considered as radio-transparent media for neu-trino detection [49], and desert sand enter through their dielectric properties in the same way. The lunar case is particularly relevant to global 21-cm cosmology. The Moon contributes to the measured sky spectrum through the antenna backlobe, with both thermal emission from the regolith and reflected Galac-tic emission. Current analyses treat lunar reflectivity as a free parameter in the analysis [43]. A layered-boundary calculation of the type developed here could instead pre-dict the reflectivity and its frequency dependence from an assumed regolith structure, providing an input to analy-ses such as PRATUSH [44].  
+
+> VII. DISCUSSION
+
+The main result of this work is a spherical-wave re-flection calculation for a spherical, stratified boundary. We retain the exact spherical-wave decomposition of the source field used in Refs. [17, 19] and replace the single-boundary Fresnel coefficient for each plane-wave compo-nent with the reflection and transmission coefficient of a layered medium. The coefficient is evaluated at the local tangent plane where each component meets the curved surface. The polarization components are then summed coherently at each frequency, and the broadband wave-form is constructed from the resulting frequency compo-nents. The characteristic matrix is standard [30]. The con-tribution here is to evaluate it within the validated 17 0 10 20 30 40 50 60 70 80 90               
+
+> Elevation angle (deg)
+> 10 −2
+> 10 −1
+> 10 0
+> |rs|2
+> ice, n= 1.4 regolith, ε= 2.7--3.0 seawater, σ= 4 S/m 200 300 400 500 600 700 800
+> Frequency (MHz)
+> 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0
+> |rs|2 ice regolith, ε= 2.85 seawater
+
+FIG. 8. Illustration of the boundary coefficient for different media. Left: |rs|2 versus elevation angle at 300 MHz. Right: 
+
+|rs|2 versus frequency at 15 ◦ elevation. Three media are shown: a lossless ice interface ( n = 1 .4, the validated Antarctic reference), lunar regolith ( εr = 2 .7–3 .0, shaded band), and conducting seawater, for which n2 = ε′ 
+
+> r
+
++ iσ/ (ωε 0), with ε′ 
+
+> r
+
+= 80 and σ = 4 S/m. Here ε0 is the permittivity of free space and ω = 2 πf . At these frequencies, seawater is conduction-dominated, 
+
+σ/ωε 0 ≫ ε′ 
+
+> r
+
+, giving the observed frequency dependence. The boundary coefficient is determined by the material parameters, which can be changed to describe different media. No measured data are used. TABLE II. Geometric quantities used in the treatment of Secs. II–III for representative radio-sounding configurations. The two columns correspond to the criteria discussed in Sec. IV. The stationary-phase window is w ∼ p2π/kL . The last column gives the departure of a concentric shell from its tangent plane across the first Fresnel zone, expressed in wavelengths (Appendix A). The ANITA/HiCal balloon case uses the 5 ◦ elevation benchmark. Orbital sounders are evaluated at nadir, and the near-surface cases at 30 ◦ elevation. Dashes indicate values below 10 −6 at the precision shown. Instrument frequencies and representative operating altitudes are taken from the MARSIS [47], SHARAD [48], REASON [33], and RIME [34] instrument descriptions. Configuration R (km) h f (MHz) w (deg) sag/ λ
+
+ANITA/HiCal balloon 6371 37 km 650 0.05 0.013 MARSIS (Mars) 3390 300 km 4 0.64 0.022 SHARAD (Mars) 3390 280 km 20 0.30 0.021 REASON (Europa) 1561 50 km 60 0.41 0.008 RIME (Ganymede) 2631 500 km 9 0.33 0.048 lander bistatic 1737 2 m 100 35 —shallow in-ice pulser 6371 5 m 300 13 —
+
+spherical-wave, rough-surface calculation, at the inci-dence angle of each plane-wave component throughout the angular integral rather than only at the specular di-rection. This extends the single-boundary spherical-wave treatment of Ref. [17] and the local plane-wave treatment of curved surfaces in Ref. [19] to stratified media. The calculation has three distinct levels of scope. The results demonstrated in this paper include a spherical external geometry, a stratified medium with real or com-plex refractive index, reflection, exact angular integra-tion, and validation against both the HiCal-2 reflectivity results and the HiCal-1 pulse pairs. The same framework can also treat spatially varying stratification, transmis-sion, conducting media, and near-surface bistatic geome-tries. The planetary examples in Sec. VI use the valid-ity criteria derived in Sec. IV rather than full sounding simulations. Fully curved multilayer scattering, lateral variations within the coherent footprint, and inversion of measured data are beyond the scope of the present work. The forward calculation is validated at several levels. It agrees with the published band-averaged single-boundary result to within 1 .1% at ten elevation angles and ap-proaches that result at machine precision when the layer contrast is removed. It also reproduces the measured HiCal-1 reflected pulses, with a best-pair signed correla-tion of 0 .83 and the expected polarity inversion in 95% of the 106 matched HiCal-1 direct/reflected pulse pairs. Applied to the stratified polar-firn model, the calcula-tion gives a clear result. For the reference stack, the layering ratio varies from 0 .14 to 1 .68 in amplitude over 150–850 MHz, while the phase shift remains below about 
+
+±65 ◦. The reflected field does not reverse polarity for the firn contrast considered here. The buried index re-quired for a sign change depends strongly on elevation, with thresholds of n2 ≃ 2.56, 2 .04, and 1 .79 at 8 ◦, 15 ◦,and 25 ◦ elevation, respectively. 18 This result is directly relevant to the anomalous-polarity events reported by ANITA. Ref. [28] proposed shallow subsurface firn layering and density inversions as a possible way to produce a reflected pulse with the same polarity as a direct pulse. Ref. [29] tested this idea against ANITA and HiCal reflectivity data and found it disfavored at the surveyed locations. The present calcu-lation provides a complementary quantitative result. For a specified geometry and shallow two-layer stack, it de-termines how large the buried refractive-index contrast must be before the reflection coefficient changes sign. The realistic firn contrast remains below this threshold over the elevations studied here. This supports the con-clusion of Ref. [29] and places a quantitative constraint on the shallow-layering mechanism proposed in Ref. [28]. The constraint is strongest near the horizon, where the required index becomes much larger than any realistic firn or ice value. At higher elevation, dense-ice-like con-trasts approach the threshold. The result is therefore best stated as an elevation-dependent constraint rather than as a single material threshold. The same calculation can be applied directly to the reported ANITA event geometries. For the two steep ANITA-I/III anomalous-polarity events, the reported payload elevation angles are −27 .4◦ and −35 .0◦. The cor-responding surface-emergence angles used in tau-lepton interpretations are 25 .4◦ and 35 .5◦, with an uncertainty of about 1 ◦ [12, 13, 50]. These are the relevant local sur-face angles derived from the spherical geometry used in the present calculation. They give sign-change thresholds of nth 2 ≃ 1.78 and 1 .68, respectively. The four ANITA-IV near-horizon events require a dif-ferent conversion because the reported quantities are off-sets below the payload radio horizon, θ − θH = −0.19 ◦
+
+to −0.81 ◦ [14, 51]. Using the same spherical-Earth ge-ometry as for the HiCal benchmark, with R = R⊕ and 
+
+h = 37 km, these correspond to local surface elevations of 1.54 ◦, 1 .78 ◦, 2 .91 ◦, and 3 .27 ◦. The corresponding thresh-olds are nth 2 ≃ 5.41, 5 .04, 4 .04, and 3 .81, respectively (Fig. 9). The uncertainty in the event angle has a much larger ef-fect near the horizon. For the steep ANITA-I/III events, changing the elevation by ±1◦ changes the threshold by only about 0 .02. For the near-horizon ANITA-IV events, the same angular uncertainty gives ranges of roughly 4 .2– 9.0 for the shallowest event and 3 .4–4 .5 for the deepest event. The central values should therefore not be inter-preted to three significant figures. The main conclusion is unchanged because even the full uncertainty ranges remain well above realistic firn and ice indices. We also applied the frequency-dependent reference-stack transfer function to the 106 measured HiCal-1 di-rect H-Pol pulses at these six event-angle values. None of the calculated reflected templates changed to the non-inverted polarity at any of the angles. The result was 0/106 at each angle and 0 /636 over all six tests. The same result was obtained when both the validated and alternative positive roughness weights were included in the spectral stress test. Thus, within the tested shallow and laterally uniform stack, the frequency-dependent lay-ering does not reproduce the non-inverted polarity seen in the ANITA events. There are two important limits to this conclusion. The first concerns surface structure rather than subsurface layering. The calculation assumes a laterally uniform stack. Sastrugi, wind crusts, and larger-scale surface slopes affect the reflection through the surface geome-try and roughness, which is a separate part of the prob-lem. Ref. [18] studied these effects using surface features drawn from REMA elevation data [36]. That work found that anisotropic roughness can change the reflected wave-form and its amplitude while retaining the usual polarity inversion, whereas local surface structure can produce non-inverted reflected pulses for some geometries. The present result therefore constrains the shallow-layering explanation without closing the question of surface to-pography. The second limit is that a reflection-coefficient thresh-old does not explain any individual ANITA event. We do not identify the origin of the anomalous-polarity events here. Rather, the result removes a specific proposed mechanism from the range of shallow-layer parameters tested, using a forward model that has been indepen-dently checked against measured reflection data. This constraint is part of a broader picture. A dedi-cated search for upward-going air showers with the Pierre Auger Observatory Fluorescence Detector found no such events. If the ANITA anomalous-polarity event rate were produced by a persistent flux of genuine upward-going showers, the reported rate would predict several to sev-eral dozen events depending on the assumed spectral in-dex [52]. This places additional constraints on interpreta-tions based on upward-going particles. The present work provides a corresponding quantitative constraint on one of the proposed surface-reflection explanations. The validity analysis in Sec. IV also shows where the full calculation is most useful. For a balloon-altitude source, the specular approximation agrees with the ex-act angular calculation at the 0 .2% level, so the faster specular treatment is sufficient for HiCal-like geometries. The situation changes as the source approaches the sur-face. The stationary-phase region becomes wider, and the reflection coefficient can vary significantly across it. This is relevant for in-medium sources such as an in-ice cascade close to the surface, an in-regolith source near a buried layer, or a shallow calibration transmitter. This matters because surface reflectivity enters directly into the reconstruction of air-shower energy. It is the quantity that HiCal was flown to measure [17]. An error in the reflection amplitude therefore propagates into the reconstructed field strength and inferred pri-mary energy, and can also affect the detection efficiency for direct/reflected pairs near threshold. Arrival-time-based vertex reconstruction is not affected in the same way. In-ice cosmic-ray and neutrino measurements [25] provide another example of this regime. Cosmic-ray-19 induced Askaryan emission produced close to the ice sur-face is a transmission problem at source heights where the stationary-phase approximation begins to break down. These cases motivate a dedicated treatment of near-field transmission. Several extensions follow naturally from the present work. The roughness model used here is the validated isotropic factor of Ref. [17]. Anisotropic roughness and larger-scale surface structure can be incorporated using the local-slope treatment developed in Ref. [18]. The conducting-media results in Sec. VI demonstrate the range of the formalism, but grazing incidence and skin-depth effects require further validation. The polarity sig-nature of buried water or brine is also directly relevant to planetary and subglacial sounding, where the sign of a re-flected pulse can help distinguish a conducting layer from a dielectric one. Finally, combining the local plane-wave treatment of Ref. [19] with the layered coefficient devel-oped here would allow calibration-pulser data at other in-cidence angles to provide an additional test of the model. A further application is the inverse problem. The cal-culation developed here is a forward model. Given a set of layer indices and thicknesses, it predicts the reflected field. A sounding experiment poses the reverse question of recovering nj , d j from the measured waveform. Dif-ferent stacks can produce similar responses over a lim-ited frequency band, so this inversion can be degener-ate. An accurate and efficient forward model is there-fore an essential starting point for fitting or sampling the layer parameters, whether directly or through a surro-gate model trained on synthetic data. The layer-versus-water problem discussed in Sec. VI is a natural exam-ple. The present work provides the forward calculation needed to move from comparisons of individual model stacks toward quantitative inference from measured re-flected waveforms.  
+
+> VIII. CONCLUSION
+
+We have developed a wave-optics forward model for spherical-wave reflection from a spherical boundary with a stratified medium beneath it. The model combines the Sommerfeld–Weyl representation of the source field with a characteristic-matrix calculation of the layered reflec-tion coefficient. Each plane-wave component is evaluated at the local incidence angle where it meets the surface, and the reflected field is obtained by coherent integration over the full angular spectrum. The single-boundary limit reproduces the published spherical-surface reflectivity to better than 1 .1% at ten elevation angles and approaches the same result at ma-chine precision when the layer contrast is removed. The calculation also reproduces the measured HiCal-1 re-flected pulses, with a best-pair signed correlation of 0 .83. Across 106 matched direct/reflected pairs, 95% favor the expected polarity inversion. For the stratified polar-firn model considered here, the buried layers produce substantial frequency-dependent changes in the reflected amplitude, with |Q| ranging from 0.14 to 1 .68 over 150–850 MHz. The corresponding phase shift remains below about ±65 ◦, but the reflected field does not reverse polarity for the realistic firn contrast tested. The refractive index required for a sign change depends strongly on elevation, with n2 ≃ 2.56, 2 .04, and 1 .79 at 8 ◦, 15 ◦, and 25 ◦, respectively. These re-sults place a quantitative constraint on shallow subsur-face layering as an explanation of the anomalous-polarity ANITA events. They also show how the same calculation can distinguish dielectric layers from strongly reflecting buried interfaces in planetary and subglacial sounding. The exact angular calculation also provides a di-rect test of the usual specular approximation. For the balloon-altitude benchmark, the specular factorization agrees with the full calculation to 0 .2%. As the source approaches the surface, however, the stationary-phase re-gion becomes wider and the local reflection coefficient can no longer be treated as constant across it. The full an-gular calculation is therefore important for near-surface sources, where using a specular model could attribute a geometrical effect to the subsurface structure. The formalism developed in this work is not restricted to ice. The boundary enters through the complex re-fractive index, allowing the same treatment to describe materials ranging from firn and ice to lunar regolith and conducting media. The model retains the full spherical geometry and coherent wave effects that are absent from standard plane-wave treatments. It provides a common forward framework for interpreting reflected radio signals from stratified natural media and a basis for future mea-surements aimed at recovering subsurface structure from the amplitude, phase, and polarity of the reflected signal. 
+
+> ACKNOWLEDGMENTS
+
+The author thanks Pankaj Jain for the initial ideas and discussions that led to the development of the ex-act spherical-wave treatment presented in Refs. [17, 19], which provides the basis for the extension developed here. The author thanks David Besson and Steven Prohira for valuable discussions and input, and for providing the HiCal-1 calibration pulser data used in Sec. V D and the HiCal-2 reflectivity calculations used in Sec. II. The au-thor also thanks the ANITA collaboration for the pub-lished measurements and results used in the validation of the formalism. The author thanks John Beacom for helpful input and discussions during the preparation of this manuscript, and Amy Connolly for useful discussions throughout this work. This work was generously sup-ported by the Center for Cosmology and AstroParticle Physics (CCAPP) at The Ohio State University. 20 5 10 15 20 25 30 35 40         
+
+> Local surface elevation (deg)
+> 2.0 2.5 3.0 3.5 4.0 4.5 5.0 5.5
+> Threshold  nth 2 for polarity reversal
+> ANITA-I ANITA-III
+> realistic ice
+> n2= 1.75--1.78
+> ANITA-I, PRL 117, 071101 ANITA-III, PRL 121, 161102 ANITA-IV, PRL 126, 071103
+> 1.5 2.0 2.5 3.0 3.5
+> Local surface elevation (deg)
+> 3.75 4.00 4.25 4.50 4.75 5.00 5.25 5.50
+> published θ−θH
+> converted to local angle ANITA-IV, PRL 126, 071103
+
+FIG. 9. Buried-layer index required for a polarity sign change at the angles of the six ANITA anomalous-polarity events. The black curve is obtained by repeating the reference-stack calculation at each local elevation and finding nth 2 , the first buried-layer index for which max f Re[ r s
+
+> stack
+
+(f )] crosses zero over 150–850 MHz. The left panel shows the full local-elevation range. The legend gives the publication in which each event class was reported: ANITA-I PRL 117, 071101 [12], ANITA-III PRL 121, 161102 [13], and ANITA-IV PRL 126, 071103 [14]. The right panel shows the ANITA-IV near-horizon events in more detail. The ANITA-I/III events lie outside this range because their local surface elevations are much larger. The ANITA-IV θ − θH
+
+offsets below the payload radio horizon are converted to local surface elevations using the same spherical geometry as the HiCal benchmark [51]. The resulting thresholds are n2 ≃ 3.8–5 .4, well above realistic firn and dense-ice indices. 
+
+Appendix A: Geometry of the spherical boundary 
+
+This appendix gives the geometric relations used in Secs. II and III: the local incidence angle, the incident point and ray directions, and the bound on treating the concentric shells as parallel layers. 
+
+1. Local incidence angle 
+
+Let C be the center of the sphere, S the source at radius R + h, and Q the incident point at radius R, as in Fig. 1. A plane wave leaving S at angle α from the downward vertical SC reaches Q at the local incidence angle α0, measured from the outward normal. In the triangle CSQ , the interior angle at S is α, while that at 
+
+Q is π − α0. The law of sines gives 
+
+R
+
+sin α = R + h
+
+sin( π − α0) =⇒ sin α0 = R + hR sin α, (A1) which is Eq. (8). In the flat limit R → ∞ , α0 → α. The remaining interior angle at C is the central angle between 
+
+O and Q,
+
+γ = α0 − α, (A2) which is the tilt of the local normal at Q relative to the vertical ˆ z at O. For a convex surface, γ > 0 and hence 
+
+α0 > α .
+
+2. Incident point and ray directions 
+
+The geometry of the incident point follows from γ.Measuring positions from the origin O on the surface directly below the source, with ˆ z the outward vertical there, ⃗Q(α, β ) =  R sin γ cos β, R sin γ sin β, −R(1 − cos γ),
+
+(A3) and the outward unit normal at that point is ˆn(Q) = (sin γ cos β, sin γ sin β, cos γ). (A4) The source-to-surface distance follows from the same tri-angle by the law of cosines, R2 = ( R + h)2 + |SQ |2 −
+
+2( R + h)|SQ | cos α, a quadratic in |SQ | whose discrimi-nant simplifies to R2 − (R + h)2 sin 2 α, so that 
+
+|SQ | = ( R + h) cos α ∓
+
+q
+
+R2 − (R + h)2 sin 2 α . (A5) The ray crosses the sphere twice, and the reflection point is the first intersection, so the minus root applies; the plus root is the far-side exit point, 3436 km away at 15 ◦
+
+elevation. Equations (A3)–(A5) are evaluated for each ( α, β ) in the numerical calculation and determine the propagation phase used in Appendix B. The directions in Eqs. (9)–(10) follow from reflec-tion and refraction at the local tangent plane. Since ˆki · ˆn(Q) = − cos α0, the reflected direction is ˆkr = ˆki − 2( ˆki · ˆn)ˆ n. 21 Its horizontal and vertical components reduce, using Eq. (A2), to sin(2 α0 − α) cos β and cos(2 α0 − α), respec-tively. Hence θr = 2 α0 − α. For the transmitted wave, which makes an angle αt with the inward normal in the same plane of incidence, ˆkt = sin αt ˆe∥ − cos αt ˆn(Q) with ˆe∥ = (cos γ cos β, cos γ sin β, − sin γ), giving θt = αt −γ =
+
+α + αt − α0. Both reduce to the flat-surface results when 
+
+γ → 0.  
+
+> 3. Local approximation for the layered boundary
+
+Curvature in the plane of incidence is treated exactly. Each plane wave component reflects from the local tan-gent plane at its corresponding α0(α). The approxima-tion enters only across the transverse direction, where the concentric shells are treated as locally parallel layers over the coherently contributing surface region. The rest of the calculation retains the spherical geometry.  
+
+> 4. Curvature bound for stratified media
+
+A sphere of radius R departs from its tangent plane at transverse distance ρ by the sagitta 
+
+s = R − pR2 − ρ2 ≃ ρ2
+
+2R .
+
+The relevant transverse scale is the first Fresnel radius of the reflected path. For two path lengths L1 = |SQ | and 
+
+L2 = |QP | meeting at the reflection point, 
+
+ρF =
+
+r λL 1L2
+
+L1 + L2
+
+. (A6) Equation (A6) is the radius across the plane of inci-dence. In that plane the coherent region is longer by 1/ cos α0, so the footprint is an ellipse with semi-axes ρF
+
+and ρF / cos α0. The bound below uses the cross-track radius, because curvature in the plane of incidence is car-ried exactly by the angular integral. For the symmetric reflection estimate used here, L1 =
+
+L2 = ℓ and Lsph = L1 + L2 = 2 ℓ, so 
+
+ρF =
+
+r λL sph 
+
+4 =
+
+r λℓ 
+
+2 .
+
+The one-way spherical path length is not the flat value 
+
+h/ cos α0. Using Eqs. (8) and (A5), it can be written in terms of the local incidence angle as 
+
+ℓ = |SQ | =
+
+q
+
+(R + h)2 − R2 sin 2 α0 − R cos α0. (A7) The perpendicular distance from the source to the tan-gent plane at Q is therefore 
+
+h′ = ℓ cos α0, Lsph = 2 ℓ = 2h′
+
+cos α0
+
+.
+
+Only in the flat limit does h′ → h and Lsph → 2h/ cos α0.For h = 37 km, R = R⊕ = 6371 km, and f = 650 MHz (λ = 0 .461 m), the exact spherical values are 
+
+Lsph = 275 km , ρF = 178 m , s = 2 .5 mm at 15 ◦ elevation. This sag is 0 .54% of a wavelength. At 5◦ elevation the corresponding values are 
+
+Lsph = 657 km , ρF = 275 m , s = 5 .9 mm ,
+
+or 1 .3% of a wavelength. These values are smaller than the flat-surface estimates because h′ < h on a convex surface. The sag is also much smaller than the r.m.s. surface roughness over the same footprint, which Eq. (14) gives as 4 .6 cm and 6 .1 cm at the two elevations. A displacement s along the local normal changes the two-way path of a ray at incidence α0 by 2 s cos α0, giving ∆ϕ = 2 ks cos α0.
+
+Substituting s = ρ 2 
+
+> F
+
+/2R and ρ 2 
+
+> F
+
+= λL sph /4 =
+
+λh ′/(2 cos α0) gives ∆ϕ = 2 k cos α0
+
+ρ 2
+
+> F
+
+2R = πh ′
+
+R . (A8) Thus the wavelength dependence cancels. The remaining elevation dependence enters only through h′. Since h′ <h for the convex geometry, ∆ϕ < πh R = 0 .018 rad for a 37 km balloon altitude above Earth. The exact val-ues are 0 .0176 rad at 15 ◦ elevation and 0 .0141 rad at 5 ◦
+
+elevation. The more conservative normal-incidence esti-mate, 4 πs/λ , gives 0 .07 rad and 0 .16 rad at the same two elevations. These phases are small compared with the layer round-trip phases 2 δj , which can be many ra-dians. 
+
+> Appendix B: The reflected and transmitted fields
+
+Appendix A gives the geometry and Appendix C the response of the medium beneath a single point. This appendix joins them: it carries the construction from the Hertzian dipole potential of Eq. (2) to the dou-ble integrals of Eqs. (27) and (29), in the notation of Refs. [17, 19]. Throughout this appendix, r σ and t σ , σ = s, p , de-note the boundary coefficients of the medium beneath 
+
+Q: the Fresnel coefficients f σr of Eqs. (12)–(13) for a sin-gle boundary, and the stack coefficients r σ
+
+> stack
+
+, t σ 
+
+> stack
+
+of Eqs. (24)–(25) for a stratified medium. The construction below is the same in both cases. 22  
+
+> 1. Each plane wave has its own incident point
+
+The decomposition of Eq. (5) labels plane waves by (α, β ). The plane wave ( α, β ) leaves S along ˆki of Eq. (7) and meets the surface at the point ⃗ Q(α, β ) of Eq. (A3), so the map (α, β ) ←→ Q(α, β ) (B1) is one-to-one. Thus, the position on the surface is not an independent variable, and there is no surface integral R dA Q in addition to the angular integral of Eq. (5). In-tegrating over ( α, β ) already accounts for the illuminated surface.  
+
+> 2. From the Hertzian dipole potential to the field
+
+Writing the direct potential of Eq. (2) through Eq. (5), ⃗
+
+Πdir = 14πϵ ik 
+
+2π
+
+Z 2π
+
+> 0
+
+Z π/ 2−i∞
+
+> 0
+
+eiΦ0 sin α dα dβ ˆy, (B2) each element of the integrand is a plane wave with di-rection ˆki and potential polarization ˆ y. Its electric field follows from ⃗ E =⃗ ∇(⃗ ∇ · ⃗ Π) + k2⃗ Π. For a plane wave, ⃗
+
+∇ → i⃗k , giving ⃗E ∝ k2ˆy − (ˆ y · ˆki)ˆki
+
+, (B3) which is the transverse projection of ˆ y onto the plane perpendicular to ˆki.  
+
+> 3. The local polarization basis at Q
+
+Let ˆ n(Q) be the outward normal of Eq. (A4). The local incidence angle is cos α0 = − ˆki · ˆn(Q), (B4) which for a sphere is Eq. (A1) in closed form. The minus sign appears because ˆki points into the surface while ˆ n(Q)points out of it. The plane of incidence is spanned by ˆki
+
+and ˆ n(Q), and the transverse unit vectors are ˆsQ = ˆki × ˆn(Q)
+
+|ˆki × ˆn(Q)| , ˆpQ = ˆ sQ × ˆki, (B5) so that ˆ sQ lies in the tangent plane, perpendicular to the plane of incidence, and (ˆ sQ, ˆpQ, ˆki) is an orthonormal triad. For a flat surface, ˆ n = ˆ z and Eq. (B5) reduces to ˆs = ( − sin β, cos β, 0). Because the triad is orthonormal, the transverse pro-jection of Eq. (B3) is ˆy⊥ = (ˆ y · ˆsQ)ˆ sQ + (ˆ y · ˆpQ)ˆ pQ,
+
+so the horizontal dipole of Eq. (2) excites each plane wave in proportion to 
+
+E(i) 
+
+> s
+
+= ˆ y · ˆsQ = cos β, E(i) 
+
+> p
+
+= ˆ y · ˆpQ = − cos α sin β, 
+
+(B6) which are the incident s and p amplitudes of Ref. [19].  
+
+> 4. Reflection and polarization projection
+
+Each plane wave is reflected by the medium beneath its own incident point, at its own local incidence angle: 
+
+E(r) 
+
+> s
+
+= r s α0
+
+ E(i) 
+
+> s
+
+, E(r) 
+
+> p
+
+= r p α0
+
+ E(i) 
+
+> p
+
+. (B7) The source decomposition, geometry, roughness weight, and field reconstruction are unchanged when the single-boundary coefficient is replaced by the stratified coeffi-cient. The reflected plane wave leaves Q along ˆkr of Eq. (9). The vector ˆ sQ is unchanged by reflection, while the re-flected ˆ pr = ˆ sQ × ˆkr has horizontal projection ˆ y · ˆpr =cos(2 α0 −α) sin β. The horizontally polarized component therefore carries the weight 
+
+Wref = r s cos 2β − r p cos α cos(2 α0 − α) sin 2β, (B8) which is Eq. (16) for a single boundary and Eq. (28) for a stack. The relative sign follows from the polarization definitions: at normal incidence, f pr = −f sr , so Eq. (B8) reduces to r s(cos 2 β + sin 2 β) = r s, as required by az-imuthal symmetry.  
+
+> 5. Computing the total integral
+
+Each reflected plane wave arrives at the observation point P with the phase accumulated along its path, Φr (α, β ) = k |SQ | + |QP |, (B9) with |SQ | from Eq. (A5) and |QP | = |⃗ P −⃗ Q(α, β )| from Eq. (A3). In the flat limit, this reduces to Eq. (6) with (z0 − z) replaced by ( z0 + z), corresponding to the image-source construction. The phase is also weighted by the roughness factor of Eq. (14), evaluated at the transverse offset 
+
+ρ⊥ = |⃗Q(α, β ) −⃗ Qspec |
+
+of the incident point from the specular point. The rough-ness factor therefore remains inside the integral. Restoring the measure sin α dα dβ and the prefactor of Eq. (5), and dropping the common constants of Eq. (B2), the horizontally polarized reflected field at one frequency is 23 
+
+EH 
+
+> ref
+
+(f ) = ik 
+
+2π
+
+Z 2π
+
+> 0
+
+Z π/ 2−i∞
+
+> 0
+
+h
+
+r s(f, α 0) cos 2β−r p(f, α 0) cos α cos(2 α0−α) sin 2β
+
+i
+
+e−2k2σ2  
+
+> h(ρ⊥) cos 2α0
+
+e ik (|SQ |+|QP |) sin α dα dβ, 
+
+(B10) where the boundary coefficients are evaluated at α0(α)from Eq. (A1), the azimuthal projection weights are given by Eq. (B6), and the roughness factor is evaluated at the transverse offset of each incident point. Equation (B10) is Eq. (15) with r σ = f σr and Eq. (27) with r σ = r σ
+
+> stack
+
+; it is the quantity evaluated numerically in Sec. V. Broad-band waveforms are obtained by evaluating Eq. (B10) at each Fourier frequency across the measured band and transforming back, while band-averaged reflectivities are obtained by averaging |EH 
+
+> ref
+
+|2 over the band.  
+
+> 6. The transmitted field
+
+The same steps give the transmitted field, with three changes. The coefficients are t σ instead of r σ ; the out-going direction is ˆkt of Eq. (10), whose p basis vec-tor ˆpt = ˆsQ × ˆkt has horizontal projection ˆy · ˆpt =
+
+− cos( α+αt −α0) sin β; and the phase beyond the bound-ary is accumulated at the wavenumber of the medium below. Hence 
+
+Wtrans = t s cos 2β
+
++ n0
+
+n1
+
+t p cos α cos( α + αt − α0) sin 2β, (B11) which is Eq. (30) with αt → αs for a stack, since the wave emerges into the substrate. The factor n0/n 1 con-verts the p coefficient from the magnetic-field ratio re-turned by Eq. (C19) to the electric-field ratio the pro-jection requires, and it is fixed by the same consistency check used above: at normal incidence Eq. (20) gives 
+
+t s = 2 n0/(n0 + n1) and t p = 2 n1/(n0 + n1), so only with the factor present does Eq. (B11) collapse to t s for ev-ery β, as the azimuthal symmetry of a normal-incidence transmission demands. The transmitted field is then 
+
+EH
+
+> trans
+
+(f ) = ik 
+
+2π
+
+Z 2π
+
+> 0
+
+Z π/ 2−i∞
+
+> 0
+
+Wtrans F t 
+
+> rough
+
+eiΦt sin α dα dβ, 
+
+(B12) with Φ t = k|SQ |+k n sℓs and F t 
+
+> rough
+
+from Eq. (31). For a stack, ℓs is measured from the base of the layers, because the propagation phase within them is already carried by the δj inside t s,p 
+
+> stack
+
+. For a single boundary, the two defi-nitions coincide. Equations (B11)–(B12) give the corre-sponding transmitted-field expressions. We include them for completeness. The numerical results in this paper use Eq. (B10).  
+
+> 7. Single-boundary limit
+
+Setting N = 0 gives r s,p  
+
+> stack
+
+= f s,p r , and Eq. (B8) reduces to the H-Pol weight of Refs. [17, 19]. The remaining steps are unchanged, so the layered calculation reduces exactly to the single-boundary calculation. This is confirmed nu-merically to machine precision in Sec. V A. The stationary-phase region in β is centered on β = 0 (Appendix D), making the H-Pol response predominantly 
+
+s polarized; the p contribution enters at second order in the angular width. The full calculation retains both components. For a locally horizontal surface, H-Pol cor-responds to s polarization and V-Pol to p polarization. The H-Pol component is therefore the relevant observ-able for the horizontally polarized HiCal transmitter and the predominantly H-Pol cosmic-ray signal considered in the validation.  
+
+> 8. Approximations
+
+The main elements of the calculation are exact. The Sommerfeld–Weyl decomposition of Eq. (5) is an identity, not an expansion. The transverse projection of Eq. (B3) and the reflection of each plane wave from the local tan-gent plane follow from the boundary conditions. The layered reflection coefficient replaces the single-boundary coefficient as the solution of the same boundary-value problem. These steps do not require weak layer contrast, thin layers, or a monotonic refractive-index profile. The approximations enter in treating the curved shells as parallel to the local tangent plane, with the resulting phase error bounded by Eq. (A8), and in neglecting the evanescent part of the contour in Eq. (5), which is negli-gible for the far-field geometry considered here. For lat-erally varying layers, the structure must also vary slowly across the coherent footprint. Thus, the stratified calculation retains the same geo-metric approximation as the single-boundary calculation; only the boundary coefficient is replaced. The single-boundary validation in Sec. II therefore also tests this part of the construction.  
+
+> 9. Laterally varying stratification
+
+The medium beneath each incident point Q(α, β ) need not be the same. The layer parameters can depend on position, 
+
+{nj , d j } −→ {nj (Q, ω ), d j (Q)}, (B13) and are evaluated at the incident point of each plane wave. This allows the formalism to describe a laterally varying subsurface and provides the basis for the inverse problem discussed in Sec. VII. 24 The layered calculation requires the medium to be ap-proximately uniform across the region contributing co-herently to the reflected field. In the balloon geometry, this scale is the first Fresnel radius, ρF ≃ 178 m at 15 ◦ el-evation. If the layer structure varies on scales much larger than ρF , each coherent footprint samples essentially the same layered medium and the plane wave treatment re-mains valid. Shorter lateral scales can couple different plane wave components and require a more general treat-ment. 
+
+> Appendix C: The layered boundary coefficient
+
+This appendix derives Eqs. (22)–(25) from Maxwell’s boundary conditions using the standard characteristic-matrix treatment of stratified media [30]. The same ma-trix approach is used in seismology [53, 54] and X-ray reflectometry [55]. We give the derivation here to fix the notation used in Secs. II and III, show the reduction to the single-boundary limit, and make the p-polarization sign convention explicit. The construction follows di-rectly from continuity of the tangential electric and mag-netic fields at each interface.  
+
+> 1. Local frame and conserved tangential wavenumber
+
+Work in the tangent plane at the incident point Q of Fig. 1. Globally, the interfaces are concentric curved shells; locally, for each plane wave, they are treated as parallel layers in the tangent plane at its incident point. Surface curvature enters the layer calculation through the plane wave incidence angle α0 of Eq. (8), with the valid-ity of the parallel-layer treatment bounded by Eq. (A8). Let ζ be the local depth measured from the upper sur-face into the medium along the inward normal −ˆn(Q). For concentric shells this is the common normal to the layer interfaces at Q, and the thickness dj is measured along it. Beneath Q lie the N layers of Sec. III, above a semi-infinite substrate of index ns.Because each layer is uniform parallel to the boundary, the tangential component of the wavevector is conserved across every interface. With k = 2 πf /c as in Eq. (2), 
+
+κ = k n 0 sin α0, (C1) and it has the same value in every layer and in the sub-strate. This gives Snell’s law, 
+
+n0 sin α0 = nj sin αj = ns sin αs, (C2) and allows each plane wave in Eq. (5) to be treated in-dependently. The wavenumber normal to the boundary in layer j follows from k2 
+
+> z,j
+
++ κ2 = k2n2 
+
+> j
+
+,
+
+kz,j =
+
+q
+
+k2n2 
+
+> j
+
+− κ2 = k n j cos αj , (C3) with the branch chosen so that Im kz,j ≥ 0, so that a wave entering a lossy medium decays rather than grows. Traversing layer j once gives the phase factor eiδ j , where 
+
+δj = kz,j dj = k n j dj cos αj . (C4)  
+
+> 2. Interface coefficients
+
+At a single boundary between media a and b, conti-nuity of the tangential electric and magnetic fields gives the Fresnel coefficients. These are Eqs. (12)–(13) with (n0, n 1, α 0, α t) replaced by ( na, n b, α a, α b): 
+
+r sab = na cos αa − nb cos αb
+
+na cos αa + nb cos αb
+
+, t sab = 2na cos αa
+
+na cos αa + nb cos αb
+
+,
+
+(C5) 
+
+r pab = nb cos αa − na cos αb
+
+nb cos αa + na cos αb
+
+, t pab = 2na cos αa
+
+nb cos αa + na cos αb
+
+.
+
+(C6) Two identities that follow directly from these coefficients and are used below are 
+
+rba = −rab , tab tba = 1 − r 2
+
+> ab
+
+, (C7) for each polarization. Substituting Eqs. (C5)–(C6) gives 
+
+tab tba = 4 qaqb/(qa + qb)2 and 1 − r 2 
+
+> ab
+
+= 4 qaqb/(qa + qb)2,with q from Eq. (20). Thus, both identities hold for com-plex n as well. They are the usual Stokes relations, but no time-reversal argument is required, which is important for the dissipative media of Sec. VI.  
+
+> 3. A single layer
+
+Consider one layer ( n1, d 1) between the air and the substrate. The incident wave is partly reflected at the upper interface, with amplitude r01 , and partly trans-mitted into the layer. The transmitted wave crosses the layer, reflects from the lower interface with amplitude r1s,and returns through the layer with amplitude t10 . The two traversals give a phase e2iδ 1 . The process repeats through multiple internal reflections, giving 
+
+rlayer = r01 + t01 t10 r1se2iδ 1
+
+> ∞
+
+X
+
+> m=0
+
+ r10 r1se2iδ 1 m . (C8) The amplitudes add coherently because all paths have the same tangential wavenumber. For a passive medium, the series converges to 
+
+rlayer = r01 + t01 t10 r1s e2iδ 1
+
+1 − r10 r1se2iδ 1 . (C9) Using Eq. (C7) and collecting terms gives 
+
+rlayer = r01 + r1se2iδ 1
+
+1 + r01 r1se2iδ 1 (C10) 25 for s and p polarizations separately. The transmitted coefficient is 
+
+tlayer = t01 t1seiδ 1
+
+1 + r01 r1se2iδ 1 . (C11) Equation (C10) includes all internal reflections. Its sign does not depend on whether the layer index is larger or smaller than that of the medium above; the appropriate sign follows from the Fresnel coefficients in Eqs. (C5)–(C6). In the limit d1 → 0, δ1 → 0, and (r01 + r1s)/(1 + r01 r1s) = r0s, as expected. 
+
+4. Multiple layers 
+
+For several layers, the same result can be applied suc-cessively from the bottom upward. Let Rj denote the reflection coefficient of everything below the top of layer 
+
+j. At the substrate, 
+
+RN +1 = rN,s , (C12) and for j = N, N − 1, . . . , 1, 
+
+Rj = rj−1,j + Rj+1 e2iδ j
+
+1 + rj−1,j Rj+1 e2iδ j (C13) for s and p separately, with rj−1,j from Eq. (21) and δj
+
+from Eq. (C4). The reflection coefficient of the full stack is 
+
+r s,p  
+
+> stack
+
+= R s,p  
+
+> 1
+
+. (C14) This recursion sums the internal reflections between all interfaces. For N = 0, it gives R1 = r0s, which is the single-boundary result of Eqs. (12)–(13). 
+
+5. Matrix form 
+
+The same layered solution can be written as a matrix product. Using qj from Eq. (20), the interface coefficients are rab = ( qa − qb)/(qa + qb) and tab = 2 qa/(qa + qb). For s polarization this is the electric-field transmission coefficient. For p polarization it refers to the tangential magnetic field; the corresponding electric-field ratio is obtained with the factor discussed above. The reflection coefficient is unchanged because transmission enters the recursion only through tab tba = 1 − r 2
+
+> ab
+
+.Let A+ 
+
+> j
+
+and A− 
+
+> j
+
+be the amplitudes of waves travelling toward increasing depth and toward the surface, respec-tively, and define Uj = A+ 
+
+> j
+
++ A− 
+
+> j
+
+and Vj = qj (A+ 
+
+> j
+
+− A− 
+
+> j
+
+). For s polarization, U and V are proportional to the tan-gential electric and magnetic fields, respectively; for p
+
+polarization their roles are reversed. Continuity of the tangential fields therefore gives continuity of U and V at each interface. Within layer j, the field varies as e±ik z,j ζ . The fields at the two sides of the layer are related by 
+
+Mj =
+
+ cos δj −i sin δj /q j
+
+−iq j sin δj cos δj
+
+
+
+, (C15) which is Eq. (22). Since det Mj = cos 2 δj + sin 2 δj = 1, the product 
+
+M =
+
+> N
+
+Y
+
+> j=1
+
+Mj ,
+
+U0
+
+V0
+
+
+
+= M
+
+Us
+
+Vs
+
+
+
+, (C16) also has unit determinant. This provides a useful numer-ical check. Writing the four entries of M as m11 , m 12 , m 21 , m 22 ,the fields above the stack are U0 = 1 + r and V0 = q0(1 −
+
+r). In the substrate, where only the transmitted wave is present, Us = t and Vs = qst. Defining B = m11 + m12 qs
+
+and C = m21 + m22 qs gives 1 + r = Bt, q0(1 − r) = Ct. (C17) Hence 
+
+r s,p  
+
+> stack
+
+= (m11 + m12 qs)q0 − (m21 + m22 qs)(m11 + m12 qs)q0 + ( m21 + m22 qs) , (C18) 
+
+t s,p  
+
+> stack
+
+= 2q0
+
+(m11 + m12 qs)q0 + ( m21 + m22 qs) , (C19) where q0 and qs are evaluated using the angles α0 and 
+
+αs from Eq. (C2). These are Eqs. (24)–(25) of the main text. For N = 0, the matrix product is the identity, so B = 1 and C = qs. Equation (C18) then gives ( q0 −qs)/(q0 +qs), which reduces to the single-boundary Fresnel coefficients in Eqs. (12)–(13). The recursion in Eq. (C13) and the matrix expression in Eq. (C18) agree to machine preci-sion for the layered media used in this work. For p polar-ization we use qj = cos αj /n j , consistent with Eq. (13). 
+
+6. Lossy and conducting layers 
+
+The refractive indices may be complex. For a medium with relative permittivity ε′ 
+
+> j
+
+and conductivity σj ,
+
+n2 
+
+> j
+
+= ε′ 
+
+> j
+
++ iσ j
+
+ωε 0
+
+, (C20) where ω = 2 πf . Thus nj , cos αj , kz,j , and δj are gener-ally complex. The factor eiδ j then includes both propa-gation and attenuation, |eiδ j | = e−Im δj , with skin depth 1/Im kz,j . Equations (C5)–(C19) remain unchanged. A lossy layer is therefore included in the same way as a dielectric layer. Each traversal is attenuated by 
+
+eiδ j , and a sufficiently absorbing layer suppresses con-tributions from deeper interfaces automatically. No ad-ditional treatment is required. We assume nonmagnetic media, μr = 1, as appropriate for ice, firn, regolith, and seawater at radio frequencies. 26 
+
+7. Scope of the approximation 
+
+Within the local tangent plane, the layered calculation solves Maxwell’s equations exactly, including the fields in each layer, the boundary conditions at every inter-face, and all internal reflections. The Sommerfeld–Weyl decomposition is also exact. The only approximation is geometric. In the transverse direction, the concentric shells are treated as locally parallel layers, as described in Appendix A. The resulting phase error is bounded by Eq. (A8), giv-ing ∆ ϕ = πh ′/R ≤ πh/R ≃ 0.018 rad for the balloon ge-ometry. This is the same geometric approximation used in the single-boundary calculation of Refs. [17, 19]. Intro-ducing stratification does not add a new approximation. 
+
+Appendix D: Stationary-phase window 
+
+At fixed Fourier frequency f , each polarization com-ponent of the reflected field has the form Iσ =R gσ (α) rσ (α) eiΦ( α) dα , with σ = s, p . The azimuthal integral has the same form. Here gσ contains the source, polarization, geometric, and roughness factors, while rσ
+
+is either f σr or r σ
+
+> stack
+
+. The specular direction is the sta-tionary point, Φ ′(αspec ) = 0. Here αspec is the launch an-gle α of the stationary ray, related to the local incidence angle αspec 0 at the specular point by Eq. (8). Expanding the phase about this point, Φ ≃ Φspec + 12 Φ′′ (α − αspec )2,
+
+gives the characteristic stationary-phase width 
+
+w =
+
+s
+
+2π
+
+|Φ′′ (αspec )| , |Φ′′ | ∼ kL =⇒ w ∼
+
+r 2πkL ,
+
+(D1) as quoted in Sec. IV. With L = 2 h′/ cos α0, the width decreases as 1 /√kh ′.The single-boundary and layered calculations have the same gσ and Φ. If r σ
+
+> stack
+
+(f, α )/f σr (f, α ) varies little over this window, it can be taken outside the angular integral, giving Eq. (36). This approximation is made separately at each frequency, so the frequency dependence remains inside the Fourier sum for a broadband waveform. The error in this factorization is set by the variation of 
+
+r σ
+
+> stack
+
+/f σr across the stationary-phase window. For the balloon geometry, the full angular calculation gives an accuracy of 0 .2% as shown in Sec. IV. For source heights close to the surface, the stationary-phase window be-comes broader and the full angular integral is required. 
+
+[1] G. A. Askar’yan, Excess Negative Charge of an Electron-Photon Shower and its Coherent Radio Emission, Sov. Phys. JETP 14 , 441 (1962), Zh. Eksp. Teor. Fiz. 41, 616 (1961). [2] G. A. Askar’yan, Coherent Radio Emission from Cosmic Showers in Air and in Dense Media, Sov. Phys. JETP 
+
+21 , 658 (1965), Zh. Eksp. Teor. Fiz. 48, 988 (1965). [3] T. Huege, Radio Detection of Cosmic Ray Air Show-ers in the Digital Era, Phys. Rep. 620 , 1 (2016), arXiv:1601.07426 [astro-ph.IM]. [4] T. Huege and H. Falcke, Radio Emission from Cosmic Ray Air Showers: Simulation Results and Parametriza-tion, Astropart. Phys. 24 , 116 (2005), arXiv:astro-ph/0501580. [5] O. Scholten, K. Werner, and F. Rusydi, A Macroscopic Description of Coherent Geo-Magnetic Radiation from Cosmic-Ray Air Showers, Astropart. Phys. 29 , 94 (2008). [6] K. D. de Vries, A. M. van den Berg, O. Scholten, and K. Werner, The Lateral Distribution Function of Coher-ent Radio Emission from Extensive Air Showers: Deter-mining the Chemical Composition of Cosmic Rays, As-tropart. Phys. 34 , 267 (2010). [7] D. Saltzberg, P. Gorham, D. Walz, C. Field, R. Iverson, A. Odian, G. Resch, P. Schoessow, and D. Williams, Ob-servation of the Askaryan Effect: Coherent Microwave Cherenkov Emission from Charge Asymmetry in High Energy Particle Cascades, Phys. Rev. Lett. 86 , 2802 (2001), arXiv:hep-ex/0011001. [8] P. W. Gorham et al. (ANITA), Observations of the Askaryan Effect in Ice, Phys. Rev. Lett. 99 , 171101 (2007), arXiv:hep-ex/0611008. [9] P. W. Gorham, P. Allison, S. W. Barwick, J. J. Beatty, D. Z. Besson, W. R. Binns, C. Chen, P. Chen, J. M. Clem, A. Connolly, et al. (ANITA), The Antarctic Im-pulsive Transient Antenna ultra-high energy neutrino detector: Design, performance, and sensitivity for the 2006–2007 balloon flight, Astropart. Phys. 32 , 10 (2009), arXiv:0812.1920 [astro-ph]. [10] S. Hoover, J. Nam, P. W. Gorham, E. Grashorn, P. Alli-son, S. W. Barwick, J. J. Beatty, K. Belov, D. Z. Besson, W. R. Binns, et al. (ANITA), Observation of Ultrahigh-Energy Cosmic Rays with the ANITA Balloon-Borne Ra-dio Interferometer, Phys. Rev. Lett. 105 , 151101 (2010), arXiv:1005.0035 [astro-ph.HE]. [11] H. Schoorlemmer, K. Belov, A. Romero-Wolf, D. Garc´ ıa-Fern´ andez, V. Bugaev, S. A. Wissel, P. Allison, J. Alvarez-Mu˜ niz, et al. (ANITA), Energy and flux mea-surements of ultra-high energy cosmic rays observed during the first ANITA flight, Astropart. Phys. 77 , 32 (2016), arXiv:1506.05396 [astro-ph.HE]. [12] P. W. Gorham, J. Nam, A. Romero-Wolf, S. Hoover, P. Allison, O. Banerjee, J. J. Beatty, K. Belov, D. Z. Besson, et al. (ANITA), Characteristics of Four Upward-Pointing Cosmic-Ray-like Events Observed with ANITA, Phys. Rev. Lett. 117 , 071101 (2016), arXiv:1603.05218 [astro-ph.HE]. [13] P. W. Gorham, B. Rotter, P. Allison, O. Baner-jee, L. Batten, J. J. Beatty, K. Bechtol, K. Belov, D. Z. Besson, et al. (ANITA), Observation of an Un-usual Upward-Going Cosmic-Ray-like Event in the Third Flight of ANITA, Phys. Rev. Lett. 121 , 161102 (2018), arXiv:1803.05088 [astro-ph.HE]. 27 
+
+[14] P. W. Gorham, A. Ludwig, C. Deaconu, P. Cao, P. Al-lison, O. Banerjee, L. Batten, J. J. Beatty, K. Bech-tol, K. Belov, et al. (ANITA), Unusual Near-Horizon Cosmic-Ray-like Events Observed by ANITA-IV, Phys. Rev. Lett. 126 , 071103 (2021), arXiv:2008.05690 [astro-ph.HE]. [15] P. W. Gorham, P. Allison, O. Banerjee, L. Batten, J. J. Beatty, K. Belov, D. Z. Besson, W. R. Binns, P. Das-gupta, P. Jain, et al. (ANITA), Antarctic Surface Re-flectivity Measurements from the ANITA-3 and HiCal-1 Experiments, J. Astron. Instrum. 6, 1740002 (2017), arXiv:1703.00415 [astro-ph.IM]. [16] S. Prohira, A. Novikov, D. Z. Besson, K. Ratzlaff, J. Stockham, M. Stockham, J. M. Clem, R. Young, P. W. Gorham, P. Allison, et al. (ANITA), HiCal 2: An in-strument designed for calibration of the ANITA experi-ment and for Antarctic surface reflectivity measurements, Nucl. Instrum. Meth. A 918 , 60 (2019), arXiv:1710.11175 [astro-ph.IM]. [17] S. Prohira, A. Novikov, P. Dasgupta, P. Jain, S. Nande, P. Allison, O. Banerjee, L. Batten, J. J. Beatty, K. Belov, D. Z. Besson, et al. (ANITA), Antarctic surface reflec-tivity calculations and measurements from the ANITA-4 and HiCal-2 experiments, Phys. Rev. D 98 , 042004 (2018), arXiv:1801.08909 [astro-ph.IM]. [18] P. Dasgupta, Reflection of Ultra High Energy Cosmic Ray Induced Radio Signals From Antarctic Ice , Ph.D. thesis, Indian Institute of Technology Kanpur (2020). [19] P. Dasgupta and P. Jain, General treatment of reflec-tion of spherical electromagnetic waves from a spherical surface and its implications for the ANITA anomalous polarity events, Astropart. Phys. 128 , 102530 (2021), arXiv:1811.00900 [astro-ph.HE]. [20] P. Allison et al. (ARA), Design and Initial Performance of the Askaryan Radio Array Prototype EeV Neutrino Detector at the South Pole, Astropart. Phys. 35 , 457 (2012), arXiv:1105.2854 [astro-ph.IM]. [21] P. Allison, S. Archambault, J. J. Beatty, M. Beheler-Amass, D. Z. Besson, M. Beydler, C. C. Chen, C. H. Chen, P. Chen, B. A. Clark, et al. (ARA), Con-straints on the Diffuse Flux of Ultra-High Energy Neu-trinos from Four Years of Askaryan Radio Array Data in Two Stations, Phys. Rev. D 102 , 043021 (2020), arXiv:1912.00987 [astro-ph.HE]. [22] P. Allison, S. Archambault, J. J. Beatty, D. Z. Besson, C. Chen, P. Chen, Y. C. Chen, A. Christenson, A. Con-nolly, et al. (ARA), Low-threshold ultrahigh-energy neu-trino search with the Askaryan Radio Array, Phys. Rev. D 105 , 122006 (2022), arXiv:2202.07080 [astro-ph.HE]. [23] P. Dasgupta and M. Stein Muzio (ARA), Progress To-wards a Diffuse Neutrino Search in the Full Livetime of the Askaryan Radio Array, PoS ICRC2023 , 1226 (2023), arXiv:2308.12125 [astro-ph.HE]. [24] P. Dasgupta (ARA), A Search for the Ultra High En-ergy Neutrinos with the Low Threshold Phased Ar-ray Trigger System of the Askaryan Radio Array, PoS 
+
+ARENA2024 , 008 (2024), arXiv:2409.19847 [astro-ph.HE]. [25] N. Alden et al. (ARA), Observation of In-Ice Askaryan Radiation from High-Energy Cosmic Rays, Phys. Rev. Lett. 136 , 151003 (2026), arXiv:2510.21104 [astro-ph.HE]. [26] Q. Abarr et al. (PUEO), The Payload for Ultrahigh En-ergy Observations (PUEO): a white paper, JINST 16 ,P08035 (2021), arXiv:2010.02892 [astro-ph.IM]. [27] Q. Abarr et al. (PUEO), Trigger system for the Pay-load for Ultrahigh Energy Observations (PUEO) balloon-borne neutrino detector, arXiv e-prints (2026), submit-ted to IEEE Trans. Nucl. Sci., arXiv:2607.05285 [astro-ph.IM]. [28] I. M. Shoemaker, A. Kusenko, P. K. Munneke, A. Romero-Wolf, D. M. Schroeder, and M. J. Siegert, Re-flections on the anomalous ANITA events: the Antarctic subsurface as a possible explanation, Annals Glaciol. 61 ,92 (2020), arXiv:1905.02846 [astro-ph.HE]. [29] D. Smith, D. Z. Besson, C. Deaconu, P. Dasgupta, et al. ,Experimental tests of sub-surface reflectors as an expla-nation for the ANITA anomalous events, JCAP 04 , 016 (2021), arXiv:2009.13010 [astro-ph.HE]. [30] M. Born and E. Wolf, Principles of Optics , 7th ed. (Cam-bridge University Press, Cambridge, 1999). [31] R. Prechelt, E. Costello, R. Ghent, et al. , Passive bistatic radar probes of the subsurface on airless bodies using high energy cosmic rays via the Askaryan effect, arXiv e-prints (2022), arXiv:2212.07689 [astro-ph.IM]. [32] A. Romero-Wolf, S. Vance, F. Maiwald, E. Heggy, P. Ries, and K. Liewer, A passive probe for subsurface oceans and liquid water in Jupiter’s icy moons, Icarus 
+
+248 , 463 (2015). [33] D. D. Blankenship, A. Moussessian, E. Chapin, D. A. Young, G. E. Wood, et al. , Radar for Europa Assessment and Sounding: Ocean to Near-surface (REASON), Space Sci. Rev. 220 , 51 (2024). [34] L. Bruzzone, J. J. Plaut, G. Alberti, D. D. Blankenship, F. Bovolo, B. A. Campbell, A. Ferro, Y. Gim, W. Kof-man, G. Komatsu, et al. , RIME: Radar for Icy Moon Ex-ploration, in IEEE International Geoscience and Remote Sensing Symposium (IGARSS) (2013) pp. 3907–3910. [35] J. A. Stratton, Electromagnetic Theory (McGraw-Hill, New York, 1941). [36] I. M. Howat, C. Porter, B. E. Smith, M.-J. Noh, and P. Morin, The Reference Elevation Model of Antarctica, The Cryosphere 13 , 665 (2019). [37] P. Beckmann and A. Spizzichino, The Scattering of Electromagnetic Waves from Rough Surfaces (Pergamon Press, Oxford, 1963). [38] K. Couberly, D. Z. Besson, et al. (ARA), Modeling the refractive index profile n(z) of polar ice for ultra-high energy neutrino experiments, EGUsphere [preprint] 10.5194/egusphere-2026-1678 (2026). [39] A. Connolly, Impact of biaxial birefringence in polar ice at radio frequencies on signal polarizations in ultrahigh energy neutrino detection, Phys. Rev. D 105 , 123012 (2022), arXiv:2110.09015 [astro-ph.HE]. [40] T. M. Jordan, D. Z. Besson, I. Kravchenko, U. Latif, B. Madison, A. Nokikov, and A. Shultz, Modeling ice birefringence and oblique radio wave propagation for neu-trino detection at the South Pole, Ann. Glaciol. 61 , 84 (2020), arXiv:1910.01471 [astro-ph.IM]. [41] M. E. Peters, D. D. Blankenship, and D. L. Morse, Analy-sis techniques for coherent airborne radar sounding: Ap-plication to West Antarctic ice streams, J. Geophys. Res. 
+
+110 , B06303 (2005). [42] E. S. Costello, R. R. Ghent, A. Romero-Wolf, P. W. Gorham, P. G. Lucey, C. J. Tai Udovicic, P. Linton, A. Ludwig, K. McBride, C. Miki, E. Oberla, J. Rolla, and A. Jung, Cosmic Rays and the Askaryan Effect Re-veal Subsurface Structure and Buried Ice on the Moon, 28 
+
+Geophys. Res. Lett. 52 , e2024GL113304 (2025). [43] J. O. Burns, R. Bradley, K. Tauscher, S. Furlanetto, J. Mirocha, et al. , A space-based observational strategy for characterizing the first stars and galaxies using the redshifted 21-cm global spectrum, arXiv e-prints (2017), arXiv:1704.02651 [astro-ph.CO]. [44] M. Sathyanarayana Rao, S. Singh, B. S. Girish, R. So-mashekar, A. Raghunathan, et al. , PRATUSH experi-ment concept and design overview, Exp. Astron. 56 , 741 (2023), arXiv:2507.05654 [astro-ph.IM]. [45] D. E. Lalich, A. G. Hayes, and V. Poggiali, Explaining bright radar reflections below the south pole of Mars without liquid water, Nature Astron. 6, 1142 (2022), arXiv:2107.03497 [astro-ph.EP]. [46] I. B. Smith, D. E. Lalich, C. Rezza, B. H. N. Horgan, J. L. Whitten, S. Nerozzi, and J. W. Holt, A solid interpreta-tion of bright radar reflectors under the Mars south polar ice, Geophys. Res. Lett. 48 , e2021GL093618 (2021). [47] G. Picardi, D. Biccari, R. Seu, L. Marinangeli, W. T. K. Johnson, R. L. Jordan, J. Plaut, A. Safaeinili, D. A. Gur-nett, G. G. Ori, R. Orosei, D. Calabrese, and E. Zam-polini, The Mars Express MARSIS sounder instrument, Planet. Space Sci. 57 , 1975 (2009). [48] R. Seu, R. J. Phillips, D. Biccari, R. Orosei, A. Mas-dea, G. Picardi, A. Safaeinili, B. A. Campbell, J. J. Plaut, L. Marinangeli, S. E. Smrekar, and D. C. Nunes, SHARAD sounding radar on the Mars Reconnaissance Orbiter, J. Geophys. Res. 112 , E05S05 (2007). [49] P. W. Gorham, D. Saltzberg, R. C. Field, E. Guarino, S. Tantawi, et al. , Measurements of the Askaryan effect in rock salt: A radio-frequency target for ultrahigh-energy neutrino detectors, Phys. Rev. D 65 , 052002 (2002). [50] A. Romero-Wolf, S. A. Wissel, H. Schoorlemmer, J. Car-valho, W. R., J. Alvarez-Mu˜ niz, E. Zas, P. Allison, O. Banerjee, L. Batten, et al. (ANITA), A Compre-hensive Analysis of Anomalous ANITA Events Disfavors a Diffuse Tau-Neutrino Flux Origin, Phys. Rev. D 99 ,063011 (2019), arXiv:1811.07261 [astro-ph.HE]. [51] R. Prechelt, S. A. Wissel, A. Romero-Wolf, C. Burch, P. W. Gorham, P. Allison, J. Alvarez-Mu˜ niz, et al. 
+
+(ANITA), Analysis of a Tau Neutrino Origin for the Near-Horizon Air Shower Events Observed by the Fourth Flight of the Antarctic Impulsive Transient Antenna, Phys. Rev. D 105 , 042001 (2022), arXiv:2112.07069 [astro-ph.HE]. [52] A. Abdul Halim et al. (Pierre Auger), Search for the Anomalous Events Detected by ANITA Using the Pierre Auger Observatory, Phys. Rev. Lett. 134 , 121003 (2025), arXiv:2502.04513 [astro-ph.HE]. [53] W. T. Thomson, Transmission of elastic waves through a stratified solid medium, J. Appl. Phys. 21 , 89 (1950). [54] N. A. Haskell, The dispersion of surface waves on multi-layered media, Bull. Seismol. Soc. Am. 43 , 17 (1953). [55] L. G. Parratt, Surface studies of solids by total reflection of X-rays, Phys. Rev. 95 , 359 (1954).

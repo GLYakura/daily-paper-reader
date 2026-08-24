@@ -1,8 +1,313 @@
 {
   "date": "20260815-20260824",
   "date_label": "2026-08-15 ~ 2026-08-24",
-  "generated_at": "2026-08-24 07:32:51 UTC",
+  "generated_at": "2026-08-24 08:04:06 UTC",
   "recommend_exists": true,
-  "run_count": 1,
-  "papers": []
+  "run_count": 2,
+  "papers": [
+    {
+      "paper_id": "2608.15728v1",
+      "route": "20260815-20260824/2608.15728v1-wifispectraljam-a-large-scale-open-wi-fi-spectral-scan-dataset-with-controlled-rf-jamming",
+      "title": "WiFiSpectralJam: A Large-Scale Open Wi-Fi Spectral Scan Dataset with Controlled RF Jamming",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "es"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "提供使用商用硬件采集的大规模Wi-Fi频谱扫描数据集，包含受控射频干扰场景",
+      "first_seen_at": "2026-08-24 08:04:06 UTC",
+      "updated_at": "2026-08-24 08:04:06 UTC"
+    },
+    {
+      "paper_id": "2608.16518v1",
+      "route": "20260815-20260824/2608.16518v1-development-of-different-algorithms-for-drone-based-antenna-measurement-systems-and-near-field-error-analysis",
+      "title": "Development of Different Algorithms for Drone-Based Antenna Measurement Systems and Near-Field Error Analysis",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "es"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "基于无人机的近场天线测量、无相位远场重建算法",
+      "first_seen_at": "2026-08-24 08:04:06 UTC",
+      "updated_at": "2026-08-24 08:04:06 UTC"
+    },
+    {
+      "paper_id": "2608.18348v1",
+      "route": "20260815-20260824/2608.18348v1-the-atacama-cosmology-telescope-passband-measurements-with-an-analysis-of-systematic-errors",
+      "title": "The Atacama Cosmology Telescope: Passband Measurements with an Analysis of Systematic Errors",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "es"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "使用傅里叶变换光谱仪进行通带测量并进行系统误差分析",
+      "first_seen_at": "2026-08-24 08:04:06 UTC",
+      "updated_at": "2026-08-24 08:04:06 UTC"
+    },
+    {
+      "paper_id": "2608.18495v1",
+      "route": "20260815-20260824/2608.18495v1-physics-unrolled-neural-operator-for-wireless-field-modeling",
+      "title": "Physics-Unrolled Neural Operator for Wireless Field Modeling",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "es"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "利用物理展开神经算子预测电磁信号场强分布（无线电地图），涉及信号特性与处理。",
+      "first_seen_at": "2026-08-24 08:04:06 UTC",
+      "updated_at": "2026-08-24 08:04:06 UTC"
+    },
+    {
+      "paper_id": "2608.18642v1",
+      "route": "20260815-20260824/2608.18642v1-irisig-spoof-a-real-world-benchmark-for-time-robust-satellite-rf-fingerprinting-and-spoofing-detection",
+      "title": "IriSig-Spoof: A Real-World Benchmark for Time-Robust Satellite RF Fingerprinting and Spoofing Detection",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "es"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "使用软件无线电设备进行射频信号检测与指纹识别",
+      "first_seen_at": "2026-08-24 08:04:06 UTC",
+      "updated_at": "2026-08-24 08:04:06 UTC"
+    },
+    {
+      "paper_id": "2608.19102v1",
+      "route": "20260815-20260824/2608.19102v1-real-time-rfi-mitigation-in-spotlight-a-two-stage-approach-for-transient-searches",
+      "title": "Real-Time RFI Mitigation in SPOTLIGHT: A Two-Stage Approach for Transient Searches",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "es"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "用于射电瞬变信号处理的实时射频干扰抑制技术",
+      "first_seen_at": "2026-08-24 08:04:06 UTC",
+      "updated_at": "2026-08-24 08:04:06 UTC"
+    },
+    {
+      "paper_id": "2608.19582v1",
+      "route": "20260815-20260824/2608.19582v1-physics-guided-machine-learning-for-sim-to-real-calibration-of-nv-diamond-magnetometers",
+      "title": "Physics-guided machine learning for sim-to-real calibration of NV diamond magnetometers",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "es"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "NV金刚石磁力计标定与矢量磁测，面向无屏蔽环境磁场感知，直接相关于地磁信号采集",
+      "first_seen_at": "2026-08-24 08:04:06 UTC",
+      "updated_at": "2026-08-24 08:04:06 UTC"
+    },
+    {
+      "paper_id": "2608.20323v1",
+      "route": "20260815-20260824/2608.20323v1-spin-torque-microwave-detectors-of-positive-rectangular-pulse-signals",
+      "title": "Spin-torque microwave detectors of positive rectangular pulse signals",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "es"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "分析自旋扭矩微波探测器对微波信号的检测，直接涉及如何用设备检测电磁信号",
+      "first_seen_at": "2026-08-24 08:04:06 UTC",
+      "updated_at": "2026-08-24 08:04:06 UTC"
+    },
+    {
+      "paper_id": "2608.15314v1",
+      "route": "20260815-20260824/2608.15314v1-physics-informed-vae-evt-for-tail-aware-radio-map-prediction",
+      "title": "Physics-informed VAE-EVT for Tail Aware Radio Map Prediction",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "es"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "预测信噪比空间分布及低信噪比尾部，直接影响电磁信号强度的因素分析",
+      "first_seen_at": "2026-08-24 08:04:06 UTC",
+      "updated_at": "2026-08-24 08:04:06 UTC"
+    },
+    {
+      "paper_id": "2608.15792v1",
+      "route": "20260815-20260824/2608.15792v1-tensor-decomposition-based-wireless-sensing-for-mimo-ofdm-isac-via-flexible-spatial-temporal-spectral-optimization",
+      "title": "Tensor Decomposition-Based Wireless Sensing for MIMO-OFDM ISAC via Flexible Spatial-Temporal-Spectral Optimization",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "es"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "针对MIMO-OFDM无线感知信号的张量分解处理与目标参数估计",
+      "first_seen_at": "2026-08-24 08:04:06 UTC",
+      "updated_at": "2026-08-24 08:04:06 UTC"
+    },
+    {
+      "paper_id": "2608.15819v1",
+      "route": "20260815-20260824/2608.15819v1-analyzing-and-characterizing-multi-source-interference-effects-at-jammertest-norway-2025",
+      "title": "Analyzing and Characterizing Multi-Source Interference Effects at Jammertest Norway 2025",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "es"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "利用接收机模块采集真实GNSS射频干扰数据，用于检测、波形分类与影响表征",
+      "first_seen_at": "2026-08-24 08:04:06 UTC",
+      "updated_at": "2026-08-24 08:04:06 UTC"
+    },
+    {
+      "paper_id": "2608.16151v1",
+      "route": "20260815-20260824/2608.16151v1-highly-efficient-3-in-1-fpga-based-unit-combining-an-adc-dac-and-multichannel-pulse-generator-for-pulsed-epr-spectroscopy",
+      "title": "Highly Efficient 3-in-1 FPGA-Based Unit Combining an ADC, DAC, and Multichannel Pulse Generator for Pulsed EPR Spectroscopy",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "es"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "基于FPGA的ADC/DAC与脉冲发生器的信号采集单元",
+      "first_seen_at": "2026-08-24 08:04:06 UTC",
+      "updated_at": "2026-08-24 08:04:06 UTC"
+    },
+    {
+      "paper_id": "2608.15989v1",
+      "route": "20260815-20260824/2608.15989v1-exact-spherical-wave-forward-model-for-radio-reflection-from-stratified-media",
+      "title": "Exact spherical-wave forward model for radio reflection from stratified media",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "es"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "无线电反射正演建模，关联电磁波传播特性",
+      "first_seen_at": "2026-08-24 08:04:06 UTC",
+      "updated_at": "2026-08-24 08:04:06 UTC"
+    },
+    {
+      "paper_id": "2608.16454v1",
+      "route": "20260815-20260824/2608.16454v1-self-supervised-noise2noise-enhanced-denoising-for-continuous-scan-air-plasma-thz-spectroscopy",
+      "title": "Self-Supervised Noise2Noise-Enhanced Denoising for Continuous-Scan Air-Plasma THz Spectroscopy",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "es"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "基于学习的太赫兹电磁信号去噪处理",
+      "first_seen_at": "2026-08-24 08:04:06 UTC",
+      "updated_at": "2026-08-24 08:04:06 UTC"
+    },
+    {
+      "paper_id": "2608.17122v1",
+      "route": "20260815-20260824/2608.17122v1-physically-consistent-channel-modeling-and-signal-processing-for-reconfigurable-wireless-systems",
+      "title": "Physically Consistent Channel Modeling and Signal Processing for Reconfigurable Wireless Systems",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "es"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "物理一致的电磁信道建模与信号处理框架",
+      "first_seen_at": "2026-08-24 08:04:06 UTC",
+      "updated_at": "2026-08-24 08:04:06 UTC"
+    },
+    {
+      "paper_id": "2608.17216v1",
+      "route": "20260815-20260824/2608.17216v1-multi-tag-collision-recovery-in-uhf-rfid-using-self-attention-decoding",
+      "title": "Multi-Tag Collision Recovery in UHF-RFID Using Self-Attention Decoding",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "es"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "用于恢复RFID标签碰撞叠加波形的信号处理技术",
+      "first_seen_at": "2026-08-24 08:04:06 UTC",
+      "updated_at": "2026-08-24 08:04:06 UTC"
+    },
+    {
+      "paper_id": "2608.15271v1",
+      "route": "20260815-20260824/2608.15271v1-bringing-environmental-enhancement-back-to-its-physical-essence-via-specular-reflecting-surfaces",
+      "title": "Bringing Environmental Enhancement Back to Its Physical Essence via Specular Reflecting Surfaces",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "es"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "分析了镜面反射表面对电磁波增益和信号强度的影响",
+      "first_seen_at": "2026-08-24 08:04:06 UTC",
+      "updated_at": "2026-08-24 08:04:06 UTC"
+    },
+    {
+      "paper_id": "2608.15556v1",
+      "route": "20260815-20260824/2608.15556v1-robust-beamforming-design-for-integrated-sensing-and-communications-with-mutual-coupling-effect",
+      "title": "Robust Beamforming Design for Integrated Sensing and Communications with Mutual Coupling Effect",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "es"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "针对互耦效应的电磁感知鲁棒波束成形",
+      "first_seen_at": "2026-08-24 08:04:06 UTC",
+      "updated_at": "2026-08-24 08:04:06 UTC"
+    },
+    {
+      "paper_id": "2608.16088v1",
+      "route": "20260815-20260824/2608.16088v1-rainfall-sensing-via-mobile-communication-signals",
+      "title": "Rainfall Sensing via Mobile Communication Signals",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "es"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "利用移动通信信号中雨致动态特性感知降雨，关联环境因素与电磁信号变化",
+      "first_seen_at": "2026-08-24 08:04:06 UTC",
+      "updated_at": "2026-08-24 08:04:06 UTC"
+    }
+  ]
 }

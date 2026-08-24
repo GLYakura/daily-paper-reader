@@ -44,14 +44,14 @@
       <span class="dpr-home-dashboard-kicker">2026-08-15 ~ 2026-08-24</span>
       <h3 class="dpr-home-dashboard-title">今日汇总</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">共 0 篇</strong>
+    <strong class="dpr-home-dashboard-count">共 19 篇</strong>
   </div>
   <dl class="dpr-home-dashboard-stats">
-    <div class="dpr-home-dashboard-stat"><dt>累计更新</dt><dd>1 次</dd></div>
-    <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>0</dd></div>
-    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>0</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>累计更新</dt><dd>2 次</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>8</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>11</dd></div>
   </dl>
-  <p class="dpr-home-dashboard-body">最近更新：2026-08-24 07:32:51 UTC<br>状态：成功</p>
+  <p class="dpr-home-dashboard-body">最近更新：2026-08-24 08:04:06 UTC<br>状态：成功</p>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-brief-card">
   <div class="dpr-home-dashboard-header">
@@ -62,7 +62,9 @@
     <strong class="dpr-home-dashboard-count">AI</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<p>今日无新推荐，系统未产出可展示论文。</p>
+<p>今日共扫描19篇论文，精读8篇、速读11篇，重点覆盖无线感知与干扰对抗方向。</p>
+<p>最值得关注的两项：开源Wi-Fi频谱干扰数据集《WiFiSpectralJam》与无人机天线近场测量算法，均获9.0高分。</p>
+<p>建议普通读者优先浏览上述两篇精读论文，并顺带速读物理信息无线地图预测及MIMO-OFDM感知论文，把握干扰与感知融合趋势。</p>
   </div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-deep-card">
@@ -71,12 +73,12 @@
       <span class="dpr-home-dashboard-kicker">今日累计</span>
       <h3 class="dpr-home-dashboard-title">精读推荐</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">0 篇</strong>
+    <strong class="dpr-home-dashboard-count">8 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<p class="dpr-home-dashboard-empty">今日暂无推荐。</p>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="WiFiSpectralJam: A Large-Scale Open Wi-Fi Spectral Scan Dataset with Controlled RF Jamming">WiFiSpectralJam: A Large-Scale Open Wi-Fi Spectral Scan Dataset with Controlled RF Jamming</span></li><li><span class="dpr-home-dashboard-paper-title" title="Development of Different Algorithms for Drone-Based Antenna Measurement Systems and Near-Field Error Analysis">Development of Different Algorithms for Drone-Based Antenna Measurement Systems and Near-Field Error Analysis</span></li><li><span class="dpr-home-dashboard-paper-title" title="The Atacama Cosmology Telescope: Passband Measurements with an Analysis of Systematic Errors">The Atacama Cosmology Telescope: Passband Measurements with an Analysis of Systematic Errors</span></li></ul>
   </div>
-
+  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">es <strong>8</strong></span></div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-skim-card">
   <div class="dpr-home-dashboard-header">
@@ -84,12 +86,12 @@
       <span class="dpr-home-dashboard-kicker">今日累计</span>
       <h3 class="dpr-home-dashboard-title">速读推荐</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">0 篇</strong>
+    <strong class="dpr-home-dashboard-count">11 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<p class="dpr-home-dashboard-empty">今日暂无推荐。</p>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="Physics-informed VAE-EVT for Tail Aware Radio Map Prediction">Physics-informed VAE-EVT for Tail Aware Radio Map Prediction</span></li><li><span class="dpr-home-dashboard-paper-title" title="Tensor Decomposition-Based Wireless Sensing for MIMO-OFDM ISAC via Flexible Spatial-Temporal-Spectral Optimization">Tensor Decomposition-Based Wireless Sensing for MIMO-OFDM ISAC via Flexible Spatial-Temporal-Spectral Optimization</span></li><li><span class="dpr-home-dashboard-paper-title" title="Analyzing and Characterizing Multi-Source Interference Effects at Jammertest Norway 2025">Analyzing and Characterizing Multi-Source Interference Effects at Jammertest Norway 2025</span></li></ul>
   </div>
-
+  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">es <strong>11</strong></span></div>
 </section>
 </div>
 

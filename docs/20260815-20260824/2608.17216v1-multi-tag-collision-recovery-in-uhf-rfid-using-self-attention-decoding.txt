@@ -1,0 +1,1071 @@
+Title: Multi-Tag Collision Recovery in UHF-RFID Using Self-Attention Decoding
+
+URL Source: https://arxiv.org/pdf/2608.17216v1
+
+Published Time: Wed, 19 Aug 2026 00:22:31 GMT
+
+Number of Pages: 16
+
+Markdown Content:
+> 1
+
+# Multi-Tag Collision Recovery in UHF-RFID Using Self-Attention Decoding 
+
+Talha Akyıldız, Siva Aditya Gooty, Hessam Mahdavifar, and Najme Ebrahimi 
+
+Abstract —Passive ultra high frequency (UHF) radio frequency identification (RFID) enables battery-free tags to communicate with a reader through backscatter. When multiple tags respond in the same time slot, their waveforms overlap at the reader, and a conventional reader that follows framed slotted ALOHA (FSA) discards the resulting collided slot. This limits the throughput of the overall protocol even though the received signal still contains recoverable information about the responding tags. To address this limitation, we propose Self-Attention Tag Recovery (SATR), a transformer-based decoding algorithm that operates directly on the baseband in-phase and quadrature (I/Q) samples received during a standard tag response. SATR uses self-attention to model the temporal structure of the modulated waveform and learns candidate tag representations. It jointly estimates the number of responding tags and, more importantly, decodes the bit sequence of each detected tag. We numerically evaluate the decoding and throughput performance of SATR over a range of collision sizes and recovery configurations, and validate it with measurements of commercial UHF-RFID tags. The results show that, with proper design and training, SATR can reliably decode collisions of up to four tags. It achieves a throughput of approximately 0.815 
+
+tags per slot under single acknowledgment and 1.87 tags per slot under full recovery, corresponding to 2.2 and 5.1 times the conventional FSA limit of 1/e ≈ 0.368 tags per slot, while approaching optimal decoding performance and outperforming existing collision recovery methods. 
+
+Index Terms —Passive UHF-RFID, collision recovery, backscat-ter communication, deep learning. 
+
+I. I NTRODUCTION 
+
+Radio frequency identification (RFID) is a widely used automatic identification technology that supports the tracking and management of physical objects in modern Internet of Things (IoT) deployments [2]–[4]. Typical applications in-clude logistics, retail inventory, healthcare asset management, manufacturing, and access control [5]. For item-level tagging, passive ultra high frequency (UHF) RFID operating in the 860–960 MHz band is commonly used due to its practical balance of read range, cost, and data rate. Passive UHF tags carry no onboard power source and instead harvest energy from the continuous wave (CW) signal radiated by the reader, responding through backscatter modulation [6], [7]. 
+
+T. Akyıldız is with the EECS Dept., University of Michigan, Ann Arbor, MI, 48104, USA (email: akyildiz@umich.edu). S. A. Gooty is with the ECE Dept., Northeastern University, Boston, MA, 02115, USA (email: gooty.s@northeastern.edu). H. Mahdavifar is with the EECS Dept., University of Michigan, Ann Arbor, MI, 48104, USA and ECE Dept., Northeastern University, Boston, MA, 02115, USA (email: h.mahdavifar@northeastern.edu). N. Ebrahimi is with the ECE Dept., Northeastern University, Boston, MA, 02115, USA (email: n.ebrahimi@northeastern.edu). Part of this work was presented at the 2022 IEEE International Conference on RFID [1]. 
+
+This battery-free operation supports low-cost deployment at large scale, but reliably decoding tag responses becomes more difficult as the number of tags grows. Collisions among tag responses are a major limitation of passive UHF-RFID. When two or more tags respond in the same slot, their backscattered signals overlap, and a conven-tional reader fails to decode the collided responses. To reduce such contention, the EPC Gen2 standard adopts framed slotted ALOHA (FSA), where each tag randomly selects a frame slot [8]. Despite its simplicity, conventional FSA achieves a maximum throughput of only 1/e ≈ 0.368 tags per slot when the frame length approximately equals the tag population [9]. A collided slot, however, still contains recoverable information about the responding tags. Recovering the individual tag responses from the collided signal at the physical layer would convert these wasted slots into successful reads and improve the achievable throughput well beyond the FSA bound. At the medium access control (MAC) layer, anti-collision protocols reduce the probability of collisions rather than re-cover the collided responses. Dynamic framed slotted ALOHA (DFSA) extends FSA by adapting the frame length to an estimate of the active tag population [10]. Tag population estimation has been studied using Bayesian inference [11], slot-wise maximum likelihood [12], multi-frame estimators [13], and unified frameworks that combine multiple estimators [14]. However, these protocols still treat each collision as undecodable, limiting their throughput to 1/e .Physical layer collision recovery extracts the individual tag responses from the combined signal instead of discarding it. Early receivers based on signal constellation analysis and parameter estimation jointly decode two tags [15], [16], while antenna arrays combined with blind source separation resolve more than two overlapping responses [17], [18]. The frame-work in [19], [20] estimates channel coefficients and applies zero forcing or successive interference cancellation to re-cover two colliding tags. Subsequent extensions include multi-antenna processing [21]–[23], multipacket reception frame-works for backscatter [24], [25], and coherent reception with software-defined radios (SDRs) [26], [27]. Other receiver designs reduce reliance on explicit channel estimation or use alternative tag separation methods. These include voltage clustering [28], coding and parallel decoding [29], [30], and parallel backscatter systems such as FlipTracer and Hubble, which demonstrate concurrent WISP decoding and modified MAC behavior [31], [32]. Blind and statistical methods avoiding pilot-based channel estimation include semi-blind cumulant separation [33], finite-symbol Viterbi decoding [34], and Matrix Pencil parameter estimation [35]. arXiv:2608.17216v1 [eess.SP] 17 Aug 2026 2                   
+
+> TABLE I: Comparison of representative UHF-RFID collision recovery methods and operating assumptions
+> Method Main mechanism Extra requirement Processing Assumption or scope Reported tags
+> ZF/SIC [19], [20] Channel estimation and interference cancellation Preamble Per slot estimation Single antenna recovery targets two tags, while arrays are used for higher orders 2Coherent FM0 [26] Coherent FM0 sequence detection Signal levels Per slot detection Detector is defined for two tags 2Matrix Pencil [35] Matrix Pencil parameter estimation Preamble and antenna array Per slot parameter estimation Short FM0 preamble constrains reliable estimation beyond three tags 2–3 mReader [36] MU-MIMO beamforming Antenna array Beamforming and channel calibration Requires multiple reader antennas and was demonstrated for two tags 2BiGroup [30] I/Q clustering with time-domain bipartite grouping None at tag Clustering and bit boundary extraction Uses tag asynchronism and separable I/Q clusters. Reported recovery of all tags decreases for larger collision sizes. 5I/Q geometry [39] Clustering and Procrustes constellation alignment Preamble anchor Per slot optimization Requires observable constellation clusters. FM0 decoding is validated for three tags, while support for four tags is reported. 4
+> SATR (this work) Self-attention with learned tag representations and FM0-aware bit decoding None at tag Joint learned decoding Requires offline training and coverage of expected channel and collision conditions 4
+
+Recent receiver designs include mReader [36], a multi-user multiple-input multiple-output (MU-MIMO) beamforming re-ceiver demonstrated with two tags, a fast Monte Carlo clus-tering procedure for in-phase and quadrature (I/Q) signal sep-aration [37], and a pilot-free multi-antenna formulation based on the zero constant modulus criterion [38]. The geometric approach in [39] reports recovery of up to four tags through I/Q clustering and alignment with the ideal constellation. While prior collision recovery methods have improved the utilization of collided slots, many first convert the received waveform into an explicit intermediate estimate, e.g., channel state information (CSI), separated constellation clusters, or signal parameters. Estimation errors can propagate to the decoded bits, especially when overlapping responses produce ambiguous I/Q patterns. Deep learning has recently been used for wireless physical layer detection, where end-to-end models can learn a direct mapping from received samples to decoded data instead of estimating intermediate quantities separately [40]–[42]. This capability is particularly useful for multi-tag collision recovery in UHF-RFID systems, where decoding can exploit both the I/Q geometry of the superposed responses and the temporal constraints imposed by FM0 encoding. Accord-ingly, we develop an end-to-end decoding method based on deep learning that recovers individual tag responses directly from the received baseband samples without requiring tag modifications, additional pilot symbols, or CSI. In a preliminary version of this work [1], neural networks were used to estimate the tag count from the collided sig-nal and the channel coefficients from four additional pilot symbols, followed by maximum likelihood detection. This paper significantly extends that work by replacing the multi-stage pipeline with an end-to-end decoding algorithm and by validating the resulting decoder on measured backscatter signals. Specifically, we propose Self-Attention Tag Recovery (SATR), which builds on a transformer architecture and jointly estimates the number of responding tags and their 16-bit ran-dom number (RN16) sequences from the collided waveform. Table I summarizes the main distinctions between SATR and representative prior methods. The main contributions are summarized as follows: 1) We formulate multi-tag collision recovery as a set pre-diction problem and propose SATR, an end-to-end trans-former decoding algorithm that maps the baseband I/Q samples of a collided slot directly to an unordered set of RN16 sequences. 2) We design the SATR architecture with FM0-aware input tokens, a self-attention waveform encoder, learned candi-date tag representations, and dedicated output modules for tag presence detection, auxiliary channel estimation, and sequential bit decoding. Optimal assignment makes the training objective invariant to candidate ordering, while the fixed candidate set allows a single trained model to handle all considered collision sizes. 3) We numerically evaluate SATR across collision sizes against the ideal FSA limits derived for different re-covery configurations. Without requiring CSI, SATR ap-proaches the performance of the Bahl–Cocke–Jelinek– Raviv (BCJR) detector with perfect CSI [43] and achieves higher throughput than the I/Q geometry method [39]. It reaches 0.815 and 1.87 tags per slot under single acknowledgment and full recovery, corresponding to 2.2
+
+and 5.1 times the conventional FSA limit, respectively. 4) We validate SATR using backscatter measurements from commercial UHF-RFID tags collected with a bistatic SDR reader. SATR correctly estimates the collision size in all direct captures involving up to four simultaneous responses, while composite collisions with known trans-mitted bits demonstrate high tag success rates consistent with the numerical results. The remainder of this paper is organized as follows. Sec-tion II presents the system and signal model and analyzes the FSA throughput under multi-tag collision recovery. Section III introduces SATR and describes its self-attention architecture, training, and inference procedures. Section IV presents the numerical evaluation of SATR under different collision and recovery settings. Section V validates SATR using measured backscatter signals. Section VI concludes the paper. 3                     
+
+> One inventory round (frame of 2Qslots)
+> Slot 0
+> singleton
+> Slot 1
+> empty
+> Slot 2
+> collision
+> Slot 3
+> singleton
+> Reader Tag A Tag B Tag C Tag D
+> Received Query ACK QueryRep QueryRep QueryRep ACK
+> no ACK sent RN16 EPC RN16 RN16 Tags B and C chose the same slot RN16 EPC
+> T1T2
+> decodable no response collision (undecodable) decodable time continuous wave (CW) reader command tag backscatter (FM0) received collision (sum)
+> Fig. 1: EPC Gen2 inventory round illustrating the reader commands, tag responses, and received signals across empty, singleton, and collision slots. The intervals T1and T2denote the time from a reader command to a tag response and from a tag response to the next reader command, respectively.
+
+II. S YSTEM MODEL 
+
+This section represents the system model for a passive UHF-RFID inventory system operating under the EPC Gen2 standard [8]. We describe the inventory procedure and the slot states that produce tag collisions. We then analyze the FSA throughput under conventional decoding and collision recovery. Finally, we derive the baseband model for a collided slot and describe the resulting I/Q constellation structure. 
+
+A. Notation Convention 
+
+Throughout this paper, vectors and matrices are denoted by boldface lowercase and uppercase letters, e.g., x and X,respectively, and (·)T denotes the transpose. The sets R and C
+
+denote the real and complex numbers. The operator E[·] de-notes expectation, while Re {·} and Im {·} denote the real and imaginary parts of a complex quantity. For a complex scalar 
+
+x, |x| and ∠x denote its magnitude and phase, respectively, and ∥x∥ denotes the Euclidean norm of vector x. The identity matrix of size n is denoted by In, 1n denotes the all-ones vector of length n, CN (μ, Σ) denotes the circularly symmetric complex Gaussian (CSCG) distribution with mean μ and covariance Σ, and U(a, b ) denotes the uniform distribution over (a, b ). The operator ⊕ denotes modulo two addition, and the indicator function is denoted by 1{·} .
+
+B. EPC Gen2 Protocol 
+
+The EPC Gen2 standard defines a half-duplex, reader-initiated protocol for passive UHF-RFID communication [8]. During an inventory round, the reader sends commands by modulating its RF carrier and continues transmitting a CW during tag responses. This signal powers the tags and provides the carrier for their backscatter responses. Each tag responds by switching its antenna impedance between two load states, thereby modulating the signal reflected toward the reader. Fig. 1 shows the EPC Gen2 inventory sequence. The reader begins an inventory round by sending a Query command with the frame size parameter Q, which determines K = 2Q
+
+slots. After receiving the Query command, each tag inde-pendently and uniformly selects a slot counter value from 
+
+{0, 1, . . . , K − 1}. A tag responds only when its counter is zero. The reader advances the inventory frame using QueryRep commands, where each QueryRep decrements the slot counter of every tag that has not responded yet. A tag whose slot counter reaches zero backscatters an RN16 using FM0 encoding. If the reader decodes the RN16, it sends an acknowledgment (ACK) containing the same RN16 value. After verifying the ACK, the tag backscatters its Electronic Product Code (EPC), completing the identification exchange. The timing is governed by the intervals T1 and T2, where T1
+
+is the time from the end of a reader command to the start of the tag response and T2 is the time from the end of the tag response to the next reader command. The inventory procedure produces three slot states: i) An empty slot: no tag responds. ii) A singleton slot: one tag responds. iii) A collision slot: two or more tags respond. Under conventional EPC Gen2 decoding, only a singleton slot leads to the ACK and EPC exchange. A collision slot is discarded because the overlapping RN16 waveforms are not decoded. This slot structure underlies the FSA throughput limit and motivates physical layer recovery of collided responses. 
+
+C. Framed Slotted ALOHA and Throughput Analysis 
+
+The FSA throughput is determined by the distribution of tag responses across the slots of a frame. We model an FSA frame with N participating tags and K slots. The frame size controls the balance between empty and collision slots. A smaller K
+
+increases the probability of collisions because fewer slots are available, whereas a larger K reduces collisions at the cost of more empty slots. Under the standard FSA model, each tag independently and uniformly selects one of the K slots. Hence, the number of tag responses in any given slot, denoted by R, follows a binomial distribution. The probability that a slot contains exactly R tag responses is 
+
+P (R) = 
+
+NR
+
+  1
+
+K
+
+R 
+
+1 − 1
+
+K
+
+N −R
+
+. (1) Let XR denote the number of slots in the frame that contain exactly R tag responses. Since each slot has probability P (R)4
+
+of containing R responses, the expected number of such slots is E[XR] = KP (R). The conventional FSA throughput ηconv 
+
+is defined as the expected number of acknowledged tags per slot. Because a conventional EPC Gen2 reader decodes only singleton slots, the expected throughput is 
+
+ηconv = E[X1]
+
+K = NK
+
+
+
+1 − 1
+
+K
+
+N −1
+
+. (2) For large N and K with fixed load ρ = N/K , the bino-mial distribution in (1) is well approximated by a Poisson distribution with mean ρ, so that P (R) ≈ e−ρ ρ R 
+
+> R!
+
+and the throughput depends on N and K only through ρ [9]. The conventional throughput then becomes ηconv ≈ ρe −ρ, which attains its maximum η∗ 
+
+> conv
+
+= 1 /e ≈ 0.368 at ρ = 1 .Collision recovery modifies the FSA throughput model by allowing collided slots to contribute decoded tags. Let M
+
+denote the maximum collision size that can be resolved, and let J denote the maximum number of decoded tag responses that can be acknowledged from a recoverable slot, with 
+
+1 ≤ J ≤ M . A slot containing R tag responses is recoverable if R ≤ M , and remains unresolved otherwise. From arecoverable slot, the reader decodes the collided responses and acknowledges up to J of them, corresponding to min( R, J )
+
+acknowledged tags. The resulting expected throughput is 
+
+ηM,J = 1
+
+K
+
+> M
+
+X
+
+> R=1
+
+min( R, J ) E[XR] = 
+
+> M
+
+X
+
+> R=1
+
+min( R, J ) P (R)
+
+≈ e−ρMX
+
+> R=1
+
+min( R, J ) ρR
+
+R! . (3) The case J = 1 represents the standard EPC Gen2 acknowl-edgment constraint, under which the reader can acknowledge at most one decoded tag response. Setting J = 1 in (3) gives 
+
+ηM, 1 = 1
+
+K
+
+> M
+
+X
+
+> R=1
+
+E[XR] = 
+
+> M
+
+X
+
+> R=1
+
+P (R) ≈ e−ρMX
+
+> R=1
+
+ρR
+
+R! . (4) In the single acknowledgment setting, ηM, 1 denotes the expected throughput when collisions of up to M tags are recoverable. Fig. 2 shows ηM, 1 versus the frame-to-tag ratio 
+
+K/N for M ∈ { 1, 2, 3, 4}, where M = 1 reduces to conven-tional FSA. 1 The inset table reports the optimal frame-to-tag ratio and maximum throughput for each curve. Increasing M
+
+makes larger collisions recoverable, which increases the max-imum throughput and shifts the optimal K/N below one. For 
+
+M = 4 , the maximum throughput is 0.817 at K/N = 0 .452 ,corresponding to a 2.22 -fold gain over conventional FSA. Multi-tag recovery corresponds to J > 1 and further improves throughput by allowing more than one decoded tag to be acknowledged. As J approaches M , the model moves toward full recovery, where every decoded response from any collision of size at most M can be acknowledged. Fig. 3 de-picts ηM,J for representative (M, J ) pairs with J > 1, and the inset table lists the optimal operating points. The curves show                                                                            
+
+> 1We consider recovery configurations up to M= 4 since the probability of a slot containing Rresponses decays rapidly with Runder the slot distribution in (1). Collisions of more than four tags are therefore rare at practical frame loads and would contribute little additional throughput even if recoverable.
+> 00.511.5200.20.40.60.8
+> M(K/N )∗η∗
+> M, 140.452 0.817 30.550 0.726 20.707 0.587 11.000 0.368
+> Frame-to-tag ratio K/N
+> Expected throughput  ηM, 1
+> M=1 M=2 M=3 M=4
+> Fig. 2: FSA throughput under the single acknowledgment setting ( J= 1 )versus the frame-to-tag ratio K/N for different values of M.
+> 00.511.5200.511.52
+> M, J (K/N )∗η∗
+> M,J
+> 4,40.340 1.942 4,30.356 1.782 4,20.391 1.414 3,30.441 1.371 3,20.475 1.175 2,20.618 0.840
+> Frame-to-tag ratio K/N
+> Expected throughput  ηM,J
+> M=2 , J =2 M=3 , J =2 M=3 , J =3
+> M=4 , J =2 M=4 , J =3 M=4 , J =4
+> Fig. 3: FSA throughput under multi-tag recovery ( J > 1) versus the frame-to-tag ratio K/N for different recovery configurations (M, J ).
+
+that increasing either M or J raises the maximum through-put and shifts the optimal K/N ratio downward, because recoverable collisions make denser frames more efficient. For 
+
+(M, J ) = (4 , 4) , the throughput reaches η∗ 
+
+> 4,4
+
+= 1 .942 tags per slot, more than five times the conventional FSA limit. 
+
+D. Communication Model 
+
+We formulate the physical signal model for a single FSA slot, following the passive UHF-RFID backscatter models in [20], [26]. We consider a reader with Nrx receive antennas and a slot in which R tags respond. During the response interval, the reader continues transmitting its CW, while each tag switches its antenna load according to its FM0 encoded sequence. The reader therefore observes the sum of the tag backscatter signals, carrier leakage, and receiver noise, as illustrated in Fig. 4. A passive tag modulates the incident CW by changing the impedance presented to its antenna [6]. The tag uses two impedance states. In the absorbing state, most of the incident power is delivered to the tag circuitry, so the reflected com-ponent is weak. In the reflecting state, impedance mismatch increases the backscattered component. We represent these two load states by binary levels 0 and 1, corresponding to the absorbing and reflecting states, respectively. Each responding tag sends an RN16 response encoded using FM0 [8]. For tag i, let bi[k] ∈ { 0, 1} denote the k-th transmitted RN16 bit, and let bi = [ bi[0] , . . . , b i[15]] denote 5
+
+Reader         
+
+> TX RX CW
+> L
+> Tag 1
+> a1(t)
+> Tag 2
+> a2(t)
+> ...
+> Tag RaR(t)
+> hf
+> 1
+> hb
+> 1
+> hf
+> 2
+> hb
+> 2
+> hfR
+> hbR
+> Forward hfiBackward hbiLeakage L
+> Fig. 4: Passive UHF RFID backscatter model with Rresponding tags, including the reader CW, tag backscatter paths, and carrier leakage.
+
+the RN16 sequence. FM0 maps these bits to the two binary load states. Each bit occupies one symbol interval of duration 
+
+T , which is divided into two half symbols. The load state toggles at the beginning of each symbol interval, and the bit value determines whether an additional transition occurs at the half-symbol boundary. If bi[k] = 0 , the load state toggles at the half-symbol boundary. If bi[k] = 1, the load state remains unchanged during the second half symbol. Thus, FM0 represents each bit by the transition pattern within its symbol interval. Fig. 5 shows the resulting load waveforms for the four two bit patterns. Let ci[k] ∈ { 0, 1} denote the load state during the first half of the k-th symbol interval. The initial value ci[0] sets the starting load state. Following the FM0 transition rule, ci[k +1] = ci[k] ⊕ bi[k]. The corresponding load waveform ai(t) is given by 
+
+ai(t) = 
+
+> 15
+
+X
+
+> k=0
+
+pi,k (t − kT ), (5) where pi,k (t) is the FM0 pulse associated with bi[k], i.e., 
+
+pi,k (t) = 
+
+(ci[k]Π( t/T ), bi[k] = 1 ,ci[k]Π(2 t/T ) + (1 − ci[k])Π(2 t/T − 1) , bi[k] = 0 ,
+
+(6) 
+
+where Π( x) is the unit rectangular pulse. The CW propagates to tag i through the forward channel 
+
+hfi ∈ C. The differential reflection between the absorbing and reflecting states is denoted by √∆σi, where |∆σi| is the normalized differential radar cross section (RCS) of tag i [6]. The return path from tag i to the reader is represented by the backward channel hbi ∈ CNrx , whose j-th entry hbi,j denotes the channel from tag i to receive antenna j. At antenna j, the passband signal is modeled as 
+
+ypb  
+
+> j
+
+(t) = 
+
+> R
+
+X
+
+> i=1
+
+|hfi | p|∆σi| | hbi,j | ai(t) cos(2 πf ct + ϕi,j )+ sleak ,j (t) + npb  
+
+> j
+
+(t), (7) where ϕi,j = ∠hfi + ∠√∆σi + ∠hbi,j is the total phase shift of the backscattered component, and npb  
+
+> j
+
+(t) is passband additive white Gaussian noise. The leakage term is sleak ,j (t) = 
+
+|Lj | cos(2 πf ct + ϕleak  
+
+> j
+
+), where |Lj | and ϕleak  
+
+> j
+
+are the leakage                  
+
+> 0T / 2T3T / 2 2 T
+> (0 ,0)
+> 0T / 2T3T / 2 2 T
+> (0 ,1)
+> 0T / 2T3T / 2 2 T
+> (1 ,0)
+> 0T / 2T3T / 2 2 T
+> (1 ,1)
+> reflecting absorbing reflecting absorbing boundary midpoint
+> Fig. 5: FM0 load states for the four two bit input patterns (bi[k], b i[k+1]) ,assuming the initial state is absorbing.
+
+amplitude and phase at antenna j.After coherent I/Q downconversion and low pass filtering, the received signal at antenna j is represented by the complex baseband signal yj (t). Since each response is produced by reflecting the reader CW, all responses share the same carrier reference and do not introduce carrier frequency offset. The leakage term also downconverts to the complex DC component 
+
+Lj = |Lj |ejϕ leak  
+
+> j
+
+. Collecting the baseband signals of the Nrx 
+
+receive antennas in y(t) = [ y1(t), . . . , y Nrx (t)] ∈ CNrx gives 
+
+y(t) = 
+
+> R
+
+X
+
+> i=1
+
+hfi
+
+p∆σi hbi ai(t) + L + n(t)=
+
+> R
+
+X
+
+> i=1
+
+giai(t) + L + n(t),
+
+(8) where gi = hfi
+
+√∆σihbi ∈ CNrx is the effective channel of tag i, L ∈ CNrx is the carrier leakage vector with j-th element Lj , and n(t) ∼ CN (0, N 0INrx ). The average receive signal-to-noise ratio (SNR) per antenna is defined as 
+
+SNR = PRi=1 E[∥gi∥2]/(RN rx N0).We assume that the RN16 symbol boundaries of the responding tags are aligned within a collision slot. This assumption is consistent with EPC Gen2 operation, where tag responses are reader initiated, occur within the specified turnaround interval after the reader command, and begin with a known FM0 preamble [8]. It also follows the coherent collision model in [26], which treats collided responses as having aligned bit boundaries and validates this assumption experimentally. Practical tags can still exhibit small timing and backscatter link frequency variations [20], so in the measure-ment study of Section V, we locate the response window from the Query timing and extract the measured samples using the nominal RN16 bit grid. This processing provides experimental support for using the synchronized collision model under the considered passive UHF-RFID setup. 
+
+E. I/Q Constellation Structure 
+
+The baseband model in (8) characterizes the I/Q constella-tion observed during a collision. For receive antenna j, let gi,j 
+
+denote the j-th entry of the effective channel vector gi. At any sampling instant, each responding tag is in either the absorbing or reflecting load state. We collect these instantaneous load states in s = [s1, . . . , s R], where si = 0 represents the 6                      
+
+> 123
+> −2024
+> In-phase (I) Quadrature (Q)
+> R= 0
+> 123
+> In-phase (I)
+> R= 1
+> 123
+> In-phase (I)
+> R= 2
+> 123
+> In-phase (I)
+> R= 3
+> 123
+> In-phase (I)
+> R= 4
+> Fig. 6: Synthetic I/Q samples for R= 0 to R= 4 responding tags at receive antenna j. Point colors indicate load-state combinations, and samples are generated at 20 dB SNR.
+
+absorbing state and si = 1 represents the reflecting state of tag 
+
+i. For a given load-state vector s, the corresponding noiseless constellation center at antenna j is μj (s) = Lj + PRi=1 gi,j si.Since the load state of each tag can take two values, the number of possible constellation centers grows exponentially with the number of responding tags. One tag produces at most two centers, while two tags produce four centers from the four joint load-state combinations. More generally, R responding tags produce up to 2R centers in the I/Q plane, with noise spreading samples around these centers into cluster regions. Since an FM0 response has finite length, not every joint load-state combination may appear, so fewer than 2R regions may be observed. Fig. 6 illustrates this growth from the no tag case to slots with up to four responding tags. This exponential growth makes explicit constellation extrac-tion increasingly fragile as the collision size grows. The center locations depend on the effective tag channels and carrier leakage. Unfavorable channel geometry can place constellation centers close together, while noise can make the corresponding regions overlap, leaving cluster estimation ambiguous [32]. These limitations motivate a decoding approach that op-erates on the sampled I/Q waveform itself rather than on estimated cluster centers. Such an approach can use self-attention to jointly model the geometric information created by the simultaneous tag load states and the temporal constraints imposed by FM0 transitions across the RN16 response. This is the basis for the proposed method, which recovers tag responses from the collided waveform without pilot symbols, tag modifications, or a separate cluster extraction stage. III. S ELF -A TTENTION TAG RECOVERY 
+
+This section presents Self-Attention Tag Recovery (SATR), the proposed decoding algorithm for multi-tag collision re-covery. SATR operates on the baseband samples collected from a collided slot and recovers the RN16 sequences of the responding tags. We first define the attention operations that serve as common building blocks and then describe the FM0-aware input representation, waveform encoder, and candidate extraction module. We then present the output heads for tag presence, auxiliary channel estimation, and RN16 bit de-coding, followed by the permutation-based training objective and the inference procedure used to estimate the number of responding tags and return the decoded RN16 sequences. Fig. 7 summarizes the main processing flow of SATR. The sampled RN16 waveform is first converted into FM0-aware tokens, one for each half-symbol sample. These tokens com-bine the raw complex samples with features derived from the two half-symbol samples of each RN16 bit and with positional information. A self-attention waveform encoder transforms the token sequence into the waveform memory E, a contextual representation of the received slot used for candidate extraction and bit decoding. The candidate extraction module begins with 
+
+M trainable vectors representing possible responding tags and refines them by attending to E, yielding waveform-dependent candidate representations zi. The output heads, i.e., task-specific output modules, use each zi as follows: the presence head estimates whether the candidate is present, the channel head predicts an auxiliary effective channel for candidate assignment during training, and the bit decoder reconstructs the corresponding RN16 sequence. 
+
+A. Preliminaries 
+
+Before describing the individual processing stages in detail, we define the attention and related operations used throughout SATR, following the standard transformer architecture [44]. 
+
+a) Attention: Attention allows each query to gather rel-evant information from a set of available representations. A query represents the position being updated, each key is compared with that query to determine relevance, and its corresponding value provides the information used in the update. Let Q, K, and V collect these queries, keys, and values as rows, respectively. Scaled dot product attention is computed as 
+
+S = softmax 
+
+ QK T
+
+√dh
+
+
+
+, Attn( Q, K, V) = SV , (9) where dh is the common dimension of the query, key, and value representations, and the softmax is applied across each row. Each row of S gives the attention weights assigned by one query to the value representations, so the corresponding output row is their weighted combination. 
+
+b) Multihead attention: Multihead attention applies the attention operation through nh parallel heads, which can capture complementary relationships. Let A denote the query sequence and C the context sequence, both consisting of representations of dimension d. Each head r ∈ { 1, . . . , n h}
+
+uses separate projections to obtain 
+
+Q(r) = AW (r) 
+
+> Q
+
+, K(r) = CW (r) 
+
+> K
+
+, V(r) = CW (r) 
+
+> V
+
+, (10) where W(r) 
+
+> Q
+
+, W(r) 
+
+> K
+
+, W(r) 
+
+> V
+
+∈ Rd×dh are trainable projection matrices and dh = d/n h. The output of head r is obtained using the attention operation in (9) as 
+
+H(r) = Attn  Q(r), K(r), V(r). (11) 7                                  
+
+> collided response FM0-aware tokens joint encoding of the response tag candidate formation output heads
+> yn=y(nT / 2)
+> tag 1 tag 2 sum
+> · · ·
+> tokens x0, . . . , x31
+> bit k
+> y2k,y2k+1 →y(+) ,y(−), n mod 2
+> waveform encoder
+> Lelayers · · ·
+> waveform memory E
+> candidate extraction
+> Lclayers
+> Mtrainable candidates Z(0)
+> candidate representations zi
+> presence head channel head bit decoder
+> Lblayers
+> E
+> pth
+> ˆp1= 0 .97 ˆp2= 0 .93 ˆp3= 0 .07 ˆp4= 0 .04 ˆR= 2 tags detected
+> IQ
+> ˆgi
+> 0101101 · · · 01010011 · · · 1
+> not present not present decoded RN16 ˆbi
+
+Fig. 7: Overview of the proposed SATR algorithm, shown for a collision of two tags. The waveform memory E is read by the candidate extraction module and by the bit decoder. Two of the M = 4 candidates exceed the presence threshold, and the decoded RN16 sequences of the two detected tags are returned. 
+
+Finally, the head outputs are concatenated along the feature dimension to form H = [ H(1) , . . . , H(nh)]. An output projec-tion then gives 
+
+MHA Θ(A, C) = HW O , (12) where WO ∈ Rd×d is a trainable projection matrix and Θ
+
+collects all trainable parameters of the operation. Bias terms are omitted from the notation for clarity. 
+
+c) Self-attention: Self-attention uses the same sequence as both the query and the context. Each position can therefore incorporate information from every position in the sequence, allowing relationships across the sequence to be represented. For a sequence A, self-attention is defined as 
+
+SA Θ(A) = MHA Θ(A, A). (13) 
+
+d) Cross-attention: Cross-attention updates a query se-quence using information from a separate context sequence. The query sequence determines the positions to be updated, while the context sequence supplies the information incorpo-rated into those positions. For query sequence A and context sequence C, cross-attention is defined as 
+
+CA Θ(A, C) = MHA Θ(A, C). (14) Fig. 8 summarizes the attention mechanism used throughout SATR. 
+
+e) Feedforward network and layer normalization: After attention exchanges information across sequence positions, a feedforward network refines each representation indepen-dently. For a sequence A, the transformation is given by 
+
+FFN Θ(A) = ReLU  AW ff 1 + bff 1
+
+ Wff 2 + bff 2 , (15) where dff is the hidden dimension and ReLU( ·) is applied elementwise. The trainable parameters are Wff 1 ∈ Rd×dff ,
+
+Wff 2 ∈ Rdff ×d, bff 1 ∈ Rdff , and bff 2 ∈ Rd. Layer normalization is denoted by LN( ·). It normalizes the features of each representation independently and applies trainable scale and offset parameters. 
+
+B. FM0-Aware Input Representation 
+
+The FM0-aware input representation converts the collided RN16 waveform into real-valued token features while preserv-ing its I/Q geometry and temporal structure. Each complex sample contains the combined load-state contributions of the 
+
+One attention head r         
+
+> query sequence Acontext sequence C
+> ......
+> W(r)
+> QW(r)
+> KW(r)
+> V
+> Query
+> Q(r)
+> Key
+> K(r)
+> Value
+> V(r)
+> scaled dot product
+> Q(r)(K(r))T/pdh
+> row-wise softmax
+> S(r) = softmax( ·)
+> attention weights S(r)
+> weighted combination
+> H(r)=S(r)V(r)
+> head output H(r)
+> ...one output per query
+
+Multihead output              
+
+> H(1) , . . . , H(nh)concatenate WOMHA Θ(A,C)
+> self-attention: A=Ccross-attention: separate Aand C
+
+Fig. 8: General attention operation for head r and the resulting multihead output. Self-attention uses A = C, whereas cross-attention uses separate query and context sequences. 
+
+responding tags. SATR samples the waveform once per FM0 half symbol. With sampling period Ts = T / 2, where T is the FM0 symbol period, the resulting samples are 
+
+yn = y(nT s) ∈ CNrx , n = 0 , . . . , 31 . (16) The samples y2k and y2k+1 form the pair associated with RN16 bit k. In FM0, the presence or absence of a midpoint transition determines the bit value, while a transition occurs at every symbol boundary. SATR therefore retains the raw samples in temporal order to preserve the transitions between bit intervals and forms their sum and difference within each pair to make the midpoint behavior explicit. For each RN16 bit position k, the sum and difference features are defined as 
+
+y(+) 
+
+n =
+
+(
+
+y2k+1 + y2k, n = 2 k + 1 ,
+
+0, n = 2 k, 
+
+y(−)
+
+n =
+
+(
+
+y2k+1 − y2k, n = 2 k + 1 ,
+
+0, n = 2 k. 
+
+(17) Note that the features y(+) 
+
+n and y(−)
+
+n are formed only from the two half-symbol samples of the same bit interval and not 8
+
+across adjacent bit intervals. The entries at n = 2 k are set to zero so that all sample tokens have the same dimension. Using the raw samples and the half-symbol pair features, SATR constructs a real-valued feature vector for each sample position. The real and imaginary parts are concatenated so that the complex waveform can be processed by standard real-valued neural network layers. The resulting vector is 
+
+un = (Re {yn})T, (Im {yn})T, (Re {y(+)  
+
+> n
+
+})T, (Im {y(+)  
+
+> n
+
+})T,
+
+(Re {y(−) 
+
+> n
+
+})T, (Im {y(−) 
+
+> n
+
+})T, n mod 2 T, (18) where un ∈ R6Nrx +1 and the final entry n mod 2 indicates whether sample n corresponds to the first or second half symbol of its RN16 bit interval. This position information helps the encoder interpret the raw sample and the pair features. Each feature vector un is mapped to a d-dimensional token embedding by a shared trainable linear layer. A fixed sinusoidal positional encoding pn ∈ Rd is then added to encode the sample location within the RN16 response, i.e., 
+
+xn = Win un + bin + pn ∈ Rd, (19) where Win ∈ Rd×(6 Nrx +1) and bin ∈ Rd are trainable parameters. The token sequence X = [ x0, . . . , x31 ]T ∈ R32 ×d
+
+forms the input to the waveform encoder. 
+
+C. Waveform Encoder 
+
+The waveform encoder transforms the embedded sequence 
+
+X into the waveform memory E, retaining one representation for each sample position. Self-attention allows each position to incorporate information from the full received waveform. This global context is useful because the effective channels remain fixed over the RN16 response, so repeated joint load states produce samples around the same constellation centers across the slot, while transitions between the two half symbols of each bit determine the FM0 bit value. The encoder contains Le layers, each applying self-attention followed by a feedforward network. Layer normalization is applied before each operation, and a residual connection adds each output to its input. The input to the first layer is E(0) =
+
+X, and E(ℓ) ∈ R32 ×d denotes the output of layer ℓ. For each layer, the self-attention update is given as 
+
+˜E(ℓ) = E(ℓ−1) + SA Θ(ℓ)enc ,sa 
+
+
+
+LN 
+
+
+
+E(ℓ−1)  
+
+, (20) where ˜E(ℓ) ∈ R32 ×d is the sequence after the residual self-attention step. The feedforward update is then written as 
+
+E(ℓ) = ˜E(ℓ) + FFN Θ(ℓ)enc ,ff 
+
+
+
+LN 
+
+ ˜E(ℓ) 
+
+, (21) where Θ(ℓ)enc ,sa and Θ(ℓ)enc ,ff denote the trainable parameters of the self-attention and feedforward operations in encoder layer 
+
+ℓ, respectively. After the final encoder layer, the waveform memory is written as 
+
+E = E(Le) = [ e0, . . . , e31 ]T ∈ R32 ×d. (22) Each vector en remains aligned with sample position n while incorporating information from the full received slot. 
+
+D. Candidate Extraction 
+
+The candidate extraction module maps the waveform mem-ory to M candidate tag representations. The fixed number of candidates allows SATR to perform set prediction [45] without knowing the number of responding tags in advance, and the outputs are not tied to any physical tag order. The module begins with trainable candidate vectors that are shared across received slots, given by 
+
+Z(0) = [ z(0) 1 , . . . , z(0)  
+
+> M
+
+]T ∈ RM ×d, (23) where the i-th row is the initial representation of candidate i.The candidate extraction module contains Lc layers, each using the same normalization and residual structure as the waveform encoder. The output of extraction layer ℓ is denoted by Z(ℓ) ∈ RM ×d, with Z(0) used as the input to the first layer. Each layer first applies self-attention across the can-didate representations, allowing the candidates to exchange information before they attend to the waveform memory. This interaction allows the candidates to coordinate their predictions rather than independently representing the same response. For 
+
+ℓ = 1 , . . . , L c, the residual self-attention update is given by 
+
+˜Z(ℓ) = Z(ℓ−1) + SA Θ(ℓ)ext ,sa 
+
+
+
+LN 
+
+
+
+Z(ℓ−1)  
+
+. (24) Cross-attention then allows each candidate representation to use the waveform memory as context. The candidate rep-resentations provide the queries, and the waveform memory provides the keys and values. The residual cross-attention update is written as 
+
+¯Z(ℓ) = ˜Z(ℓ) + CA Θ(ℓ)ext ,ca 
+
+
+
+LN 
+
+˜Z(ℓ)
+
+, E
+
+
+
+, (25) where ¯Z(ℓ) ∈ RM ×d denotes the intermediate candidate sequence after cross-attention. The layer then refines each candidate representation with a feedforward update, given by 
+
+Z(ℓ) = ¯Z(ℓ) + FFN Θ(ℓ)ext ,ff 
+
+
+
+LN 
+
+¯Z(ℓ) 
+
+, (26) where Θ(ℓ)ext ,sa , Θ(ℓ)ext ,ca , and Θ(ℓ)ext ,ff denote the trainable pa-rameters of the self-attention, cross-attention, and feedforward operations in layer ℓ, respectively. The output of the candidate extraction module is 
+
+Z = Z(Lc) = [ z1, . . . , zM ]T ∈ RM ×d, (27) where zi is the final waveform dependent representation of candidate i and summarizes the information associated with one possible responding tag. 
+
+E. Output Heads 
+
+Three output heads convert each candidate representation zi
+
+into the final predictions. The presence head estimates whether the candidate is present, the channel head predicts an auxiliary effective channel used only during training, and the bit decoder estimates the RN16 sequence. The presence head estimates whether candidate i corre-sponds to a responding tag. It applies a two-layer feedforward 9
+
+network to zi and passes the resulting logit ψi through a sigmoid to obtain the presence probability ˆpi, i.e., 
+
+ψi = FFN Θp (zi), ˆpi = σ(ψi), (28) where σ(·) is the sigmoid function and Θp denotes the trainable parameters of a two layer feedforward network with hidden dimension dff and a scalar output. The channel head produces the auxiliary effective-channel estimate through the same feedforward form with 2Nrx out-puts, given by 
+
+(Re {ˆgi})T, (Im {ˆgi})TT = FFN Θg (zi) ∈ R2Nrx , (29) where Θg denotes the trainable parameters of a two layer feedforward network with hidden dimension dff and output dimension 2Nrx . The first Nrx outputs give the real part of ˆgi ∈ CNrx and the remaining Nrx the imaginary part. This estimate is used only for training supervision and the assignment cost, not during inference. The RN16 bit decoder estimates an RN16 sequence for each candidate one bit at a time. This sequential decoding follows FM0 encoding, where the load state entering each bit interval depends on the preceding bits. To predict bit k for candidate i, the decoder combines its representation zi with a learned position embedding pb 
+
+> k
+
+for the current bit position and a previous bit embedding ri,k for the decoding history. The two embedding tables are shared across candidates. For k = 0 ,
+
+ri, 0 is a learned start embedding. For k > 0, it represents the true previous bit during training and the previously decoded bit during inference. The decoder input is 
+
+ti,k = zi + pb 
+
+> k
+
++ ri,k ∈ Rd. (30) The input tokens for candidate i are stacked as T(0)  
+
+> i
+
+=[ti, 0, . . . , ti, 15 ]T ∈ R16 ×d. The bit decoder processes this sequence through Lb layers, and T(ℓ) 
+
+> i
+
+∈ R16 ×d denotes the output of layer ℓ. Each operation uses the same normalization and residual structure as the waveform encoder. Within each layer, causal self-attention incorporates information from the current and preceding bit positions without using later po-sitions. Cross-attention then uses the bit representations as queries and the waveform memory E as context before a feedforward network refines each bit representation. For each layer, the updates are given by 
+
+˜T(ℓ) 
+
+> i
+
+= T(ℓ−1)  
+
+> i
+
++ SA causal Θ(ℓ)b,sa 
+
+
+
+LN( T(ℓ−1)  
+
+> i
+
+)
+
+
+
+,
+
+¯T(ℓ) 
+
+> i
+
+= ˜T(ℓ) 
+
+> i
+
++ CA Θ(ℓ)b,ca 
+
+
+
+LN( ˜T(ℓ) 
+
+> i
+
+), E
+
+
+
+,
+
+T(ℓ) 
+
+> i
+
+= ¯T(ℓ) 
+
+> i
+
++ FFN Θ(ℓ)b,ff 
+
+
+
+LN( ¯T(ℓ) 
+
+> i
+
+)
+
+
+
+,
+
+(31) where SA causal denotes self-attention restricted to the current and preceding bit positions, and Θ(ℓ)b,sa , Θ(ℓ)b,ca , and Θ(ℓ)b,ff are the trainable parameters of the self-attention, cross-attention, and feedforward operations in layer ℓ. After the final decoder layer, the output sequence is T(Lb) 
+
+> i
+
+= [ hi, 0, . . . , hi, 15 ]T ∈ R16 ×d,where hi,k ∈ Rd is the hidden representation for bit position 
+
+k of candidate i. A linear map shared across all candidates and bit positions, followed by a sigmoid activation, produces                                                         
+
+> TABLE II: SATR architecture parameters
+> Module Specification Output
+> Input features Raw I/Q, half-symbol sum and difference, half-symbol indicator
+> 32 ×(6 Nrx + 1)
+> Input embedding Linear projection +positional encoding, d= 192 32 ×d
+> Waveform encoder Le= 6 ,nh= 8 ,dff = 384 ,dropout 0.132 ×d
+> Candidate vectors M= 4 trainable vectors M×d
+> Candidate extraction Lc= 2 ,nh= 8 ,dff = 384 ,dropout 0.1
+> M×d
+> Presence head MLP with hidden dimension 384 M×1
+> Channel head MLP with hidden dimension 384 M×2Nrx
+> Bit decoder Lb= 2 ,nh= 8 ,dff = 384 ,dropout 0.1
+> M×16
+
+the predicted probability that the k-th bit is one, i.e., 
+
+ˆqi[k] = σ wT 
+
+> b
+
+hi,k + bb
+
+ ∈ (0 , 1) , (32) where wb ∈ Rd and bb ∈ R are trainable parameters. The complete SATR architecture is summarized in Table II. 
+
+F. Training and Inference 
+
+SATR is trained offline to recover unordered RN16 se-quences from collided slots generated by the baseband model in Section II. For a slot with R ≤ M responding tags, the true RN16 sequences form an unordered set, while SATR produces M candidate outputs. We therefore construct M
+
+training targets: R targets correspond to the responding tags, and the remaining M − R targets represent absent tags. The presence indicator of target j is denoted by yj ∈ { 0, 1}. For 
+
+yj = 1 , target j contains the effective channel gj and the RN16 vector bj = [ bj [0] , . . . , b j [15]] . For yj = 0 , it contains only the presence indicator and has no channel or bit sequence. Because the candidate outputs and the training targets are both unordered, an assignment step determines their pairing. For candidate output i and target j, the assignment cost is based on the presence classification loss for target j and, when the target corresponds to a responding tag, the squared error between the auxiliary channel estimate and the target channel. The assignment cost is defined as 
+
+Cij = λp BCE(ˆ pi, y j ) + λc yj ∥ˆgi − gj ∥2, (33) where BCE(ˆ pi, y j ) = −yj log ˆ pi − (1 − yj ) log(1 − ˆpi) is the binary cross entropy. The nonnegative weights λp and λc
+
+control the relative contributions of the presence and channel costs. The multiplier yj disables the channel cost for absent targets, so they contribute only the presence classification loss to the assignment cost. The candidate outputs are assigned to the targets by mini-mizing the total assignment cost over all one-to-one pairings. The optimal assignment is given by 
+
+π⋆ = arg min 
+
+> π∈ΠM
+> M
+
+X
+
+> i=1
+
+Ci,π (i), (34) where ΠM denotes the set of all permutations of the target indices {1, . . . , M }. Each permutation π ∈ ΠM specifies one possible assignment, in which candidate output i is assigned to target π(i). The optimal assignment π⋆ is then used to select the target labels for each candidate output. The bit loss is 10 
+
+excluded from the assignment cost and evaluated only after the assignment, when the RN16 label is known for each candidate assigned to a responding tag. After the assignment is obtained, each candidate output inherits the presence label of its assigned target, i.e., 
+
+ym 
+
+> i
+
+= yπ⋆(i), i = 1 , . . . , M. (35) The candidate outputs assigned to responding tags form the active set, i.e., Iact = {i ∈ { 1, . . . , M } | ym 
+
+> i
+
+= 1 }. Only these active candidates have channel and RN16 labels, which are defined as 
+
+gm 
+
+> i
+
+= gπ⋆(i), bm 
+
+> i
+
+= bπ⋆(i), i ∈ I act . (36) The presence loss penalizes incorrect active or absent deci-sions for the candidate outputs. Since each candidate output receives a presence label through the assignment, this loss is evaluated over all M outputs and is given by 
+
+Lpres = 1
+
+M
+
+> M
+
+X
+
+> i=1
+
+BCE(ˆ pi, y m 
+
+> i
+
+). (37) The channel loss is evaluated only over active candidate outputs, for which an assigned effective channel label is available. It measures the squared error between the auxiliary effective channel estimate ˆgi and the assigned channel label 
+
+gm 
+
+> i
+
+, and is given by 
+
+Lchan = 1
+
+|I act |
+
+X
+
+> i∈I act
+
+∥ˆgi − gm 
+
+> i
+
+∥2. (38) The bit loss is evaluated only for the active candidate outputs, for which assigned RN16 labels are available. It averages the binary cross entropy over the 16 bits and the active candidate outputs, and is given by 
+
+Lbit = 116 |I act |
+
+X
+
+> i∈I act
+> 15
+
+X
+
+> k=0
+
+BCE(ˆ qi[k], b m 
+
+> i
+
+[k]) , (39) where bm 
+
+> i
+
+[k] is the k-th bit of the assigned RN16 label for candidate output i.The total training objective is a weighted sum of the presence, channel, and bit losses and is given by 
+
+L = λpLpres + λcLchan + Lbit , (40) where λp and λc are the presence and channel weights introduced in the assignment cost in (33). After offline training, SATR maps the received samples from a collided slot to M candidate outputs. Candidate output i contains the presence probability ˆpi, the auxiliary channel estimate ˆgi, and the RN16 bit probability vector 
+
+ˆqi = [ˆ qi[0] , . . . , ˆqi[15]] ∈ (0 , 1) 16 .At inference, candidate output i is declared active if its pres-ence probability exceeds the threshold pth . The active output indices are defined as ˆI = {i ∈ { 1, . . . , M } | ˆpi > p th },where pth is chosen on validation data after training. The estimated collision size is the cardinality of this set given by 
+
+ˆR = |ˆI| =
+
+> M
+
+X
+
+> i=1
+
+1{ˆpi > p th }. (41)                                                 
+
+> TABLE III: SATR training settings
+> Parameter Value
+> Candidate outputs M= 4
+> Receive antennas Nrx = 1
+> Collision size PMF Pr( R= 1) = 0 .15 ,Pr( R= 2) = 0 .20 ,
+> Pr( R= 3) = 0 .25 ,Pr( R= 4) = 0 .40
+> RN16 vectors bi∼Unif( {0,1}16 )
+> Effective channels gii.i.d.
+> ∼CN (0,INrx )
+> Training SNR SNR dB ∼ U (0 ,30)
+> Batch size 256
+> Optimizer AdamW Training steps 5×10 5
+> Learning rate 5×10 −4after 2000 warmup steps, cosine decay to 5×10 −5
+> Weight decay 10 −5
+> Gradient clipping Global norm clipped to 1.0
+> Loss weights λc= 0 .05 ,λp= 1 .0
+> Presence threshold pth = 0 .70 , selected on a validation dataset
+
+For each active candidate output i ∈ ˆI, the RN16 bit estimates are obtained by thresholding the bit probabilities, i.e., 
+
+ˆbi[k] = 1{ˆqi[k] > 1/2}, k = 0 , . . . , 15 . (42) The decoded RN16 estimate for candidate output i is ˆbi =[ˆbi[0] , . . . , ˆbi[15]] , and SATR returns the unordered set {ˆbi :
+
+i ∈ ˆI} . Thus, at inference, SATR estimates the number of responding tags and decodes their RN16 sequences directly from the received samples, while the auxiliary channel esti-mate is used only during training for assignment and channel supervision. For offline training, synthetic collision waveforms are gen-erated from the baseband model with up to four responding tags. The training dataset covers random RN16 sequences, independent effective channel realizations, and SNRs uni-formly sampled from 0 to 30 dB. For each generated slot, the responding tag indicators, RN16 sequences, and effective channels are known and used as labels for the assignment and loss computation. The main data generation, optimization, and threshold selection settings are summarized in Table III. IV. N UMERICAL RESULTS 
+
+We now represent the numerical results that evaluate the collision recovery performance of SATR and the resulting FSA throughput. After describing the simulation setup, we assess the decoding performance of SATR using tag count estimation accuracy and tag success rate across collision sizes and SNR values. We then evaluate the FSA throughput achieved by SATR for different (M, J ) recovery configurations. Finally, we compare SATR with a BCJR detector with perfect CSI [43] and the collision recovery method of Alfayoumi et al. [39] for the recovery configuration M = 4 under single acknowledg-ment and full recovery. In the simulations, collided slots are generated using the baseband collision model in (8) with a single receive antenna, 
+
+Nrx = 1 . For each collision size R ∈ { 1, 2, 3, 4}, a slot contains R responding tags, and each tag is assigned an inde-pendent RN16 sequence encoded with FM0. 2 We consider a                    
+
+> 2The simulations use the centered bipolar FM0 representation with half-symbol levels in {− 1,+1 }. This representation preserves the RN16 sequence and FM0 transitions and contains no carrier leakage component. 11
+> 0510 15 20 25 30 00.20.40.60.81
+> SNR (dB) Tag count estimation accuracy
+> R= 1 R= 2 R= 3 R= 4
+> Fig. 9: Tag count estimation accuracy of SATR for collision sizes
+> R∈ { 1,2,3,4}.
+
+flat-fading channel model where channel coefficients are fixed over the RN16 response for each tag. The effective channel of tag i is a scalar coefficient gi, drawn independently as 
+
+gi ∼ CN (0 , 1) . The received baseband waveform is sampled once per FM0 half symbol as in (16), producing 32 complex samples per slot corrupted by AWGN. All RN16 responses, channel coefficients, and noise samples are regenerated for every slot realization. Each collision size is evaluated from 0
+
+to 30 dB in 5 dB steps using 10 6 tag responses per SNR point. All SATR results are obtained with a single model trained offline using the settings summarized in Table III. For every evaluated slot, the trained model estimates the collision size and decodes the RN16 sequences from the received samples alone, with the presence threshold fixed to pth = 0 .70 for all collision sizes and SNR values. No retraining or parameter adaptation is performed across operating points. Fig. 9 shows the tag count estimation accuracy of SATR, defined as the probability that the estimated number of re-sponding tags equals the true collision size. At low SNR, noise reduces the separation between the received I/Q patterns and weakens the FM0 transition structure, so the estimated count is often confused with nearby collision sizes. As the SNR increases, these waveform features become clearer, and the accuracy improves for all collision sizes. The single tag case is identified most reliably, while larger collisions are more difficult because additional overlapping responses produce more complex received waveforms. At high SNR, the tag count estimation accuracy approaches one for all tested collision sizes, showing that SATR reliably estimates the number of responding tags from the received waveform alone. Fig. 10 depicts a comparison of the tag success rates achieved by SATR and the BCJR detector with perfect CSI. 3
+
+A tag is counted as successful only when all 16 bits of its RN16 sequence are recovered correctly under a one-to-one matching between the decoded and transmitted sequences. The success rate increases with SNR and decreases as the collision size grows, reflecting the difficulty of separating multiple overlapping RN16 responses. For up to three colliding tags,                                                   
+
+> 3The BCJR detector with perfect CSI is used as an informed reference. It is given the true collision size, the effective channels, and the noise variance, and performs maximum a posteriori decoding over the joint FM0 trellis.
+> 0510 15 20 25 30 00.20.40.60.81
+> SNR (dB) Tag success rate
+> SATR R= 1 SATR R= 2 SATR R= 3 SATR R= 4
+> BCJR R= 1 BCJR R= 2 BCJR R= 3 BCJR R= 4
+> Fig. 10: Tag success rate of SATR (solid) and the BCJR detector with perfect CSI (dashed) for collision sizes R∈ { 1,2,3,4}.
+> 0510 15 20 25 30 00.20.40.60.8
+> SNR (dB) Expected throughput
+> M= 1 M= 2 M= 3 M= 4
+> Fig. 11: Expected throughput of SATR with single acknowledgment ( J= 1 )for recovery configurations M∈ { 1, . . . , 4}. The dotted lines mark the ideal theoretical limit for each configuration.
+
+SATR remains close to the BCJR detector without using the true collision size or channel coefficients, and the gap becomes almost negligible at high SNR. For R = 4 , the gap remains more visible, making it the most challenging case for SATR. We next evaluate how SATR improves the FSA throughput by recovering responses from collided slots. Each FSA frame contains K = 1000 slots, and each tag independently chooses one slot uniformly. For each recovery configuration (M, J )
+
+with M ≤ 4, the tag population N is selected to maximize the ideal finite-frame throughput. This places each configuration at its analytically optimal operating point, assuming that colli-sions of up to M tags are recoverable and at most J decoded responses can be acknowledged in each slot. SATR is then applied to the slots within the recoverable range, while slots with more than M responding tags are treated as unresolved. This matches the recovery model, which counts only collisions of up to M tags. 4 If D responses are recovered from a slot, the slot contributes min( D, J ) acknowledged tags. The reported throughput is the average number of acknowledged tags per slot over 100 independent frames. Fig. 11 shows the FSA throughput of SATR under the single acknowledgment setting, J = 1 . In this setting, a recovered                              
+
+> 4For slots with five or six responding tags, SATR still returns up to four candidate responses and often recovers some of them correctly. Excluding these slots therefore slightly underestimates the achievable throughput. 12
+> 0510 15 20 25 30 00.40.81.21.62
+> SNR (dB) Expected throughput
+> M= 2 ,J= 2 M= 3 ,J= 2 M= 3 ,J= 3
+> M= 4 ,J= 2 M= 4 ,J= 3 M= 4 ,J= 4
+> Fig. 12: Expected throughput of SATR with multiple acknowledgments for recovery configurations (M, J ). The dotted lines mark the ideal theoretical limit for each configuration.
+
+collision slot contributes one acknowledged tag, even if more than one response is decoded from that slot. The configuration 
+
+M = 1 reduces to conventional FSA, since only singleton slots are recovered. As the SNR increases, more collision slots are successfully recovered, and the throughput for each value of M approaches its corresponding ideal limit. Increasing M
+
+raises this limit because collisions involving more tags can contribute to the throughput. For M = 4 , SATR reaches about 
+
+0.815 tags per slot, more than twice the conventional FSA limit of 1/e .Fig. 12 shows the FSA throughput of SATR when multiple responses can be acknowledged from the same recovered slot. Unlike the single acknowledgment setting, the throughput now depends on how many responses SATR recovers and the reader can acknowledge from each collision. As the SNR increases, the throughput improves for all recovery configurations and approaches the corresponding ideal limit. The remaining gap is most visible for M = 4 with J = 4 , since reaching its ideal limit requires recovering all four responses from a four tag collision. For a fixed acknowledgment limit, increasing M
+
+improves throughput by making larger collisions recoverable, while, for a fixed M , increasing J allows more recovered responses from each slot to contribute. For the full recovery configuration, M = 4 with J = 4 , SATR reaches 1.87 tags per slot, more than five times the conventional FSA limit. Fig. 13 depicts the throughput comparison among SATR, the BCJR detector with perfect CSI, and the I/Q geometry method of Alfayoumi et al. [39] for M = 4 under single acknowledgment. SATR closely follows the BCJR reference over the SNR range and approaches the ideal limit at high SNR. The method of Alfayoumi et al. [39] also improves with SNR but gradually levels off below SATR and the BCJR reference. Its constellation labeling relies on observing a complete and well separated set of load-state clusters. As the collision size increases, a finite RN16 waveform is less likely to contain every load-state combination, consistent with the cluster observability analysis in [39]. As a result, some slots remain unresolved even as the SNR increases. Fig. 14 presents the corresponding comparison for M = 4 
+
+under full recovery. Under J = 4 , the throughput reflects the                           
+
+> 0510 15 20 25 30 00.20.40.60.8
+> SATR (proposed) BCJR with perfect CSI Alfayoumi et al. [39] Ideal theoretical limit Conventional FSA limit
+> SNR (dB) Expected throughput Fig. 13: Expected throughput comparison for M= 4 with single acknowledgment ( J= 1 ).
+> 0510 15 20 25 30 00.40.81.21.62
+> SATR (proposed) BCJR with perfect CSI Alfayoumi et al. [39] Ideal theoretical limit Conventional FSA limit
+> SNR (dB) Expected throughput Fig. 14: Expected throughput comparison for M= 4 under full recovery (J= 4 ).
+
+total number of recovered responses, whereas under J = 1 ,recovering any response is sufficient to acknowledge one tag. Although SATR requires no CSI, its throughput remains close to that of the BCJR detector with perfect CSI and approaches the ideal limit as SNR increases. The small remaining gap between the two methods mainly reflects the difficulty of recovering all responses in the largest collisions. The I/Q geometry method of Alfayoumi et al. [39] more often recovers only a subset of responses from larger collisions, leading to a larger gap from SATR and BCJR. We finally compare the computational cost of the three decoding methods. For a collision of size R, the joint FM0 trellis used by the BCJR detector contains 2R load states and 
+
+4R state transitions per bit, so its cost grows exponentially with 
+
+R. The complexity of the I/Q geometry method of Alfayoumi et al. [39] also scales with the collision size, since up to 2R
+
+constellation clusters must be estimated and labeled before the FM0 streams are reconstructed. SATR instead applies the same fixed computation to every received slot: the input length, the number of candidate outputs ( M = 4 ), and the RN16 length are all independent of the realized collision size R.Table IV reports the mean decoding time per collision slot for the decoding stage alone. 5 As expected from its fixed                       
+
+> 5Timing measurements are obtained on an Apple M4 Max chip. The CPU timings process one slot at a time, while the SATR GPU timings use batches of 256 slots. 13
+> TABLE IV: Mean decoding time per collision slot in milliseconds (ms)
+> Method R=1 R=2 R=3 R=4
+> SATR (CPU) 14 .714 .214 .114 .8
+> SATR (GPU) 0.58 0.62 0.61 0.60
+> BCJR with perfect CSI 1.72.43.34.3
+> Alfayoumi et al. [39] 59 .158 .960 .060 .3
+
+computational structure, the decoding time of SATR remains nearly constant across the considered collision sizes on both platforms. The CPU results provide a direct comparison with the reference methods. The BCJR detector is faster over the considered range because perfect CSI removes all estimation work and the joint trellis remains small, although its decoding time grows with the collision size. The method of Alfayoumi et al. [39] requires substantially more time because constellation estimation and labeling must be performed separately for each slot. GPU execution is better suited to SATR because its self-attention and feedforward layers primarily involve matrix operations that can be evaluated more efficiently in parallel, reducing the processing time to approximately 0.6 ms per slot. V. E XPERIMENTAL RESULTS 
+
+In this section, we validate SATR using measured responses from commercial passive UHF-RFID tags collected with an SDR reader. We describe the reader setup, tag layout, and EPC Gen2 protocol parameters, and then examine the measured FM0 envelopes and I/Q samples. The decoding evaluation uses two complementary types of collisions. Direct collision cap-tures evaluate SATR on simultaneous responses produced by multiple tags in the measurement setup. Composite collisions are formed by summing recorded single tag responses whose RN16 bits are known, providing a ground truth evaluation that connects the measured results to the numerical study. The measurement setup uses a USRP B210 SDR reader implemented in GNU Radio by extending the open-source software of Kargas et al. [27] to record the raw I/Q samples. The reader uses a bistatic antenna configuration, with one antenna transmitting the Query command and the CW that powers the tags and a separate receive antenna capturing the backscattered response. Four commercial Alien ALN-9662 passive UHF-RFID tags are placed at fixed positions with dif-ferent ranges and lateral offsets, producing distinct backscatter channels. Fig. 15 shows the reader, the transmit and receive antennas, and the four tags at their labeled positions. All captures use the same reader setup, timing configuration, and receive processing window, so the only controlled change is the number of tags placed in the reader field. The corre-sponding measurement parameters are summarized in Table V. Before analyzing collisions, we inspect the single tag cap-tures to confirm that the measured responses exhibit the ex-pected FM0 timing and transition structure. Fig. 16 shows one envelope from each tag after alignment to the FM0 preamble. The first six bit intervals correspond to the preamble, followed by the RN16 bits. The visible transitions confirm that the captured responses are consistent with FM0 encoding. Fig. 17 shows the measured I/Q samples for selected cap-tures with no tag and with R = 1 , . . . , 4 responding tags.                            
+
+> Fig. 15: Experimental setup of the passive UHF-RFID reader system, based on a USRP B210 with separate transmit and receive antennas and four commercial tags at fixed positions. TABLE V: Measurement parameters
+> Parameter Value
+> Center frequency 914 MHz Sampling rate 2MS/s TX/RX gains 86 dB / 25 dB Transmit amplitude 0.7
+> Tag encoding FM0 Nominal BLF 40 kHz Tari 25 μsGen2 settings Q= 0 ,TRext = 0
+> Response timing T1= 250 μs, T2= 500 μsSamples per FM0 bit 50
+> Response window 6bit preamble and RN16
+
+The no tag panel shows the receiver carrier leakage in the absence of a response. For R = 1, the samples separate into two regions associated with the two tag load states. As R increases, the I/Q pattern changes because the reader receives the combined waveform of multiple FM0 responses in the same slot. These measurements confirm that the captures contain the expected I/Q structure of multi-tag collisions. For decoding validation, each measured response window is located from the Query timing, and only the RN16 portion is retained. The complex I/Q waveform is sampled at the two FM0 half-symbol positions of each RN16 bit, giving 32 
+
+complex samples per attempt. Before decoding, each sequence is centered by removing its mean and scaled using the median magnitude from the single tag measurements. This keeps the measured waveform as the decoder input while placing all captures on a common amplitude scale.                                                                                                                   
+
+> 00.511010V10101110111000101
+> Tag 1
+> 00.511010V11101111110001010
+> Tag 2
+> 00.511010V11110111000100111
+> Tag 3
+> 0246810 12 14 16 18 20 22 00.511010V11110111010111100
+> bit index Tag 4
+> Fig. 16: Measured FM0 response envelopes for four individual tags. The first six intervals show the short preamble, followed by the RN16 bits. 14 −1 01
+> In-phase (I)
+> −1 01
+> Quadrature (Q)
+> R= 0
+> −1 01
+> In-phase (I)
+> R= 1
+> −1 01
+> In-phase (I)
+> R= 2
+> −1 01
+> In-phase (I)
+> R= 3
+> −1 01
+> In-phase (I)
+> R= 4
+> Fig. 17: Measured I/Q samples for selected validation captures with no tag and one to four responding tags. All aligned response samples are plotted for each case.
+
+A challenge in evaluating direct collision captures is that commercial tags generate RN16 values internally, so the true RN16 sequence of each responding tag is not available. We therefore use the BCJR detector as a measurement reference. The single tag captures provide a channel estimate for each tag at its fixed position. Since the tag set in each collision capture is known from the measurement setup, the BCJR detector uses the corresponding channel estimates and FM0 state evolution to infer the RN16 sequence for each responding tag. SATR is evaluated on the same measured RN16 samples, but it does not use the channel estimates and directly predicts both the number of tags and the RN16 sequences. Table VI reports the decoding results for the direct collision captures with R = 1 , 2, 3, 4 responding tags. The tag count estimation accuracy is computed from the known tag config-uration, while the RN16 bit agreement is computed against the BCJR reference. The measured captures correspond to a high SNR operating point, with an estimated single tag SNR of approximately 27 dB. SATR estimates the correct collision size for every measured attempt, consistent with the tag count estimation results at the corresponding SNR in Fig. 9. The RN16 bit agreement remains high for R = 1 and 
+
+R = 2 , and decreases for R = 3 and R = 4 as more FM0 responses overlap. Since the true RN16 bits of direct collision captures are not available, this decrease reflects disagreement between SATR and the BCJR reference rather than decoding performance relative to the transmitted sequences.                      
+
+> TABLE VI: Measured decoding validation with the BCJR reference
+> Case Tag count estimation accuracy RN16 bit agreement
+> R= 1 (120 attempts) 100 .0% 100 .0%
+> R= 2 (140 attempts) 100 .0% 97 .2%
+> R= 3 (80 attempts) 100 .0% 91 .7%
+> R= 4 (50 attempts) 100 .0% 79 .4%
+
+To evaluate SATR with known transmitted bits on measured signals, composite collisions are constructed from recorded single tag responses whose RN16 bits are available from reliable single tag decoding. Each composite sums the aligned RN16 samples of two, three, or four different tags, retaining the measured channel responses and receiver noise while keeping the transmitted bits known. For each collision size, 
+
+360 composites are generated by drawing random response attempts over all tag subsets, and Table VII reports the results. The composite results show that SATR maintains high                 
+
+> TABLE VII: Composite collision results with known transmitted bits
+> Case Tag count estimation accuracy Tag success rate
+> R= 2 (360 composites) 99 .2% 100 .0%
+> R= 3 (360 composites) 98 .9% 99 .4%
+> R= 4 (360 composites) 100 .0% 95 .6%
+
+tag count estimation accuracy and tag success rate across all evaluated collision sizes. Since each recorded response contains receiver noise, these noise contributions are also combined, resulting in per tag SNRs of approximately 24 , 22 ,and 21 dB for R = 2 , 3, and 4. At the corresponding SNR values, Fig. 10 gives tag success rates between 0.85 and 0.98 ,and the measured composite results broadly agree with this range. This evaluation also helps to interpret the lower RN16 agreement in the direct collision captures. In the composite case, the transmitted bits are known and the channel estimates are obtained from the same single tag recordings used to form each collision, allowing the BCJR reference to decode all composites correctly. In direct collisions, the transmitted bits are unavailable and the channels may differ from the single tag estimates because of mutual coupling between nearby tag antennas, so the agreement metric cannot distinguish SATR decoding errors from errors in the BCJR reference. These measured decoding results evaluate signal recovery independently of the reader control loop. In a real-time reader, SATR inference and preprocessing must be completed within the T2 interval, before the reader issues the next command, so latency remains a practical constraint. In addition, the full throughput gains of the multiple acknowledgment setting require protocol support for acknowledging more than one recovered RN16 response from a collided slot. Thus, the measurements validate the waveform-level recovery capability of SATR, while real-time integration with the reader protocol remains an important direction for practical deployment. VI. C ONCLUSION 
+
+In this paper, we studied multi-tag collision recovery for passive UHF-RFID under the EPC Gen2 standard. We pro-posed Self-Attention Tag Recovery (SATR), a transformer-based decoding algorithm that recovers individual RN16 se-quences directly from the sampled baseband I/Q waveform of a collided slot. SATR combines a waveform encoder that captures the I/Q structure and FM0 transitions with learned candidate tag representations to jointly estimate the collision size and recover the RN16 sequences without CSI or additional 15 
+
+pilot symbols. We also analyzed the FSA throughput enabled by multi-tag recovery under single and multiple acknowledg-ment settings. Numerical results showed that SATR provides reliable collision recovery and the resulting FSA throughput approaches the theoretical limits of the corresponding recovery configurations. Measurements with commercial UHF-RFID tags further validated SATR for tag count estimation and RN16 recovery in collisions with up to four responding tags. These results indicate that the decoding performance of SATR approaches that of optimal detection without requiring the same side information, making learned physical layer decoding attractive when channel coefficients and signal parameters are difficult to estimate reliably. Several directions remain for future work. Scaling the candidate output set to larger collisions could improve FSA throughput, while training SATR with channel and timing variations could strengthen robustness. Additional directions include evaluating SATR with moving tags and different tag types, integrating it with the reader control loop, and examining protocol support for multiple acknowledgments. REFERENCES [1] T. Akyildiz, R. Ku, N. Harder, N. Ebrahimi, and H. Mahdavifar, “ML-aided collision recovery for UHF-RFID systems,” in Proc. IEEE Int. Conf. RFID . IEEE, 2022, pp. 41–46. [2] R. Want, “An introduction to RFID technology,” IEEE Pervasive Com-put. , vol. 5, no. 1, pp. 25–33, Jan. 2006. [3] K. Finkenzeller, RFID Handbook: Fundamentals and Applications in Contactless Smart Cards, Radio Frequency Identification and Near-Field Communication , 3rd ed. John Wiley & Sons, 2010. [4] D. Miorandi, S. Sicari, F. De Pellegrini, and I. Chlamtac, “Internet of things: Vision, applications and research challenges,” Ad Hoc Netw. ,vol. 10, no. 7, pp. 1497–1516, 2012. [5] A. Sarac, N. Absi, and S. Dauz` ere-P´ er` es, “A literature review on the impact of RFID technologies on supply chain management,” Int. J. Prod. Econ. , vol. 128, no. 1, pp. 77–95, 2010. [6] P. V. Nikitin, K. Rao, and R. D. Martinez, “Differential RCS of RFID tag,” Electron. Lett. , vol. 43, no. 8, pp. 431–432, Apr. 2007. [7] D. Kim, M. A. Ingram, and W. W. Smith, “Measurements of small-scale fading and path loss for long range RF tags,” IEEE Trans. Antennas Propag. , vol. 51, no. 8, pp. 1740–1749, Aug. 2003. [8] EPCglobal, “EPC Radio-Frequency Identity protocols Class-1 Generation-2 UHF RFID protocol for communications at 860 MHz–960 MHz,” Version 1.2.0, 2008. [9] F. Schoute, “Dynamic frame length ALOHA,” IEEE Trans. Commun. ,vol. 31, no. 4, pp. 565–568, Apr. 1983. [10] H. Vogt, “Efficient object identification with passive RFID tags,” Lect. Notes Comput. Sci. , vol. 2414, pp. 98–113, 2002. [11] C. Floerkemeier, “Bayesian transmission strategy for framed ALOHA based RFID protocols,” in Proc. IEEE Int. Conf. RFID , Mar. 2007, pp. 228–235. [12] B. Knerr, M. Holzer, C. Angerer, and M. Rupp, “Slot-wise maximum likelihood estimation of the tag population size in FSA protocols,” IEEE Trans. Commun. , vol. 58, no. 2, pp. 578–585, Feb. 2010. [13] J. Vales-Alonso, M. V. Bueno-Delgado, E. Egea-L´ opez, J. J. Alcaraz, and J. Garc´ ıa-Haro, “Multiframe maximum-likelihood tag estimation for RFID anticollision protocols,” IEEE Trans. Ind. Informat. , vol. 7, no. 3, pp. 487–496, Aug. 2011. [14] W.-T. Chen, “A unified framework for the estimation of the number of tags in a RFID system,” IEEE Trans. Commun. , vol. 62, no. 3, pp. 1093–1102, Mar. 2014. [15] D. Shen, G. Woo, D. P. Reed, A. B. Lippman, and J. Wang, “Separation of multiple passive RFID signals using software defined radio,” in Proc. IEEE Int. Conf. RFID , Orlando, FL, USA, Apr. 2009, pp. 139–146. [16] R. S. Khasgiwale, R. U. Adyanthaya, and D. W. Engels, “Extracting information from tag collisions,” in Proc. IEEE Int. Conf. RFID ,Orlando, FL, USA, Apr. 2009, pp. 131–138. [17] J. Yu, K. H. Liu, X. Huang, and G. Yan, “An anti-collision algorithm based on smart antenna in RFID system,” in Proc. Int. Conf. Microw. Millimeter Wave Technol. (ICMMT) , Nanjing, China, Apr. 2008, pp. 1149–1152. [18] A. F. Mindikoglu and A.-J. van der Veen, “Separation of overlapping RFID signals by antenna arrays,” in Proc. IEEE Int. Conf. Acoust., Speech, Signal Process. (ICASSP) , Las Vegas, NV, USA, Apr. 2008, pp. 2737–2740. [19] C. Angerer, G. Maier, M. V. Delgado, M. Rupp, and J. V. Alonso, “Single antenna physical layer collision recover receivers for RFID readers,” in 
+
+Proc. IEEE Int. Conf. Ind. Technol. , Via del Mar, Chile, Mar. 2010, pp. 1406–1411. [20] C. Angerer, R. Langwieser, and M. Rupp, “RFID reader receivers for physical layer collision recovery,” IEEE Trans. Commun. , vol. 58, no. 12, pp. 3526–3537, Dec. 2010. [21] J. Kaitovic, R. Langwieser, and M. Rupp, “RFID reader with multi antenna physical layer collision recovery receivers,” in Proc. IEEE Int. Conf. RFID-Technol. Appl. , Sitges, Spain, Sep. 2011, pp. 286–291. [22] J. Kaitovic, M. ˇ Simko, R. Langwieser, and M. Rupp, “Channel estima-tion in tag collision scenarios,” in Proc. IEEE Int. Conf. RFID , Orlando, FL, USA, Apr. 2012, pp. 74–80. [23] J. Kaitovic, R. Langwieser, and M. Rupp, “A smart collision recovery receiver for RFIDs,” EURASIP J. Embed. Syst. , vol. 2013, no. 1, pp. 1–14, 2013. [24] K. Fyhn, R. M. Jacobsen, P. Popovski, A. Scaglione, and T. Larsen, “Multipacket reception of passive UHF RFID tags: A communication theoretic approach,” IEEE Trans. Signal Process. , vol. 59, no. 9, pp. 4225–4237, Sep. 2011. [25] L. Kang, K. Wu, J. Zhang, and H. Tan, “Decoding the collisions in RFID systems,” in Proc. IEEE INFOCOM . Shanghai, China: IEEE, 2011, pp. 351–355. [26] A. Bletsas, J. Kimionis, A. G. Dimitriou, and G. N. Karystinos, “Single-antenna coherent detection of collided FM0 RFID signals,” IEEE Trans. Commun. , vol. 60, no. 3, pp. 756–766, Mar. 2012. [27] N. Kargas, F. Mavromatis, and A. Bletsas, “Fully-coherent reader with commodity SDR for Gen2 FM0 and computational RFID,” IEEE Wireless Commun. Lett. , vol. 4, no. 6, pp. 617–620, 2015. [28] X. Tan, H. Wang, L. Fu, J. Wang, H. Min, and D. W. Engels, “Collision detection and signal recovery for UHF RFID systems,” IEEE Trans. Autom. Sci. Eng. , vol. 15, no. 1, pp. 239–250, Jan. 2018. [29] H. Mahdavifar and A. Vardy, “Coding for tag collision recovery,” in 
+
+Proc. IEEE Int. Conf. RFID , San Diego, CA, USA, Apr. 2015, pp. 9– 16. [30] J. Ou, M. Li, and Y. Zheng, “Come and be served: Parallel decoding for COTS RFID tags,” in Proc. 21st Annu. Int. Conf. Mobile Comput. Netw. , Paris, France, Sep. 2015, pp. 500–511. [31] M. Jin, Y. He, X. Meng, Y. Zheng, D. Fang, and X. Chen, “FlipTracer: Practical parallel decoding for backscatter communication,” IEEE/ACM Trans. Netw. , vol. 27, no. 1, pp. 330–343, Feb. 2019. [32] M. Jin, Y. He, X. Meng, D. Fang, and X. Chen, “Parallel backscatter in the wild: When burstiness and randomness play with you,” in Proc. 24th Annu. Int. Conf. Mobile Comput. Netw. New Delhi, India: ACM, Oct. 2018, pp. 471–485. [33] T. Zhang, R. Zhao, S. Wang, and P. Chen, “New semi blind tag separation method for efficient tags to reader collision recovery in RFID systems,” IEEE Access , vol. 8, pp. 20 379–20 390, 2020. [34] H. Wu, X. Wu, Y. Li, and Y. Zeng, “Collision resolution with FM0 signal separation for short-range random multi-access wireless network,” IEEE Trans. Signal Inf. Process. over Netw. , vol. 7, pp. 438–450, 2021. [35] H. Salah, R. Hassanpour, and G. Gaydadjiev, “Matrix pencil for RFID collision recovery,” IEEE Access , vol. 12, pp. 181 756–181 766, 2024. [36] H. Pirayesh, S. Zhang, and H. Zeng, “mReader: Concurrent UHF RFID tag reading,” in Proc. 24th Int. Symp. Theory, Algorithmic Found., Protocol Design Mobile Netw. Mobile Comput. (MobiHoc) . ACM, 2023, pp. 280–289. [37] Y. Zeng, H. Ding, and H. Wu, “Fast Monte-Carlo clustering for signal separation of RFID collision tags at physical layer,” Wireless Netw. ,vol. 30, no. 4, pp. 2529–2539, 2024. [38] M. Siala and N. Sellami, “Collision resolution in RFID systems using antenna arrays and mix source separation,” IEEE Commun. Lett. , vol. 29, no. 5, pp. 1122–1125, May 2025. [39] S. Alfayoumi, H. Li, F. Villa-Gonzalez, M. Gatnau-Sarret, R. Bhat-tacharyya, J. Meli` a-Segu´ ı, and S. E. Sarma, “Next-generation RFID collision decoding using I/Q constellation geometry,” IEEE Internet Things J. , vol. 12, no. 22, pp. 46 459–46 474, 2025. 16 
+
+[40] T. O’Shea and J. Hoydis, “An introduction to deep learning for the physical layer,” IEEE Trans. Cogn. Commun. Netw. , vol. 3, no. 4, pp. 563–575, Dec. 2017. [41] H. Ye, G. Y. Li, and B.-H. Juang, “Power of deep learning for channel estimation and signal detection in OFDM systems,” IEEE Wireless Commun. Lett. , vol. 7, no. 1, pp. 114–117, Feb. 2018. [42] N. Samuel, T. Diskin, and A. Wiesel, “Learning to detect,” IEEE Trans. Signal Process. , vol. 67, no. 10, pp. 2554–2564, May 2019. [43] L. R. Bahl, J. Cocke, F. Jelinek, and J. Raviv, “Optimal decoding of linear codes for minimizing symbol error rate,” IEEE Trans. Inf. Theory ,vol. 20, no. 2, pp. 284–287, 1974. [44] A. Vaswani, N. Shazeer, N. Parmar, J. Uszkoreit, L. Jones, A. N. Gomez, Ł. Kaiser, and I. Polosukhin, “Attention is all you need,” in Proc. Adv. Neural Inf. Process. Syst. , Long Beach, CA, USA, 2017, pp. 5998–6008. [45] N. Carion, F. Massa, G. Synnaeve, N. Usunier, A. Kirillov, and S. Zagoruyko, “End-to-end object detection with transformers,” in Proc. Eur. Conf. Comput. Vis. , Glasgow, U.K., 2020, pp. 213–229.

@@ -1,6 +1,524 @@
 {
-  "generated_at": "2026-08-24T07:32:51.315916+00:00",
+  "generated_at": "2026-08-24T07:55:26.422531+00:00",
   "updated_date": "20260815-20260824",
   "carryover_days": 9,
-  "tag_states": {}
+  "tag_states": {
+    "es": {
+      "updated_date": "20260815-20260824",
+      "carryover_days": 9,
+      "items": [
+        {
+          "id": "2608.19431v1",
+          "source": "arxiv",
+          "title": "Holographic Beamforming for Range-Doppler Sidelobe Suppression in OFDM-ISAC",
+          "abstract": "This paper investigates range--Doppler (RD) sidelobe suppression in an integrated sensing and communications system with a reconfigurable holographic surface (RHS). We jointly design the digital feed precoders and RHS amplitudes to minimize the integrated RD sidelobe level subject to transmit-power, target-illumination, and communication constraints. For this, we develop an alternating successive convex approximation method updating both variable blocks through quadratic subproblems. Numerical results reveal diminishing returns from additional feeds, while increasing the aperture remains more effective and allows the RHS design to reduce sidelobe level.",
+          "authors": [
+            "Amirhossein Azarbahram",
+            "Onel L. A. López"
+          ],
+          "primary_category": "eess.SP",
+          "categories": [
+            "eess.SP"
+          ],
+          "published": "2026-08-19T20:29:14+00:00",
+          "link": "https://arxiv.org/pdf/2608.19431v1",
+          "tags": [
+            "keyword:es",
+            "query:es"
+          ],
+          "llm_score": 8.0,
+          "llm_evidence_en": "Joint design of digital precoders and RHS amplitudes for sidelobe suppression in OFDM-ISAC EM signal processing",
+          "llm_evidence_cn": "联合设计数字预编码和可重构全息面幅度以抑制OFDM-ISAC电磁信号的距离-多普勒旁瓣",
+          "llm_evidence": "联合设计数字预编码和可重构全息面幅度以抑制OFDM-ISAC电磁信号的距离-多普勒旁瓣",
+          "canonical_evidence": "联合设计数字预编码和可重构全息面幅度以抑制OFDM-ISAC电磁信号的距离-多普勒旁瓣",
+          "llm_tldr_en": "Jointly optimizes digital feed precoders and reconfigurable holographic surface amplitudes via alternating convex approximation to suppress range-Doppler sidelobes in OFDM-ISAC, revealing aperture size as the dominant factor.",
+          "llm_tldr_cn": "针对OFDM集成感知与通信系统中的距离-多普勒旁瓣问题，联合设计数字馈电预编码和可重构全息表面幅度，以最小化集成旁瓣电平，同时满足功率、目标照射与通信约束。采用交替逐次凸逼近方法通过二次子问题更新两类变量。数值结果表明增加孔径比增加馈电数更有效，为无线电磁感知系统的信号设计提供了优化思路。",
+          "llm_tldr": "针对OFDM集成感知与通信系统中的距离-多普勒旁瓣问题，联合设计数字馈电预编码和可重构全息表面幅度，以最小化集成旁瓣电平，同时满足功率、目标照射与通信约束。采用交替逐次凸逼近方法通过二次子问题更新两类变量。数值结果表明增加孔径比增加馈电数更有效，为无线电磁感知系统的信号设计提供了优化思路。",
+          "llm_tags": [
+            "query:es"
+          ],
+          "matched_query_tag": "query:es",
+          "matched_query_text": "electromagnetic signal processing techniques",
+          "matched_requirement_id": "req-2",
+          "selection_source": "carryover_cache",
+          "paper_id": "2608.19431v1",
+          "carry_days": 1
+        },
+        {
+          "id": "2608.17769v1",
+          "source": "arxiv",
+          "title": "Electromagnetic World Model for 6G: A Unified Framework for Joint Environment Reconstruction and Channel Prediction",
+          "abstract": "The integration of sensing, communication, and intelligence is becoming a key enabler for sixth generation (6G) wireless systems, where intelligent terminals are expected to simultaneously support efficient link establishment and reliable environmental sensing. However, existing studies mainly exploit sensing information or communication information to address a single task, such as channel prediction or environment reconstruction. Motivated by the shared dependence of optical and radio-frequency signals on the surrounding environment, we propose the electromagnetic world model (EMWM), the first unified framework for joint environment reconstruction and channel prediction. EMWM learns a common electromagnetic representation with the potential to provide a modeling foundation for 6G tasks. Specifically, partial channel state information (CSI) and multi-view red-green-blue (RGB) images are encoded into CSI and visual tokens and jointly processed by a hierarchical world-model backbone with local and global aggregation. Based on the learned representation, a mixture-of-experts (MoE)-based CSI prediction head reconstructs the complete CSI, while a depth prediction head estimates multi-view depth maps that are further converted into three-dimensional (3D) point clouds. Moreover, a large-scale multi-modal dataset is constructed based on a campus digital twin. Experimental results show that EMWM outperforms conventional neural network and large language model (LLM) baselines in both CSI prediction and environment reconstruction, achieving a squared generalized cosine similarity (SGCS) of 0.9699 for CSI prediction while demonstrating robustness across different signal-to-noise ratio (SNR) conditions and zero-shot generalization at 28 GHz.",
+          "authors": [
+            "Yizhu Zhao",
+            "Li Yu",
+            "Jianhua Zhang",
+            "Yuxiang Zhang",
+            "Zhen Zhang",
+            "Guangyi Liu"
+          ],
+          "primary_category": "eess.SP",
+          "categories": [
+            "eess.SP"
+          ],
+          "published": "2026-08-18T13:32:17+00:00",
+          "link": "https://arxiv.org/pdf/2608.17769v1",
+          "tags": [
+            "keyword:es",
+            "query:es"
+          ],
+          "llm_score": 8.0,
+          "llm_evidence_en": "Proposes a unified electromagnetic world model for environment reconstruction and channel prediction from RF signals",
+          "llm_evidence_cn": "提出面向6G的电磁世界模型，联合处理射频信号进行环境重建与信道预测",
+          "llm_evidence": "提出面向6G的电磁世界模型，联合处理射频信号进行环境重建与信道预测",
+          "canonical_evidence": "提出面向6G的电磁世界模型，联合处理射频信号进行环境重建与信道预测",
+          "llm_tldr_en": "Proposes EMWM, a unified framework that learns a common electromagnetic representation from RF signals for joint environment reconstruction and channel prediction in 6G, moving beyond single-task sensing or communication.",
+          "llm_tldr_cn": "针对6G中感知与通信分离的问题，提出电磁世界模型（EMWM），统一学习环境的电磁表征，同时完成场景重建与信道预测。该模型利用射频信号与环境的共同依赖，避免了单一任务导致的冗余。实验表明该方法能有效整合感知与通信信息，为智能无线环境建模提供了新框架。",
+          "llm_tldr": "针对6G中感知与通信分离的问题，提出电磁世界模型（EMWM），统一学习环境的电磁表征，同时完成场景重建与信道预测。该模型利用射频信号与环境的共同依赖，避免了单一任务导致的冗余。实验表明该方法能有效整合感知与通信信息，为智能无线环境建模提供了新框架。",
+          "llm_tags": [
+            "query:es"
+          ],
+          "matched_query_tag": "query:es",
+          "matched_query_text": "electromagnetic signal processing techniques",
+          "matched_requirement_id": "req-2",
+          "selection_source": "carryover_cache",
+          "paper_id": "2608.17769v1",
+          "carry_days": 1
+        },
+        {
+          "id": "2608.16705v1",
+          "source": "arxiv",
+          "title": "Real-Time Symbol-Domain OFDM Radar in an OpenAirInterface 5G Base Station With O-RAN Sensing Services",
+          "abstract": "This paper presents a real-time orthogonal frequency-division multiplexing (OFDM) radar embedded in the OpenAirInterface (OAI) 5G base-station process. The radar removes communication symbols by regularized element-wise division and performs range-Doppler processing and ordered-statistic constant-false-alarm-rate detection online without modifying the 5G waveform. The implemented system provides 2.57 m nominal range resolution and 0.28 m/s velocity resolution. Hardware measurements identify and mitigate several implementation-specific limitations, most notably a deterministic carrier-dependent transmit-receive phase rotation on a Universal Software Radio Peripheral (USRP) X300. Selecting a tuning-grid-aligned carrier improves mean-removal clutter suppression from -16.4 dB to 38.0 dB and reduces coherent-integration loss from 19.81 dB to 0.27 dB. The measured processing gain closely agrees with its predicted value. Instrumented worker timing confirms real-time operation, with a conservative 58.4 percent utilization bound and no dropped soundings. A custom E2 service model, E2SM-RADAR, exports detections and a compact slow-time product to a near-real-time RAN Intelligent Controller. Live end-to-end operation demonstrates reliable delivery and supports controller-side tracking, micro-Doppler analysis, and classification. With a commercial user equipment connected on the same carrier, measurements show no measurable difference in downlink throughput estimate with sensing enabled, while the radar sensing bandwidth follows the scheduler allocation.",
+          "authors": [
+            "Karim Saifullin",
+            "Sajid Ahmed",
+            "Mohamed-Slim Alouini"
+          ],
+          "primary_category": "eess.SP",
+          "categories": [
+            "eess.SP"
+          ],
+          "published": "2026-08-17T15:25:12+00:00",
+          "link": "https://arxiv.org/pdf/2608.16705v1",
+          "tags": [
+            "keyword:es",
+            "query:es"
+          ],
+          "llm_score": 8.0,
+          "llm_evidence_en": "Implements a real-time OFDM radar in a 5G base station with USRP hardware, detecting EM signals via range-Doppler processing",
+          "llm_evidence_cn": "在5G基站中实现实时OFDM雷达，利用USRP设备进行电磁信号探测与距离-多普勒处理",
+          "llm_evidence": "在5G基站中实现实时OFDM雷达，利用USRP设备进行电磁信号探测与距离-多普勒处理",
+          "canonical_evidence": "在5G基站中实现实时OFDM雷达，利用USRP设备进行电磁信号探测与距离-多普勒处理",
+          "llm_tldr_en": "Presents a real-time OFDM radar embedded in an OpenAirInterface 5G base station, performing range-Doppler detection with USRP hardware and mitigating carrier-dependent phase rotation.",
+          "llm_tldr_cn": "针对无线通信设备复用感知功能的需求，在OpenAirInterface 5G基站进程中嵌入实时OFDM雷达。与现有系统不同，该方法在不修改5G波形的前提下通过符号域处理去除通信数据，并完成距离-多普勒检测。硬件实验发现并补偿了USRP中与载波相关的相位旋转，实现2.57米距离分辨率和0.28米/秒速度分辨率。这为利用现有通信基础设施开展电磁感知提供了可行方案。",
+          "llm_tldr": "针对无线通信设备复用感知功能的需求，在OpenAirInterface 5G基站进程中嵌入实时OFDM雷达。与现有系统不同，该方法在不修改5G波形的前提下通过符号域处理去除通信数据，并完成距离-多普勒检测。硬件实验发现并补偿了USRP中与载波相关的相位旋转，实现2.57米距离分辨率和0.28米/秒速度分辨率。这为利用现有通信基础设施开展电磁感知提供了可行方案。",
+          "llm_tags": [
+            "query:es"
+          ],
+          "matched_query_tag": "query:es",
+          "matched_query_text": "how to detect electromagnetic signals using equipment",
+          "matched_requirement_id": "req-7",
+          "selection_source": "carryover_cache",
+          "paper_id": "2608.16705v1",
+          "carry_days": 1
+        },
+        {
+          "id": "2608.19371v1",
+          "source": "arxiv",
+          "title": "Shaping SHAPE - A spectro-polarimeter onboard Chandrayaan-3 to observe Earth as an Exoplanet",
+          "abstract": "Spectro-polarimetry of HAbitable Planet Earth (SHAPE) is an experimental instrument onboard the Propulsion Module (Orbiter) of the Chandrayaan-3 mission, designed to perform disc-integrated spectro-polarimetric observations of Earth from lunar and highly elliptical Earth orbits. SHAPE is a compact, lightweight spectro-polarimeter comprising three subsystems: the Electro-Optical Detector System (EODS)-Optics, EODS-Electronics, and Radio Frequency Source (RFS). An Acousto-Optic Tunable Filter (AOTF), driven by an in-house-developed 80$-$135 MHz RF source, provides spectral filtering in the near-infrared (NIR) wavelength range of 1.0$-$1.7 $μ$m and produces two narrow-band beams with mutually perpendicular linear polarization states. The instrument optics, with a field of view of approximately 2.6°, focus the two beams onto InGaAs detectors. A spectral resolution of 2$-$4 nm is achieved using in-house-designed low-noise front-end electronics. The instrument also incorporates processing and power electronics for signal processing, detector biasing, and subsystem control. We present the overall instrument design, results from pre-launch ground-based testing, and in-orbit operational performance. The current configuration enables SHAPE to measure disc-integrated signatures of Earth over a range of phase angles, providing a test bed for characterizing Earth-like exoplanets and benchmarking future exoplanet observations.",
+          "authors": [
+            "Anuj Nandi",
+            "Swapnil Singh",
+            "Bhavesh Jaiswal",
+            "Anand Jain",
+            "Smrati Verma",
+            "Reenu Palawat",
+            "Ravishankar B. T.",
+            "Brajpal Singh",
+            "Priyanka Das",
+            "Supratik Bose",
+            "Supriya Verma",
+            "Waghmare Rahul Gautam",
+            "Yogesh Prasad K. R.",
+            "Bijoy Raha",
+            "Bhavesh Mendhekar",
+            "Sathyanaryana Raju K.",
+            "Srinivasa Rao Kondapi V.",
+            "Sumit Kumar",
+            "Mukund Kumar Thakur",
+            "Vinti Bhatia",
+            "Nidhi Sharma",
+            "Govinda Rao Yenni",
+            "Neeraj Kumar Satya",
+            "Venkata Raghavendra",
+            "Vivechana M. S.",
+            "Evangelin Leeja Justin",
+            "Praloy Karmakar",
+            "Naga Manjusha J.",
+            "Motamarri Srikanth",
+            "Abhishek Singh",
+            "Prabakaran B.",
+            "Honey Gupta",
+            "Priyanka Mishra",
+            "Chinmay Kumar Rajhans",
+            "Kalpana K.",
+            "Veeramuthuvel P"
+          ],
+          "primary_category": "astro-ph.IM",
+          "categories": [
+            "astro-ph.IM",
+            "astro-ph.EP"
+          ],
+          "published": "2026-08-19T18:39:44+00:00",
+          "link": "https://arxiv.org/pdf/2608.19371v1",
+          "tags": [
+            "keyword:es",
+            "query:es"
+          ],
+          "llm_score": 8.0,
+          "llm_evidence_en": "spaceborne spectro-polarimeter, near-infrared electromagnetic signal acquisition, instrument design",
+          "llm_evidence_cn": "星载光谱偏振计，近红外电磁信号采集，仪器设计",
+          "llm_evidence": "星载光谱偏振计，近红外电磁信号采集，仪器设计",
+          "canonical_evidence": "星载光谱偏振计，近红外电磁信号采集，仪器设计",
+          "llm_tldr_en": "Describes SHAPE, a compact spectro-polarimeter on Chandrayaan-3 that acquires near-infrared polarized light from Earth, using an AOTF and RF source for spectral filtering.",
+          "llm_tldr_cn": "SHAPE是月船三号推进模块上搭载的实验性光谱偏振计，用于从月球轨道对地球进行圆盘积分的光谱偏振观测。仪器由光机探测器、电子学与射频源组成，采用声光可调滤光器实现近红外1.0-1.7微米波段的窄带滤波并产生正交偏振光束。该载荷为类地行星观测提供了新的电磁信号采集手段，也是小型化光谱偏振测量的典型设计。",
+          "llm_tldr": "SHAPE是月船三号推进模块上搭载的实验性光谱偏振计，用于从月球轨道对地球进行圆盘积分的光谱偏振观测。仪器由光机探测器、电子学与射频源组成，采用声光可调滤光器实现近红外1.0-1.7微米波段的窄带滤波并产生正交偏振光束。该载荷为类地行星观测提供了新的电磁信号采集手段，也是小型化光谱偏振测量的典型设计。",
+          "llm_tags": [
+            "query:es"
+          ],
+          "matched_query_tag": "query:es",
+          "matched_query_text": "electromagnetic signal acquisition methods",
+          "matched_requirement_id": "req-3",
+          "selection_source": "carryover_cache",
+          "paper_id": "2608.19371v1",
+          "carry_days": 1
+        },
+        {
+          "id": "2608.19898v1",
+          "source": "arxiv",
+          "title": "A dual-polarization whitened-template trigger for real-time radio detection of extensive air showers",
+          "abstract": "Autonomous radio stations require a first-stage trigger that rejects measured background while preserving weak extensive-air-shower pulses under tight hardware constraints. We present a dual-polarization trigger based on a 16-sample whitened pulse template evaluated continuously on the orthogonal north-south and east-west channels of an Auger Engineering Radio Array station. The template is derived from detector-folded air-shower pulses and whitened using the covariance of measured background. Responses from both polarizations are combined within a fixed timing radius and compared with a calibrated threshold. On an independent test set, the trigger reaches an efficiency of 0.97, with a 95 percent confidence interval of 0.96 to 0.98, at a frame-equivalent candidate rate of 3.39 kHz. At the same operating point, an unwhitened dual-polarization template reaches 0.41 efficiency and an amplitude trigger reaches 0.16. Efficiency remains at least 0.94 in every populated signal-to-noise bin. Replay of 159.29 ms of continuous measured background yields a score-cluster rate of 6.64 kHz, below the 71.4 kHz capacity of the downstream module. The FPGA implementation accepts one dual-polarization sample per clock, closes timing at 200 MHz, and uses 2377 lookup tables, 5330 registers, and 32 digital signal-processing blocks. Register-transfer-level simulation agrees bit for bit with the reference implementation for 400 traces. These results show that background covariance, pulse morphology, and dual-polarization consistency can be combined in a compact real-time radio trigger.",
+          "authors": [
+            "Qader Dorosti",
+            "Alperen Aksoy",
+            "Ilja Bekman",
+            "Markus Cristinziani",
+            "Eric-Teunis de Boone",
+            "Vesselin Dimitrov",
+            "Chimezie Eguzo",
+            "Stefan Heidbrink",
+            "Stefan van Waasen",
+            "Andre Zambanini"
+          ],
+          "primary_category": "astro-ph.IM",
+          "categories": [
+            "astro-ph.IM"
+          ],
+          "published": "2026-08-20T11:07:26+00:00",
+          "link": "https://arxiv.org/pdf/2608.19898v1",
+          "tags": [
+            "keyword:es",
+            "query:es"
+          ],
+          "llm_score": 8.0,
+          "llm_evidence_en": "Detecting weak radio electromagnetic pulses from air showers with a dual-polarization trigger",
+          "llm_evidence_cn": "利用双极化触发器探测空气簇射产生的微弱射电电磁脉冲",
+          "llm_evidence": "利用双极化触发器探测空气簇射产生的微弱射电电磁脉冲",
+          "canonical_evidence": "利用双极化触发器探测空气簇射产生的微弱射电电磁脉冲",
+          "llm_tldr_en": "This paper presents a dual-polarization whitened-template trigger for autonomous radio stations, boosting efficiency to 0.97 in detecting extensive air showers while rejecting background under hardware constraints.",
+          "llm_tldr_cn": "自主射电探测站的预触发级需要在严格硬件条件下抑制背景并保留微弱的空气簇射脉冲。论文设计了一种基于16样本白化脉冲模板的双极化触发器，对南北和东西通道信号连续评估，并在固定时间窗内合并响应后与校准阈值比较。独立测试集上触发器效率达0.97。该方法为射电天文学中弱电磁脉冲的实时检测提供了高效可靠的硬件触发方案。",
+          "llm_tldr": "自主射电探测站的预触发级需要在严格硬件条件下抑制背景并保留微弱的空气簇射脉冲。论文设计了一种基于16样本白化脉冲模板的双极化触发器，对南北和东西通道信号连续评估，并在固定时间窗内合并响应后与校准阈值比较。独立测试集上触发器效率达0.97。该方法为射电天文学中弱电磁脉冲的实时检测提供了高效可靠的硬件触发方案。",
+          "llm_tags": [
+            "query:es"
+          ],
+          "matched_query_tag": "query:es",
+          "matched_query_text": "how to detect electromagnetic signals using equipment",
+          "matched_requirement_id": "req-7",
+          "selection_source": "carryover_cache",
+          "paper_id": "2608.19898v1",
+          "carry_days": 1
+        },
+        {
+          "id": "2608.19927v1",
+          "source": "arxiv",
+          "title": "Some Practical Issues of the Tracking Process in GNSS Receivers",
+          "abstract": "The accuracy and noise immunity of GNSS receivers are largely determined by the performance of their tracking modules. To optimize performance, designers should take into account several key issues: the choice of integration intervals, the time delay (spacing) between the early and late correlator channels, and the parameters of tracking loop filters. This article presents the results of an analysis of these important practical aspects. The obtained results display some ways of improv-ing the parameters of transient processes, which occur in tracking modules. The study was conducted on an experimental navigation receiver, processing GPS L1 signals. Experimental data were obtained using the simulation software package, developed by the authors, Xilinx environment Vivado, as well as the processing of recordings of real navigation signals obtained in full-scale tests.",
+          "authors": [
+            "S. V. Shafran",
+            "I. A. Kudryavtsev",
+            "A. A. Kumarin"
+          ],
+          "primary_category": "eess.SP",
+          "categories": [
+            "eess.SP"
+          ],
+          "published": "2026-08-20T11:41:42+00:00",
+          "link": "https://arxiv.org/pdf/2608.19927v1",
+          "tags": [
+            "keyword:es",
+            "query:es"
+          ],
+          "llm_score": 8.0,
+          "llm_evidence_en": "Analyzes integration intervals, early-late correlator spacing and loop filter parameters in GNSS tracking; directly relevant to electromagnetic signal processing and receiver acquisition",
+          "llm_evidence_cn": "分析GNSS接收机跟踪中的积分间隔、早迟相关器间距与环路滤波器参数，直接关系到电磁信号处理与接收采集",
+          "llm_evidence": "分析GNSS接收机跟踪中的积分间隔、早迟相关器间距与环路滤波器参数，直接关系到电磁信号处理与接收采集",
+          "canonical_evidence": "分析GNSS接收机跟踪中的积分间隔、早迟相关器间距与环路滤波器参数，直接关系到电磁信号处理与接收采集",
+          "llm_tldr_en": "Examines practical design choices in GNSS receiver tracking, namely integration intervals, correlator spacing, and loop filter parameters, to improve transient response and noise immunity in GPS L1 processing.",
+          "llm_tldr_cn": "GNSS接收机的精度与抗噪性主要取决于跟踪模块性能。本文针对积分间隔选择、早迟相关器通道时延间距以及跟踪环路滤波器参数三个关键实际问题展开分析，并利用自主研发的仿真软件包在实验型接收机上处理GPS L1信号。结果表明合理配置这些参数可改善跟踪模块瞬态过程，为GNSS接收跟踪设计与电磁信号处理优化提供实用指导。",
+          "llm_tldr": "GNSS接收机的精度与抗噪性主要取决于跟踪模块性能。本文针对积分间隔选择、早迟相关器通道时延间距以及跟踪环路滤波器参数三个关键实际问题展开分析，并利用自主研发的仿真软件包在实验型接收机上处理GPS L1信号。结果表明合理配置这些参数可改善跟踪模块瞬态过程，为GNSS接收跟踪设计与电磁信号处理优化提供实用指导。",
+          "llm_tags": [
+            "query:es"
+          ],
+          "matched_query_tag": "query:es",
+          "matched_query_text": "electromagnetic signal processing techniques",
+          "matched_requirement_id": "req-2",
+          "selection_source": "carryover_cache",
+          "paper_id": "2608.19927v1",
+          "carry_days": 1
+        },
+        {
+          "id": "2608.16176v1",
+          "source": "arxiv",
+          "title": "Characterization of Helicopter Rotor Blade Modulation in UHF and Microwave Bands",
+          "abstract": "This paper presents metrics and measurement methods for the experimental characterization of helicopter rotor blade modulation of the wireless propagation channel. Broadband bistatic channel measurements were conducted at three widely separated carrier frequencies (302 MHz in the UHF band, 4.9 GHz in the C-band, and 27.1 GHz in the Ka-band) for three military helicopters (CH-53, Tiger, and UMAT) at the Bundeswehr Technical and Airworthiness Center for Aircraft in Manching, Germany. The time-variant channel was analyzed in terms of the Doppler Power Spectrum and the RMS Doppler spread, the Doppler spectrogram, and the Power Time Profile. The RMS Doppler spread values were found to be moderate (up to 106 Hz), which is attributable to the predominantly lateral blade motion relative to the line-of-sight path. The Power Time Profiles revealed periodic blockage attenuations of up to 15 dB at Ka-band, increasing significantly with the carrier frequency; at 302 MHz, the blockage attenuation does not exceed 2.3 dB and the RMS Doppler spread stays below 10 Hz. The measured blockage attenuation was modeled using the double knife-edge diffraction model, showing good agreement with the measurements. The distinct micro-Doppler signatures visible in the spectrograms are identified as a potential resource for helicopter classification and passive radar applications.",
+          "authors": [
+            "Wilhelm Keusgen",
+            "Alper Schultze",
+            "Mathis Schmieder",
+            "Michael Peter",
+            "Taro Eichler",
+            "Friedrich Lipp"
+          ],
+          "primary_category": "eess.SP",
+          "categories": [
+            "eess.SP"
+          ],
+          "published": "2026-08-17T06:47:33+00:00",
+          "link": "https://arxiv.org/pdf/2608.16176v1",
+          "tags": [
+            "keyword:es",
+            "query:es"
+          ],
+          "llm_score": 8.0,
+          "llm_evidence_en": "Experimental characterization of rotor blade modulation via Doppler spectrum, RMS Doppler spread, spectrogram and power-time profile across three frequency bands; directly characterizes electromagnetic signal properties",
+          "llm_evidence_cn": "通过多普勒谱、RMS多普勒扩展、谱图和功率时间剖面在三个频段实验表征旋翼叶片调制，直接刻画电磁信号特性",
+          "llm_evidence": "通过多普勒谱、RMS多普勒扩展、谱图和功率时间剖面在三个频段实验表征旋翼叶片调制，直接刻画电磁信号特性",
+          "canonical_evidence": "通过多普勒谱、RMS多普勒扩展、谱图和功率时间剖面在三个频段实验表征旋翼叶片调制，直接刻画电磁信号特性",
+          "llm_tldr_en": "Presents metrics and measurement methods to characterize helicopter rotor blade modulation of wireless channels, analyzing Doppler spectrum, RMS Doppler spread, and power-time profile across three frequency bands.",
+          "llm_tldr_cn": "针对直升机旋翼叶片对无线传播信道的调制效应，开展了302 MHz、4.9 GHz和27.1 GHz三个频段的宽带双基地信道测量，针对三种军用直升机获取时变信道数据。利用多普勒功率谱、RMS多普勒扩展、多普勒谱图及功率时间剖面进行分析，测得RMS多普勒扩展最高约106 Hz。该工作为UHF与微波频段电磁信号传播特性表征提供了系统的测量指标与方法。",
+          "llm_tldr": "针对直升机旋翼叶片对无线传播信道的调制效应，开展了302 MHz、4.9 GHz和27.1 GHz三个频段的宽带双基地信道测量，针对三种军用直升机获取时变信道数据。利用多普勒功率谱、RMS多普勒扩展、多普勒谱图及功率时间剖面进行分析，测得RMS多普勒扩展最高约106 Hz。该工作为UHF与微波频段电磁信号传播特性表征提供了系统的测量指标与方法。",
+          "llm_tags": [
+            "query:es"
+          ],
+          "matched_query_tag": "query:es",
+          "matched_query_text": "electromagnetic signal properties and characteristics",
+          "matched_requirement_id": "req-1",
+          "selection_source": "carryover_cache",
+          "paper_id": "2608.16176v1",
+          "carry_days": 1
+        },
+        {
+          "id": "2608.20257v1",
+          "source": "arxiv",
+          "title": "Synchronization and Channel Estimation of OTFS with RF Impairments",
+          "abstract": "Orthogonal Time Frequency Space (OTFS) modulation is a promising waveform for future wireless networks. However, its resilience to RF impairments remains relatively understudied. Low-cost RF front ends are crucial for next-generation wireless systems, yet their performance is often degraded by RF impairments such as transmit IQ imbalance (IQI), phase noise (PN), timing offset (TO), and carrier frequency offset (CFO). Hence, this paper addresses the estimation and compensation of these RF impairments in OTFS systems under high mobility. A unified system model is developed that incorporates TO, CFO, PN, IQI and other channel effects into an effective channel representation. Using the pilot with cyclic prefix (PCP), a low-peak to average power ratio (PAPR) pilot suitable for OTFS, we propose a pilot-aided synchronization and estimation framework. The dual periodicity of PCP is exploited in our proposed TO estimation technique. A maximum-likelihood-based technique is also proposed to jointly estimate the CFO and effective channel using a complex exponential basis expansion model (CE-BEM). Finally, a linear detection model is formulated in the delay-Doppler domain to mitigate residual interference caused by RF impairments. Our simulation results corroborate the efficacy of our proposed synchronization and channel estimation techniques.",
+          "authors": [
+            "Sanoopkumar P. S.",
+            "Mohsen Bayat",
+            "Stephen McWade",
+            "Arman Farhang"
+          ],
+          "primary_category": "eess.SP",
+          "categories": [
+            "eess.SP"
+          ],
+          "published": "2026-08-20T16:54:10+00:00",
+          "link": "https://arxiv.org/pdf/2608.20257v1",
+          "tags": [
+            "keyword:es",
+            "query:es"
+          ],
+          "llm_score": 8.0,
+          "llm_evidence_en": "addresses estimation and compensation of RF impairments in OTFS systems, core EM signal processing",
+          "llm_evidence_cn": "解决OTFS系统中射频损伤的估计与补偿，属核心电磁信号处理",
+          "llm_evidence": "解决OTFS系统中射频损伤的估计与补偿，属核心电磁信号处理",
+          "canonical_evidence": "解决OTFS系统中射频损伤的估计与补偿，属核心电磁信号处理",
+          "llm_tldr_en": "Develops a unified model for IQ imbalance, phase noise, timing offset, and CFO in OTFS, with pilot-based estimation and compensation to support high-mobility low-cost RF systems.",
+          "llm_tldr_cn": "低成本射频前端会引入IQ失衡、相位噪声、定时和载波频偏等损伤，制约OTFS在高移动场景下的性能。该文建立了包含这些损伤的统一系统模型，并利用带循环前缀的导频进行估计与补偿。所提方法能在高移动性下有效对抗RF损伤，提升同步和信道估计精度。这为OTFS在实际射频硬件下部署提供了坚实基础。",
+          "llm_tldr": "低成本射频前端会引入IQ失衡、相位噪声、定时和载波频偏等损伤，制约OTFS在高移动场景下的性能。该文建立了包含这些损伤的统一系统模型，并利用带循环前缀的导频进行估计与补偿。所提方法能在高移动性下有效对抗RF损伤，提升同步和信道估计精度。这为OTFS在实际射频硬件下部署提供了坚实基础。",
+          "llm_tags": [
+            "query:es"
+          ],
+          "matched_query_tag": "query:es",
+          "matched_query_text": "electromagnetic signal processing techniques",
+          "matched_requirement_id": "req-2",
+          "selection_source": "carryover_cache",
+          "paper_id": "2608.20257v1",
+          "carry_days": 1
+        },
+        {
+          "id": "2608.17344v1",
+          "source": "arxiv",
+          "title": "Inductively Scalable, Single-Step Neural Surrogates for Wave-Scattering Inverse Problems",
+          "abstract": "Neural network surrogates are an emerging alternative to traditional electromagnetic wave simulators like finite-difference time-domain (FDTD); their goal is to replace rigorous physical simulations with pre-trained neural networks that solve wave-scattering forward and inverse problems orders of magnitude faster. However, nonrecurrent, single-step surrogates have scaled only to a few tens of simulation variables. Here, we show that this barrier can be overcome by dynamically generating salient training examples during training, rather than randomly sampling the large space of possible examples. We introduce an algorithm that runs in parallel with surrogate training, using gradient ascent to search refractive-index and source configurations for cases where the surrogate disagrees with a full-wave ground-truth simulator. We also use source and ground-truth normalization with an evolving replay dataset to stabilize and accelerate learning. Using this approach, we train a fast, single-step surrogate for two-dimensional wave scattering with up to 41,772 controllable variables, including dense, freely configurable grids of refractive indices and complex-valued sources. The resulting neural surrogate is robustly accurate across diverse structured and unstructured examples and generalizes inductively to larger domains, reaching over 3 million controllable variables without retraining, a $73.8\\times$ increase. We demonstrate the surrogate on large-scale forward simulations and inverse design of freeform beam splitters and gradient-index (GRIN) lenses up to 98 wavelengths wide, showing comparable or better performance than FDTD-based designs, with speedups from $1.29\\times$ to $26.5\\times$. These results demonstrate a practical path toward fast, robustly accurate, inductively scalable neural simulators for photonic inverse design and other wave-scattering inverse problems.",
+          "authors": [
+            "Charles Dove",
+            "Laura Waller"
+          ],
+          "primary_category": "physics.optics",
+          "categories": [
+            "physics.optics",
+            "cs.AI"
+          ],
+          "published": "2026-08-18T04:07:53+00:00",
+          "link": "https://arxiv.org/pdf/2608.17344v1",
+          "tags": [
+            "keyword:es",
+            "query:es"
+          ],
+          "llm_score": 8.0,
+          "llm_evidence_en": "focuses on electromagnetic wave scattering phenomena and inverse problems, directly related to EM signal characteristics",
+          "llm_evidence_cn": "聚焦电磁波散射现象与逆问题，直接关联电磁信号特性",
+          "llm_evidence": "聚焦电磁波散射现象与逆问题，直接关联电磁信号特性",
+          "canonical_evidence": "聚焦电磁波散射现象与逆问题，直接关联电磁信号特性",
+          "llm_tldr_en": "Neural surrogates for wave-scattering are scaled beyond tens of variables by dynamically generating salient training examples via gradient ascent, enabling fast replacement of FDTD simulations.",
+          "llm_tldr_cn": "传统电磁波仿真如FDTD计算成本高，而单步神经代理的可扩展性长期限制在数十个变量以内。该文提出在训练过程中动态生成显著训练样本的算法，利用梯度上升搜索折射率与源配置，从而突破规模瓶颈。所提方法可以快速求解波散射正/逆问题，替代高成本物理仿真，为电磁计算提供了高效可扩展的神经替代工具。",
+          "llm_tldr": "传统电磁波仿真如FDTD计算成本高，而单步神经代理的可扩展性长期限制在数十个变量以内。该文提出在训练过程中动态生成显著训练样本的算法，利用梯度上升搜索折射率与源配置，从而突破规模瓶颈。所提方法可以快速求解波散射正/逆问题，替代高成本物理仿真，为电磁计算提供了高效可扩展的神经替代工具。",
+          "llm_tags": [
+            "query:es"
+          ],
+          "matched_query_tag": "query:es",
+          "matched_query_text": "electromagnetic signal properties and characteristics",
+          "matched_requirement_id": "req-1",
+          "selection_source": "carryover_cache",
+          "paper_id": "2608.17344v1",
+          "carry_days": 1
+        },
+        {
+          "id": "2608.21108v1",
+          "source": "arxiv",
+          "title": "Remote sensing of the temporal and spatial variability of atmospheric refractivity using ADS-B interferometry (ADSBi)",
+          "abstract": "The extreme variability of humidity in the lower atmosphere over short spatial and temporal scales presents an enormous challenge for existing observing systems. Variations in humidity can be detected due to changes in the refractive properties of the atmosphere, which influence the propagation of electromagnetic radiation. We demonstrate the ability to retrieve high-resolution refractivity gradient measurements using an interferometer to measure the refraction of the Automatic Dependent Surveillance-Broadcast (ADS-B) radio transmission routinely broadcast by commercial aircraft. The ADS-B interferometry (ADSBi) technique is sensitive to small-scale spatial and temporal variability in the refractivity gradient due to changes in humidity. We demonstrate how the retrieval of refractivity profiles is possible exploiting the differences in the observed refraction of radio transmissions broadcast by aircraft at different distances and altitudes.",
+          "authors": [
+            "Ollie Lewis",
+            "Chris Brunt",
+            "Malcolm Kitchen",
+            "Neill E. Bowler",
+            "Edmund K. Stone"
+          ],
+          "primary_category": "physics.ao-ph",
+          "categories": [
+            "physics.ao-ph"
+          ],
+          "published": "2026-08-21T13:54:39+00:00",
+          "link": "https://arxiv.org/pdf/2608.21108v1",
+          "tags": [
+            "keyword:es",
+            "query:es"
+          ],
+          "llm_score": 8.0,
+          "llm_evidence_en": "uses equipment to detect aircraft radio signals and retrieve refractivity, a key factor in EM propagation",
+          "llm_evidence_cn": "利用设备检测飞机无线电信号并反演影响电磁传播的折射率",
+          "llm_evidence": "利用设备检测飞机无线电信号并反演影响电磁传播的折射率",
+          "canonical_evidence": "利用设备检测飞机无线电信号并反演影响电磁传播的折射率",
+          "llm_tldr_en": "Presents ADS-B interferometry to retrieve high-resolution refractivity gradients from routine aircraft radio transmissions, sensing small-scale humidity variability.",
+          "llm_tldr_cn": "针对低层大气湿度在短时间和小尺度上的极端变化给现有观测带来的挑战，本文提出ADS-B干涉测量技术，利用商业飞机例行广播的无线电信号在大气中产生的折射来反演高分辨率折射率梯度。干涉测量方式可灵敏探测小尺度折射率时空变化，为电磁波传播环境的遥感监测提供了新方法。",
+          "llm_tldr": "针对低层大气湿度在短时间和小尺度上的极端变化给现有观测带来的挑战，本文提出ADS-B干涉测量技术，利用商业飞机例行广播的无线电信号在大气中产生的折射来反演高分辨率折射率梯度。干涉测量方式可灵敏探测小尺度折射率时空变化，为电磁波传播环境的遥感监测提供了新方法。",
+          "llm_tags": [
+            "query:es"
+          ],
+          "matched_query_tag": "query:es",
+          "matched_query_text": "factors affecting electromagnetic signal strength",
+          "matched_requirement_id": "req-8",
+          "selection_source": "carryover_cache",
+          "paper_id": "2608.21108v1",
+          "carry_days": 1
+        },
+        {
+          "id": "2608.16194v1",
+          "source": "arxiv",
+          "title": "Zero-Shot Frequency Generalization for Radio Map Prediction via Cross-Attention Physics-Residual Learning",
+          "abstract": "Deep learning models for radio map prediction are trained and tested at the same carriers and cannot serve unseen frequencies. We propose a two-stream network learning a residual over an analytic prior, fusing environment and physics streams by cross-attention. Evaluated at the query frequency, this free-space and knife-edge prior absorbs dominant frequency scaling of pathloss, leaving a residual that varies little across bands. Across 150 ray-traced scenes and four training carriers (1.8--28 GHz), the method reduces RMSE by 35.3% zero-shot at unseen carriers and scenes, and by 37.6% at extrapolated 60 GHz, outperforming interpolated 10 GHz.",
+          "authors": [
+            "Sajjad Hussain"
+          ],
+          "primary_category": "eess.SP",
+          "categories": [
+            "eess.SP"
+          ],
+          "published": "2026-08-17T07:19:07+00:00",
+          "link": "https://arxiv.org/pdf/2608.16194v1",
+          "tags": [
+            "keyword:es",
+            "query:es"
+          ],
+          "llm_score": 8.0,
+          "llm_evidence_en": "Frequency-dependent pathloss modeling and extrapolation, addressing factors affecting electromagnetic signal strength",
+          "llm_evidence_cn": "频率相关路径损耗建模与外推，直接关联电磁信号强度影响因素",
+          "llm_evidence": "频率相关路径损耗建模与外推，直接关联电磁信号强度影响因素",
+          "canonical_evidence": "频率相关路径损耗建模与外推，直接关联电磁信号强度影响因素",
+          "llm_tldr_en": "Proposes a two-stream network with cross-attention physics-residual learning for zero-shot frequency generalization in radio map prediction, reducing RMSE by over 35% at unseen carriers by exploiting analytic pathloss priors.",
+          "llm_tldr_cn": "现有无线电地图预测模型无法适用于未训练频率，本文提出一种双流网络，在自由空间与刃峰衍射解析先验之上学习残差，并通过交叉注意力融合环境与物理特征。在150个光线追踪场景和1.8–28 GHz训练载波上的实验表明，该方法在未见过载波与场景下RMSE降低35.3%，在60 GHz外推时降低37.6%。该方法深刻揭示了频率对电磁信号传播强度的影响规律，为电磁信号特性分析与频段外推提供了有力工具。",
+          "llm_tldr": "现有无线电地图预测模型无法适用于未训练频率，本文提出一种双流网络，在自由空间与刃峰衍射解析先验之上学习残差，并通过交叉注意力融合环境与物理特征。在150个光线追踪场景和1.8–28 GHz训练载波上的实验表明，该方法在未见过载波与场景下RMSE降低35.3%，在60 GHz外推时降低37.6%。该方法深刻揭示了频率对电磁信号传播强度的影响规律，为电磁信号特性分析与频段外推提供了有力工具。",
+          "llm_tags": [
+            "query:es"
+          ],
+          "matched_query_tag": "query:es",
+          "matched_query_text": "factors affecting electromagnetic signal strength",
+          "matched_requirement_id": "req-8",
+          "selection_source": "carryover_cache",
+          "paper_id": "2608.16194v1",
+          "carry_days": 1
+        },
+        {
+          "id": "2608.17400v1",
+          "source": "arxiv",
+          "title": "Quantum sensors that compute: quantum computational magnetic-field sensing using a superconducting qubit",
+          "abstract": "A measurement of a single-qubit quantum sensor reveals at most 1 bit of information about the signal that was sensed. To perform a classification task on the signal, the conventional approach is to repeat a sensing protocol many times, averaging the measurement results to obtain a high-precision estimate of the sensed signal, and then to apply classical postprocessing. Quantum computational sensing (QCS) is an alternative approach that breaks with the paradigm of first obtaining a classical estimate of the signal and then computing a function of the estimated signal in postprocessing. QCS instead combines quantum sensing with quantum computing to concentrate information about the signal relevant to the task into the solitary bit revealed by each measurement. Here, we report on the experimental demonstration of QCS where sensing and computing were both performed by the same single superconducting transmon qubit. We consider various binary classification tasks based on static and oscillating magnetic fields induced by current through a flux line. The fields were sensed through a double-junction superconducting quantum interference device (SQUID) loop that was part of the qubit. We used a protocol based on quantum signal processing to preprocess the sensed signals in the quantum domain prior to measurement. For tasks on static magnetic fields, our protocol outperformed the conventional baseline of Ramsey-based phase estimation by as much as 15 percentage points. For tasks on oscillating magnetic fields, we classified signal amplitude and frequency with up to 20 and 15 percentage points higher accuracy, respectively, compared to the conventional baseline of optimized dynamical-decoupling protocols. Our results illustrate how quantum computing can enhance quantum sensing even with a minimally sized quantum system subject to the practical limitations of decoherence and error-prone operations.",
+          "authors": [
+            "Purnendu Sen",
+            "Mathieu Ouellet",
+            "Saeed A. Khan",
+            "Wayne Wang",
+            "Sridhar Prabhu",
+            "Alen Senanian",
+            "William P. Banner",
+            "William D. Oliver",
+            "Peter L. McMahon"
+          ],
+          "primary_category": "quant-ph",
+          "categories": [
+            "quant-ph",
+            "physics.app-ph",
+            "physics.ins-det"
+          ],
+          "published": "2026-08-18T05:54:38+00:00",
+          "link": "https://arxiv.org/pdf/2608.17400v1",
+          "tags": [
+            "keyword:es",
+            "query:es"
+          ],
+          "llm_score": 8.0,
+          "llm_evidence_en": "Quantum computational magnetic-field sensing using a superconducting qubit",
+          "llm_evidence_cn": "利用超导量子比特实现量子计算磁场传感",
+          "llm_evidence": "利用超导量子比特实现量子计算磁场传感",
+          "canonical_evidence": "利用超导量子比特实现量子计算磁场传感",
+          "llm_tldr_en": "Proposes quantum computational sensing that combines a superconducting qubit sensor with quantum computing to directly extract classification information from magnetic-field signals, avoiding repeated measurements and classical postprocessing.",
+          "llm_tldr_cn": "针对传统单比特量子传感器每次测量仅获得1比特信息、需要大量重复才能完成分类任务的问题，本文提出量子计算传感方法，将量子传感与量子计算相结合，在量子层面直接浓缩与任务相关的磁场信号信息。基于超导量子比特的实现表明，该方法可绕过先估计信号再经典后处理的范式，为磁场的有效感测与信息提取开辟了新途径，对地磁或磁场信号采集具有方法论借鉴意义。",
+          "llm_tldr": "针对传统单比特量子传感器每次测量仅获得1比特信息、需要大量重复才能完成分类任务的问题，本文提出量子计算传感方法，将量子传感与量子计算相结合，在量子层面直接浓缩与任务相关的磁场信号信息。基于超导量子比特的实现表明，该方法可绕过先估计信号再经典后处理的范式，为磁场的有效感测与信息提取开辟了新途径，对地磁或磁场信号采集具有方法论借鉴意义。",
+          "llm_tags": [
+            "query:es"
+          ],
+          "matched_query_tag": "query:es",
+          "matched_query_text": "geomagnetic signal collection techniques",
+          "matched_requirement_id": "req-4",
+          "selection_source": "carryover_cache",
+          "paper_id": "2608.17400v1",
+          "carry_days": 1
+        }
+      ]
+    }
+  }
 }
