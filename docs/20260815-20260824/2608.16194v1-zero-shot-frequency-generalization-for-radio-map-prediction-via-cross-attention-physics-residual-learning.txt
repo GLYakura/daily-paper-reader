@@ -1,0 +1,265 @@
+Title: Zero-Shot Frequency Generalization for Radio Map Prediction via Cross-Attention Physics-Residual Learning
+
+URL Source: https://arxiv.org/pdf/2608.16194v1
+
+Published Time: Tue, 18 Aug 2026 01:41:53 GMT
+
+Number of Pages: 4
+
+Markdown Content:
+> SUBMITTED TO IEEE WIRELESS COMMUNICATIONS LETTERS, AUGUST 2026 1
+
+# Zero-Shot Frequency Generalization for Radio Map Prediction via Cross-Attention Physics-Residual Learning 
+
+Sajjad Hussain 
+
+Abstract —Deep learning models for radio map prediction are trained and tested at the same carriers and cannot serve unseen frequencies. We propose a two-stream network learning a residual over an analytic prior, fusing environment and physics streams by cross-attention. Evaluated at the query frequency, this free-space and knife-edge prior absorbs dominant frequency scaling of pathloss, leaving a residual that varies little across bands. Across 150 ray-traced scenes and four training carriers (1.8–28 GHz), the method reduces RMSE by 35.3% zero-shot at unseen carriers and scenes, and by 37.6% at extrapolated 60 GHz, outperforming interpolated 10 GHz. 
+
+Index Terms —Radio map, pathloss prediction, ray tracing, deep learning, cross-frequency generalization, physics-informed learning. 
+
+I. I NTRODUCTION 
+
+# APATHLOSS map specifies the large-scale channel gain from a transmitter to every receiver location in a ge-ographic area. Accurate radio maps underpin cell-site plan-ning, user association, device-to-device link scheduling, beam management, and an expanding set of 6G environment-aware functions. Classical statistical models approximate pathloss as a decaying function of distance and therefore cannot capture the shadowing, street-canyon guiding, and diffraction that dominate in dense urban environments. Site-specific ray tracing resolves these effects accurately at high computational cost motivating learned radio maps. RadioUNet established that a UNet can predict outdoor pathloss maps from a building layout and transmitter lo-cation with millisecond inference [1]. Later work added transformer [2], generative [3], graph-based [4], and multi-scale feature fusion UNet [5] architectures. More recently, the ICASSP 2023 and 2025 pathloss radio map prediction challenges have further standardized evaluation of learned predictors on ray-traced data, spanning outdoor and indoor propagation. Among indoor entries, IPP-Net [6] showed that injecting a modified 3GPP analytic model as an auxiliary input to a UNet improves generalization to unseen geometries. Most models are trained and tested at a single carrier, and the few multi-frequency studies share same carriers be-tween training and testing. Li et al. [7] reconstructed radio maps jointly across bands by exploiting inter-band correlation; however, their framework requires measurements at the target band. Huai et al. [8] trained a single model on multiple carriers and validated it across cities, but did not hold out any carrier frequency during training, and therefore did not evaluate cross-frequency generalization. The ICASSP 2025 indoor challenge 
+
+> The author is with National University of Sciences and Technology (NUST), Islamabad, Pakistan. Email: sajjad.hussain2@seecs.edu.pk
+
+withheld one carrier, and one of its three tasks explicitly evalu-ates performance on an unseen carrier. However, the withheld 
+
+2.4 GHz carrier lies within the 0.868 –3.5 GHz training range, making the task an indoor interpolation problem below 6 GHz .Zero-shot frequency extrapolation , predicting radio maps at carriers above the frequency range observed during training, therefore remains unexplored. This letter addresses that gap with the following contribu-tions. We formulate zero-shot frequency generalization and build a ray-traced benchmark of 150 urban scenes over six carriers, four for training and two withheld, one interpolated and one an octave above the training range 1. We propose the Physics-Residual with Cross-Attention Network (PRCA-Net), a two-stream encoder–decoder learning a residual over an analytic prior with the streams fused by cross-attention. We show this formulation predicts the extrapolated band more accurately than the interpolated one, a transfer that also holds for a prior-based competitor of different architecture, whereas prior-free learning barely improves on the prior it was meant to surpass. Rest of the letter is organized as follows. Sec. II presents the problem formulation, Sec. III the proposed model, Sec. IV the dataset, Sec. V the experimental setup and results, and Sec. VI presents conclusion. II. P ROBLEM FORMULATION 
+
+A deployment is represented by the triple (H, pt, f ): with building-height raster H ∈ RN ×N 
+
+> +
+
+(N = 256 ) at resolution of 
+
+δ m/pixel ( δ = 2 ), pt = ( xt, y t, z t) is the transmitter position and f is the carrier frequency. The target LRT ∈ RN ×N
+
+assigns to every receiver pixel the ray-traced pathloss in dB where a binary mask M excludes pixels inside buildings and pixels the ray tracer does not reach. The task is to learn a function that predicts the pathloss, gθ : ( H, pt, f ) 7 → ˆL
+
+minimizing masked error against LRT .Training uses a scene set Str and a discrete band set 
+
+Ftr = {1.8, 3.5, 7, 28 } GHz . At test time the model is queried at f /∈ Ftr with no gradient update, no fine-tuning, and no calibration measurements at the new band, i.e. the zero-shot setting. We further separate the two held-out bands {10 , 60 } GHz , because they probe qualitatively different regimes: 10 GHz lies inside the convex hull of Ftr 
+
+(interpolation ), whereas 60 GHz is more than an octave above the highest training band ( extrapolation ).                           
+
+> 1The codebase and dataset is publicly available at: https://github.com/ sajjadhussa1n/PRCA-Net arXiv:2608.16194v1 [eess.SP] 17 Aug 2026 SUBMITTED TO IEEE WIRELESS COMMUNICATIONS LETTERS, AUGUST 2026 2
+> Two-Stream Encoder Fusion Decoder Env. stream
+> 256 2×3
+> height, Tx, log-dist
+> Phys. stream
+> 256 2×2
+> prior, LoS mask
+> E0
+> 256 2×32
+> P0
+> 256 2×32
+> g
+> E1
+> 128 2×64
+> P1
+> 128 2×64
+> g
+> E2
+> 64 2×128
+> P2
+> 64 2×128
+> g
+> E3
+> 32 2×256
+> P3
+> 32 2×256
+> g
+> ↓↓↓↓↓↓
+> Env BN
+> 16 2×256
+> Phys BN
+> 16 2×256
+> ↓↓
+> Cross-Attn
+> 16 2×256
+> Q:env K,V:phys
+> D3
+> 32 2×256
+> D2
+> 64 2×128
+> D1
+> 128 2×64
+> D0
+> 256 2×32
+> ↑↑↑Residual ˆr
+> 256 2×1
+> Conv 12
+> Lprior
+> (query freq.)
+> ˆL=Lprior + ˆ r
+
+Fig. 1. PRCA-Net architecture. Box labels give width × height × channels. The environment encoder (green) uses [Conv3 2 → GN(8) → SiLU] × 2 per stage; the physics encoder (orange) is deliberately lighter, with a single Conv3 2. Solid ↓ denotes a stride-2 Conv4 2 downsample and ↑ a bilinear upsample followed by Conv3 2. At each resolution a gate g = σ(Conv1 2[env , phys ]) forms g · env + (1 − g) · phys, which is concatenated into the decoder along the dashed skip paths. The streams are fused at the 16 × 16 bottleneck by cross-attention with environment queries and physics keys and values, and the decoded residual ˆr is added to the analytic prior evaluated at the query frequency. 
+
+III. P ROPOSED METHOD 
+
+Our proposed solution consists of (i) a closed-form analytic prior evaluated at the query frequency, (ii) a residual learn-ing target defined against that prior, and (iii) a two-stream encoder–decoder that fuses learned geometry features with the analytic field by cross-attention . Fig.1 shows the complete pipeline. 
+
+A. Analytic Physics Prior 
+
+The prior supplies a per-pixel, closed-form pathloss estimate that the network subsequently corrects. For a transmitter at pt
+
+and a receiver pixel at (x, y, h r ), let d3 = ∥pt −(x, y, h r )∥2 be the three-dimensional separation. The free-space loss LFSPL 
+
+at carrier f is 
+
+LFSPL = 20 log 10 
+
+ 4πd 3fc
+
+
+
+. (1) Terrain and building obstruction are captured by a sim-ple single knife-edge diffraction term. Marching along the transmitter–receiver line, we retain the dominant obstruction, of height excess hob above the line-of-sight (LoS) and at along-path distances d1 and d2 from the two endpoints, we compute the Fresnel–Kirchhoff parameter 
+
+ν = hob 
+
+s
+
+2 ( d1 + d2)
+
+λ d 1d2
+
+, λ = c/f. (2) The diffraction loss Ldif follows the Lee approximation of ITU-R P.526 [9]: with g(ν) = p(ν − 0.1) 2 + 1 + ν − 0.1,
+
+Ldif (ν) = 
+
+(0, ν ≤ − 0.78 ,
+
+6.9 + 20 log 10 g(ν), ν > −0.78 , (3) applied only where the path is obstructed ( hob > 0). The prior is Lprior = min( LFSPL + Ldif , L max ), with the ceiling 
+
+Lmax = 160 dB preventing unbounded values in deep shadow. Crucially, Lprior is evaluated at the query frequency , so it carries the dominant frequency dependence of pathloss analytically. What the prior does not capture is multi-bounce reflection, facade scattering, street-canyon waveguiding, and material-dependent transmission. The network need only to learn the frequency-residual structure that the prior misses. 
+
+B. Inputs and Learning Target 
+
+The network consists of two input streams. The environment stream is a three-channel tensor of frequency-invariant geom-etry consisting of normalised building height, a transmitter location Gaussian centred on the transmitter pixel, and a log-distance map. The physics stream is a two-channel tensor consisting of the prior Lprior evaluated at the query frequency, and a geometry-only LoS mask. The learning target is the residual r = LRT − Lprior , and the prediction is reconstructed as ˆL = Lprior + ˆ r. Training minimises the masked objective 
+
+L(θ) = 1
+
+|M |
+
+X
+
+> u∈M
+
+ˆru − ru + λ Lfc , (4) an ℓ1 loss on the residual, with M the validity mask (ray-traced, non-building pixels). The second term, Lfc (λ = 0 .1), is a frequency-consistency regularizer that penalizes differences between the predicted residual at different frequencies, evalu-ated only at pixels that are LoS and valid at both frequencies of each compared pair. This encourages the residual to be frequency-flat in LoS regions where propagation is unob-structed, consistent with the observation that the prior’s error is frequency-stable in LoS but grows with frequency in Non-line-of-sight (NLoS); the residual is left unconstrained in the latter. Encouraging this regularization helps the network generalize to unseen carriers. 
+
+C. Cross-Attention Physics-Residual Network 
+
+The backbone of the network is a two-stream encoder– decoder architecture. Both streams are encoded at four resolutions (256 → 128 → 64 → 32 , with channel widths 32 /64 /128 /256 ). The environment stream uses two-convolutions per encoder stage while the physics stream uses single-convolution per encoder stage as it processes an already-informative analytic signal. At the 16 × 16 bottleneck the two streams are fused by cross-attention where the en-vironment tokens form the queries and physics tokens form the keys and values. We do not simply concatenate the two streams. The reliability of Lprior is strongly space-varying as it SUBMITTED TO IEEE WIRELESS COMMUNICATIONS LETTERS, AUGUST 2026 3
+
+is near-exact in LoS regions and degrades where multi-bounce energy dominates. Concatenation forces a single, spatially fixed weighting of the analytic field. Cross-attention instead lets every environment token select where in the analytic field 
+
+to draw evidence from, so the network can lean on the prior where geometry says it is trustworthy and override it where it is not. At each skip resolution the streams are combined by a lightweight learned gate. A mirrored decoder with gated skip connections reconstructs the residual ˆr, which is added to the prior to yield the predicted map. IV. D ATASET 
+
+We generate a ray-traced pathloss dataset with Sionna RT [10]. Fifteen dense urban districts are selected, spanning Manhattan-style grids (NYC Midtown, Chicago Loop, SF Financial, LA Downtown, Barcelona Eixample), European old-town cores (Hamburg Altstadt, Madrid Sol, Milan Duomo, Rostock, Montpellier Comedie), and mixed mid-rise districts (Berlin Mitte, Munich, Paris, London, Boston Downtown), on average 10 non-overlapping tiles are extracted per district, for 150 scene tiles in total. Building footprints and heights are derived from OpenStreetMap and rasterized to a per-scene height map on a fixed 256 × 256 
+
+grid with each tile covering a square region of 512 m per side. Pathloss maps are computed with reflection depth 5,rooftop diffraction enabled, scattering disabled, and 3.2 × 10 8
+
+rays per transmitter, over ITU-R P.2040 concrete buildings with frequency-dependent permittivity and concrete ground, using isotropic antennas at both ends. For each scene we place 8 transmitters, sampled across three deployment strata including street level (2–10 m), rooftop (1.5 mabove the local building), and mast (25 –35 m) to reflect realistic deployment. All receivers are ground-level users at 1.5 m. This yields 150 × 8 = 1200 scene–transmitter pairs. Every pair is simulated at four training carriers, 1.8,
+
+3.5, 7, and 28 GHz , and at two held-out carriers of 10 
+
+and 60 GHz . Across all six carriers the dataset comprises 
+
+1200 × 6 = 7200 ray-traced maps. Scenes are partitioned into training, validation, and test sets by district-wise stratified split of 124 /13 /13 scenes ( 992 /104 /104 pairs). Because all carriers are simulated for every partition, all six generalization regimes, train/validation/test scene × train/held-out frequency, are populated and the scene and frequency axes can therefore be varied one at a time. The split is frozen to disk and reused verbatim by every model, including all baselines, to eliminate partition-induced variance. V. E XPERIMENTS AND RESULTS 
+
+A. Training and Evaluation Protocol 
+
+All models are trained for at most 100 epochs with AdamW (decoupled weight decay 10 −4) and a base learning rate of 
+
+3 × 10 −4, annealed by a closed-form cosine schedule that reaches its floor of 10 −6 at the final epoch of the budget, with D4 dihedral augmentation applied to the training split only. Training halts once validation loss has not improved for 
+
+15 consecutive epochs, and the checkpoint of lowest validation reconstruction error is retained. Errors are reported as pathloss RMSE in dB, pooled globally over pixels within each regime rather than averaged per map, since per-map averaging weights sparsely covered maps equally with dense ones and biases the statistic. Evaluation spans the six regimes as discussed above, with the test split –held-out frequency regime further separated into 10 GHz (interpolation) and 60 GHz (extrapolation), and LoS and NLoS pixels reported separately for further evalua-tion. 
+
+B. Baselines 
+
+Three baselines are trained and evaluated on the identical frozen split. A per-pixel Random Forest (RF) Regressor predicts the residual from the six features including building height, trans-mitter Gaussian, log-distance, LoS mask, analytic prior, and normalised frequency with no spatial context. It isolates how much performance follows from the input representation alone, and how much from spatial structure and attention. 
+
+RadioUNet-C (RU-C) [1] is adapted here by supplying the carrier as a normalised frequency channel alongside the binary building mask and the transmitter Gaussian as in the original network [1]. We use cascaded two-stage design where the first UNet is trained on these three channels alone, then frozen, and its predicted map is appended as a fourth channel to the input of the second UNet, which is trained on top of it. 
+
+IPP-Net (adapted) [6] is a single-stream UNet that ingests all the same inputs as our model including an analytic prior. The original network [6] uses a 3GPP indoor -hotspot model, which does not apply to our outdoor scenes. We substitute the appropriate outdoor 3GPP TR 38.901 model [11], selecting UMi-Street-Canyon or UMa per transmitter by comparing its height to the local mean rooftop height. This is the closest frequency-aware counterpart to our model. 
+
+C. Generalization Across Splits and Bands 
+
+Table I reports pathloss RMSE over the scene ×frequency grid, with the analytic prior included as a reference. Across the six cells our model stays within 10.28–11.63 dB, against 11.29–12.08 dB for IPP-Net, 13.79–16.54 dB for RF, and 14.94–17.31 dB for RU-C. The two prior-based models oc-cupy a band lying entirely below the prior-free ones. Cross-frequency prediction is thus not a task that established archi-tectures can easily solve. Our model improves on the prior in every cell, by 29 .3% to 41 .2% , and both generalization axes prove inexpensive. Scene transfer costs 0.84 dB : at trained carriers, unseen test scenes reach 11 .12 dB against 10 .28 dB 
+
+on training scenes. Frequency transfer costs less: on test scenes, moving to carriers never seen in training changes the error by 0.14 dB , from 11 .12 to 11 .26 dB and it does so against a prior that is itself 0.52 dB worse at those carriers (16 .87 to 17 .39 dB ), confirming that the held-out bands are the intrinsically harder ones to model. The baselines separate along the frequency axis according to how much physics they carry. Across the same shift on test scenes, RF loses 2.29 dB 
+
+and RU-C 0.53 dB , whereas the two prior-based models lose 
+
+0.20 dB (IPP-Net) and 0.14 dB (ours). The IPP-Net transfers SUBMITTED TO IEEE WIRELESS COMMUNICATIONS LETTERS, AUGUST 2026 4
+
+TABLE I PATHLOSS RMSE ( dB ) BY SCENE ×FREQUENCY REGIME .Scene Freq. Prior RF RU-C IPP-Net Ours Reduction Train train 15 .71 13 .79 14 .94 11 .29 10 .28 34 .6% 
+
+Validation train 16 .69 14 .56 16 .81 11 .97 11 .59 30 .6% 
+
+Test train 16 .87 14 .25 16 .16 11 .77 11 .12 34 .1% 
+
+Train held-out 17 .75 16 .27 15 .40 11 .50 10 .44 41 .2% 
+
+Validation held-out 16 .44 16 .53 17 .31 12 .08 11 .63 29 .3% 
+
+Test held-out 17 .39 16 .54 16 .69 11 .97 11 .26 35 .3% 
+
+nearly as cleanly as our model confirms that zero-shot cross-frequency transfer to be a property of the physics-residual formulation itself, holding across two architectures and two different priors, our FSPL and knife-edge construction, and IPP-Net’s 3GPP UMi/UMa model. What the two-stream cross-attention design adds is a consistent margin on top, 0.38 to 
+
+1.06 dB across the grid, and one that widens in every split when the carrier is held out. The prior-free baselines, by contrast, barely clear the reference they were meant to surpass: at held-out carriers RF and RU-C come within 0.9 dB of the analytic prior on test scenes ( 16 .54 and 16 .69 dB against 
+
+17 .39 dB ), and on validation scenes both are worse than it. 
+
+D. Held-Out Carriers and Propagation Condition 
+
+Table II separates the two held-out carriers on unseen test scenes (last row of Table I). At the interpolated 10 GHz 
+
+band our model attains 11 .61 dB against the prior’s 17 .33 dB ,a 33 .0% reduction; at 60 GHz extrapolated band, it attains 
+
+10 .89 dB against 17 .44 dB , a 37 .6% reduction that confirms that the prior absorbs the dominant frequency-dependent offset analytically, leaving a residual whose structure is stable across bands. IPP-Net likewise improves under extrapolation ( 12 .23 
+
+to 11 .71 dB ), while our margin over it widens from 0.62 to 
+
+0.82 dB .Splitting by propagation condition shows where the gain originates. The prior is already accurate in LoS (4.35 –
+
+4.67 dB ), where free-space loss plus a single knife-edge term is a reasonable model, and every learned model improves on it only modestly as our reductions there are 24 .1% and 19 .3% 
+
+respectively. The prior loss is poor in NLoS ( 18 .93 –19 .03 dB ), where one knife-edge term badly under-models urban multi-diffraction and facade scattering, and it is there that learning pays. Our model reaches 12 .66 dB at 10 GHz and 11 .83 dB at 
+
+60 GHz , reductions of 33 .1% and 37 .8% . The reduction over the prior is therefore largest exactly where the prior is weakest, and largest of all in the hardest cell of the study, NLoS pixels at an extrapolated carrier. The prior-free baselines fail in complementary ways that isolate the prior’s contribution. RF behaves sensibly at 10 GHz 
+
+(LoS 5.54 dB ) but its LoS error explodes to 28 .21 dB at 
+
+60 GHz , roughly six times the prior. RU-C fails differently: its LoS error is as large as its NLoS error and worsens under extrapolation ( 16 .57 to 19 .65 dB ). The IPP-Net achieves 
+
+3.69 dB and 4.08 dB in LoS and 13 .33 dB and 12 .72 dB in NLoS at 10 GHz and 60 GHz bands respectively that are 
+
+TABLE II HELD -OUT CARRIERS ON UNSEEN (TEST ) SCENES : RMSE ( dB) OVERALL AND SPLIT BY PROPAGATION CONDITION , AGAINST THE ANALYTIC PRIOR .Band Cond. Prior RF RU-C IPP-Net Ours Reduction 
+
+10 GHz 
+
+All 17 .33 15 .46 16 .92 12 .23 11 .61 33 .0% 
+
+LoS 4.35 5.54 16 .57 3.69 3.30 24 .1% 
+
+NLoS 18 .93 16 .78 16 .99 13 .33 12 .66 33 .1% 60 GHz 
+
+All 17 .44 17 .55 16 .45 11 .71 10 .89 37 .6% 
+
+LoS 4.67 28 .21 19 .65 4.08 3.77 19 .3% 
+
+NLoS 19 .03 14 .42 15 .72 12 .72 11 .83 37 .8% 
+
+close to our model and attributable to the physics-residual formulation. VI. C ONCLUSION 
+
+We studied zero-shot cross-frequency radio map prediction and showed that a cross-attention physics-residual network, learning a correction to a frequency-aware analytic prior, generalizes to carriers never seen in training, including a 
+
+60 GHz band well outside the training range, where it reduces RMSE over the analytic prior by 37 .6% . The comparison with no frequency prior baselines and a similar IPP-Net model with a different frequency prior indicate that the inclusion of frequency information analytically, through a physics prior, is decisive for frequency generalization. Future work will extend the study to a full leave-one-frequency-out grid and to additional propagation regimes. REFERENCES [1] R. Levie, C ¸ . Yapar, G. Kutyniok and G. Caire, ”RadioUNet: Fast Radio Map Estimation With Convolutional Neural Networks,” in IEEE Transactions on Wireless Communications , vol. 20, no. 6, June 2021. [2] Y. Tian, S. Yuan, W. Chen, and N. Liu, “RadioNet: Transformer based radio map prediction model for dense urban environments,” 
+
+arXiv:2105.07158 , 2021. [3] S. Zhang, A. Wijesinghe and Z. Ding, ”RME-GAN: A Learning Framework for Radio Map Estimation Based on Conditional Generative Adversarial Network,” in IEEE Internet of Things Journal , vol. 10, no. 20, 15 Oct.15, 2023. [4] G. Chen et al., ”A Graph Neural Network Based Radio Map Construc-tion Method for Urban Environment,” in IEEE Communications Letters ,vol. 27, no. 5, May 2023. [5] S. Hussain, ”A Multi-Scale Feature Extraction and Fusion U-Net for Pathloss Prediction in UAV-Assisted mmWave Radio Networks,” in 
+
+IEEE Transactions on Wireless Communications , vol. 25, 2026. [6] B. Feng, M. Zheng, W. Liang and L. Zhang, ”IPP-Net: A Generalizable Deep Neural Network Model for Indoor Pathloss Radio Map Prediction,” 
+
+ICASSP 2025 - 2025 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP) , Hyderabad, India, 2025. [7] X. Li et al., ”RadioGAT: A Joint Model-Based and Data-Driven Frame-work for Multi-Band Radiomap Reconstruction via Graph Attention Networks,” in IEEE Transactions on Wireless Communications, vol. 23, no. 11, pp. 17777-17792, Nov. 2024 [8] H. Huai et al., ”An RT-Supervised Simulation-to-Simulation Framework for Path Loss Radio Map Prediction Based on Geographic Environmen-tal Information”, in Electronics , vol. 15, no. 8, 2026. [9] ITU-R, “Recommendation ITU-R P.526-16 - Propagation by Diffrac-tion,” ITU-R P.526-16. [10] J. Hoydis et al. , “Sionna: An open-source library for next-generation physical layer research,” arXiv:2203.11854 , 2022. [11] 3GPP, “Study on channel model for frequencies from 0.5 to 100 GHz,” 3rd Generation Partnership Project (3GPP), TR 38.901.

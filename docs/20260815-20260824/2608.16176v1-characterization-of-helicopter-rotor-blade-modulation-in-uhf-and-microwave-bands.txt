@@ -1,0 +1,309 @@
+Title: Characterization of Helicopter Rotor Blade Modulation in UHF and Microwave Bands
+
+URL Source: https://arxiv.org/pdf/2608.16176v1
+
+Published Time: Tue, 18 Aug 2026 02:11:44 GMT
+
+Number of Pages: 9
+
+Markdown Content:
+# Characterization of Helicopter Rotor Blade Modulation in UHF and Microwave Bands 
+
+# Extended Version 
+
+Wilhelm Keusgen 
+
+Technische Universit¨ at Berlin 
+
+Berlin, Germany ORCID 0000-0002-2335-8270 
+
+Alper Schultze, Mathis Schmieder, Michael Peter 
+
+Fraunhofer Heinrich-Hertz-Institut, HHI 
+
+Berlin, Germany forename.surname@hhi.fraunhofer.com 
+
+Taro Eichler, Friedrich Lipp 
+
+Rohde & Schwarz GmbH & Co. KG 
+
+M¨ unchen, Germany forename.surname@rohde-schwarz.com 
+
+Abstract —This paper presents metrics and measurement meth-ods for the experimental characterization of helicopter rotor blade modulation of the wireless propagation channel. Broadband bistatic channel measurements were conducted at three widely separated carrier frequencies – 302 MHz (UHF), 4.9 GHz (C-band), and 27.1 GHz (Ka-band) – for three military helicopters (CH-53, Tiger, and UMAT) at the Bundeswehr Technical and Airworthiness Center for Aircraft in Manching, Germany. The time-variant channel was analyzed in terms of the Doppler Power Spectrum and the RMS Doppler spread, the Doppler spectrogram, and the Power Time Profile. The RMS Doppler spread values were found to be moderate (up to 106 Hz), which is attributable to the predominantly lateral blade motion relative to the line-of-sight path. The Power Time Profiles revealed periodic blockage attenuations of up to 15 dB at Ka-band, increasing significantly with the carrier frequency; at 302 MHz, the blockage attenuation does not exceed 2.3 dB and the RMS Doppler spread stays below 10 Hz. The measured blockage attenuation was modeled using the double knife-edge diffraction model, showing good agreement with the measurements. The distinct micro-Doppler signatures visible in the spectrograms are identified as a potential resource for helicopter classification and passive radar applications. 
+
+Index Terms —rotor blade modulation, helicopter propagation channel, time-variant radio channel, channel sounding, micro-Doppler, Doppler power spectrum, power time profile, blockage, double knife-edge model 
+
+I. I NTRODUCTION 
+
+Next-generation secure tactical communication systems are expected to offer higher data rates, improved energy efficiency, global coverage, and connectivity, as well as extremely high reliability and low latency. This requires novel connected plat-forms for land, air, sea, and space, including the extension of the frequency range into the microwave bands. Helicopters are particularly challenging platforms in this context: rotor blade modulation produces periodic blockage attenuation of several dB to tens of dB and generates micro-Doppler sidebands at multiples of the blade-passage frequency, which degrade link reliability and complicate channel estimation [1], [2]. This paper investigates the impact of helicopter rotor blade modulation on the wireless propagation channel, with 
+
+This is an extended version of a paper accepted for presentation at the IEEE Ukrainian Microwave Week (UkrMW), 2026. 
+
+the helicopter-to-aircraft and helicopter-to-satellite links being prominent examples. By examining the time-variant broadband channel, we analyze the Doppler and micro-Doppler signatures produced by the rotating blades. Our study also focuses on the estimation and modeling of the signal attenuation caused by these dynamic effects. Electromagnetic scattering by rotor blades and the resulting signal modulation have been studied analytically [1], numeri-cally [3], [4], and experimentally [5] since the early 1970s. A wideband characterization of the satellite-to-helicopter chan-nel at Ku-band, measured with a sliding-correlator sounder and real helicopters, was reported in [2], identifying line-of-sight (LOS) blockage and blade-edge multipath as the two main propagation impairments. Airframe shadowing caused by fixed-wing aircraft has been studied at L- and C-band, showing attenuations of up to 47 dB lasting tens of seconds [6], and GNSS-based opportunistic measurements of the satellite-to-aircraft channel at L-band have been reported in [7]. In contrast to these prior works, the present study applies a broadband time-domain channel sounder across three widely separated frequency bands in a bistatic ground-based geometry to three different military helicopters. The specific contributions of this paper are: (i) a set of metrics and measurement methods, adapted from the Bello framework for time-variant channels [8], for the characteriza-tion of rotor blade modulation, comprising the Doppler Power Spectrum, the Doppler spectrogram, and the Power Time Profile; (ii) broadband bistatic measurement results for three military helicopters across three frequency bands; (iii) the quantification of the blade blockage attenuation as a function of carrier frequency and helicopter type; and (iv) the validation of the double knife-edge model for the prediction of blade blockage. II. D ESCRIPTION OF THE TIME -V ARIANT RADIO 
+
+CHANNEL 
+
+The rotating blades introduce a strictly periodic time vari-ance into the radio propagation channel, which makes the system-function framework of Bello [8] particularly well suited for its description: the Delay-Doppler Spread Function arXiv:2608.16176v1 [eess.SP] 17 Aug 2026 directly captures the blade-induced Doppler shifts, and the Doppler Power Spectrum naturally reveals the blade-passage periodicity. In contrast to most of the prior works, which are largely based on continuous-wave (CW) measurements or quasi-stationary analyses (e.g., [3], [5], [1]), we therefore make use of this well-known framework for broadband time-variant radio channels. The time-variant radio channel can be fully described by four system functions: the Time-Variant Transfer Function, the Input Delay Spread Function, the Delay-Doppler Spread Func-tion, and the Output Doppler Spread Function [8] (see Fig. 1). Each of the system functions depends on two of the four variables time t, delay τ , frequency f , and Doppler frequency 
+
+ν; the pairs τ , f and t, ν are conjugate variables related by the Fourier transform ( ◦−•) or its inverse ( •−◦), respectively. From the system functions, four real-valued one-dimensional power density functions, known as profiles or spectra, can be derived by eliminating one of the two independent variables. This elimination is implemented either by averaging the powers (squared magnitudes) in the respective dimension ( P ) or by the summation of the powers ( ΣP ), as indicated in Fig. 1. Further details on the derivation of the one-dimensional power density functions can be found in [9].             
+
+> Input Delay Spread Funct.
+> h(t, τ )
+> Output Doppler Spread Funct.
+> H(ν, f )
+> Delay-Doppler Spread Funct.
+> S(ν, τ )
+> Time-Variant Transfer Funct.
+> T(t, f )
+> Power Delay Profile
+> pd(τ)
+> Power Time Profile
+> pt(t)
+> Doppler Power Spectrum
+> SD(ν)
+> Power Spectrum
+> Sf(f)
+> averaging: | · | 2
+> integration: P| · | 2
+> tντfτftν
+
+Fig. 1: System functions of the time-variant radio channel and the corresponding one-dimensional power density functions. III. H ELICOPTERS AND MEASUREMENT SETUP 
+
+Three military helicopters were investigated during the study: the CH-53 from Sikorsky Aircraft Corporation (CH-53), the Eurocopter Tiger from Airbus Helicopters (Tiger), and the experimental UAV R-350 from UMS Skeldar AG (UMAT). The measurements took place at the Bundeswehr Technical and Airworthiness Center for Aircraft in Manching, Germany. The influence of the main rotors and of the tail rotors was investigated by means of broadband bistatic propagation measurements at three different frequencies within the UHF, C-, and Ka-bands (UMAT: C- and Ka-band only). In this 40 m 85 m Tower 
+
+> 25 ◦
+> Rx
+> Tx
+
+(a) 
+
+(b) 
+
+Fig. 2: Measurement setup: (a) side view of the geometry, drawn to scale for the Tiger (LOS elevation angle 25°; the LOS path crosses the rotor disk at 70% of the blade radius); (b) setup for the CH-53 with the transmitter in the foreground. paper, we report the results for the main rotors; the tail rotor results are left for a future publication. Additional static measurements with a stopped rotor were performed to verify the measurement setup. The measurements were performed with the transmitter (Tx) located on the ground close to the helicopter and the receiver (Rx) positioned on an airport tower at a height of 40 m, creating a slanted LOS path that was obstructed by the rotor blades. Fig. 2(a) shows a side view of the measurement geometry, and Fig. 2(b) gives an impression of the setup for the CH-53, showing the transmitter in the foreground. Depending on the helicopter position, the LOS distance was between approximately 80 m and 95 m; the elevation angle of the LOS path was approximately 25° for the Tiger and 30° for the CH-53 and the UMAT. In the realized setup, the LOS path was obstructed by the outer third of the rotor blades; thus, the relevant blade speeds were around 70% of the tip speeds listed in Table I. The theoretical maximum Doppler frequencies in the table, which were calculated for a reflecting blade tip, are reduced accordingly in practice. Table II summarizes the resulting per-helicopter geometry: the LOS elevation angle, the LOS distance d, and the distance d1 from the Tx to the point where the LOS path crosses the rotor disk (blade intercept point). TABLE I: Rotor characteristics of the investigated helicopters                           
+
+> UMAT Tiger CH-53
+> No. of rotor blades ( Nb)346Rotor frequency ( frot )14.17 Hz 5.45 Hz 3.08 Hz Rotor radius (approx.) 1.8 m 6.5 m 11.0 m Width of blades (approx.) 0.3 m 0.5 m 0.7 m Blade-to-blade time 23.5 ms 45.9 ms 54.1 ms Speed at blade tip 159.3 m⁄s222.6 m⁄s213.2 m⁄s
+> Max. Doppler freq. at 27.1 GHz 28.7 kHz 40.1 kHz 38.4 kHz
+
+TABLE II: Measurement geometry for the individual heli-copters            
+
+> UMAT Tiger CH-53
+> LOS elevation angle 30.5° 25.2° 30.2° LOS distance ( d)78.8 m 93.9 m 79.5 m Distance Tx to blade intercept ( d1)2.5 m 8.8 m 16.9 m
+
+The time-variant propagation channels were measured by means of a time-domain channel sounder. In this approach, the channel is conceptually probed with a train of short impulses, which directly yields a train of channel impulse responses at the receiver. This train corresponds to the Input Delay Spread Function h(t, τ ) (see Fig. 1), which serves as the starting point for the derivation of all other system functions. Practically, the train of impulses is created by the autocorrelation function of a perfect correlation sequence, with the correlation implemented at the receiver side. The length M of the correlation sequence must be chosen appropriately to capture the maximum delays as well as the maximum Doppler frequencies. We propose the use of Zadoff–Chu sequences, which allow for the observation of time-variant channels even in the presence of a strong phase shift within one period of the correlation sequence [10]; the achievable dynamic range of this sounder class is analyzed in [11]. Further details about this channel sounding approach can be found in [9]. The channel sounder was composed of commercial test and measurement equipment; Fig. 3 shows the block dia-gram of the measurement chains. A vector signal generator R&S®SMW200A was used at the transmitter side, and a signal and spectrum analyzer R&S®FSW was utilized for the sampling of the received signals at the receiver side. The different frequencies were measured one after another, with antennas, amplifiers, waveforms, and carrier frequencies switched automatically. Vertically polarized antennas were used at all three carrier frequencies. Tx and Rx were synchro-nized in frequency and time by two Rubidium clocks (HHI Synchronomat) that had been aligned in advance. Furthermore, back-to-back calibration measurements of Tx and Rx were performed for each measurement frequency: Tx and Rx were connected directly via cable, capturing the frequency response of the sounder hardware, which was subsequently removed from all measurements in the frequency domain. This normal-ization also removes the impairments of the other measurement equipment. Table III shows the parameters of the channel sounder, which were selected and optimized with respect to the ex-pected impact of the rotors on the wave propagation according to Table I. The measurement bandwidths were constrained by regulatory issues. Although a broader bandwidth is favorable in general – because it enables a higher delay resolution – it is of minor importance for this study, which focuses on the time evolution and on the Doppler frequencies of the direct LOS path. Here, a high temporal resolution, a high maximum Doppler frequency, and a long measurement time are of importance. TABLE III: Parameters of the channel sounder                                             
+
+> Parameter UHF C-band Ka-band
+> Carrier frequency 302 MHz 4.9 GHz 27.1 GHz Measurement bandwidth 5 MHz 500 MHz 25 MHz Sequence length ( M=N)100 10,000 250 No. of sequences ( K=L)20,000 20,000 40,000 Seq. duration / temp. resolution 20 μs 20 μs 10 μs Measurement time 400 ms 400 ms 400 ms Delay resolution 40 ns 2 ns 20 ns Doppler resolution 1.25 Hz 1.25 Hz 1.25 Hz Frequency resolution 50 kHz 50 kHz 100 kHz Maximum Doppler freq. 25 kHz 25 kHz 50 kHz Antenna gain Rx ∼3 dBi 7 dBi 15 dBi Antenna gain Tx ∼3 dBi 8.5 dBi 8.5 dBi
+
+IV. E VALUATION OF MEASUREMENTS 
+
+The measurement data were captured by the signal analyzer and afterward processed using MATLAB®. The processing included the application of the calibration to the raw data, yielding the Input Delay Spread Function. Depending on the parameters of interest, different profiles were evaluated with appropriate window functions and oversampling applied. The evaluation parameters for the time-variant analyses are summarized in Table IV. The window functions were used to filter unwanted parts of the system functions in the delay and Doppler frequency domains and to improve the signal-to-noise ratio in the conjugate dimensions of frequency and time. Furthermore, windowing in the frequency and time domains was used to suppress sidelobes in the conjugate domains, i.e., delay and Doppler frequency. In the first case, a flat-top window such as the Tukey window is applied, whereas in the latter case a window with good sidelobe suppression such as the ultra-spherical window with parameter λ = 1 is used [12]. 
+
+A. Static Measurements: Instantaneous Power Delay Profile 
+
+Measurements with stationary rotor blades were performed to verify the measurement setup. For this purpose, the Input Delay Spread Function was filtered with an ultra-spherical window (70 dB sidelobe suppression) in the frequency domain, oversampled by a factor of four in the delay domain, and coherently averaged over the time domain, yielding the instan-taneous power delay profile (IPDP). Fig. 4 shows the result for Antenna 10-118-37 Antenna R&S ®HL050 Power Amplifier RF Switch R&S ®OSP130 Power Amplifier Signal Generator R&S ®SMW200A Fraunhofer HHI Synchronomat 5 GHz 27 GHz 300 MHz 5 GHz 27 GHz 300 MHz 5 GHz 27 GHz 10 MHz 
+
+(a)   
+
+> Antenna R&S ®HK116E Antenna MVG QH2000 Signal Analyzer R&S ®FSW43 Fraunhofer HHI Synchronomat 300 MHz 5 GHz 27 GHz 10 MHz Trigger
+
+(b) 
+
+Fig. 3: Block diagram of the (a) transmitter and (b) receiver measurement chains. TABLE IV: Evaluation parameters for the time-variant analy-ses 
+
+Parameter Value Common (DPS, spectrogram, PTP) 
+
+Filter delay domain, 302 MHz Tukey, 1⁄2, 500 ns Filter delay domain, 4.9 GHz Tukey, 1⁄2, 5 ns Filter delay domain, 27.1 GHz Tukey, 1⁄2, 100 ns Delay compensation yes 
+
+Doppler Power Spectrum 
+
+Oversampling Doppler domain 4Filter time domain ultra-spherical, 70 dB Eval. threshold for RMS Doppler spread 50 dB 
+
+Doppler spectrogram 
+
+Filter Doppler domain, 302 MHz Tukey, 1⁄2, 2 kHz Filter Doppler domain, 4.9 GHz Tukey, 1⁄2, 3 kHz Filter Doppler domain, 27.1 GHz Tukey, 1⁄2, 6 kHz Window length (302 MHz, 4.9 GHz) 10 ms Window length (27.1 GHz) 5 ms Overlap 1⁄2
+
+Window Kaiser, β = 4 
+
+the Tiger at all three frequencies as a representative example. The measurement at 4.9 GHz demonstrates an exceptionally high dynamic range of more than 70 dB, a strong LOS component, and some weak multipath components at excess delays of up to a few hundred nanoseconds, which stem from the specific measurement environment and are not of interest here; the delay resolution at the other two frequencies is lower due to the much smaller measurement bandwidths. The maximum of the IPDP corresponds to the free-space path loss, which differs between the three measurements due to the different carrier frequencies and antenna gains (see Table III). In the following, the evaluations concentrate on the LOS path: the delay is estimated from the linear phase of the Time-Variant Transfer Function and compensated for (Delay compensation, see Table IV), and the Input Delay Spread Function is subsequently windowed in the delay domain to remove all multipath components. 0 200 400 600 800 1000 
+
+> delay in ns
+> -160 -140 -120 -100 -80 -60
+> magnitude in dB
+> Instantaneous Power Delay Profile
+> 0.302 GHz 4.9 GHz 27.1 GHz
+
+Fig. 4: Instantaneous power delay profile for the Tiger (static measurement). 
+
+B. Time-Variant Measurements: Doppler Power Spectrum 
+
+In the case of dynamic measurements with spinning rotor blades, the delay-compensated and delay-windowed (to isolate the LOS path) Input Delay Spread Functions were transformed to the Delay-Doppler Spread Function and summed over the delay domain to yield the Doppler Power Spectrum (DPS). Additionally, a window in the time domain was applied to suppress the sidelobes in the Doppler domain; Table IV shows the applied evaluation parameters. Figs. 5, 6, and 7 show the DPS of the UMAT, the Tiger, and the CH-53 at all measured carrier frequencies (no measurements were performed for the UMAT at 302 MHz). Due to the periodic nature of the time variance, the DPS is a line spectrum. The line spacing equals the blade-passage frequency fbp = Nb frot (see Table I), i.e., 42.5 Hz for the UMAT, 21.8 Hz for the Tiger, and 18.5 Hz for the CH-53. Table V shows the RMS Doppler spread of all helicopters and frequencies, which quantifies the expected Doppler shifts due to the time variance and is defined as the square root of the second central moment of the DPS [13], [9]: 
+
+νrms =
+
+sZ
+
+(ν − ν)2 SD (ν) d ν
+
+ Z 
+
+SD (ν) d ν , (1) where SD (ν) denotes the DPS and ν its center of gravity. Spectral components more than 50 dB below the DPS peak are excluded from the integrals (see Table IV) to prevent noise from inflating the spread estimate. The estimated Doppler spread values are relatively small, despite the low evaluation threshold. This can be attributed to the predominantly lateral movement of the blades relative to the LOS path. At 302 MHz, the spectra are confined to a few hundred hertz around the carrier, consistent with the roughly 16-fold and 90-fold smaller Doppler shifts compared to 4.9 GHz and 27.1 GHz, respectively. -3 -2 -1 0 1 2 3      
+
+> Doppler shift in kHz
+> -160 -140 -120 -100 -80 -60
+> magnitude in dB -6 -4 -2 0246
+> Doppler shift in kHz
+> -160 -140 -120 -100 -80 -60
+> magnitude in dB
+
+Fig. 5: DPS of the UMAT, 4.9 GHz (top), 27.1 GHz (bottom). TABLE V: RMS Doppler spreads            
+
+> UMAT Tiger CH-53
+> 302 MHz –8.6 Hz 5.6 Hz 4.9 GHz 39.6 Hz 46.0 Hz 39.3 Hz 27.1 GHz 75.5 Hz 58.9 Hz 105.8 Hz
+
+C. Time-Variant Measurements: Doppler Spectrogram 
+
+The DPS describes the distribution of the Doppler frequen-cies within the measurement interval but gives no information about their temporal evolution. This information can be re-trieved by a temporal-spectral analysis [14], [15] applied to a time series of samples. Therefore, we propose to reduce the Input Delay Spread Function to a series of zero-bandwidth channel impulse responses by complex summation along the delay axis, in contrast to the summation of powers used for the Power Time Profile (see Fig. 1) [9]. The complex summation -2 -1 0 1 2            
+
+> Doppler shift in kHz
+> -160 -140 -120 -100 -80 -60
+> magnitude in dB -3 -2 -1 0123
+> Doppler shift in kHz
+> -160 -140 -120 -100 -80 -60
+> magnitude in dB -6 -4 -2 0246
+> Doppler shift in kHz
+> -160 -140 -120 -100 -80 -60
+> magnitude in dB
+
+Fig. 6: DPS of the Tiger, 302 MHz (top), 4.9 GHz (center), 27.1 GHz (bottom). over the delay axis equals the Time-Variant Transfer Function evaluated at the center frequency, T (t, 0) ; since the Input De-lay Spread Function was delay-compensated and windowed to the LOS path beforehand, this coherent summation thus yields a single complex channel-gain time series that corresponds to a narrowband observation of the LOS channel. To this time series, we apply the spectrogram as an estimator for the temporal-spectral analysis. Fig. 8 shows the spectrograms of all helicopters at all measured carrier frequencies. At 302 MHz (Tiger and CH-53), the spectrograms are almost featureless: the energy is concentrated in a narrow band around the LOS line, and only weak periodic variations are visible – itself a noteworthy result, as it confirms that the rotor influence on the Doppler domain is negligible at UHF. At 4.9 GHz and 27.1 GHz, the periodic structure arising from the blade-to-blade time (see Table I) is clearly visible, as are specific temporal signatures, which are resolved differently depending on the carrier frequency. These signatures repeat with the blade-to-blade period and become sharper with increasing carrier frequency. 
+
+D. Time-Variant Measurements: Power Time Profile 
+
+Besides the Doppler frequencies, the temporal modulation of the channel gain, i.e., of the received power, is of specific interest. It is characterized by the Power Time Profile (PTP), which is obtained from the appropriately filtered Input Delay Spread Function by summation of the powers along the delay -2 -1 0 1 2            
+
+> Doppler shift in kHz
+> -160 -140 -120 -100 -80 -60
+> magnitude in dB -3 -2 -1 0123
+> Doppler shift in kHz
+> -160 -140 -120 -100 -80 -60
+> magnitude in dB -6 -4 -2 0246
+> Doppler shift in kHz
+> -160 -140 -120 -100 -80 -60
+> magnitude in dB
+
+Fig. 7: DPS of the CH-53, 302 MHz (top), 4.9 GHz (center), 27.1 GHz (bottom). axis (see Fig. 1 and Table IV). Figs. 9, 10, and 11 depict the resulting PTPs of all three helicopters in blue color. The periodic power modulation at the blade-to-blade period (see Table I) is clearly visible and exactly matched. Furthermore, the PTP exhibits a high variation (ripple), especially within the blockage events; the effect is present at all frequencies and more pronounced at the higher carrier frequencies. To allow for a quantitative analysis of the power loss due to blockage, it is useful to smooth this ripple. Here, we propose to perform the smoothing by lowpass filtering in the Doppler domain, where the cut-off frequency is derived from the width 
+
+TB of the blockage event as νcutoff = 1/2 · 1/TB . A Tukey window was applied, with the cut-off frequency defined as the width of its flat top. The approximate blockage durations read from the measured PTPs are 3.5 ms (UMAT), 6 ms (Tiger), and 9 ms (CH-53), resulting in cut-off frequencies of 143 Hz, 84 Hz, and 55.5 Hz, respectively. The rationale for this choice of cut-off frequency is that spectral components above 1/(2 TB ) mainly represent the diffraction ripple within a blockage event, whereas the envelope of the blockage itself is confined to frequencies below this value; the filtering therefore removes the ripple while preserving the depth and the duration of the blockage. The measured blockage durations are of the same order as the state-duration statistics reported for the Ku-band satellite-to-helicopter channel, where mean blade-obstruction durations of 5.4 ms and 12 ms were found for the Hughes H-500 and the Seahawk SH-60B, respectively [16]. Figs. 10 and 11 additionally show the smoothed PTPs (in red color), which were derived after reducing the Doppler bandwidth according to these cut-off frequencies. Finally, Fig. 12 shows the estimated blockage attenuation for all helicopters and frequencies, obtained from the smoothed curves by comparing the minimum value within a blockage event with the minimum value between two blockage events. At 302 MHz, the power modulation was very small (see the top rows of Figs. 10 and 11): for the Tiger, the ripple was too indistinct to extract a reliable attenuation value, whereas for the CH-53 a clear periodic modulation at the blade-to-blade period remains visible and a blockage attenuation of 2.3 dB was estimated. The blockage attenuation increases with the carrier frequency, which is qualitatively consistent with diffraction theory: for a fixed blade geometry and measurement distance, the blade width measured in Fresnel zones grows with frequency, deepening the diffraction shadow. The amount of the increase is specific to the rotor blade; no clear corre-lation between the blade width and the attenuation increase is observed (the UMAT has the smallest blades but not the smallest attenuation at 27.1 GHz). 
+
+E. Time-Variant Measurements: Modeling of the Power Time Profile 
+
+In the following, the modeling of the blockage attenuation by means of the double knife-edge (DKE) model [17] was investigated. This model – which represents the obstacle by a thin conducting strip, i.e., by two parallel knife edges – is expected to fit the measured attenuation well, as the rotor blades closely resemble a metallic strip in shape. The DKE model treats the rotating blade quasi-stationarily as a sequence of stationary strip positions. A rigorous analyti-cal treatment of the rotating strip based on Hertzian elec-trodynamics and the Wiener–Hopf technique [18] critiques quasi-stationary approaches on causality grounds and pre-dicts diffracted-field components at harmonics of the rotation; for the blade-passage-periodic quantities considered here, the quasi-stationary DKE model nevertheless proves sufficiently accurate, as shown below. Since the basic geometry as well as the width and the velocity of the rotor blades are known, the model from [17] could be parameterized directly: for the Tiger, the distance from the Tx to the blade intercept point is d1 ≈ 8.8 m (see Table II), the distance from the intercept point to the Rx is 
+
+d2 ≈ 85 m, the blade width is w = 0 .5 m, and the blade velocity at the intercept point is v ≈ 156 m⁄s (70% of the tip speed). Fig. 13 compares the modeled blockage attenuation (red) with one typical measured blockage event (blue, centered around time zero) for the Tiger at 4.9 GHz and at 27.1 GHz. Good agreement is observed between the measurement and the model at both carrier frequencies, in the depth and the duration of the blockage event as well as in the characteristic double-dip shape and the adjacent diffraction ripple, which are clearly resolved at 4.9 GHz. no measurement at 302 MHz 0 100 200 300 400     
+
+> time in ms
+> -3 -2 -1 0123
+> Doppler shift in kHz 0100 200 300 400
+> time in ms
+> -6 -4 -2 0246
+> Doppler shift in kHz
+
+(a) UMAT, 4.9 GHz (center), 27.1 GHz (bot-tom) 0 50 100 150 200 250 300 350 400         
+
+> time in ms
+> -2 -1 012
+> Doppler shift in kHz 0100 200 300 400
+> time in ms
+> -3 -2 -1 0123
+> Doppler shift in kHz 0100 200 300 400
+> time in ms
+> -6 -4 -2 0246
+> Doppler shift in kHz
+
+(b) Tiger, 302 MHz (top), 4.9 GHz, 27.1 GHz 0 50 100 150 200 250 300 350 400          
+
+> time in ms
+> -2 -1 012
+> Doppler shift in kHz 0100 200 300 400
+> time in ms
+> -3 -2 -1 0123
+> Doppler shift in kHz 0100 200 300 400
+> time in ms
+> -6 -4 -2 0246
+> Doppler shift in kHz
+
+(c) CH-53, 302 MHz (top), 4.9 GHz, 27.1 GHz 
+
+Fig. 8: Doppler spectrograms of all helicopters; helicopters are columns, carrier frequencies are rows (302 MHz, 4.9 GHz, 27.1 GHz from top to bottom); power in dB ranging from −125 dB (black) to −65 dB (yellow). It should be noted that the DKE model of [17] was originally derived for the obstruction of a ray by a person at low elevation angles and for frequencies between 4 and 10 GHz. Its appli-cation at elevation angles of 25°–30°, at carrier frequencies up to 27.1 GHz, and to a metallic obstacle therefore constitutes an extrapolation, which is, however, well supported by the agreement observed in Fig. 13. V. C ONCLUSION 
+
+This paper has presented an experimental characterization of the rotor blade modulation of three military helicopters at three carrier frequencies between 302 MHz and 27.1 GHz. The effect of the rotor blades was characterized in terms of the Doppler Power Spectrum and the RMS Doppler spread, which showed only a moderate impact relative to static channels, with RMS values ranging from 5.6 Hz (CH-53 at 302 MHz) to 105.8 Hz (CH-53 at 27.1 GHz); this is attributed to the predominantly lateral blade motion relative to the LOS path. Additionally, the temporal evolution of the Doppler frequencies (micro-Doppler) was estimated by means of spec-trograms and showed distinct helicopter-specific signatures at the blade-passage period, which may be exploited in bistatic or passive radar applications based on rotor blade scattering [19]. Furthermore, the power modulation caused by the rotor 0 100 200 300 400     
+
+> time in ms
+> -80 -75 -70 -65 -60
+> magnitude in dB
+> measurement smoothed 0100 200 300 400
+> time in ms
+> -90 -85 -80 -75 -70
+> magnitude in dB
+> measurement smoothed
+
+Fig. 9: PTP of the UMAT, 4.9 GHz (top), 27.1 GHz (bottom); measured (blue) and smoothed (red). 0 100 200 300 400         
+
+> time in ms
+> -75 -70 -65 -60 -55
+> magnitude in dB
+> measurement smoothed 0100 200 300 400
+> time in ms
+> -80 -75 -70 -65 -60
+> magnitude in dB
+> measurement smoothed 0100 200 300 400
+> time in ms
+> -90 -85 -80 -75 -70
+> magnitude in dB
+> measurement smoothed
+
+Fig. 10: PTP of the Tiger, 302 MHz (top), 4.9 GHz (center), 27.1 GHz (bottom); measured (blue) and smoothed (red). 0 100 200 300 400         
+
+> time in ms
+> -75 -70 -65 -60 -55
+> magnitude in dB
+> measurement smoothed 0100 200 300 400
+> time in ms
+> -80 -75 -70 -65 -60
+> magnitude in dB
+> measurement smoothed 0100 200 300 400
+> time in ms
+> -90 -85 -80 -75 -70
+> magnitude in dB
+> measurement smoothed
+
+Fig. 11: PTP of the CH-53, 302 MHz (top), 4.9 GHz (center), 27.1 GHz (bottom); measured (blue) and smoothed (red). 
+
+302 MHz 4.9 GHz 27.1 GHz 
+
+036912 15 
+
+> 3.09.14.76.42.34.015 .0
+
+Carrier frequency Blockage attenuation in dB  UMAT Tiger CH-53 
+
+Fig. 12: Estimated attenuation caused by blade blockage (hatched: no measurement at 302 MHz for the UMAT; no reliable estimate for the Tiger). blade movement was characterized by the Power Time Profile: periodic blockage events were observed, with attenuations increasing from approximately 2–5 dB at UHF and C-band to up to 15 dB at Ka-band and with a period equal to the blade-to-blade time. Finally, the power variation was modeled by means of the double knife-edge model, which shows good agreement with the measured blockage attenuation at both C-band and Ka-band – including the characteristic double-dip shape of the blockage events – and thus allows the expected blockage depth to be predicted from the geometry alone. Future work will extend the characterization to the tail rotors, -20 -10 0 10 20     
+
+> time in ms
+> -80 -75 -70 -65 -60
+> magnitude in dB
+> Power Time Profile
+> measurement model -10 -5 0510
+> time in ms
+> -90 -85 -80 -75 -70
+> magnitude in dB
+> Power Time Profile
+> measurement model
+
+Fig. 13: Measured attenuation (blue) and double knife-edge model (red) for the Tiger at 4.9 GHz (top) and 27.1 GHz (bottom). to additional measurement geometries and elevation angles, and to the integration of the measured channel statistics into channel models and link-level simulations for future air-to-ground, air-to-air, and air-to-satellite communication systems. REFERENCES [1] I. Kadar, “An analysis of helicopter rotor modulation interference,” IEEE Trans. Aerosp. Electron. Syst. , vol. AES-9, no. 3, pp. 434–441, May 1973, doi: 10.1109/TAES.1973.309729. [2] E. Lemos Cid, M. Garc´ ıa S´ anchez, A. V´ azquez Alejos, and S. Garc´ ıa Fern´ andez, “Measurement, characterization, and modeling of the helicopter satellite communication radio channel,” IEEE Trans. Antennas Propag. , vol. 62, no. 7, pp. 3776–3785, July 2014, doi: 10.1109/TAP.2014.2317483. [3] A. C. Polycarpou, C. A. Balanis, and A. Stefanov, “Helicopter rotor-blade modulation of antenna radiation characteristics,” IEEE Trans. Antennas Propag. , vol. 49, no. 5, pp. 688–696, May 2001, doi: 10.1109/8.929622. [4] P. Pouliguen, L. Lucas, F. Muller, S. Quete, and C. Terret, “Calculation and analysis of electromagnetic scattering by helicopter rotating blades,” 
+
+IEEE Trans. Antennas Propag. , vol. 50, no. 10, pp. 1396–1408, Oct. 2002, doi: 10.1109/TAP.2002.800693. [5] C. M. De Santis and F. Schwering, “Rotor blade effects on L-band signals received by helicopter antennas mounted above the rotor blade: CW experiments,” Army Electronics Command, Fort Monmouth, NJ, USA, Tech. Rep. ADA016866, 1975. [6] R. Sun, D. W. Matolak, and W. Rayess, “Air–ground channel character-ization for unmanned aircraft systems—Part IV: Airframe shadowing,” 
+
+IEEE Trans. Veh. Technol. , vol. 66, no. 9, pp. 7643–7652, Sep. 2017, doi: 10.1109/TVT.2017.2677884. [7] T. Jost, W. Wang, M. Schwinzerl, F. P´ erez-Font´ an, M. Sch¨ onhuber, and N. Floury, “Measurements and model for the satellite-to-aircraft channel in L-band,” in Proc. 12th Eur. Conf. Antennas Propag. (EuCAP) ,London, UK, Apr. 2018. [8] P. Bello, “Characterization of randomly time-variant linear channels,” 
+
+IEEE Trans. Commun. Syst. , vol. 11, no. 4, pp. 360–393, Dec. 1963, doi: 10.1109/TCOM.1963.1088793. [9] W. Keusgen and T. Eichler, “Probing the time-evolution of the sub-THz radio channel at 160 GHz for communication and sensing,” in Proc. IEEE 99th Veh. Technol. Conf. (VTC2024-Spring) , Singapore, June 2024, pp. 1–7, doi: 10.1109/VTC2024-Spring62846.2024.10683181. [10] S. Wittig, M. Peter, and W. Keusgen, “Channel estimation with Zadoff– Chu sequences in the presence of phase errors,” Electron. Lett. , vol. 59, no. 20, p. e12996, Oct. 2023, doi: 10.1049/ell2.12996. [11] S. Wittig, W. Keusgen, M. Peter, and T. Eichler, “On the dynamic range of digital correlative time domain radio channel measurements,” arXiv preprint arXiv:2008.07805, Aug. 2020. [12] A. W. Doerry, “Catalog of window taper functions for sidelobe control,” Sandia National Laboratories, Albuquerque, NM, USA, Tech. Rep. SAND2017-4042, Apr. 2017, doi: 10.2172/1365510. [13] J. D. Parsons, The Mobile Radio Propagation Channel , 2nd ed. Chich-ester, UK: John Wiley & Sons, 2001. [14] B. Boashash, Ed., Time-Frequency Signal Analysis and Processing: A Comprehensive Reference , 2nd ed. Oxford, UK: Academic Press, 2015. [15] V. C. Chen, The Micro-Doppler Effect in Radar , 2nd ed. Norwood, MA, USA: Artech House, 2019. [16] E. Lemos Cid, A. V´ azquez Alejos, M. Garc´ ıa S´ anchez, and S. Garc´ ıa Fern´ andez, “Statistical model for satellite to helicopter radio channel,” in Proc. 44th Eur. Microw. Conf. (EuMC) , Rome, Italy, Oct. 2014, pp. 73–76. [17] J. Kunisch and J. Pamp, “Ultra-wideband double vertical knife-edge model for obstruction of a ray by a person,” in Proc. IEEE Int. Conf. Ultra-Wideband (ICUWB) , Hannover, Germany, 2008, vol. 2, pp. 17–20, doi: 10.1109/ICUWB.2008.4653341. [18] R. Das ¸bas ¸ı and B. Polat, “An analytical approach to rotor blade modulation,” Wave Motion , vol. 105, art. no. 102762, Sep. 2021, doi: 10.1016/j.wavemoti.2021.102762. [19] C. Clemente and J. J. Soraghan, “GNSS-based passive bistatic radar for micro-Doppler analysis of helicopter rotor blades,” IEEE Trans. Aerosp. Electron. Syst. , vol. 50, no. 1, pp. 491–500, Jan. 2014, doi: 10.1109/TAES.2013.120018.

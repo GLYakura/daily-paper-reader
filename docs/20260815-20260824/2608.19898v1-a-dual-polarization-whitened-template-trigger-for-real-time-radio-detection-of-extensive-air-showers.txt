@@ -1,0 +1,519 @@
+Title: A dual-polarization whitened-template trigger for real-time radio detection of extensive air showers
+
+URL Source: https://arxiv.org/pdf/2608.19898v1
+
+Published Time: Fri, 21 Aug 2026 00:45:49 GMT
+
+Number of Pages: 31
+
+Markdown Content:
+# A dual-polarization whitened-template trigger for real-time radio detection of extensive air showers 
+
+Qader Dorosti b, ∗, Alperen Aksoy a, Ilja Bekman a, Markus Cristinziani b,Eric-Teunis de Boone b, Vesselin Dimitrov a,b , Chimezie Eguzo a, Stefan Heidbrink c, Stefan van Waasen a,d , Andre Zambanini a
+
+> aPeter Grünberg Institute – Integrated Computing Architectures (ICA, PGI-4), Forschungszentrum Jülich GmbH, Germany
+> bCenter for Particle Physics Siegen, Department Physik, Universität Siegen, Germany
+> cElektronikentwicklungslabor, Department Physik, Universität Siegen, Germany
+> dFaculty of Engineering, Communication Systems, University of Duisburg-Essen, Germany
+
+Abstract 
+
+Autonomous radio stations require a first-stage trigger that rejects measured radio background while preserving weak extensive-air-shower pulses and fit-ting into small field hardware. We present a dual-polarization trigger based on a short whitened pulse template evaluated on the orthogonal north–south and east–west high-gain channels provided by the two crossed butterfly an-tennas of an Auger Engineering Radio Array station. The template is derived from detector-folded air-shower pulses and whitened with the covariance of measured background from the same station. A streaming score scans both polarization channels with the same 16-sample finite-impulse-response tem-plate and combines responses within a fixed timing radius. The operating threshold is calibrated on a dedicated calibration set to a frame-equivalent candidate rate of 3.57 kHz, chosen as 5% of the 71.4 kHz service capacity of a downstream module. Applied unchanged to an independent test set, the trigger reaches an efficiency of 0.97 (95% confidence interval 0.96 –0.98 )at 3.39 kHz (2.68–4.23 kHz). At the same calibration-set-defined operating point, an unwhitened dual-polarization template sum reaches 0.41 , and an absolute-amplitude trigger reaches 0.16 . Efficiency remains 0.94 or greater   
+
+> ∗Corresponding author
+> Email address: dorosti@hep.physik.uni-siegen.de (Qader Dorosti) arXiv:2608.19898v1 [astro-ph.IM] 20 Aug 2026
+
+in every populated test-set signal-to-noise bin. A sample-by-sample replay of 159.29 ms of continuous background from the same station yields a score-cluster rate of 6.64 kHz, well below the full downstream service capacity. An implementation using Vitis and Vivado has an initiation interval of one clock cycle, sustaining one new dual-polarization sample per clock with-out trigger-induced deadtime. It closes timing at 200 MHz with +0.100 ns post-route setup slack and uses 2377 lookup tables, 5330 registers, and 32 digital signal-processing blocks; register-transfer-level simulation verifies bit-exact conversion for 400 traces. Together, these results demonstrate that measured-background covariance, air-shower pulse morphology, and local dual-polarization consistency can be reduced to a compact single-template trigger that operates continuously at one sample per clock. 
+
+Keywords: radio detection, extensive air showers, real-time trigger, matched filter, field-programmable gate array, measured background 
+
+1. Introduction 
+
+Radio detection has become a mature technique for measuring exten-sive air showers induced by high-energy cosmic rays and neutrinos. Mod-ern digital radio arrays exploit the coherent radio emission produced by the geomagnetic and charge-excess mechanisms and can reconstruct air-shower observables such as arrival direction, energy, and shower maximum with high duty cycle [1, 2, 3, 4, 5, 6]. A reliable radio self-trigger is therefore attractive for large sparse arrays and for inclined showers, where the particle footprint can be strongly attenuated while the radio footprint remains large. The Pierre Auger Observatory in Argentina is a hybrid detector for ex-tensive air showers that combines a large surface array with fluorescence and complementary detector systems [7]. The Auger Engineering Radio Array (AERA), its radio-detector component, comprises 153 autonomous stations operating in the 30–80 MHz band and measures the radio emission of cosmic-ray air showers [5]. The trigger problem is difficult because the signal is short and the radio background is not purely thermal. Field stations observe transient anthro-pogenic interference, narrow-band radio-frequency interference (RFI), and site-dependent changes in the noise environment. Early radio self-trigger studies therefore combined thresholding, filtering, and data-acquisition con-straints to keep false triggers manageable [8, 9, 10]. The practical require-2ment is not only classification accuracy. A useful first-level trigger must operate at high trial rate, preserve sensitivity to weak pulses, and fit in the field-programmable gate array (FPGA) resources and latency available in autonomous stations. Several nearby approaches have been explored. Classical radio triggers use amplitude, envelope, band-pass, coincidence, or template-like quantities because they map naturally to firmware. The GRAND/NUTRIG first-level-trigger programme studies template fitting and convolutional neural network (CNN)-based detection-unit triggering [11, 12]. ARA-Next proposes a radio-frequency system-on-chip (RFSoC)-based trigger architecture with more so-phisticated trigger menus, including template-based and multi-trigger con-cepts [13]. RNO-G has investigated CNN filtering for radio-neutrino candi-date selection [14]. In the air-shower context, a fully convolutional radio self-trigger has demonstrated strong background rejection together with FPGA feasibility [15], while a complementary hybrid approach combines neural waveform denoising and classification to retain near- and sub-threshold pulses under tight hardware constraints [16]. Studies of neural-network quantisa-tion for scientific edge-computing applications further quantify the accuracy– resource trade-offs relevant to embedded inference [17]. A separate development in event-level radio reconstruction is relevant to the statistical description of radio data. Likelihood-based descriptions of radio signals retain the non-diagonal noise covariance to improve the estima-tion of physical signal parameters and their event-by-event uncertainties [18]. This result raises a complementary question for trigger design: can the in-formation contained in measured noise correlations be exploited within the constraints of a first-stage trigger? The present work addresses this question by deriving a short covariance-whitened finite impulse response (FIR) template offline and deploying only a fixed streaming filter and threshold logic. The template response is evalu-ated on the two orthogonal high-gain polarization channels provided by the two crossed butterfly antennas of an AERA station, oriented north–south and east–west. In its use of expected air-shower pulse morphology at the detection-unit level, the method is related to the template-fitting trigger studied by GRAND/NUTRIG [11, 12]. The GRAND approach first selects candidates with a double-threshold trigger and subsequently searches a bank of 96 signal templates using normalized cross-correlation and amplitude fit-ting on the detection-unit CPU. Its two horizontal polarization channels are fitted independently, and the larger match is retained. It neither uses the 3measured background covariance to construct a whitened template nor com-bines the template responses from the two polarizations. The method pre-sented here differs in all these respects: a single short template incorporates both the expected pulse morphology and the measured AERA background covariance; it is evaluated continuously, without an amplitude-based pre-trigger; the locally coincident responses of both polarizations contribute to the trigger score; and the complete datapath operates in the FPGA with an initiation interval of one clock cycle. The novelty is therefore the reduc-tion of noise-aware pulse-morphology discrimination and dual-polarization consistency to a compact, continuously operating first-stage FPGA trigger. Performance on the finite benchmark is characterised by efficiency and a frame-equivalent candidate rate. The latter converts the fraction of accepted independent 2016-sample background frames using the sampling rate; it is not yet a measurement of threshold-crossing clusters in an uninterrupted stream. The operating point is chosen from the measured service capacity of the downstream neural denoising and classification module reported in Ref. [16]: its initiation interval of approximately 14 μs corresponds to a ser-vice capacity of 71.4 kHz. We allocate 5% of that capacity to background candidates, giving a budget of 3.57 kHz. Signal efficiency is the fraction of events containing an injected cosmic-ray pulse that are accepted. Within this framework, the main contributions of this work are: • a physics-informed, covariance-aware trigger method that combines short pulse templates with the timing consistency of the two orthogonal antenna polarizations; • a hardware-aware design procedure that selects the trigger configura-tion by balancing detection performance against implementation cost; • an FPGA realization through high-level synthesis and register-transfer-level (RTL) conversion validation. Fig. 1 summarises the stage-1 trigger. The trigger is intended as a fast candidate generator before heavier station-level processing, multi-channel coincidence, or array-level event building. The rest of this paper defines the data and validation protocol, describes the dual-polarization whitened-template method, reports independent-frame and temporally separated val-idation, documents firmware generation and RTL validation, and discusses the physics interpretation of the learned response. 4N–S and E–W ADC streams N–S polarization template scan E–W polarization template scan local polarization combination score threshold trigger bit    
+
+> Figure 1: Stage-1 trigger structure. The north–south and east–west high-gain ADC streams from the two crossed butterfly antennas are scanned with the same whitened pulse template. A local dual-polarization combination accepts pulse-like responses that appear in both polarizations within a small timing radius, and a fixed threshold produces the trigger bit.
+
+2. Datasets 
+
+2.1. Trace construction 
+
+The trigger is developed using dual-polarization high-gain ADC traces from one Auger Engineering Radio Array (AERA) station. The station is equipped with two crossed butterfly antennas, one oriented north–south and the other east–west. Each antenna provides one polarization chan-nel, so each event contains the two horizontal electric-field components and 2016 time samples after the trace-generation step. The background class is drawn from measured high-gain noise traces recorded by this station with the standard AERA firmware [19]. The pure-signal cosmic-ray library is based on CoREAS/CORSIKA air-shower simulations produced within the Pierre Auger Collaboration for the energy-scale studies of AERA [20]. The library originates from 844 high-quality AERA events with reconstructed surface-detector energies exceeding 3 × 10 17 eV. For each measured event, one proton- and one iron-induced air shower were simulated using the recon-structed shower geometry and calorimetric energy as input to CoREAS/CORSIKA. The simulations employ Sibyll 2.3d and UrQMD as the high- and low-energy hadronic interaction models, respectively, together with event-specific atmo-spheric profiles derived from the Global Data Assimilation System (GDAS), as described in Ref. [20]. A signal event is then constructed by injecting the two detector-folded polarization traces into the corresponding measured background channels at a random allowed time. All three classes are stored in the same signed ADC convention. Throughout this paper, background denotes measured noise-only dual-polarization traces, pure signal denotes detector-folded cosmic-ray pulse traces in both polarizations before background addition, and signal denotes the cor-5responding traces obtained by adding pure signal to background. The signal class therefore represents the physical trigger input: a cosmic-ray pulse em-bedded in measured background. These definitions are used consistently in the performance and diagnostic figures. The generator preserves the event-by-event correspondence between the north–south and east–west polarization channels for both measured back-ground and detector-folded signal. This preserves the measured inter-polarization noise correlations, the relative amplitudes, and the relative timing predicted by the detector simulation, all of which are required to evaluate the dual-polarization trigger. The event selection requires an absolute pure-signal peak of at least one ADC count in each polarization after scaling and quan-tisation. Across the combined training and validation datasets, the peak in the weaker polarization has a minimum of 1 ADC count, a 5th percentile of 4 counts, and a median of 21 counts. Measured background is sampled at 180 MHz. The mean RMS of the measured noise pool is 60 .52 ADC counts and the median peak of the un-scaled pulse pool is 58 .5 counts. Their ratio gives the single global scale factor 60 .52 /58 .5 = 1 .0346 , corresponding to a pool-level noise-to-pulse ratio of unity. The same factor is applied to every detector-folded pulse before ad-dition and integer quantisation. No event-wise SNR target, peak matching, or adaptive normalisation is applied. This preserves the physical spread of simulated pulse amplitudes and prevents artificial event-by-event rescaling features. The event generator first builds synchronized dual-polarization frames of 2048 samples. A 16-sample margin is then removed from each edge after injection and trace conditioning, leaving the 2016-sample frames used by the trigger study. This final crop keeps the analysed region away from construc-tion boundaries while preserving a long continuous frame for rate conversion. For a sampling rate fs = 180 MHz, each frame corresponds to 
+
+Tframe = 2016 
+
+fs
+
+. (1) An independent-frame background acceptance pframe is converted to a frame-equivalent candidate rate by 
+
+fframe = pframe 
+
+fs
+
+2016 . (2) This supplies an intuitive throughput scale but does not include correlations 60.5 0.0 0.5 1.0 1.5 2.0 2.5 3.0 3.5  
+
+> log 10 (SNR)
+> 10 0
+> 10 1
+> 10 2
+> 10 3
+> 10 4
+> Events
+> Signal Background
+
+Figure 2: Distribution of log 10 (SNR) for the dual-polarization signal and background 
+
+samples, computed with the two-polarization proxy defined in Eq. 3. 
+
+between overlapping windows or cluster adjacent threshold crossings. The operating point is defined in Sec. 4.1. To characterise the signal-strength composition of the benchmark, we use an analysis-side signal-to-noise ratio (SNR) proxy based on the Hilbert-envelope power in the pulse region. Let P denote the 65-sample window (±32 samples) localised from the Hilbert-envelope maximum across the two pure-signal polarizations, where the combined envelope is the larger of the north–south and east–west channel envelopes at each sample. For a dual-polarization trace xc, with polarization index c ∈ { 0, 1}, we define 
+
+SNR = 1
+
+σ2pair 
+
+1
+
+|P| 
+
+X
+
+> i∈P
+
+max  
+
+> c
+
+|H (xc)i|2
+
+!
+
+, (3) where H denotes the Hilbert transform and σ2pair is the mean of the two measured-background polarization-channel variances. For the signal distri-bution, xc is the noisy signal trace, so the plotted quantity measures the observed pulse power inside the pure-signal-localised pulse window. For the background distribution, the same window definition is applied to the dual-polarization background trace. The resulting log 10 (SNR) distributions are shown in Fig. 2; they provide a compact description of the signal-strength regime covered by the constructed benchmark. 7Table 1: Dataset definition for the dual-polarization whitened-template trigger. Each event contains synchronized north–south and east–west signed-ADC traces with 2016 samples.        
+
+> Split Events/class Role Classes used Training 7000 Template and covariance construction background and pure signal Validation set 1 2000 Architecture search and threshold calibration background and signal; pure signal for diagnostics Validation set 2 2000 Independent performance evaluation background and signal; pure signal for diagnostics
+
+2.2. Training, search, and validation datasets 
+
+The current pipeline uses three disjoint splits containing 7000 training events, 2000 validation set 1 events, and 2000 validation set 2 events per class. Each split contains background, signal, and pure-signal arrays with shape (N, 2, 2016) . The training split is used to learn pulse templates and the background covariance. The validation set 1 split is used for architecture selection and threshold calibration; validation set 2 is reserved for indepen-dent performance evaluation. For the continuous-stream test, we use later data from the same physical station and the same pair of crossed butterfly antennas, after the station firmware was adapted for the Broadband Observatory of Lightning and Ter-restrial Gamma-ray Flashes (BOLT) long-buffer readout [21]. Thus, BOLT does not introduce a second detector or station into this study; it provides synchronized continuous traces from the same station that are much longer than the 2016-sample AERA analysis frames. These long traces permit a direct measurement of threshold-crossing cluster rates without concatenat-ing independent events. They are used only for the continuous-background replay and not for training, threshold calibration, or signal-efficiency mea-surement. The validation protocol uses the same trigger score for all classes. The background distribution fixes the FTR axis and the operating threshold. The signal distribution gives the TPR at that threshold. The pure-signal distribution is not a trigger input distribution by itself; it is used to interpret 8pulse morphology, ringing, and frequency response without the additional complication of background superposition. 
+
+3. Dual-polarization whitened-template trigger method 
+
+The trigger studied in this work is deliberately small. It consists of one or more short FIR templates, independent streaming convolutions on the north– south and east–west polarization channels, a local polarization-combination rule, and a final threshold. The design is a whitened matched-filter-like trigger constrained from the outset for continuous FPGA implementation. 
+
+3.1. Streaming trigger problem 
+
+Let xc[t] be the signed ADC value at sample t in channel c ∈ { 0, 1}. For a template of length L, the per-channel response to template k is 
+
+rc,k (t) = 
+
+> L−1
+
+X
+
+> i=0
+
+hk,i xc[t + i], (4) where hk,i are fixed template coefficients. The deployed implementation uses quantised integer coefficients, but the equations below are written in floating notation for clarity. The local magnitude response in a channel is 
+
+ac(t) = max  
+
+> k
+
+|rc,k (t)|. (5) The formulation allows a bank of K templates. The selected model uses 
+
+K = 1 and L = 16 , for which the channel response reduces to ac(t) = |rc, 1(t)|.The trigger is evaluated for every valid sample position. A frame of 
+
+N = 2016 samples gives N − L + 1 local trigger trials. This convention matches a streaming FPGA use case: after the initial shift register is filled, the trigger can accept one new ADC pair per clock and compute one new local decision per clock if the synthesized design reaches initiation interval 
+
+II = 1 .
+
+3.2. Whitened pulse-template construction 
+
+The template is learned offline from pure-signal snippets and measured background traces. For a candidate template length L, the peak position is found independently in the two pure-signal channels. Events for which either channel peak is too close to the trace boundary are rejected for template 9construction. Around each accepted channel peak, an L-sample vector pj ∈
+
+RL is extracted, its sample mean is subtracted, and its sign is flipped if necessary so that the largest absolute sample has positive polarity. The snippet is then normalised to unit Euclidean norm, 
+
+uj = pj − ⟨ pj ⟩∥pj − ⟨ pj ⟩∥ 2
+
+, (6) after the possible polarity alignment. Here ⟨pj ⟩ is the sample mean of the snippet and ∥ · ∥ 2 denotes the Euclidean norm. The first pulse template s1 is the normalised average of these aligned snippets. If more than one template is requested, the additional templates are the leading right singular vectors of the centred snippet matrix. The architecture scan reported below found that one template is sufficient for the selected operating point. The whitening uses measured background traces from the training split. For each selected background trace and channel, the trace mean is subtracted. The lag covariance for lags d = 0 , . . . , L − 1 is then estimated as 
+
+γd = Eq,t [bq[t] bq[t + d]] , (7) where bq[t] is the mean-subtracted ADC value of background trace/channel 
+
+q, and the expectation denotes the empirical average over all selected back-ground traces, channels, and valid sample positions. This lag estimate is converted into an L × L Toeplitz covariance matrix, 
+
+(Cn)ij = γ|i−j| + λγ 0δij , i, j = 0 , . . . , L − 1, (8) where δij is the Kronecker delta and λ = 10 −3 in the reference configuration. The diagonal term stabilises the matrix inversion and has units of ADC 2,because it is scaled by the measured background variance γ0.For each pulse-shape template sk, the unnormalised whitened template is obtained by solving the linear system 
+
+˜hk = C−1 
+
+> n
+
+sk. (9) It is then normalised to unit standard deviation under the measured back-ground covariance, 
+
+hk = ˜hk
+
+q˜hTk Cn˜hk
+
+. (10) 10 This normalisation gives the template response a stable background scale before the final trigger threshold is calibrated. This construction is a short whitened matched filter, closely related to the covariance weighting that ap-pears in likelihood descriptions of radio signals in correlated noise [18]: pulse components that are common in measured background are down-weighted, while pulse components that are less common in background are emphasized. Here the covariance operation is used only during offline template construc-tion; unlike a full event-level likelihood reconstruction, the deployed statistic does not optimise signal parameters. No covariance operation, matrix inversion, or adaptive normalisation re-mains in the deployed trigger. The run-time datapath is only the constant-coefficient FIR response of Eq. 4, absolute values, local maxima, additions, and a threshold comparison. 
+
+3.3. Dual-polarization score 
+
+The two polarization channels are combined after the template response. This retains the physically meaningful coincidence of pulse-like morphology in the north–south and east–west components, while isolated background excursions in one polarization are not promoted by averaging. For a timing radius R, define the local partner maxima 
+
+m0(t) = max  
+
+> ∆∈[−R,R ]
+
+a0(t + ∆) , m1(t) = max  
+
+> ∆∈[−R,R ]
+
+a1(t + ∆) . (11) Two polarization-combination rules were studied. The dual-polarization co-incidence rule is 
+
+Scoinc (t) = max [min {a0(t), m 1(t)}, min {a1(t), m 0(t)}] , (12) which requires both polarizations to show a response within the radius. The polarization-sum rule is 
+
+Ssum (t) = max [ a0(t) + m1(t), a 1(t) + m0(t)] . (13) The selected reference model uses Eq. 13 with R = 8 samples. The score assigned to a full frame is 
+
+Sframe = max  
+
+> t
+
+Ssum (t). (14) The same frame score is used in software validation and in the high-level synthesis (HLS) implementation. 11 3.4. Hardware-aware architecture selection 
+
+The final trigger architecture is chosen by a hardware-aware hyperparam-eter optimisation (HPO). In this work HPO means an exhaustive grid scan over a small, discrete set of deployable architectures, rather than an uncon-strained optimisation of a large neural-network model. The search space is fixed before looking at validation set 2 and is summarised in Table 2. The training split is used to estimate the pulse templates and the background covariance for each candidate. The validation set 1 split is then used to cali-brate thresholds and to rank the candidate architectures using the continuous trigger-rate metric. Each candidate is evaluated on validation set 1 at the common background-frame acceptance p⋆ = 10 −2. This point probes the low-background regime while retaining 20 accepted background frames, so the candidate architec-tures can be compared without relying on an extreme tail estimate. We denote the multiplier-count proxy by Cmult . For K templates of length L
+
+applied independently to two channels, it is defined as 
+
+Cmult = 2 KL, (15) where the factor of two accounts for the two input channels. This proxy describes the constant-coefficient FIR bank before any synthesis-level sharing or pruning. The primary requirement is 
+
+TPR( pframe = p⋆) ≥ 0.90 , p⋆ = 10 −2. (16) To choose the best model, the candidates are ranked lexicographically. Let 
+
+θ = ( K, L, rule) denote one candidate and define the feasible set 
+
+F = {θ : TPR θ(pframe = p⋆) ≥ 0.90 } . (17) If F is non-empty, the selected architecture is 
+
+θ⋆ = arg min  
+
+> θ∈F
+
+(Cmult (θ), −TPR θ(pframe = p⋆)) , (18) where the minimisation is lexicographic: the multiplier count is minimised first, and TPR is used only to break ties at equal multiplier count. If no can-didate satisfies the efficiency requirement, the fallback choice is the candidate with the largest TPR θ(pframe = p⋆).This selection criterion is intentionally hardware driven. Larger templates and larger banks improve efficiency, but the first-stage trigger is only useful 12 Table 2: Hardware-aware HPO search space. Quantities not scanned are held fixed during the architecture comparison. 
+
+Quantity Values used Role in the model selection Template length L 16, 24, 32 samples Controls the FIR window and the pulse-morphology informa-tion available to the trigger. Number of templates 
+
+K
+
+1, 2, 3, 4 Controls the number of pulse-shape modes in the template bank. Polarization-combination rule polarization sum, dual-polarization coincidence Tests whether efficiency is max-imised by adding coincident po-larization responses or by requir-ing a stricter coincidence. Coincidence radius R 8 samples Fixed timing tolerance between the two high-gain channels. Covariance regularisa-tion λ
+
+10 −3 Fixed stabilisation term for the whitening covariance. Template and covari-ance statistics 7000 training events per class Fixed sample size used to construct the templates and measured-background covari-ance. Reference background acceptance per frame 
+
+p⋆ = 10 −2 Common low-background com-parison point, corresponding to 20 accepted background frames in validation set 1 .Minimum accepted ef-ficiency 
+
+TPR ≥ 0.90 Feasibility requirement imposed before minimising hardware cost. Hardware-cost proxy 2KL multipliers Estimated two-channel FIR mul-tiplier count used for architecture ranking. 
+
+if it is small enough to run continuously in the station FPGA. The selected model is therefore not the most efficient model in the scan. It is the smallest model that exceeds the required efficiency at the common 1% background-frame acceptance. The final decision threshold is calibrated separately from the downstream system budget in Sec. 4.1. 13 Table 3: Architecture-search results at a background-frame acceptance of p⋆ = 10 −2. The selected model is the smallest candidate passing the 0.90 efficiency requirement; among the two 32-multiplier candidates, the polarization-sum rule gives the higher efficiency. 
+
+Model Templates Length Multipliers Efficiency Whitened dual-polarization sum 1 16 32 0.96 Whitened dual-polarization coincidence 1 16 32 0.94 Whitened dual-polarization sum 1 24 48 1.00 Whitened dual-polarization coincidence 1 24 48 0.98 Whitened dual-polarization sum 1 32 64 1.00 Whitened dual-polarization coincidence 1 32 64 0.99 
+
+4. Trigger performance 
+
+4.1. Operating-point definition 
+
+The frozen reference architecture is the whitened paired-template sum with one 16-sample template and an 8-sample coincidence radius. Only its decision threshold is calibrated on validation set 1 . The first-stage trigger is a candidate generator for the downstream neural denoising and classification module reported in Ref. [16], whose published implementation has both la-tency and initiation interval close to 14 μs. A non-pipelined invocation rate of R therefore occupies an average fraction Rτ of that module. We allocate 5% average occupancy to first-stage background candidates, 
+
+f⋆ = 0.05 
+
+14 μs = 3.57 kHz . (19) This is deliberately conservative relative to the 71.4 kHz service capacity and leaves headroom for signal candidates and rate fluctuations. It gives 80 accepted background frames in validation set 1 , providing adequate finite-sample support for the final threshold calibration. The calibrated floating-point score threshold is 19 .02 .Equation 2 converts independent 2016-sample frame acceptance into a 
+
+frame-equivalent candidate rate . Adjacent sliding windows in a genuinely continuous stream are correlated, and one disturbance may produce several nearby threshold excursions. We therefore distinguish the frame-equivalent rate from the native continuous replay reported below. 14 10 2 10 3 10 4 10 5
+
+> frame-equivalent candidate rate [Hz]
+> 0.0 0.2 0.4 0.6 0.8 1.0
+> signal efficiency
+> whitened paired-template sum whitened paired-template coincidence raw paired-template sum raw paired-template coincidence absolute-amplitude threshold 5% downstream occupancy (3.57 kHz)
+
+Figure 3: Independent validation set 2 efficiency versus frame-equivalent candidate rate. The circular markers show the operating points listed in Table 4, obtained with thresholds calibrated on validation set 1 and applied unchanged to validation set 2 . The vertical line indicates the 3.57 kHz design budget. 
+
+4.2. Independent validation set 2 result and baselines 
+
+Fig. 3 shows the independent validation set 2 rate curves. The proposed trigger is compared with four controlled baselines: an absolute-amplitude threshold; the same pulse template without covariance whitening, using ei-ther polarization sum or coincidence; and the whitened template with the stricter coincidence rule. Together, these comparisons isolate the contribu-tions of pulse morphology, covariance whitening, and dual-polarization com-bination. The circular marker on each curve is the operating point obtained by calibrating that method’s threshold on validation set 1 and applying it unchanged to validation set 2 ; the corresponding values are listed in Table 4. At the fixed threshold, validation set 1 gives 1941 /2000 = 0 .97 effi-ciency and 80 /2000 accepted background frames, while validation set 2 gives 
+
+1939 /2000 = 0 .97 and 76 /2000 , respectively. Thus both discrimination and the calibrated candidate rate transfer to the independent split. With 2000 background frames, one accepted frame corresponds to 44.64 Hz; the 95% rate intervals in Table 4 quantify this finite-sample uncertainty. 15 Table 4: Validation set 2 performance using thresholds calibrated on validation set 1 .Intervals are two-sided 95% Clopper–Pearson intervals, and displayed values are rounded to two decimal places. Rate intervals propagate the binomial interval through Eq. 2. Trigger Efficiency (95% CI) Rate [kHz] (95% CI) Threshold Whitened dual-polarization sum 0.97 (0 .96 , 0.98) 3.39 (2 .68 , 4.23) 19.02 Whitened dual-polarization coincidence                    
+
+> 0.96 (0 .95 ,0.97) 3.26 (2 .56 ,4.08) 6.54 Raw dual-polarization sum 0.41 (0 .39 ,0.43) 2.86 (2 .21 ,3.63) 268.99 Raw dual-polarization coincidence 0.30 (0 .28 ,0.32) 3.79 (3 .04 ,4.67) 118.35 Absolute-amplitude threshold 0.16 (0 .15 ,0.18) 3.26 (2 .56 ,4.08) 266
+
+4.3. Efficiency versus signal strength 
+
+Fig. 4 resolves validation set 2 efficiency in eight equal-population bins of the analysis-side SNR proxy from Eq. 3. Each bin contains 250 events and includes an exact binomial 95% interval. The proposed trigger retains efficiencies between 0.94 and 1.00 across the sampled signal-strength range. The raw-template and amplitude references rise strongly with SNR, whereas the whitened trigger is already efficient in the weakest bin. This is the princi-pal physics benefit of the covariance-aware morphology statistic: it recovers weak pulse-like signals that do not dominate the raw peak amplitude. 
+
+4.4. Temporally separated validation periods 
+
+The frozen polarization-sum trigger and its threshold were additionally applied to two recording periods acquired months after the background used for training and threshold calibration. The signal samples for both periods were constructed with the same detector-folded pulse library, global signal scale, injection procedure, and quantisation described in Sec. 2.1; no period-specific signal rescaling or threshold adjustment was applied. The proposed trigger reaches efficiencies of 0.92 (0 .91 , 0.93) and 0.91 (0 .90 , 0.93) in the two periods, respectively. These values are approximately 5 and 6 percentage points below the 0.97 efficiency in the main validation set 2 .At the same fixed threshold, each later period accepts 15 /2000 back-ground frames, corresponding to 0.67 kHz with a 95% interval of 0.38–1.10 kHz. By comparison, the main validation set 2 accepts 76 /2000 background frames at 3.39 kHz. The high-score noise-only tail is therefore less populated in the later periods, so the efficiency reduction is not accompanied by an increased 16 0.5 0.6 0.7 0.8 0.9 1.0 1.1 1.2  
+
+> log 10 (SNR)
+> 0.0 0.2 0.4 0.6 0.8 1.0
+> signal efficiency
+> whitened paired-template sum whitened paired-template coincidence raw paired-template sum absolute-amplitude threshold
+
+Figure 4: Validation set 2 efficiency versus the dual-polarization SNR proxy. Thresholds are calibrated on validation set 1 ; vertical bars are 95% Clopper–Pearson intervals and horizontal bars show bin extent. 
+
+finite-frame background rate. It instead shows that temporal changes in the measured noise waveform can reduce the template-score margin for a subset of injected pulses. Without retraining or recalibration, the trigger never-theless retains more than 91% signal efficiency while remaining well below the candidate-rate budget in both periods. These independent frames mea-sure how often a complete frame is accepted, but they do not show whether threshold crossings occur separately or arrive together in short bursts. The continuous replay below examines that time structure directly. 
+
+4.5. Native continuous replay from the same AERA station 
+
+The same frozen score and threshold were evaluated sample by sample on fourteen native background records from the same AERA station used for training and finite-frame validation, acquired with the BOLT long-buffer readout firmware. Each synchronized two-channel record contains 2048000 samples (11.378 ms), compared with 2016 samples in the AERA-derived anal-ysis frames, giving 159.29 ms total live time without concatenating indepen-dently sampled events. The streaming calculation was cross-checked against the established frame scorer; maxima agree to better than 2 × 10 −6 in score units. 17 1 2 3 4 5 6 7 8 9 10 11 12 13 14 continuous background record (chronological) 246810 12 continuous candidate rate [kHz] 
+
+> score-cluster rate candidate budget (3.57 kHz)
+
+Figure 5: Continuous replay of fourteen chronological native background records from the same AERA station used throughout this study, acquired with the BOLT long-buffer readout firmware. The blue curve shows the rate of contiguous above-threshold score clusters, and the dotted horizontal line marks the conservative 3.57 kHz design target. The full downstream service capacity is 71.4 kHz, above the displayed range. No independent events are concatenated. 
+
+A score cluster begins at the rising edge of a contiguous interval for which the local score exceeds threshold. Fig. 5 shows the score-cluster rate for each of the fourteen chronological records. The replay contains 1057 clusters, corresponding to an average rate of 6.64 kHz. The per-record rates range from 2.37 kHz to 11.87 kHz, and the 95% interval for the mean across the fourteen records is 5.19–8.08 kHz. The measured rate exceeds the conserva-tive 3.57 kHz design target in most records, but remains well below the full 71.4 kHz downstream service capacity even in the highest-rate record. The continuous replay therefore does not indicate downstream saturation. 
+
+4.6. Example trigger decisions 
+
+Fig. 6 shows three representative decisions at the calibrated threshold. In each example, the upper panel contains the two measured polarization traces; for signal events, the detector-folded pure pulses are overlaid at their injection position. The lower panel shows the local dual-polarization template score, with the horizontal dashed line marking the fixed trigger threshold and the red marker identifying the frame maximum. The strong signal produces a compact score peak with a clear margin above threshold at the injected-pulse position. The weak signal is also ac-18 cepted, but its maximum lies only slightly above threshold, illustrating oper-ation near the decision boundary. In contrast, the background-only example contains several sizeable ADC excursions but its maximum template score remains below threshold. The three cases illustrate that the decision follows short pulse morphology appearing consistently in both polarizations, rather than the largest individual ADC sample. 
+
+5. Firmware generation and RTL validation 
+
+After architecture selection, the model is exported as a numerical JavaScript Object Notation (JSON) description. The description stores the score method, template length, template coefficients, coincidence radius, trace length, sam-pling rate, calibrated threshold, reference rate, and HLS configuration. This representation is the common input to software validation and to the firmware generator. It contains no training objects and no floating-point covariance data. The final implementation reported below was regenerated from the 7000-event model and the operating threshold 19 .02 used in Sec. 4.1. 
+
+5.1. HLS mapping 
+
+The HLS block scans the full 2016-sample frame and produces a trigger decision. Internally, the design keeps a local sliding response for the two polarization channels, evaluates the fixed FIR dot product, forms absolute responses, computes the local partner maximum within the configured radius, and applies the polarization-sum rule of Eq. 13. The maximum frame score is then compared with the calibrated threshold. The selected model uses one 16-sample template and two channels, cor-responding to 32 constant multiplications in the fully parallel local response. The HLS export uses fixed-point coefficients and fixed accumulator widths configured from the JSON model. The deployed datapath contains no floating-point operation, no division, and no adaptive filtering. The implementation targets an xc7z020-clg400-1 device using Vitis HLS and Vivado 2024.1. The generated design reaches an initiation interval of one clock cycle ( II = 1 ); after the initial pipeline fill, it accepts one new synchronized dual-polarization sample and produces one new local trigger decision per clock without trigger-induced deadtime. The HLS latency is approximately one frame plus the local pipeline depth; this is expected for the frame-scanning wrapper and is not a throughput limitation. The 19 0 250 500 750 1000 1250 1500 1750 2000 200 
+
+100 
+
+0100 200 
+
+> ADC
+
+channel 0 channel 1 pure pulse ch0 pure pulse ch1 
+
+0 250 500 750 1000 1250 1500 1750 2000 
+
+window start sample 
+
+20 30 
+
+> pair-template FIR score
+
+0 250 500 750 1000 1250 1500 1750 2000 200 
+
+100 
+
+0100 200 
+
+> ADC
+
+channel 0 channel 1 pure pulse ch0 pure pulse ch1 
+
+0 250 500 750 1000 1250 1500 1750 2000 
+
+window start sample 
+
+12.5 15.0 17.5 
+
+> pair-template FIR score
+
+0 250 500 750 1000 1250 1500 1750 2000 200 
+
+100 
+
+0100 200 
+
+> ADC
+
+channel 0 channel 1 
+
+0 250 500 750 1000 1250 1500 1750 2000 
+
+window start sample 
+
+12.5 15.0 17.5 
+
+> pair-template FIR score
+
+Figure 6: Representative strong-signal, near-threshold signal, and rejected-background de-cisions. Upper panels show both polarization traces, with injected pulses overlaid for sig-nal events; lower panels show the dual-polarization template score, fixed threshold (dashed line), and frame maximum (red marker). 
+
+20 selected dual-polarization template model canonical JSON model Python evaluator JSON-to-HLS generator reference decisions Vitis HLS project HLS/RTL agreement checks 
+
+Figure 7: Firmware-generation workflow. The selected dual-polarization template model is exported to a JSON description that drives both software validation and HLS project generation.   
+
+> dual-polarization ADC frame two-channel 16-tap FIR scan radius-8 polarization sum frame maximum threshold trigger bit
+
+Figure 8: Generated HLS datapath for the selected model. The implementation scans the synchronized north–south and east–west traces continuously, combines the polarization responses within the coincidence radius, and compares the frame-maximum score with the calibrated threshold. Table 5: Final implementation results for the dual-polarization whitened-template trigger on xc7z020-clg400-1. Utilization and timing are post-route Vivado results for the frozen 7000-event model and threshold 19 .02 .
+
+Quantity Value Comment Target clock 5.00 ns 200 MHz target Post-route setup slack +0.100 ns no failing setup endpoints Post-route hold slack +0.018 ns no failing hold endpoints Worst data-path delay 4.660 ns routed path at 5 ns constraint Latency 2055 cycles frame scan plus local pipeline Initiation interval 1 one synchronized two-polarization sample per clock 18 kbit block RAM 0 no table memory required Digital signal-processing (DSP) blocks 32 14.55% of target device Slice registers 5330 5.01% of target device Slice lookup tables 2377 4.47% of target device Estimated on-chip power 0.310 W vectorless estimate 
+
+HLS-generated Verilog was subsequently synthesized, placed, physically op-timized, and routed in Vivado with a 5 ns clock constraint and 0.2 ns clock uncertainty. 21 No trigger Trigger RTL No trigger Trigger HLS C++ 
+
+103 00 97   
+
+> Agreement: 200/200 (100.0%) (a) Validation set 1 .No trigger Trigger RTL No trigger Trigger HLS C++
+
+99 00 101   
+
+> Agreement: 200/200 (100.0%) (b) Validation set 2 .
+
+Figure 9: HLS C++ and RTL trigger decisions for 200 traces from each validation split. All 400 decisions agree bit-for-bit. 
+
+5.2. RTL validation 
+
+The RTL validation compares the trigger bit produced by the generated RTL with the decision from the exported HLS C++ reference. The test contains 200 paired traces from each validation split: 100 signal traces and 100 background traces. The cocotb memory model follows the one-cycle input-memory timing of the generated RTL and preserves the alignment of the two channels. After correcting a one-sample channel skew in the initial testbench memory model, the complete 400-trace test was repeated. All 400 RTL decisions agree bit-for-bit with the HLS C++ reference. The RTL validation is a conversion check, not a replacement for the soft-ware performance evaluation. The physics performance is therefore quoted from Sec. 4, while Fig. 9 verifies bit-exact HLS-to-RTL conversion for the tested architecture snapshot. The post-route results use the regenerated fi-nal taps and comparator constant. Without a simulation-activity file, the vectorless Vivado estimate gives 0.202 W dynamic and 0.107 W static power, or 0.310 W in total. This is an order-of-magnitude implementation estimate rather than a measured power result. The top-level HLS wrapper also has no board-specific pin constraints, which is appropriate for an IP-level imple-mentation but precludes generation of a deployable board bitstream without integration constraints. 22 0.0 0.5 1.0 1.5                
+
+> background event maximum / reference threshold
+> 10 3
+> 10 2
+> 10 1
+> fraction of events per bin
+> amplitude-threshold statistic paired-template statistic reference threshold
+> 10 110 210 3
+> max paired-template score
+> 10 5
+> 10 4
+> 10 3
+> 10 2
+> 10 1
+> probability density
+> background signal pure signal model threshold
+> 10 110 210 3
+> max paired-template score threshold
+> 10 3
+> 10 2
+> 10 1
+> 10 0
+> fraction of events above threshold
+> background signal pure signal model threshold
+
+Figure 10: Background trigger-likeness diagnostic on validation set 2 . The distributions use the definitions background, signal, and pure signal stated in Sec. 2. The right panel is a survival curve and is the closest diagnostic to the continuous trigger-rate interpretation. 
+
+6. Discussion and physics interpretation 
+
+6.1. Physics content of the trigger score. 
+
+The selected trigger is not a simple amplitude trigger. Its discriminat-ing information is the short pulse morphology after whitening by measured background covariance, together with a local consistency requirement be-tween the two high-gain channels. This matters because weak radio pulses do not always dominate simple amplitude or energy summaries. Depend-ing on the relative phase of the pulse and background, the signal can add constructively or destructively to the local baseline. A trigger based only on 
+
+max |x| therefore rejects many events that still contain a pulse-like waveform. Fig. 10 illustrates this effect on the independent validation set 2 diagnos-tic sample. The background score distribution remains concentrated close to the operating threshold, whereas the signal distribution develops a long high-score tail. The median background score is 18.09 and the 99th percentile is 19.47. The corresponding signal median is 30.27, with 90th and 99th per-centiles of 87.75 and 339.66. The trigger is therefore not simply increasing all responses; it is making pulse-like paired responses rare in background and common in signal. The ablation study in Fig. 11 tests how much of this gain depends on the local FIR morphology. Each control template is calibrated to its own 99th percentile of the background score, so the comparison is made at a fixed 1% background leakage. Random and tap-scrambled templates fail strongly, and a circularly shifted template is substantially degraded. The time-reversed template remains competitive, which is expected because a real FIR and its 23 learned reversed shifted scrambled random 0.0 0.2 0.4 0.6 0.8 1.0   
+
+> signal efficiency at 1% background leakage  0.95 0.95 0.61 0.20 0.16 Figure 11: Ablation at a fixed 1% background leakage. The learned template and its time reversal have similar efficiency because the score uses an absolute sliding matched-filter response. Destroying the local coefficient structure by circular shifting, tap scrambling, or replacing the template by random coefficients reduces the signal efficiency substantially.
+
+time reverse have the same magnitude response and the implemented trigger maximises an absolute sliding response over time. The ablation therefore supports a compact pulse-morphology interpretation, but not a claim that the trigger uniquely encodes the causal time direction of the waveform. The amplitude-stability diagnostic in Fig. 12 gives a complementary check. The pure signal template score grows smoothly with the pure signal ampli-tude, while the background score divided by threshold is almost uncorrelated with the maximum background ADC excursion. On validation set 2 , the pure signal score–amplitude correlation is approximately 0.93, whereas the corresponding background correlation is approximately 0.005. The trigger is therefore not just a disguised amplitude threshold; it responds coherently to pulse morphology while remaining weakly coupled to large isolated back-ground excursions. The frequency-domain diagnostics in Figs. 13 and 14 show that the learned FIR does not concentrate its response on a single narrow spectral feature. The measured background PSD contains several prominent lines in the 30– 80 MHz band, whereas the FIR power response is broadband and strongly attenuates their contribution to the filtered output. Consequently, the pre-dicted FIR-weighted background power, Sn(f )|H(f )|2, remains well below 24 0 500 1000 1500 2000          
+
+> pure signal max |ADC|
+> 0200 400 600 800 1000
+> pure signal max template score  binned median, r=0.925 16-84%
+> 200 220 240 260 280 300
+> background max |ADC|
+> 0.875 0.900 0.925 0.950 0.975 1.000 1.025 1.050
+> background score / threshold  binned median, r=0.005 threshold
+> 0500 1000 1500 2000
+> pure signal max |ADC|
+> 010 20 30 40 50
+> signal score / threshold
+> binned median threshold
+
+Figure 12: Amplitude-response stability on validation set 2 . The pure signal score scales with pure signal amplitude, while the background score margin remains nearly indepen-dent of the maximum background ADC amplitude. The signal score margin stays above threshold for most injected signals. 0 10 20 30 40 50 60 70 80 90          
+
+> frequency [MHz]
+> 80
+> 70
+> 60
+> 50
+> 40
+> 30
+> 20
+> 10
+> 0
+> PSD relative to input maximum [dB]
+> input background PSD / input max input PSD x |H(f)|^2 / input max 30-80 MHz
+> 010 20 30 40 50 60 70 80 90
+> frequency [MHz]
+> 60
+> 50
+> 40
+> 30
+> 20
+> 10
+> 0
+> normalized gain [dB]
+> FIR power gain |H(f)|^2 30-80 MHz
+
+Figure 13: Frequency-domain noise filtering. The measured input background PSD is compared with the same PSD weighted by the learned FIR power response, Sn(f )|H(f )|2,using a common normalization to the input PSD maximum. This avoids independently normalizing the post-filter curve and therefore gives a cleaner view of residual background power. 
+
+the input PSD across the band and none of the narrow lines dominates the residual spectrum. Comparison with the inverse-noise weight further shows that the learned response incorporates noise suppression while retaining ad-ditional frequency structure from the pulse template. Fig. 15 compares polarity-aligned pure-signal traces with the signed tem-plate response around the raw pulse peak. The response follows the prompt pulse region and remains bounded within the pulse-localised window; it does not develop a delayed oscillatory tail that would dominate the trigger score. High scores are therefore associated with the physical pulse region rather than with a separate ringing feature created by the filter. 25 0 20 40 60 80         
+
+> frequency [MHz]
+> 80
+> 70
+> 60
+> 50
+> 40
+> 30
+> 20
+> 10
+> 0
+> normalized power [dB]
+> background PSD inverse-noise weight 30-80 MHz
+> 020 40 60 80
+> frequency [MHz]
+> 80
+> 70
+> 60
+> 50
+> 40
+> 30
+> 20
+> 10
+> 0
+> normalized gain [dB]
+> learned FIR gain inverse-noise weight 30-80 MHz
+> 020 40 60 80
+> frequency [MHz]
+> 80
+> 70
+> 60
+> 50
+> 40
+> 30
+> 20
+> 10
+> 0
+> relative power [dB]
+> predicted FIR-weighted noise input background PSD 30-80 MHz
+
+Figure 14: Estimated whitening and residual-noise interpretation. The inverse-noise weight is estimated from the validation background PSD because the exported model JSON contains the final whitened FIR taps but not the full training covariance matrix. The figure separates the measured noise spectrum, the inverse-noise weighting, the learned FIR gain, and the predicted FIR-weighted residual background power. 80 60 40 20 0 20 40 60 80 
+
+samples from raw pulse peak 
+
+1.0 
+
+0.5 
+
+0.0 0.5 1.0 
+
+> normalized median response  polarity-aligned pure signal signed template response
+
+Figure 15: Ringing diagnostic using polarity-aligned pure-signal windows and the signed template response. 
+
+Taken together, these complementary diagnostics give a consistent phys-ical interpretation: the trigger selects compact, pulse-like structure at the expected time, suppresses frequency components prominent in the measured background, and requires a locally consistent response in both channels. Its discrimination therefore comes from pulse morphology combined with noise-aware whitening and paired-channel timing, rather than from raw amplitude, a narrowband background feature, or filter-induced ringing. 26 6.2. Scope and limitations 
+
+The present study deliberately keeps the first-stage trigger small. Larger templates and larger banks achieve higher TPR in the architecture scan, but the selected model is the smallest one that exceeds the target efficiency requirement. This choice is appropriate for a first-stage candidate trigger, where the goal is to reduce background before more expensive station- or array-level processing. There are also limitations. The benchmark uses physically simulated, detector-folded pulse pairs and measured paired background traces, but it is still a constructed trigger dataset rather than a full end-to-end station deployment. Consequently, the pair-consistency gain should be interpreted as a trigger-design result for the stated AERA-based benchmark, not as a final accidental-rate or efficiency statement for all station geometries, trigger menus, and data-taking conditions. A future production study should repeat the evaluation with the final station hardware configuration, live buffering, deadtime model, and array-level event-building logic. The continuous replay shows that correlated background disturbances can produce several score excursions from a single disturbance, an effect not cap-tured by independent-frame conversion. Across the seasonally distributed records, the measured mean score-cluster rate is 6.64 kHz, with a maximum per-record rate of 11.87 kHz; both remain well below the full 71.4 kHz down-stream service capacity. Although the replay covers only 159.29 ms, its results indicate robustness to the varying noise conditions and transient disturbances observed at the station. A natural next step is evaluation across stations with heterogeneous noise environments, together with online adjustment of the op-erating threshold to maintain a stable accidental-trigger rate under changing conditions. Compared with CNN triggers, the dual-polarization whitened-template design uses a deliberately constrained representation that is transparent and compact. Compared with an amplitude threshold, it exploits the physical structure of radio pulses and the measured covariance of the background. This combination provides an efficient and interpretable real-time trigger architecture. Within these limits, the diagnostics give a consistent conclusion: the se-lected trigger improves over amplitude and unwhitened-template references by combining short pulse morphology, measured-background whitening, and two-channel local consistency in a firmware-small datapath. The native re-play measures a continuous score-cluster rate below the full downstream 27 service capacity for the tested single-station exposure. Final station-wide accidental-rate claims still require longer and more diverse deployment data. 
+
+7. Summary and outlook 
+
+We have presented a dual-polarization whitened-template trigger for real-time radio candidate generation. The frozen architecture uses one 16-sample template learned from detector-folded cosmic-ray pulses and whitened with measured AERA background covariance. It scans the north–south and east– west high-gain traces from the two crossed butterfly antennas, combines their responses with a radius-8 polarization-sum rule, and applies a fixed threshold. The operating point is tied to the downstream system: a 3.57 kHz background-candidate budget occupies 5% of a module with a 14 μs initiation interval. A threshold calibrated on validation set 1 transfers unchanged to valida-tion set 2 , where the trigger reaches 0.97 efficiency (95% confidence interval 
+
+0.96 –0.98 ) at a frame-equivalent rate of 3.39 kHz (2.68–4.23 kHz). Controlled ablations establish the size of the method gain: the raw dual-polarization template sum reaches 0.41 , and the amplitude trigger 0.16 . The proposed method remains at least 94% efficient in every populated SNR bin. A na-tive 159.29 ms continuous replay measures an average score-cluster rate of 6.64 kHz, with a maximum per-record rate of 11.87 kHz; both are well below the 71.4 kHz downstream service capacity. The firmware path demonstrates feasibility. The 16-tap, two-channel dat-apath reaches an initiation interval of one clock cycle, sustaining one new dual-polarization sample per clock without trigger-induced deadtime, and closes post-route timing at 200 MHz with +0.100 ns setup slack and +0.018 ns hold slack. It uses 2377 lookup tables, 5330 registers, 32 DSP blocks, and no block RAM on xc7z020-clg400-1. RTL simulation gives bit-exact agreement with the HLS reference for all 400 tested traces. The vectorless 0.310 W power estimate is an order-of-magnitude value requiring activity-based refinement. The seasonally distributed single-station data demonstrate robust trans-fer across the observed noise conditions, while the native replay confirms con-tinuous operation in the presence of correlated disturbances and background bursts. A natural next step is evaluation across stations with heterogeneous noise environments, together with online adjustment of the operating thresh-old to maintain a stable accidental-trigger rate under changing conditions. Board integration and activity-based power estimation remain engineering 28 steps toward deployment. Taken together, the physics performance, continu-ous replay, and bit-exact firmware validation establish that covariance-aware pulse morphology and dual-polarization consistency can be implemented as a compact first-stage trigger operating continuously at the ADC sample rate. 
+
+Acknowledgments 
+
+The authors gratefully acknowledge the support of the Electronics Labo-ratory of the Department Physik at Universität Siegen for assistance with the experimental electronics, laboratory infrastructure, and hardware-oriented validation work. We acknowledge the Pierre Auger Collaboration for pro-viding access to the measured Auger Engineering Radio Array background data and for the simulation and detector-response tools used in the broader radio-trigger development programme. We particularly thank the Auger Ra-dio Management Team for facilitating access to the radio data used in this study. We also acknowledge the developers and maintainers of the open-source software used throughout this work, including Python, NumPy, SciPy, scikit-learn, Matplotlib, cocotb, GHDL, Vitis HLS, and Vivado. 
+
+References 
+
+[1] T. Huege, Radio detection of cosmic ray air showers in the digital era ,
+
+Phys. Rep. 620 (2016) 1. [2] F.G. Schröder, Radio detection of cosmic-ray air showers and high-energy neutrinos , Prog. Part. Nucl. Phys. 93 (2017) 1. [3] F. D. Kahn and I. Lerche, Radiation from cosmic ray air showers ,
+
+Proc. R. Soc. Lond. A 289 (1966) 206. [4] E. Conti and G. Sartori, On the coherent emission of radio frequency radiation from high energy particle showers , Int. J. Mod. Phys. D 26 
+
+(2017) 1750083. [5] Pierre Auger collaboration, A. Abdul Halim et al., Radio measurements of the depth of air-shower maximum at the Pierre Auger Observatory , Phys. Rev. D. 109 (2024) 022002. [6] Pierre Auger collaboration, A. Aab et al., Energy estimation of cosmic rays with the Engineering Radio Array of the Pierre Auger Observatory , Phys. Rev. D. 93 (2016) 122005. 29 [7] Pierre Auger collaboration, A. Aab et al., The Pierre Auger Cosmic Ray Observatory , Nucl. Instrum. Meth. A. 798 (2015) 172. [8] A. Schmidt, Realization of a self-triggered detector for the radio emission of cosmic rays , Ph.D. thesis, Karlsruher Institut für Technologie (KIT), 2011. 10.5445/IR/1000030957. [9] CODALEMA collaboration, D. Torres Machado et al., Latest results of the CODALEMA experiment: cosmic rays radio detection in a self trigger mode , J. Phys. Conf. Ser. 409 (2013) 012074. [10] J. L. Kelley for the Pierre Auger Collaboration, Data acquisition, triggering, and filtering at the Auger Engineering Radio Array , Nucl. Instrum. Methods Phys. Res. A 725 (2013) 133. [11] GRAND collaboration, P. Correa et al., Development of an autonomous detection-unit self-trigger for GRAND , Proc. PoS(ARENA2024) (2024) 060. [12] P. Correa et al., Development of an autonomous detection-unit self-trigger for GRAND , arXiv:2409.01026 , (2024). [13] P. Giri et al., ARA-Next: a new DAQ and trigger architecture for the Askaryan Radio Array , arXiv:2409.07634 , (2024). [14] R. Camphyn, Offline neutrino filtering using a convolutional neural network-based algorithm at the Radio Neutrino Observatory Greenland ,
+
+arXiv:2508.13860 , (2025). [15] Q. Dorosti, AI-enhanced self-triggering for extensive air showers: performance and FPGA feasibility , JINST 20 (2025) P10010 [arXiv:2502.21198 ]. [16] A. Aksoy et al., Hybrid neural denoising for resource-efficient near-and sub-threshold radio triggering of extensive air showers ,
+
+arXiv:2605.28332 , (2026). [17] A. Aksoy et al., Quantization Effects of Artificial Neural Networks for Embedded Edge-Computing Applications , arXiv:2511.05479 , (2026). [18] M. Ravn et al., Likelihood-reconstruction for radio detectors of cosmic rays and neutrinos , PoS(ICRC2025) (2025) 271 [ arXiv:2510.21925 ]. 30 [19] B. Fuchs for the Pierre Auger Collaboration, The Auger Engineering Radio Array , Nucl. Instrum. Meth. A 692 (2012) 93. [20] T. Huege for the Pierre Auger Collaboration, Determination of the energy scale of cosmic ray measurements using the Auger Engineering Radio Array , Proc. PoS(ICRC2025) (2025) 292. [21] M. J. Weitz for the Pierre Auger Collaboration, BOLT: Imaging lightning and terrestrial gamma-ray flashes at the Pierre Auger Observatory , EGU General Assembly Conference Abstracts (2026) 10336. 31

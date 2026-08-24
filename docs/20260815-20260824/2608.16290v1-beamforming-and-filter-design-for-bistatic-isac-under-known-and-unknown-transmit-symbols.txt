@@ -1,0 +1,854 @@
+Title: Beamforming and Filter Design for Bistatic ISAC under Known and Unknown Transmit Symbols
+
+URL Source: https://arxiv.org/pdf/2608.16290v1
+
+Published Time: Tue, 18 Aug 2026 01:48:39 GMT
+
+Number of Pages: 5
+
+Markdown Content:
+> 1
+
+# Beamforming and Filter Design for Bistatic ISAC under Known and Unknown Transmit Symbols 
+
+Mohammad Hatami, Nhan Thanh Nguyen, and Markku Juntti, 
+
+Abstract —This paper investigates the joint design of beam-forming and radar receive filters in a multiuser bistatic integrated sensing and communications (ISAC) system, aiming to maximize the minimum radar signal-to-interference-plus-noise ratio (SINR) under communications SINR and transmit power constraints. We consider two scenarios: transmitted signals are either known or unknown at the radar receiver. We develop tractable so-lutions to the resulting non-convex optimization problems in both cases. For the known-signal case, we derive closed-form radar receive filters and iteratively design beamforming using fractional programming (FP) and successive convex approxima-tion (SCA). For the unknown case, we adopt an alternating optimization (AO) approach to jointly design the beamforming and receive filters. Numerical results demonstrate that, while both approaches achieve comparable performance under per-slot optimization, knowledge of the transmitted symbols provides significant gains in multi-slot processing via coherent integration. Moreover, the proposed ISAC designs perform close to the radar-only benchmark under moderate communication requirements. 
+
+Index Terms —Integrated sensing and communications (ISAC), beamforming, bistatic MIMO radar, optimization. 
+
+I. I NTRODUCTION 
+
+Integrated sensing and communications (ISAC) is an emerg-ing technology for next-generation wireless networks due to its advantages in resource efficiency, mutual performance gains, and its potential for spectrum and hardware sharing [1], [2]. ISAC enables the simultaneous operation of sensing and com-munication functionalities using a common signal waveform, making transmit waveform and beamforming design a critical aspect of overall system performance. Moreover, in bistatic systems, the presence of radar receive (Rx) filters introduces additional design variables. This motivates the joint design of transmit beamforming and Rx filters under communications and power constraints, which is the focus of this work. Recent research has extensively investigated transmit beam-forming and waveform design for ISAC systems. To eval-uate sensing performance, a variety of metrics have been adopted in the literature, including beampattern-based mea-sures [3]–[7], spatial spectrum matching error (SSME) [8], the Cram´ er–Rao lower bound (CRLB) [9]–[13], mutual in-formation (MI) [14], signal-to-clutter-plus-noise ratio (SCNR) [15], [16], and signal-to-interference-plus-noise ratio (SINR) [17]–[25]. In this work, we adopt SINR as the primary sensing performance metric. Most existing works focus on monostatic radar systems, where the transmitter and receiver are co-located. Such systems typically operate in full-duplex mode 
+
+Mohammad Hatami, Nhan Thanh Nguyen, and Markku Juntti are with the Center for Wireless Communications, University of Oulu, FI-90014 Oulu, Finland (e-mail: mohammad.hatami@oulu.fi; nhan.nguyen@oulu.fi; markku.juntti@oulu.fi). 
+
+and require interference cancellation techniques to mitigate self-interference from the transmitter to the receiver. However, this aspect is often overlooked in the literature. As an alterna-tive, bistatic radar systems, where the transmitter and receiver are geographically separated, provide a practical solution by inherently avoiding strong self-interference. Motivated by this, we consider a bistatic ISAC system in this paper. We consider two scenarios based on the availability of transmitted symbols at the radar receiver. This distinction is important in practice, as symbol availability depends on coordination between the transmitter and sensing receiver. In some systems, symbols can be shared and exploited for improved sensing, while in others, they may be unavailable due to system constraints or privacy considerations. In the first scenario, the symbols are shared, allowing the receiver to exploit this knowledge in designing the receive filters. In the second, the symbols are unavailable. In both cases, we jointly design the transmit beamforming and radar receive filters. Numerical results show that, for a frame length of one (per-slot optimization), performance without symbol knowledge is close to the known-symbol case. However, when the frame length exceeds one symbol, multiple observations enable spatio-temporal adaptive processing (STAP), where symbol knowl-edge allows coherent integration, while unknown symbols yield unstructured observations, limiting multi-slot gains. II. S YSTEM MODEL AND PROBLEM FORMULATION 
+
+We consider a bistatic MIMO ISAC system. The base station (BS) is equipped with N transmit antennas and serves U
+
+single-antenna downlink users while simultaneously sensing 
+
+Q targets. In addition, a spatially separated sensing receiver (Rx) equipped with M antennas collects the reflected signals. 
+
+A. Communications Model 
+
+Let hu ∈ CN ×1 denote the channel vector from the BS to user u, and fu ∈ CN ×1 denote the corresponding beamform-ing vector. The channels are assumed perfectly known (see e.g., [3]–[11]) at the transmitter and remain constant over a transmission frame of L time slots (see e.g., [3], [6], [11], [16], [17]). Let su[l] denote the transmitted symbol for user 
+
+u at time slot l, with average unit power E{| su[l]|2} = 1 .Defining the data vector s[l] = [s1[l], . . . , s U [l]] ∈ CU ×1
+
+and beamforming matrix F = [f1, . . . , fU ] ∈ CN ×U , the transmitted signal at slot l is x[l] = Fs [l]. We define the signal matrix over L slots as X = [ x[1] , . . . , x[L]] ∈ CN ×L.The received signal at user u at time slot l is given by 
+
+yu[l] = hH 
+
+> u
+
+x[l] + nu[l] = hH 
+
+> u
+
+Fs [l] + nu[l]arXiv:2608.16290v1 [eess.SP] 17 Aug 2026 2
+
+= hH 
+
+> u
+
+fusu[l] + X 
+
+> j̸=u
+
+hH 
+
+> u
+
+fj sj [l] + nu[l], (1) where nu[l] ∼ CN (0 , σ 2 
+
+> C
+
+). Accordingly, the average SINR for user u is expressed as 
+
+SINR Com  
+
+> u
+
+= 1
+
+L
+
+> L
+
+X
+
+> l=1
+
+|˜hH 
+
+> u
+
+fusu[l]|2
+
+PUj=1 ,j ̸ =u |˜hH 
+
+> u
+
+fj sj [l]|2 + 1 . (2) where ˜hu ≜ hu 
+
+> σu
+
+is the normalized channel coefficients with respect to the noise standard deviation. Averaging over the transmit symbols, we obtain 
+
+SINR Com  
+
+> u
+
+= |˜hH 
+
+> u
+
+fu|2
+
+PUj=1 ,j ̸ =u |˜hH 
+
+> u
+
+fj |2 + 1 . (3) 
+
+B. Sensing/Radar Model 
+
+In bistatic setup, the Q targets are characterized by their angle of departure (AoD) {ϕ1, . . . , ϕ Q}, angle of arrival (AoA) 
+
+{θ1, . . . , θ Q}, and propagation delays. Let {l0, l 1, . . . , l Q} de-note the range bins 1 corresponding to the line-of-sight (LOS) path and the Q targets, respectively, where l0 ≤ l1 ≤ · · · ≤ lQ.The bistatic response matrix for target q is defined as 
+
+Aq = aRx (θq )( aTx (ϕq )) T ∈ CM ×N , (4) where aRx (θq ) and aTx (ϕq ) denote the steering vectors at the Rx and Tx arrays, respectively. Assuming uniform linear arrays (ULAs), these vectors are given by 
+
+aTx (ϕq ) = 1
+
+√N
+
+h
+
+1, . . . , e −j2π(N −1) d sin( θRx  
+
+> q)/λ
+
+iT
+
+, (5) 
+
+aRx (θq ) = 1
+
+√M
+
+h
+
+1, . . . , e −j2π(M −1) d sin( θTx  
+
+> q)/λ
+
+iT
+
+, (6) where d denotes the antenna spacing and λ is the carrier wavelength. In addition to reflections from the targets, the Rx also observes a direct LOS component. Accordingly, the received signal matrix is expressed as 
+
+Y =
+
+> Q
+
+X
+
+> q=0
+
+βq Aq ˜XJ lq −l0 + N, (7) where β0 and A0 denote the complex channel gain and spatial response of the LOS path, respectively. The parameter 
+
+βq represents the complex gain of target q, capturing the bistatic propagation loss and radar cross section (RCS). The matrix ˜X = [ X, 0N ×(lQ−l0)] ∈ CN ×(L+lQ−l0) is the zero-padded transmit waveform matrix, and N ∈ CM ×(L+lQ−l0)
+
+denotes additive white Gaussian noise with entries distributed as CN (0 , σ 2R). The matrix Jlq −l0 denotes the delay operator relative to the LOS path, with entries given by 
+
+Jl(i, j ) = 
+
+(
+
+1 j − i = l, 
+
+0 otherwise . (8)                        
+
+> 1The range bin is calculated as l=
+> jτTs
+> k
+> =
+> jdTx →q+dq→Rx
+> c T s
+> k
+> ,where
+> τdenotes the propagation delay, Tsis the sampling period, cis the speed of light, and dTx →qand dq→Rx represent the distances from the transmitter to target qand from the target to the receiver, respectively. For the LOS path, the range bin is given by l0=
+> jdTx →Rx
+> c T s
+> k
+> ,where dTx →Rx denotes the direct distance between the transmitter and the receiver.
+
+Let wq ∈ CM (L+lQ−l0)×1 denote the space-time receive filter for detecting target q. The filter output is given by 
+
+yq = wH 
+
+> q
+
+vec( Y) = βq wH 
+
+> q
+
+˜Aq x + X 
+
+> ¯q̸=q
+
+β¯q wH 
+
+> q
+
+˜A¯q x + nq ,
+
+where x = vec( X), ˜Aq = (Jl0−lq ⊗ Aq )T, T =[IN L , 0N L ×N (lQ−l0)]T, and nq = wH 
+
+> q
+
+vec( N). By defining 
+
+˜F = diag( F, . . . , F) = IL ⊗ F ∈ CN L ×U L and s =[sT[1] , . . . , sT[L]] T ∈ CU L ×1, we have x = ˜Fs .We define the sensing SINR for target q as the ratio of the desired echo power to the aggregate interference, which includes echoes from other targets, the LOS component, and noise. Accordingly, the sensing SINR for target q is given by 
+
+SINR Rad  
+
+> q
+
+= |βq |2|wH 
+
+> q
+
+˜Aq x|2
+
+wH 
+
+> q
+
+Rq wq
+
+(9) where the interference-plus-noise covariance matrix is 
+
+Rq = X 
+
+> ¯q̸=q
+
+|β¯q |2 ˜A¯q xx H ˜AH¯q + σ2
+
+> R
+
+I. (10) If the transmitted symbols s are unknown at the radar receiver, the sensing SINR is defined as 
+
+SINR Rad  
+
+> q
+
+=Es{| βq |2|wH 
+
+> q
+
+˜Aq x|2}
+
+Es{wH 
+
+> q
+
+Rq wq } =|βq |2wH 
+
+> q
+
+˜Aq ˜F ˜FH˜AH 
+
+> q
+
+wq
+
+wH 
+
+> q
+
+¯Rq wq
+
+, (11) where we have used E{ss H} = I and ¯Rq is given by 
+
+¯Rq = Es{Rq } = X 
+
+> ¯q̸=q
+
+|β¯q |2 ˜A¯q ˜F ˜FH ˜AH¯q + σ2RI. (12) 
+
+C. Problem Formulation 
+
+The sensing SINR depends on the beamforming F and receive filters wq . We therefore optimize F and wq , ∀q,to maximize the minimum radar SINR subject to per-user communications SINR and transmit power constraints. The optimization problem is then formulated as: 
+
+(P1 ) max   
+
+> F,{wq}
+
+min  
+
+> q
+
+SINR q (13a) subject to SINR u ≥ γu, ∀u, (13b) 
+
+1
+
+L
+
+X
+
+> l
+
+∥x[l]∥2 ≤ Pmax , (13c) 
+
+wH 
+
+> q
+
+˜Aq x = 1 , (13d) where (13b) ensures that each communication user achieves a predetermined SINR threshold γu, and (13c) enforces the transmit power constraint, with Pmax denoting the maximum power per time slot. Similarly, when the transmitted symbols are unknown to the sensing receiver, we have 
+
+(P2 ) max   
+
+> F,{wq}
+
+min  
+
+> q
+
+SINR q (14a) subject to SINR u ≥ γu, ∀u, (14b) 
+
+X
+
+> u
+
+∥fu∥2 ≤ Pmax , (14c) 
+
+∥wq ∥2 = 1 . (14d) 3
+
+III. J OINT DESIGN OF BEAMFORMING AND RX FILTERS 
+
+In this section, we propose solutions for the cases where the transmit (Tx) symbols are known (problem P1) or unknown (problem P2) to the sensing receiver. 
+
+A. Known Transmit Symbols: Solving Problem P1 
+
+We first derive the optimal receive filters in closed form and then develop a tractable beamforming design using succes-sive convex approximation (SCA) and fractional programming (FP). For a given F, the optimal filter is obtained via the min-imum variance distortionless response (MVDR) formulation: 
+
+min 
+
+> wq
+
+wH 
+
+> q
+
+Rq wq , subject to (13d) . (15) A solution to (15) is given by [26, (15)] as 
+
+w⋆q = αR−1 
+
+> q
+
+˜Aq x, (16) where α =  xH ˜AH 
+
+> q
+
+R−1 
+
+> q
+
+˜Aq x−1 is a normalization factor ensuring (13d). Substituting (16) into (9) yields 
+
+SINR Rad  
+
+> q
+
+= |βq |2xH ˜AH 
+
+> q
+
+R−1 
+
+> q
+
+˜Aq x. (17) Therefore, (13) reduces to 
+
+max  
+
+> F
+
+min  
+
+> q
+
+SINR Rad  
+
+> q
+
+, subject to (13b) − (13c) . (18) Introducing τ ∈ R, (18) can be written in epigraph form as 
+
+max  
+
+> F,τ
+
+τ (19a) subject to SINR q ≥ τ, ∀q, (19b) (13b) − (13c) . (19c) The problem remains non-convex due to (19b) and (13b). To handle (13b), we introduce ξu[l] > 0 and rewrite (13b) as 
+
+1
+
+L
+
+X
+
+> l
+
+ξu[l] ≥ γu, ∀u, (20a) 
+
+> U
+
+X 
+
+> j=1 ,j ̸=u
+
+|˜hH 
+
+> u
+
+fj sj [l]|2 + 1 + fqol (fu, ξ u[l]) ≤ 0. (20b) where we define fqol (fu, ξ u[l]) ≜ − |˜hH  
+
+> ufusu[l]|2
+> ξu[l]
+
+. We apply SCA, where in each iteration i, fqol is replaced by a tight convex upper bound using a first-order Taylor expansion, i.e., 
+
+fqol (fu, ξ u[l]) ≤ Fqol (fu, ξ u[l], f (i) 
+
+> u
+
+, ξ (i) 
+
+> u
+
+[l]) = (f (i) 
+
+> u
+
+)H ˜hu ˜hH 
+
+> u
+
+f (i)
+
+> u
+
+(ξ(i) 
+
+> u
+
+[l]) 2 ξu[l] −
+
+2ℜ
+
+n
+
+(f (i) 
+
+> u
+
+)H ˜hu ˜hH 
+
+> u
+
+fu
+
+o
+
+ξ(i) 
+
+> u
+
+[l] . (21) Accordingly, (20b) is approximated as 
+
+X 
+
+> j̸=u
+
+|˜hH 
+
+> u
+
+fj sj [l]|2 + 1 + Fqol (fu, ξ u[l], f (i) 
+
+> u
+
+, ξ (i) 
+
+> u
+
+[l]) ≤ 0. (22) To handle (19b), we apply the quadratic transform [27]. Introducing yq ≜ R−1 
+
+> q
+
+˜Aq ˜Fs , we rewrite (19b) as 
+
+2ℜ{ yH 
+
+> q
+
+˜Aq ˜Fs } − yH 
+
+> q
+
+Rq yq ≥ τ, ∀q. (23) The term yH 
+
+> q
+
+Rq yq can be expressed in the quadratic form as 
+
+yH 
+
+> q
+
+Rq yq = ˜f HGq˜f + σ2
+
+> R
+
+yH 
+
+> q
+
+yq , (24) 
+
+Algorithm 1 Joint beamforming and Rx filter design via SCA-FP for known Tx symbols (problem P1) 
+
+Initialize: F(0) , ξ(0)  
+
+> u
+
+[l], i = 0 , and set a small threshold ϵ.
+
+repeat 
+
+Solve (28) to obtain τ ⋆, F⋆, {ξ⋆u[l]}, and η⋆.Update F(i+1) = F⋆, τ (i+1) = τ ⋆, ξ(i+1)  
+
+> u
+
+= ξ⋆u.Set i ← i + 1 .
+
+until |τ (i+1) − τ (i)| ≤ ϵ and |η⋆| ≈ 0.
+
+Output: Beamforming F and Filters wq = αR−1 
+
+> q
+
+˜Aq ˜Fs .where Gq ≜P  
+
+> ¯q̸=q
+
+|β¯q |2(( ss H)T⊗ ˜AH¯q yq yH 
+
+> q
+
+˜A¯q) and ˜f ≜ vec( ˜F).Hence, (19b) becomes the convex quadratic inequality 
+
+2ℜ{ yH 
+
+> q
+
+˜Aq ˜Fs } − ˜f HGq˜f − σ2
+
+> R
+
+yH 
+
+> q
+
+yq ≥ τ. (25) Finally, the resulting convex problem at iteration i is 
+
+max  
+
+> F,τ, {ξu[l]}
+
+τ, subject to(13c) , (20a) , (22) , (25) . (26) To avoid infeasibility in early iterations, we introduce an auxiliary variable η and redefine constraint (20a) as 
+
+1
+
+L
+
+X
+
+> l
+
+ξu[l] ≥ γu − η, ∀u, (27) allowing (26) to be rewritten as 
+
+max  
+
+> F,τ, {ξu[l]},η
+
+τ +α(i) 
+
+> η
+
+|η|, subject to (13c) , (27) , (22) , (25) , (28) where α(i) 
+
+> η
+
+is a penalty factor that discourages violations of (20a). At each iteration, α(i) 
+
+> η
+
+is increased to drive η toward zero at convergence. If η remains large after convergence, the problem is infeasible for the given γq , and γq − η represents the best achievable communications SINR. Finally, the beamforming design is obtained using Algo-rithm 1. At each iteration i, the convex problem (28) is solved with standard convex optimization tools such as CVX. 
+
+B. Unknown Transmit Symbols: Solving Problem P2 
+
+When the transmit symbols are unknown at the radar receiver, directly substituting the Rx filters into the sensing SINR, as in (17), is not straightforward. We therefore employ alternating optimization (AO), iteratively solving the beam-forming and filter subproblems while keeping the other fixed. 
+
+1) Beamforming Design: Given {wq }, ∀q, the beamform-ing subproblem is rewritten in the following epigraph form: 
+
+max  
+
+> F,τ
+
+τ (29a) subject to SINR q ≥ τ, ∀q, (29b) (14b) − (14c) . (29c) Constraints (29b) and (14b) are non-convex. We adopt a similar approach as in Section III-A and rewrite (14b) as 
+
+ξu ≥ γu − η, ∀u, (30a) 
+
+X 
+
+> j̸=u
+
+|˜hH 
+
+> u
+
+fj |2 + 1 + Fqol (fu, ξ u, f (i) 
+
+> u
+
+, ξ (i) 
+
+> u
+
+) ≤ 0. (30b) 4
+
+Algorithm 2 AO-based joint beamforming and Rx filter design for unknown Tx symbols (problem P2) 
+
+Initialize: F(0) , {w(0)  
+
+> q
+
+}, {ξ(0)  
+
+> u
+
+}, tolerance ϵ, and i = 0 .
+
+repeat 
+
+Update τ (i+1) and F(i+1) by solving (35). Update w(i+1)  
+
+> q
+
+, ∀q, using (37) and i ← i + 1 .
+
+until |τ (i+1) − τ (i)| ≤ ϵ.
+
+Output: Beamforming F and Filters wq .To handle the non-convexity of (29b), it is rewritten as 
+
+|βq |2fq (F) − X 
+
+> ¯q̸=q
+
+|β¯q |2gq, ¯q (F, τ ) + τ σ 2
+
+> R
+
+wH 
+
+> q
+
+wq ≥ 0, (31) where 
+
+fq (F) ≜ wH 
+
+> q
+
+˜Aq ˜F ˜FH ˜AH 
+
+> q
+
+wq , (32) 
+
+gq, ¯q (F, τ ) ≜ τ wH 
+
+> q
+
+˜A¯q ˜F ˜FH ˜AH¯q wq . (33) We apply SCA and approximate fq and gq, ¯q via first-order Taylor expansions around (F(i)) and (F(i), τ (i)), respectively: 
+
+ˆfq (F) = fq (F(i)) + 2 ℜ
+
+n
+
+wH 
+
+> q
+
+˜Aq ˜F(i)( ˜F − ˜F(i))H ˜AH 
+
+> q
+
+wq
+
+o
+
+,
+
+ˆgq, ¯q (F, τ ) = gq, ¯q (F(i), τ (i))+( τ −τ (i))wH 
+
+> q
+
+˜A¯q ˜F(i) ˜F(i)H ˜AH¯q wq
+
++ 2 τ (i)ℜ
+
+n
+
+wH 
+
+> q
+
+˜A¯q ˜F(i)( ˜F − ˜F(i))H ˜AH¯q wq
+
+o
+
+.
+
+Accordingly, the constraint is approximated by the following convex linear form 
+
+|βq |2 ˆfq (F) − X 
+
+> ¯q̸=q
+
+|β¯q |2 ˆgq, ¯q (F, τ ) + τ σ 2
+
+> R
+
+wH 
+
+> q
+
+wq ≥ 0. (34) Finally, the convexified beamforming subproblem is given by 
+
+max  
+
+> F,τ, {ξu},η
+
+τ +α(i) 
+
+> η
+
+|η|, subject to (13c) , (30a) , (30b) , (34) . (35) 
+
+2) Rx Filter Design: For a given beamforming matrix F,the Rx filter subproblem for each q is given by 
+
+max 
+
+> wq
+
+wH 
+
+> q
+
+˜Aq ˜F ˜FH ˜AH 
+
+> q
+
+wq
+
+wH 
+
+> q
+
+¯Rq wq
+
+, subject to (14d) . (36) Problem (36) is a generalized Rayleigh quotient and its optimal solution is given by the dominant generalized eigenvector, i.e., 
+
+w⋆q = α ¯R−1 
+
+> q
+
+umax , (37) where umax is the principal eigenvector of ¯R−1 
+
+> q
+
+˜Aq ˜F ˜FH ˜AH 
+
+> q
+
+.The corresponding maximum SINR is 
+
+SINR Rad  
+
+> q
+
+= λmax 
+
+ ¯R−1 
+
+> q
+
+˜Aq ˜F ˜FH ˜AH
+
+> q
+
+
+
+. (38) Based on the above, the overall AO procedure for solving P2 is summarized in Algorithm 2. IV. N UMERICAL RESULTS 
+
+We present simulation results to evaluate the proposed algorithms. The simulation parameters are as follows: Pmax =1 W , N = M = 16 , fc = 1 GHz , σ2C = σ2R = 0 .001 , and the antenna spacing at both the transmit and receive arrays is 
+
+d = λc/2. We consider Q = 3 targets located at angles ϕq ∈           
+
+> 010 20 30 40 50 60 70 80 90 100
+> −20
+> −10 010 20 30 40 50
+> Tx Rx LOS U1
+> U2
+> U3
+> U4
+> T1
+> T2
+> T3
+> X-axis Y-axis
+> Tx Rx LOS Targets Users Tx paths Rx paths
+
+Fig. 1. Example of the considered simulation setup.          
+
+> 20 22 24 26 28 30 32 34 36 38 6810 12 14 16
+> Comm. SINR (dB) ( γu)Radar SINR (dB)
+> Known Tx symbol (L = 4) Known Tx symbol (L = 2) Known Tx symbol (L = 1) Unknown Tx symbol (L = 4) Unknown Tx symbol (L = 2) Unknown Tx symbol (L = 1) Radar-only
+
+Fig. 2. Radar-communications performances for different frame length L.
+
+{10 ◦, −20 ◦, 25 ◦} and θq ∈ { 158 .6◦, −154 .8◦, 146 .2◦}, with corresponding range bins lq ∈ { 52 , 54 , 57 } for q = 1 , . . . , Q ,and reflection coefficients |βq | = −15 dB , ∀q. The channel gain of the LOS is set to β0 = −5 dB . The convergence tolerance is chosen as ϵ = 0 .005 . Further, the communication channels are assumed to follow Rayleigh fading model. For the benchmarking, we consider a radar-only design obtained by solving (13) (or (14)) without imposing the communication SINR constraints. The minimum sensing SINR achieved by the radar-only design thus serves as an upper bound on the sensing performance of the proposed ISAC schemes. Fig. 2 illustrates the radar–communications tradeoff for different frame lengths L when the transmitted signals are either known or unknown at the radar receiver. As expected, radar performance improves as the communications SINR threshold γu decreases, since a lower γu relaxes the communi-cations constraints and enlarges the feasible design space. For 
+
+L = 1 , the performance without knowledge of the transmitted symbols is close to the known-symbol case. However, for 
+
+L > 1, knowledge of the transmitted signals enables STAP-based coherent processing across multiple observations, im-proving target detection and noise averaging. In contrast, when the signals are unknown, the observations lack exploitable structure, limiting the benefits of increasing L and resulting in nearly constant performance. Overall, the proposed ISAC schemes approach the radar-only benchmark under moder-ate SINR requirements, demonstrating reliable joint radar– communications operation with minimal sensing degradation. Fig. 3 shows the effect of the number of communication 5         
+
+> 20 22 24 26 28 30 32 34 36 38 0246810 12 14 16 18
+> Comm. SINR (dB) ( γu)Radar SINR (dB)
+> Radar-only (known Tx symbol) Known Tx symbolmod (U = 2) Known Tx symbolmod (U = 3) Known Tx symbolmod (U = 5) Radar-only (unknown Tx symbol) Unknown Tx symbol (U = 2) Unknown Tx symbol (U = 3) Unknown Tx symbol (U = 5)
+
+Fig. 3. Radar-communications performances for different number of commu-nications users U , with L = 4 .
+
+users U . Increasing U reduces the achievable communication performance, as more users impose stricter SINR constraints and shrink the feasible design space for a given γu.V. C ONCLUSIONS 
+
+In this paper, we studied joint beamforming and radar receive filter design in a multiuser bistatic ISAC system under communications SINR and power constraints. We developed algorithms for both known and unknown transmit-symbol cases at the radar receiver, using FP–SCA for the known case and an AO-based approach for the unknown case. Numerical results show that symbol knowledge yields additional gains in multi-slot processing, while single-slot performance remains comparable even without it. Moreover, the proposed ISAC designs perform close to the radar-only benchmark under moderate communications SINR requirements, confirming the effectiveness of the proposed algorithms. VI. A CKNOWLEDGMENT 
+
+This work has been financially supported in part by Infotech Oulu, the Research Council of Finland through the 6G Flag-ship Programme (grant number: 346208) and through project DIRECTION (grant number: 354901), and CHIST-ERA via project PASSIONATE (grant number: 359817). The research has also been supported in part by Business Finland, Digita, Patria, Saab, Bittium, and Nokia via the 6G-ISAC project, as well as Business Finland, Nokia, Keysight, and Finwe via the 6G-WISECOM project. REFERENCES [1] J. A. Zhang, F. Liu, C. Masouros, R. W. Heath, Z. Feng, L. Zheng, and A. Petropulu, “An overview of signal processing techniques for joint communication and radar sensing,” IEEE J. Sel. Topics Signal Process. ,vol. 15, no. 6, pp. 1295–1315, 2021. [2] F. Dong, F. Liu, S. Lu, Y. Xiong, Q. Zhang, Z. Feng, and F. Gao, “Communication-assisted sensing in 6G networks,” IEEE J. Sel. Areas Commun. , vol. 43, no. 4, pp. 1371–1386, 2025. [3] F. Liu, L. Zhou, C. Masouros, A. Li, W. Luo, and A. Petropulu, “To-ward dual-functional radar-communication systems: Optimal waveform design,” IEEE Trans. Signal Process. , vol. 66, no. 16, pp. 4264–4279, 2018. [4] H. Hua, J. Xu, and T. X. Han, “Optimal transmit beamforming for integrated sensing and communication,” IEEE Trans. Veh. Technol. ,vol. 72, no. 8, pp. 10 588–10 603, 2023. [5] N. T. Nguyen, L. V. Nguyen, N. Shlezinger, Y. C. Eldar, A. L. Swindlehurst, and M. Juntti, “Joint communications and sensing hybrid beamforming design via deep unfolding,” IEEE Trans. Signal Process. ,vol. 18, no. 5, pp. 901–916, 2024. [6] Z. Wu, Y.-F. Liu, W.-K. Chen, and C. Masouros, “Quantized constant-envelope waveform design for massive MIMO DFRC systems,” IEEE J. Sel. Areas Commun. , vol. 43, no. 4, pp. 1056–1073, 2025. [7] Z. Liu, S. Aditya, H. Li, and B. Clerckx, “Joint transmit and receive beamforming design in full-duplex integrated sensing and communica-tions,” IEEE J. Sel. Areas Commun. , vol. 41, no. 9, pp. 2907–2919, 2023. [8] Z. Cheng, Z. He, and B. Liao, “Hybrid beamforming design for OFDM dual-function radar-communication system,” IEEE J. Sel. Topics Signal Process. , vol. 15, no. 6, pp. 1455–1467, 2021. [9] B. He, W. Mao, Y. Liu, W. Huangfu, F. Wang, and H. Zhang, “Bistatic-enhancement MIMO ISAC: Joint beamforming design in cell-free com-munication and bistatic radar systems,” IEEE Trans. Wireless Commun. ,vol. 25, pp. 5935–5951, 2026. [10] T. Mao, J. Yang, L. Liang, and S. Jin, “Hybrid beamforming design for bistatic integrated sensing and communication systems,” IEEE Trans. Commun. , vol. 73, no. 11, pp. 10 360–10 376, 2025. [11] Z. Ren, X. Song, Y. Fang, L. Qiu, and J. Xu, “Fundamental CRB-rate tradeoff in multi-antenna multicast channel with ISAC,” in Proc. IEEE Global Telecommun. Conf. , 2022, pp. 1261–1266. [12] N. T. Nguyen, V.-D. Nguyen, H. V. Nguyen, H. Q. Ngo, A. Swindlehurst, and M. Juntti, “Massive MIMO joint communications and sensing with MRT beamforming,” in Proc. IEEE Radar Conf. , 2024. [13] C. Zhong, H. Ding, D. Li, L. Tang, and Y.-c. Liang, “Resource alloca-tion for dynamic TDD-enabled integrated sensing and communication systems,” IEEE Trans. Veh. Technol. , vol. 74, no. 6, pp. 9357–9369, 2025. [14] Z. Wei, J. Piao, X. Yuan, H. Wu, J. A. Zhang, Z. Feng, L. Wang, and P. Zhang, “Waveform design for MIMO-OFDM integrated sensing and communication system: An information theoretical approach,” IEEE Trans. Commun. , vol. 72, no. 1, pp. 496–509, 2024. [15] J. Choi, J. Park, N. Lee, and A. Alkhateeb, “Joint and robust beam-forming framework for integrated sensing and communication systems,” 
+
+IEEE Trans. Wireless Commun. , vol. 23, no. 11, pp. 17 602–17 618, 2024. [16] P. Wang, J. Fang, X. Zeng, Z. Chen, and H. Li, “Low-complexity joint transceiver optimization for MmWave/THz MU-MIMO ISAC systems,” 
+
+IEEE Internet Things J. , vol. 12, no. 5, pp. 5289–5304, 2025. [17] C. Wen, Y. Huang, and T. N. Davidson, “Efficient transceiver design for MIMO dual-function radar-communication systems,” IEEE Trans. Signal Process. , vol. 71, pp. 1786–1801, 2023. [18] Z. Zhao, Z. Liu, R. Jiang, Z. Li, X.-P. Zhang, X. Tang, and Y. Dong, “Joint beamforming for multi-target detection and multi-user communi-cation in ISAC systems,” IEEE Trans. Veh. Technol. , vol. 74, no. 9, pp. 14 938–14 942, 2025. [19] J. Johnston, L. Venturino, E. Grossi, M. Lops, and X. Wang, “MIMO OFDM dual-function radar-communication under error rate and beam-pattern constraints,” IEEE J. Sel. Areas Commun. , vol. 40, no. 6, pp. 1951–1964, 2022. [20] S. Liu, M. Li, R. Liu, W. Wang, and Q. Liu, “Joint transmit beamforming and receive filter design for cooperative multi-static ISAC networks,” 
+
+IEEE Wireless Commun. Lett. , vol. 13, no. 6, pp. 1700–1704, 2024. [21] T. Jiang, M. Jin, Q. Guo, Y. Liu, Y. Li, and J. Yao, “Full-duplex ISAC-Enabled D2D underlaid cellular networks: Joint transceiver beam-forming and power allocation,” IEEE Trans. on Cogn. Commun. Netw. ,vol. 12, pp. 1–13, 2026. [22] M. Hatami, N. T. Nguyen, and M. Juntti, “Beamforming design and subcarrier allocation for multicarrier multiuser MIMO ISAC,” IEEE Trans. Commun. , 2026. [23] ——, “Waveform design for multi-carrier multiuser MIMO joint com-munications and sensing,” in Proc. IEEE Works. on Sign. Proc. Adv. in Wirel. Comms. , 2024, pp. 346–350. [24] ——, “Joint waveform design and sub-carrier allocation for multiuser MIMO ISAC,” in Proc. IEEE Int. Symp. Joint Commun. Sens. , 2025. [25] ——, “Energy efficient waveform design and subcarrier allocation for multicarrier MIMO JCAS,” in Proc. IEEE Wireless Commun. and Networking Conf. , 2025, pp. 1–6. [26] S. Sen, “PAPR-constrained pareto-optimal waveform design for OFDM-STAP radar,” IEEE Trans. Geosci. Remote Sens. , vol. 52, no. 6, pp. 3658–3669, Jun. 2014. [27] K. Shen and W. Yu, “Fractional programming for communication systems—Part I: Power control and beamforming,” IEEE Trans. Signal Process. , vol. 66, no. 10, pp. 2616–2630, 2018.

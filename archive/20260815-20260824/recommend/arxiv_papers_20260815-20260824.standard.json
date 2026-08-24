@@ -1,13 +1,13 @@
 {
   "mode": "standard",
-  "generated_at": "2026-08-24T07:55:26.420997+00:00",
+  "generated_at": "2026-08-24T08:13:49.123372+00:00",
   "stats": {
     "mode": "standard",
     "tag_count": 1,
-    "deep_divecandidates": 24,
+    "deep_divecandidates": 28,
     "deep_cap": 6,
-    "deep_selected": 8,
-    "quick_candidates": 42,
+    "deep_selected": 10,
+    "quick_candidates": 41,
     "quick_skim_target": 11,
     "quick_selected": 11
   },
@@ -34,13 +34,13 @@
         "query:es"
       ],
       "llm_score": 9.0,
-      "llm_evidence_en": "Provides a large open dataset of Wi-Fi spectral scan observations captured with commodity hardware under controlled RF jamming",
-      "llm_evidence_cn": "提供使用商用硬件采集的大规模Wi-Fi频谱扫描数据集，包含受控射频干扰场景",
-      "llm_evidence": "提供使用商用硬件采集的大规模Wi-Fi频谱扫描数据集，包含受控射频干扰场景",
-      "canonical_evidence": "提供使用商用硬件采集的大规模Wi-Fi频谱扫描数据集，包含受控射频干扰场景",
-      "llm_tldr_en": "Releases WiFiSpectralJam, a 14.52 GB open dataset with 522 million Wi-Fi spectral observations using commodity Atheros hardware, covering benign and controlled RF jamming conditions.",
-      "llm_tldr_cn": "针对射频频谱感知研究缺乏开放数据的问题，构建并发布了WiFiSpectralJam大规模数据集。该数据集使用Raspberry Pi和Atheros QCA9880网卡在2.4/5 GHz频段采集5.2亿条有序频谱观测，包含真实背景、射频暗室底噪和受控HackRF干扰场景。干扰条件覆盖不同发射功率、目标信道和波形类型。这为无线信号采集、频谱感知和抗干扰研究提供了宝贵资源。",
-      "llm_tldr": "针对射频频谱感知研究缺乏开放数据的问题，构建并发布了WiFiSpectralJam大规模数据集。该数据集使用Raspberry Pi和Atheros QCA9880网卡在2.4/5 GHz频段采集5.2亿条有序频谱观测，包含真实背景、射频暗室底噪和受控HackRF干扰场景。干扰条件覆盖不同发射功率、目标信道和波形类型。这为无线信号采集、频谱感知和抗干扰研究提供了宝贵资源。",
+      "llm_evidence_en": "Large-scale Wi-Fi spectral scan dataset using commodity hardware for RF signal acquisition",
+      "llm_evidence_cn": "使用商用Wi-Fi硬件的大规模频谱扫描数据集，用于射频信号采集",
+      "llm_evidence": "使用商用Wi-Fi硬件的大规模频谱扫描数据集，用于射频信号采集",
+      "canonical_evidence": "使用商用Wi-Fi硬件的大规模频谱扫描数据集，用于射频信号采集",
+      "llm_tldr_en": "This paper presents WiFiSpectralJam, a 14.52 GB dataset of Wi-Fi spectral scans collected with commodity hardware, including controlled RF jamming, supporting electromagnetic signal acquisition research.",
+      "llm_tldr_cn": "针对Wi-Fi频谱感知研究缺乏大规模公开数据的问题，本文发布WiFiSpectralJam数据集，利用树莓派和QCA9880网卡在2.4/5 GHz频段采集522,771,130条频谱观测记录，涵盖主动/被动扫描和受控射频干扰场景。该数据集为电磁信号采集和干扰分析提供了丰富的原始数据支撑。",
+      "llm_tldr": "针对Wi-Fi频谱感知研究缺乏大规模公开数据的问题，本文发布WiFiSpectralJam数据集，利用树莓派和QCA9880网卡在2.4/5 GHz频段采集522,771,130条频谱观测记录，涵盖主动/被动扫描和受控射频干扰场景。该数据集为电磁信号采集和干扰分析提供了丰富的原始数据支撑。",
       "llm_tags": [
         "query:es"
       ],
@@ -50,121 +50,36 @@
       "selection_source": "fresh_fetch"
     },
     {
-      "id": "2608.16518v1",
+      "id": "2608.16176v1",
       "source": "arxiv",
-      "title": "Development of Different Algorithms for Drone-Based Antenna Measurement Systems and Near-Field Error Analysis",
-      "abstract": "Near-field antenna measurements underpin the characterization of electrically large apertures, yet the fidelity of the Near-Field to Far-Field (NF-FF) transformation depends on the reconstruction algorithm's assumptions and robustness to real-world imperfections, including those from drone-based scanning platforms.   Classical FFT-based modal expansion is efficient on uniformly sampled canonical grids but fails when phase-coherent acquisition cannot be maintained. We address this via a phaseless NF-FF algorithm reconstructing the far field from amplitude-only data through iterative phase retrieval. When sampling becomes sparse or irregular, even amplitude-based methods break down, motivating the $\\textbf{Adaptive Sparse Inverse Radiation Estimator (ASPIRE)}$, a full-complex inverse source framework that solves a Method-of-Moments problem over RWG basis functions via cascaded rSVD and regularized shrinkage. Mutual coupling between basis functions is explicitly resolved, improving reconstruction fidelity beyond coupling-agnostic inverse-source formulations. The solver is accelerated via a Multilevel Fast Multipole Method engine with Numba just-in-time compilation, achieving a $1.2\\times$ reduction in matrix-vector product time and up to $15\\times$ lower memory usage relative to dense evaluation at N=100K.   Across frequency bands and positioning/truncation error scenarios, the pipeline sustains algorithmic stability and achieves sub-degree beamwidth reconstruction error. These results establish an error-aware framework for algorithm selection across fixed and drone-based near-field measurement platforms.",
+      "title": "Characterization of Helicopter Rotor Blade Modulation in UHF and Microwave Bands",
+      "abstract": "This paper presents metrics and measurement methods for the experimental characterization of helicopter rotor blade modulation of the wireless propagation channel. Broadband bistatic channel measurements were conducted at three widely separated carrier frequencies (302 MHz in the UHF band, 4.9 GHz in the C-band, and 27.1 GHz in the Ka-band) for three military helicopters (CH-53, Tiger, and UMAT) at the Bundeswehr Technical and Airworthiness Center for Aircraft in Manching, Germany. The time-variant channel was analyzed in terms of the Doppler Power Spectrum and the RMS Doppler spread, the Doppler spectrogram, and the Power Time Profile. The RMS Doppler spread values were found to be moderate (up to 106 Hz), which is attributable to the predominantly lateral blade motion relative to the line-of-sight path. The Power Time Profiles revealed periodic blockage attenuations of up to 15 dB at Ka-band, increasing significantly with the carrier frequency; at 302 MHz, the blockage attenuation does not exceed 2.3 dB and the RMS Doppler spread stays below 10 Hz. The measured blockage attenuation was modeled using the double knife-edge diffraction model, showing good agreement with the measurements. The distinct micro-Doppler signatures visible in the spectrograms are identified as a potential resource for helicopter classification and passive radar applications.",
       "authors": [
-        "Simranjit Singh",
-        "Jaswant Sharma",
-        "Jigar M. Pandya"
+        "Wilhelm Keusgen",
+        "Alper Schultze",
+        "Mathis Schmieder",
+        "Michael Peter",
+        "Taro Eichler",
+        "Friedrich Lipp"
       ],
       "primary_category": "eess.SP",
       "categories": [
         "eess.SP"
       ],
-      "published": "2026-08-17T12:59:55+00:00",
-      "link": "https://arxiv.org/pdf/2608.16518v1",
+      "published": "2026-08-17T06:47:33+00:00",
+      "link": "https://arxiv.org/pdf/2608.16176v1",
       "tags": [
         "keyword:es",
         "query:es"
       ],
       "llm_score": 9.0,
-      "llm_evidence_en": "near-field antenna measurements, drone-based acquisition, phaseless NF-FF reconstruction algorithms",
-      "llm_evidence_cn": "基于无人机的近场天线测量、无相位远场重建算法",
-      "llm_evidence": "基于无人机的近场天线测量、无相位远场重建算法",
-      "canonical_evidence": "基于无人机的近场天线测量、无相位远场重建算法",
-      "llm_tldr_en": "Develops phaseless near-field to far-field algorithms for drone-based antenna measurements, using iterative phase retrieval and adaptive sampling to handle sparse, irregular data.",
-      "llm_tldr_cn": "针对无人机扫描平台难以维持相位相干采样导致经典近远场变换失效的问题，提出基于迭代相位恢复的无相位近远场算法，从仅幅度数据重建远场，并针对稀疏不规则采样发展自适应处理策略。实验表明该方法在相位缺失和稀疏采样下比经典FFT方法更鲁棒，重建精度更高。为无人机天线测量系统提供了实用的信号采集与处理方案。",
-      "llm_tldr": "针对无人机扫描平台难以维持相位相干采样导致经典近远场变换失效的问题，提出基于迭代相位恢复的无相位近远场算法，从仅幅度数据重建远场，并针对稀疏不规则采样发展自适应处理策略。实验表明该方法在相位缺失和稀疏采样下比经典FFT方法更鲁棒，重建精度更高。为无人机天线测量系统提供了实用的信号采集与处理方案。",
-      "llm_tags": [
-        "query:es"
-      ],
-      "matched_query_tag": "query:es",
-      "matched_query_text": "electromagnetic signal processing techniques",
-      "matched_requirement_id": "req-2",
-      "selection_source": "fresh_fetch"
-    },
-    {
-      "id": "2608.18348v1",
-      "source": "arxiv",
-      "title": "The Atacama Cosmology Telescope: Passband Measurements with an Analysis of Systematic Errors",
-      "abstract": "We present measurements of the spectral response of the four Advanced ACTPol (AdvACT) multichroic detector arrays, which observed in frequency bands centered near 30, 40, 90, 150, and 220 GHz. The passbands were measured with a Fourier transform spectrometer (FTS) combined with coupling optics that direct and match the output of the FTS to the AdvACT receiver. We perform optical simulations of the FTS and coupling optics in order to model frequency-dependent systematic effects in this system. We use these simulations to apply corrections to the measurements and evaluate the remaining systematic uncertainty. We combine these systematic estimates with statistical errors to determine the measured passbands and their uncertainties from our FTS measurement, which are typically 0.75 to 1.5% per detector array. We present the passband characteristics for all measurements made by ACT in a common framework. Additionally, we discuss the performance achieved as well as ways to improve passband measurements in the future.",
-      "authors": [
-        "Thomas Alford",
-        "Rahul Datta",
-        "Erminia Calabrese",
-        "Steve K. Choi",
-        "Shannon M. Duff",
-        "Adriaan J. Duivenvoorden",
-        "Joseph Golec",
-        "Matthew Hasselfeld",
-        "J. Colin Hill",
-        "Johannes Hubmayr",
-        "Jeffrey McMahon",
-        "Michael D. Niemack",
-        "Lyman A. Page",
-        "Alex Thomas",
-        "Cristian Vargas",
-        "Yuhan Wang",
-        "Edward J. Wollack"
-      ],
-      "primary_category": "astro-ph.IM",
-      "categories": [
-        "astro-ph.IM"
-      ],
-      "published": "2026-08-18T22:02:39+00:00",
-      "link": "https://arxiv.org/pdf/2608.18348v1",
-      "tags": [
-        "keyword:es",
-        "query:es"
-      ],
-      "llm_score": 9.0,
-      "llm_evidence_en": "Passband measurement with FTS and systematic error analysis for detector arrays",
-      "llm_evidence_cn": "使用傅里叶变换光谱仪进行通带测量并进行系统误差分析",
-      "llm_evidence": "使用傅里叶变换光谱仪进行通带测量并进行系统误差分析",
-      "canonical_evidence": "使用傅里叶变换光谱仪进行通带测量并进行系统误差分析",
-      "llm_tldr_en": "Presents spectral passband measurements of AdvACT detector arrays using a Fourier transform spectrometer and coupling optics, with optical simulations to correct systematic errors and determine accurate bandpass responses.",
-      "llm_tldr_cn": "本文报道了利用傅里叶变换光谱仪和耦合光学系统对阿塔卡马宇宙学望远镜的先进ACTPol多色探测器阵列进行通带测量的结果。通过光学仿真建模频率相关系统效应，对测量进行修正并评估残余系统不确定度，最终给出了30–220 GHz多个频段精确的通带响应及其误差。该工作为电磁信号的频谱特性测量和实验系统误差控制提供了重要方法，对需要高精度电磁信号采集与设备校准的研究具有直接参考价值。",
-      "llm_tldr": "本文报道了利用傅里叶变换光谱仪和耦合光学系统对阿塔卡马宇宙学望远镜的先进ACTPol多色探测器阵列进行通带测量的结果。通过光学仿真建模频率相关系统效应，对测量进行修正并评估残余系统不确定度，最终给出了30–220 GHz多个频段精确的通带响应及其误差。该工作为电磁信号的频谱特性测量和实验系统误差控制提供了重要方法，对需要高精度电磁信号采集与设备校准的研究具有直接参考价值。",
-      "llm_tags": [
-        "query:es"
-      ],
-      "matched_query_tag": "query:es",
-      "matched_query_text": "electromagnetic signal acquisition methods",
-      "matched_requirement_id": "req-3",
-      "selection_source": "fresh_fetch"
-    },
-    {
-      "id": "2608.18495v1",
-      "source": "arxiv",
-      "title": "Physics-Unrolled Neural Operator for Wireless Field Modeling",
-      "abstract": "Radio maps are essential for wireless decision-making tasks such as access-point placement, coverage planning, and localization, but their fine spatial details are governed by complex propagation effects and are costly to simulate accurately. Machine learning offers a path to high-fidelity radio-map prediction without running expensive high-fidelity simulations for every scene. However, generating high-quality training labels at scale is also difficult: the affordable labels come from finite-ray simulations, which are richer than low-fidelity inputs but carry residual Monte Carlo noise. We address this challenge with Physics-Unrolled Hybrid Neural Operator (PU-HNO), a three-stage cascade that predicts high-fidelity indoor radio maps from low-fidelity ray-tracing outputs and scene priors by progressively capturing reflection, diffraction, and scattering effects, rather than treating radio maps as generic images. We prove that, under conditionally unbiased label noise, the model can learn stable propagation structure and outperform its own training labels. Experiments across diverse floorplans show that PU-HNO outperforms image-to-image baselines, wireless learning models, and monolithic neural operators across both image-quality and wireless deployment metrics.",
-      "authors": [
-        "Rafid Umayer Murshed",
-        "Saif Ur Rahman",
-        "Mingyue Tang",
-        "Elahe Soltanaghai"
-      ],
-      "primary_category": "cs.LG",
-      "categories": [
-        "cs.LG",
-        "cs.AI"
-      ],
-      "published": "2026-08-19T03:39:55+00:00",
-      "link": "https://arxiv.org/pdf/2608.18495v1",
-      "tags": [
-        "keyword:es",
-        "query:es"
-      ],
-      "llm_score": 9.0,
-      "llm_evidence_en": "Predicts electromagnetic signal strength distribution (radio maps) using a physics-unrolled neural operator, covering signal characteristics and processing.",
-      "llm_evidence_cn": "利用物理展开神经算子预测电磁信号场强分布（无线电地图），涉及信号特性与处理。",
-      "llm_evidence": "利用物理展开神经算子预测电磁信号场强分布（无线电地图），涉及信号特性与处理。",
-      "canonical_evidence": "利用物理展开神经算子预测电磁信号场强分布（无线电地图），涉及信号特性与处理。",
-      "llm_tldr_en": "PU-HNO uses a three-stage cascade to predict high-fidelity indoor radio maps from low-fidelity ray-tracing, overcoming Monte Carlo noise in labels and capturing complex propagation effects, improving wireless field modeling.",
-      "llm_tldr_cn": "针对高保真无线电地图预测困难且训练标签含噪的问题，提出物理展开混合神经算子PU-HNO，采用三阶段级联结构从低保真射线追踪模拟中恢复精细无线场特征。该方法将物理传播规律嵌入网络展开，有效抑制蒙特卡洛噪声并提升预测精度。实验表明模型在室内场景中取得优于已有方法的准确率，为无线网络规划与定位提供了高效建模工具。",
-      "llm_tldr": "针对高保真无线电地图预测困难且训练标签含噪的问题，提出物理展开混合神经算子PU-HNO，采用三阶段级联结构从低保真射线追踪模拟中恢复精细无线场特征。该方法将物理传播规律嵌入网络展开，有效抑制蒙特卡洛噪声并提升预测精度。实验表明模型在室内场景中取得优于已有方法的准确率，为无线网络规划与定位提供了高效建模工具。",
+      "llm_evidence_en": "Presents metrics and measurement methods for characterizing rotor blade modulation of the wireless propagation channel",
+      "llm_evidence_cn": "提出了用于表征旋翼对无线传播信道调制的度量与测量方法",
+      "llm_evidence": "提出了用于表征旋翼对无线传播信道调制的度量与测量方法",
+      "canonical_evidence": "提出了用于表征旋翼对无线传播信道调制的度量与测量方法",
+      "llm_tldr_en": "This paper experimentally characterizes helicopter rotor blade modulation of wireless channels via broadband bistatic measurements at 302 MHz, 4.9 GHz, and 27.1 GHz, analyzing Doppler spectrum and spread to quantify time-variant channel behavior.",
+      "llm_tldr_cn": "直升机旋翼会显著调制无线传播信道，但缺乏系统的实验表征手段。本文在302 MHz、4.9 GHz和27.1 GHz三个频段对三型军用直升机进行宽带双基地信道测量，定义了旋翼调制的度量与测量方法。通过多普勒功率谱、均方根多普勒扩展、多普勒谱图和功率时延谱分析，发现均方根多普勒扩展最高约106 Hz。该工作为评估旋翼对通信导航信号影响提供了基础数据和测量框架。",
+      "llm_tldr": "直升机旋翼会显著调制无线传播信道，但缺乏系统的实验表征手段。本文在302 MHz、4.9 GHz和27.1 GHz三个频段对三型军用直升机进行宽带双基地信道测量，定义了旋翼调制的度量与测量方法。通过多普勒功率谱、均方根多普勒扩展、多普勒谱图和功率时延谱分析，发现均方根多普勒扩展最高约106 Hz。该工作为评估旋翼对通信导航信号影响提供了基础数据和测量框架。",
       "llm_tags": [
         "query:es"
       ],
@@ -174,42 +89,42 @@
       "selection_source": "fresh_fetch"
     },
     {
-      "id": "2608.18642v1",
+      "id": "2608.17122v1",
       "source": "arxiv",
-      "title": "IriSig-Spoof: A Real-World Benchmark for Time-Robust Satellite RF Fingerprinting and Spoofing Detection",
-      "abstract": "Low Earth orbit (LEO) satellite Internet is becoming critical communications infrastructure, yet its open wireless links remain vulnerable to satellite impersonation and signal spoofing. Radio frequency fingerprinting (RFF) offers a potential defense by exploiting transmitter-specific hardware imperfections manifested in received signals. However, the reliability of existing satellite RFF methods remains difficult to assess because no unified dataset and benchmark support temporal, open-set, and cross-scenario evaluation. To address this gap, we introduce IriSig-Spoof, a real-world Iridium dataset comprising 5.17 million messages collected from 66 satellites over 32 days, together with software-defined radio (SDR)-generated spoofing signals from indoor and outdoor settings. We further establish three benchmark tasks: temporal robustness evaluation, open-set RFF identification with unknown-signal rejection, and cross-scenario spoofing detection. Experiments using a multi-scale attention convolutional neural network (MACNN) show that temporal robustness varies across configurations, with the best configuration achieving 97.75% average cross-day accuracy. In open-set evaluation, MACNN achieves an area under the receiver operating characteristic curve (AUROC) of 0.9715, while showing that effective unknown-signal rejection does not necessarily ensure reliable identity assignment. Cross-scenario experiments reveal differences at low false-positive rates. IriSig-Spoof provides a reproducible basis for evaluating robust RFF methods under temporal variation and changing attack conditions.",
+      "title": "Physically Consistent Channel Modeling and Signal Processing for Reconfigurable Wireless Systems",
+      "abstract": "Reconfigurable antennas are increasingly integrated into multi-antenna communication systems to exploit large apertures while reducing the hardware complexity, energy consumption, and implementation costs of classical massive arrays. Their reconfigurable electromagnetic (EM) properties, including dynamically varying radiation patterns and state-dependent mutual coupling, challenge the fixed-antenna and decoupled-port assumptions of conventional channel models. This motivates a physically consistent framework connecting Maxwell's equations, circuit theory, and information theory. In this tutorial, we develop a unified framework spanning three coupled dimensions: (i) reconfigurable antenna and transceiver architectures, (ii) physically consistent channel modeling, and (iii) physically consistent signal processing. We first establish a taxonomy covering tunable antennas, reconfigurable transceivers, and emerging array architectures, highlighting their reconfiguration mechanisms and hardware-performance trade-offs. We then develop modeling approaches based on Maxwell's equations, wavenumber-domain representations, multiport network theory, and computational electromagnetics, and use them to construct end-to-end channel and noise models that capture near-field propagation, mutual coupling, and circuit-level impairments. Building on these models, we examine architecture-aware channel estimation, beamforming, data detection, and channel decoding, emphasizing how physical structure reshapes algorithm design and performance-complexity trade-offs. Overall, the tutorial treats physical architecture, channel and noise models, and communication algorithms as coupled components of an end-to-end design, providing a unified foundation for physically consistent reconfigurable wireless systems.",
       "authors": [
-        "Shichang Guo",
-        "Yuanyu Zhang",
-        "Shuangrui Zhao",
-        "Ji He",
-        "Pinchang Zhang",
-        "Yulong Shen"
+        "Ahmad Dkhan",
+        "Simon Tarboush",
+        "Hadi Sarieddeen",
+        "Robert W. Heath",
+        "Hakan Bagci",
+        "Tareq Y. Al-Naffouri"
       ],
-      "primary_category": "cs.CR",
+      "primary_category": "eess.SP",
       "categories": [
-        "cs.CR"
+        "eess.SP"
       ],
-      "published": "2026-08-19T07:43:32+00:00",
-      "link": "https://arxiv.org/pdf/2608.18642v1",
+      "published": "2026-08-17T21:00:31+00:00",
+      "link": "https://arxiv.org/pdf/2608.17122v1",
       "tags": [
         "keyword:es",
         "query:es"
       ],
       "llm_score": 9.0,
-      "llm_evidence_en": "RF signal detection and fingerprinting with SDR equipment",
-      "llm_evidence_cn": "使用软件无线电设备进行射频信号检测与指纹识别",
-      "llm_evidence": "使用软件无线电设备进行射频信号检测与指纹识别",
-      "canonical_evidence": "使用软件无线电设备进行射频信号检测与指纹识别",
-      "llm_tldr_en": "Introduces IriSig-Spoof, a real-world Iridium dataset of 5.17M messages from 66 satellites over 32 days, with SDR-generated spoofing, enabling temporal, open-set, cross-scenario evaluation of satellite RF fingerprinting and spoofing detection.",
-      "llm_tldr_cn": "低轨卫星互联网的开放无线链路面临卫星仿冒与信号欺骗威胁，射频指纹识别是潜在防御手段，但缺少统一数据集来评估其时间可靠性与跨场景泛化能力。为此，本文构建了IriSig-Spoof真实世界Iridium数据集，包含32天内66颗卫星的517万条消息及软件无线电生成的欺骗信号。该数据集支持时间鲁棒、开放集和跨场景的卫星射频指纹识别与欺骗检测评测，为相关设备与方法提供了重要基准。",
-      "llm_tldr": "低轨卫星互联网的开放无线链路面临卫星仿冒与信号欺骗威胁，射频指纹识别是潜在防御手段，但缺少统一数据集来评估其时间可靠性与跨场景泛化能力。为此，本文构建了IriSig-Spoof真实世界Iridium数据集，包含32天内66颗卫星的517万条消息及软件无线电生成的欺骗信号。该数据集支持时间鲁棒、开放集和跨场景的卫星射频指纹识别与欺骗检测评测，为相关设备与方法提供了重要基准。",
+      "llm_evidence_en": "Develops a physically consistent framework connecting Maxwell's equations, circuit theory, and information theory for reconfigurable EM channel modeling",
+      "llm_evidence_cn": "建立了连接麦克斯韦方程、电路理论与信息论的统一框架，刻画可重构电磁特性与信道建模",
+      "llm_evidence": "建立了连接麦克斯韦方程、电路理论与信息论的统一框架，刻画可重构电磁特性与信道建模",
+      "canonical_evidence": "建立了连接麦克斯韦方程、电路理论与信息论的统一框架，刻画可重构电磁特性与信道建模",
+      "llm_tldr_en": "A tutorial that unifies Maxwell's equations, circuit theory, and information theory to model reconfigurable antennas' electromagnetic properties and to design signal processing for reconfigurable wireless systems.",
+      "llm_tldr_cn": "针对可重构天线带来的动态辐射方向图和状态相关互耦等电磁特性对传统信道模型的挑战，本文建立了一个连接麦克斯韦方程、电路理论与信息论的物理一致框架，统一处理可重构天线架构、收发机设计与信号处理。该框架为利用可重构电磁特性进行信道建模和信号处理提供了系统性的理论基础，适用于大规模MIMO等无线系统。",
+      "llm_tldr": "针对可重构天线带来的动态辐射方向图和状态相关互耦等电磁特性对传统信道模型的挑战，本文建立了一个连接麦克斯韦方程、电路理论与信息论的物理一致框架，统一处理可重构天线架构、收发机设计与信号处理。该框架为利用可重构电磁特性进行信道建模和信号处理提供了系统性的理论基础，适用于大规模MIMO等无线系统。",
       "llm_tags": [
         "query:es"
       ],
       "matched_query_tag": "query:es",
-      "matched_query_text": "how to detect electromagnetic signals using equipment",
-      "matched_requirement_id": "req-7",
+      "matched_query_text": "electromagnetic signal properties and characteristics",
+      "matched_requirement_id": "req-1",
       "selection_source": "fresh_fetch"
     },
     {
@@ -244,19 +159,70 @@
         "query:es"
       ],
       "llm_score": 9.0,
-      "llm_evidence_en": "real-time RFI mitigation techniques for radio transient signal processing",
-      "llm_evidence_cn": "用于射电瞬变信号处理的实时射频干扰抑制技术",
-      "llm_evidence": "用于射电瞬变信号处理的实时射频干扰抑制技术",
-      "canonical_evidence": "用于射电瞬变信号处理的实时射频干扰抑制技术",
-      "llm_tldr_en": "Presents a real-time two-stage RFI mitigation framework for the SPOTLIGHT transient backend at uGMRT, combining antenna-level voltage filtering (VOLT) with a statistical time-domain filtering engine (STRIPE).",
-      "llm_tldr_cn": "射电瞬变搜索中，射频干扰是限制灵敏度和可靠性的主要因素。针对uGMRT上的实时瞬变后端SPOTLIGHT，本文提出两阶段实时射频干扰抑制框架：一是在相关波束形成前对天线电压进行滤波（VOLT），二是用统计引擎STRIPE对波束数据滤除瞬态干扰。该系统在真实观测环境中实现了高效实时干扰抑制，为电磁信号处理提供了可部署的解决方案。",
-      "llm_tldr": "射电瞬变搜索中，射频干扰是限制灵敏度和可靠性的主要因素。针对uGMRT上的实时瞬变后端SPOTLIGHT，本文提出两阶段实时射频干扰抑制框架：一是在相关波束形成前对天线电压进行滤波（VOLT），二是用统计引擎STRIPE对波束数据滤除瞬态干扰。该系统在真实观测环境中实现了高效实时干扰抑制，为电磁信号处理提供了可部署的解决方案。",
+      "llm_evidence_en": "Real-time RFI mitigation with antenna-level voltage filtering and time-domain statistical processing",
+      "llm_evidence_cn": "采用天线级电压滤波和时域统计处理的实时射频干扰抑制",
+      "llm_evidence": "采用天线级电压滤波和时域统计处理的实时射频干扰抑制",
+      "canonical_evidence": "采用天线级电压滤波和时域统计处理的实时射频干扰抑制",
+      "llm_tldr_en": "A two-stage real-time RFI mitigation framework for the SPOTLIGHT transient backend at uGMRT, combining antenna-level voltage filtering (VOLT) and statistical time-domain filtering (STRIPE) to enable sustained transient searches.",
+      "llm_tldr_cn": "针对射电瞬变搜索中射频干扰限制灵敏度和可靠性的问题，为uGMRT的SPOTLIGHT后端设计了实时两阶段射频干扰抑制框架。第一阶段在天线级进行电压滤波（VOLT），第二阶段对波束数据应用统计时域滤波（STRIPE），在相关束形成前后协作处理，保障实时瞬变搜索的稳健运行。",
+      "llm_tldr": "针对射电瞬变搜索中射频干扰限制灵敏度和可靠性的问题，为uGMRT的SPOTLIGHT后端设计了实时两阶段射频干扰抑制框架。第一阶段在天线级进行电压滤波（VOLT），第二阶段对波束数据应用统计时域滤波（STRIPE），在相关束形成前后协作处理，保障实时瞬变搜索的稳健运行。",
       "llm_tags": [
         "query:es"
       ],
       "matched_query_tag": "query:es",
       "matched_query_text": "electromagnetic signal processing techniques",
       "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.19473v1",
+      "source": "arxiv",
+      "title": "PSEC6: an 8-Channel 40 GSa/s Waveform Sampling ASIC in TSMC 65nm with 10.24 GHz PLL",
+      "abstract": "Picosecond level timing resolution is a prerequisite capability for improved coincidence matching, time-of-flight measurements, and secondary vertex reconstruction. Here, we present the specification, design, and simulation results for a new Application Specific Integrated Circuit (ASIC), called PSEC6, in the TSMC 65nm process. It features 8 channels, a maximum sampling rate of 40 GSa/s, a buffer length of 204.8 nanoseconds, and a 10.24 GHz Phase Locked Loop (PLL), which is the first of its kind in the 65nm CMOS process. The event readout rate is 32 kHz, with the digitization done by an off-chip Analog-to-Digital Converter (ADC).   Simulations predict a 4.0 GHz analog input bandwidth and 20 mW per channel during sampling; the 10.24 GHz PLL has a predicted jitter of 550 fs RMS at 15.7 mW. The paper describes the sampling architecture, chip signal paths, PLL design, and presents simulation results.",
+      "authors": [
+        "Ahan Datta",
+        "Andrew Arzac",
+        "Davide Braga",
+        "Gordon Chen",
+        "Troy England",
+        "Farah Fahim",
+        "Henry J. Frisch",
+        "Nathan Gehl",
+        "Mary Heintz",
+        "Sumin Kim",
+        "Ava Lalich",
+        "Jinseo Park",
+        "Nathaniel J. Pastika",
+        "Hector D. Rico-Aniles",
+        "Paul M. Rubinov",
+        "Xiaoran Wang",
+        "Y. M. Richmond Yeung"
+      ],
+      "primary_category": "physics.ins-det",
+      "categories": [
+        "physics.ins-det",
+        "hep-ex"
+      ],
+      "published": "2026-08-19T22:11:14+00:00",
+      "link": "https://arxiv.org/pdf/2608.19473v1",
+      "tags": [
+        "keyword:es",
+        "query:es"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Waveform sampling ASIC for high-speed data acquisition",
+      "llm_evidence_cn": "用于高速数据采集的波形采样ASIC",
+      "llm_evidence": "用于高速数据采集的波形采样ASIC",
+      "canonical_evidence": "用于高速数据采集的波形采样ASIC",
+      "llm_tldr_en": "PSEC6 is an 8-channel 40 GSa/s waveform sampling ASIC in TSMC 65nm with 10.24 GHz PLL, 4 GHz analog bandwidth, and 20mW/ch, enabling picosecond timing for signal acquisition.",
+      "llm_tldr_cn": "针对皮秒级时间分辨需求，设计了PSEC6芯片，采用TSMC 65nm工艺，实现8通道、40 GSa/s最大采样率、204.8ns缓冲长度及10.24 GHz锁相环。仿真预测模拟带宽4.0 GHz、每通道功耗20mW，为高速电磁波形信号采集提供高性能硬件方案。",
+      "llm_tldr": "针对皮秒级时间分辨需求，设计了PSEC6芯片，采用TSMC 65nm工艺，实现8通道、40 GSa/s最大采样率、204.8ns缓冲长度及10.24 GHz锁相环。仿真预测模拟带宽4.0 GHz、每通道功耗20mW，为高速电磁波形信号采集提供高性能硬件方案。",
+      "llm_tags": [
+        "query:es"
+      ],
+      "matched_query_tag": "query:es",
+      "matched_query_text": "electromagnetic signal acquisition methods",
+      "matched_requirement_id": "req-3",
       "selection_source": "fresh_fetch"
     },
     {
@@ -286,19 +252,62 @@
         "query:es"
       ],
       "llm_score": 9.0,
-      "llm_evidence_en": "NV diamond magnetometer calibration and vector magnetometry for unshielded magnetic field sensing; directly relevant to geomagnetic signal collection",
-      "llm_evidence_cn": "NV金刚石磁力计标定与矢量磁测，面向无屏蔽环境磁场感知，直接相关于地磁信号采集",
-      "llm_evidence": "NV金刚石磁力计标定与矢量磁测，面向无屏蔽环境磁场感知，直接相关于地磁信号采集",
-      "canonical_evidence": "NV金刚石磁力计标定与矢量磁测，面向无屏蔽环境磁场感知，直接相关于地磁信号采集",
-      "llm_tldr_en": "Addresses calibration of NV diamond magnetometers with a physics-guided ML framework that embeds Zeeman splitting, achieving 372-fold precision improvement over statistical baselines.",
-      "llm_tldr_cn": "针对NV金刚石磁力计部署受限于复杂标定与仿真-现实失配的问题，提出物理引导的混合机器学习框架，将Zeeman劈裂直接嵌入学习流程。与纯统计基线相比，平均跟踪误差显著下降，实现372倍精度提升。该混合架构仅需稀疏物理测量即可完成仿真到现实的标定，为无屏蔽环境下的矢量磁测和地磁信号采集提供高精度方案。",
-      "llm_tldr": "针对NV金刚石磁力计部署受限于复杂标定与仿真-现实失配的问题，提出物理引导的混合机器学习框架，将Zeeman劈裂直接嵌入学习流程。与纯统计基线相比，平均跟踪误差显著下降，实现372倍精度提升。该混合架构仅需稀疏物理测量即可完成仿真到现实的标定，为无屏蔽环境下的矢量磁测和地磁信号采集提供高精度方案。",
+      "llm_evidence_en": "NV diamond magnetometer calibration for magnetic signal acquisition",
+      "llm_evidence_cn": "NV金刚石磁力计校准，用于磁场信号采集",
+      "llm_evidence": "NV金刚石磁力计校准，用于磁场信号采集",
+      "canonical_evidence": "NV金刚石磁力计校准，用于磁场信号采集",
+      "llm_tldr_en": "A physics-guided hybrid ML framework embeds Zeeman splitting to calibrate NV magnetometers, reducing average tracking error and improving precision 372x over statistical baselines.",
+      "llm_tldr_cn": "针对NV金刚石磁力计部署中校准复杂、依赖外部参考数据且仿真与真实差距大的问题，提出物理引导的混合机器学习框架，将塞曼分裂直接嵌入学习流程。相比纯统计基线，平均跟踪误差显著降低，精度提升372倍。该工作为磁场/地磁信号的高精度采集提供了实用的校准手段。",
+      "llm_tldr": "针对NV金刚石磁力计部署中校准复杂、依赖外部参考数据且仿真与真实差距大的问题，提出物理引导的混合机器学习框架，将塞曼分裂直接嵌入学习流程。相比纯统计基线，平均跟踪误差显著降低，精度提升372倍。该工作为磁场/地磁信号的高精度采集提供了实用的校准手段。",
       "llm_tags": [
         "query:es"
       ],
       "matched_query_tag": "query:es",
       "matched_query_text": "geomagnetic signal collection techniques",
       "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.19898v1",
+      "source": "arxiv",
+      "title": "A dual-polarization whitened-template trigger for real-time radio detection of extensive air showers",
+      "abstract": "Autonomous radio stations require a first-stage trigger that rejects measured background while preserving weak extensive-air-shower pulses under tight hardware constraints. We present a dual-polarization trigger based on a 16-sample whitened pulse template evaluated continuously on the orthogonal north-south and east-west channels of an Auger Engineering Radio Array station. The template is derived from detector-folded air-shower pulses and whitened using the covariance of measured background. Responses from both polarizations are combined within a fixed timing radius and compared with a calibrated threshold. On an independent test set, the trigger reaches an efficiency of 0.97, with a 95 percent confidence interval of 0.96 to 0.98, at a frame-equivalent candidate rate of 3.39 kHz. At the same operating point, an unwhitened dual-polarization template reaches 0.41 efficiency and an amplitude trigger reaches 0.16. Efficiency remains at least 0.94 in every populated signal-to-noise bin. Replay of 159.29 ms of continuous measured background yields a score-cluster rate of 6.64 kHz, below the 71.4 kHz capacity of the downstream module. The FPGA implementation accepts one dual-polarization sample per clock, closes timing at 200 MHz, and uses 2377 lookup tables, 5330 registers, and 32 digital signal-processing blocks. Register-transfer-level simulation agrees bit for bit with the reference implementation for 400 traces. These results show that background covariance, pulse morphology, and dual-polarization consistency can be combined in a compact real-time radio trigger.",
+      "authors": [
+        "Qader Dorosti",
+        "Alperen Aksoy",
+        "Ilja Bekman",
+        "Markus Cristinziani",
+        "Eric-Teunis de Boone",
+        "Vesselin Dimitrov",
+        "Chimezie Eguzo",
+        "Stefan Heidbrink",
+        "Stefan van Waasen",
+        "Andre Zambanini"
+      ],
+      "primary_category": "astro-ph.IM",
+      "categories": [
+        "astro-ph.IM"
+      ],
+      "published": "2026-08-20T11:07:26+00:00",
+      "link": "https://arxiv.org/pdf/2608.19898v1",
+      "tags": [
+        "keyword:es",
+        "query:es"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Dual-polarization whitened-template trigger for real-time radio detection of air-shower pulses with hardware constraints",
+      "llm_evidence_cn": "用于自治无线电台实时射电探测空气簇射脉冲的双极化白化模板触发器",
+      "llm_evidence": "用于自治无线电台实时射电探测空气簇射脉冲的双极化白化模板触发器",
+      "canonical_evidence": "用于自治无线电台实时射电探测空气簇射脉冲的双极化白化模板触发器",
+      "llm_tldr_en": "A real-time dual-polarization trigger using a 16-sample whitened pulse template and calibrated threshold achieves 0.97 detection efficiency for weak air-shower pulses under hardware constraints.",
+      "llm_tldr_cn": "针对自治射电站首级触发需要在高背景噪声下保留弱空气簇射脉冲且满足硬件约束的问题，本文提出双极化白化模板触发器。该触发器基于16采样白化脉冲模板，在南北和东西正交极化通道上连续评估，利用实测背景协方差白化，并在固定时间窗内合并响应与标定阈值比较。独立测试集上触发效率达0.97，95%置信区间为0.9以上，为射电信号实时检测提供了高效的硬件触发方案。",
+      "llm_tldr": "针对自治射电站首级触发需要在高背景噪声下保留弱空气簇射脉冲且满足硬件约束的问题，本文提出双极化白化模板触发器。该触发器基于16采样白化脉冲模板，在南北和东西正交极化通道上连续评估，利用实测背景协方差白化，并在固定时间窗内合并响应与标定阈值比较。独立测试集上触发效率达0.97，95%置信区间为0.9以上，为射电信号实时检测提供了高效的硬件触发方案。",
+      "llm_tags": [
+        "query:es"
+      ],
+      "matched_query_tag": "query:es",
+      "matched_query_text": "how to detect electromagnetic signals using equipment",
+      "matched_requirement_id": "req-7",
       "selection_source": "fresh_fetch"
     },
     {
@@ -324,13 +333,13 @@
         "query:es"
       ],
       "llm_score": 9.0,
-      "llm_evidence_en": "analyzes microwave detection using spin-torque detectors, directly addressing how to detect EM signals with equipment",
-      "llm_evidence_cn": "分析自旋扭矩微波探测器对微波信号的检测，直接涉及如何用设备检测电磁信号",
-      "llm_evidence": "分析自旋扭矩微波探测器对微波信号的检测，直接涉及如何用设备检测电磁信号",
-      "canonical_evidence": "分析自旋扭矩微波探测器对微波信号的检测，直接涉及如何用设备检测电磁信号",
-      "llm_tldr_en": "Analysis of spin-torque microwave detectors under positive rectangular pulses reveals linear and nonlinear operation regimes, with output scaling by pulse duty cycle.",
-      "llm_tldr_cn": "自旋扭矩微波探测器（STMD）在脉冲信号下的工作特性尚不清楚。该文系统分析了正矩形电流脉冲的幅度、宽度和周期对STMD响应的影响，揭示线性和非线性两种工作区间。在线性区，输出电压随脉冲占空比线性变化；非线性区则出现电压跳变和跌落。这些结果为STMD用于微波脉冲检测和信号处理提供了理论指导。",
-      "llm_tldr": "自旋扭矩微波探测器（STMD）在脉冲信号下的工作特性尚不清楚。该文系统分析了正矩形电流脉冲的幅度、宽度和周期对STMD响应的影响，揭示线性和非线性两种工作区间。在线性区，输出电压随脉冲占空比线性变化；非线性区则出现电压跳变和跌落。这些结果为STMD用于微波脉冲检测和信号处理提供了理论指导。",
+      "llm_evidence_en": "Spin-torque microwave detectors for detecting electromagnetic pulse signals",
+      "llm_evidence_cn": "自旋力矩微波探测器用于检测电磁脉冲信号",
+      "llm_evidence": "自旋力矩微波探测器用于检测电磁脉冲信号",
+      "canonical_evidence": "自旋力矩微波探测器用于检测电磁脉冲信号",
+      "llm_tldr_en": "Analyzes spin-torque microwave detector performance under positive rectangular current pulses, revealing linear and nonlinear response regimes and dependence on pulse amplitude and duty cycle.",
+      "llm_tldr_cn": "该论文分析了自旋力矩微波探测器在正矩形电流脉冲驱动下的工作性能。研究发现探测器存在线性和非线性两种工作状态，在面向面（IP）磁化动力学下线性区较宽，而垂直面（OOP）磁化动力学仅在小振幅下呈线性，非线性区伴随电压跳变。该结果对电磁微波信号的检测与器件设计有直接参考价值。",
+      "llm_tldr": "该论文分析了自旋力矩微波探测器在正矩形电流脉冲驱动下的工作性能。研究发现探测器存在线性和非线性两种工作状态，在面向面（IP）磁化动力学下线性区较宽，而垂直面（OOP）磁化动力学仅在小振幅下呈线性，非线性区伴随电压跳变。该结果对电磁微波信号的检测与器件设计有直接参考价值。",
       "llm_tags": [
         "query:es"
       ],
@@ -338,125 +347,87 @@
       "matched_query_text": "how to detect electromagnetic signals using equipment",
       "matched_requirement_id": "req-7",
       "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.20502v1",
+      "source": "arxiv",
+      "title": "Real-time ESR tracking for sub-micron 3D magnetic mapping with VB- quantum sensors in hexagonal boron nitride",
+      "abstract": "The discovery of spin-dependent luminescent properties of negatively charged boron-vacancy centers ($V^-_B$) in hexagonal boron nitride (hBN) enabled a new platform for quantum sensing with van der Waals materials. Particularly, the possibility of performing optically detected magnetic resonance (ODMR) for determining the electron spin resonance (ESR) frequencies of hBN color centers became a strong tool for quantum sensing of magnetic fields with submicrometric resolution. However, due to low ODMR contrast, current techniques proposed for mapping DC magnetic fields require hours of integration to obtain a magnetic image of a micron-sized region. In this work, we report the implementation of a frequency-tracking approach for real-time monitoring of ESR frequencies of localized $V^-_B$ centers in hBN. With this technique, magnetic field monitoring was used to map the field pattern generated by a micron-sized conical magnetic tip in only a few minutes. By controlling the magnetic sample's position relative to the quantum sensor, three-dimensional magnetic mapping of the field was achieved with diffraction-limited resolution and shot-noise-limited sensitivity of 54 $μ$T$/\\sqrt{\\text{Hz}}$. Magnetic field gradients of 3.6 $\\pm$ 0.2 $μ$T/nm were measured with our system, in which a maximum detected field rate of 6 mT/s was achieved. The results of this study establish spin resonance frequency-tracking as a viable technique and fast method for minute-scale magnetic imaging, reducing acquisition times by at least one order of magnitude if compared to conventional techniques.",
+      "authors": [
+        "Jefferson A. O. Galindo",
+        "Edwin D. C. Sanchez",
+        "Cecília L. A. V. Campos",
+        "Allison R. Pessoa",
+        "Hugo A. D. Correia",
+        "José D. M. de Lima",
+        "Klaus Krambrock",
+        "Leonardo de S. Menezes",
+        "Anderson M. Amaral"
+      ],
+      "primary_category": "physics.chem-ph",
+      "categories": [
+        "physics.chem-ph",
+        "cond-mat.mtrl-sci",
+        "physics.optics"
+      ],
+      "published": "2026-08-20T18:40:38+00:00",
+      "link": "https://arxiv.org/pdf/2608.20502v1",
+      "tags": [
+        "keyword:es",
+        "query:es"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Implements real-time ESR frequency tracking for sub-micron magnetic field mapping with quantum sensors",
+      "llm_evidence_cn": "实现基于量子传感器的实时ESR频率追踪，用于亚微米磁场成像",
+      "llm_evidence": "实现基于量子传感器的实时ESR频率追踪，用于亚微米磁场成像",
+      "canonical_evidence": "实现基于量子传感器的实时ESR频率追踪，用于亚微米磁场成像",
+      "llm_tldr_en": "This paper reports a frequency-tracking algorithm that accelerates ODMR-based ESR measurements for VB- quantum sensors in hBN, enabling sub-micron 3D magnetic mapping in real time instead of hours-long integration.",
+      "llm_tldr_cn": "六方氮化硼中带负电硼空位中心可用于亚微米分辨率磁场传感，但ODMR对比度低，传统DC磁场成像需要数小时积分。本文实现了一种频率追踪算法，实时跟踪电子自旋共振频率，极大缩短了磁场映射时间。该方法能够快速获取三维亚微米磁场图像，为量子传感器的实际应用（如材料与生物样品磁性表征）提供了高效手段。",
+      "llm_tldr": "六方氮化硼中带负电硼空位中心可用于亚微米分辨率磁场传感，但ODMR对比度低，传统DC磁场成像需要数小时积分。本文实现了一种频率追踪算法，实时跟踪电子自旋共振频率，极大缩短了磁场映射时间。该方法能够快速获取三维亚微米磁场图像，为量子传感器的实际应用（如材料与生物样品磁性表征）提供了高效手段。",
+      "llm_tags": [
+        "query:es"
+      ],
+      "matched_query_tag": "query:es",
+      "matched_query_text": "geomagnetic signal collection techniques",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.20943v1",
+      "source": "arxiv",
+      "title": "SR-TL1: A Square-Root TL1-Norm Framework for Robust SMV DoA Estimation under Highly-Coherent Dictionaries",
+      "abstract": "This paper proposes a Square-Root Transformed $L_1$-norm ($SR\\text{-}TL_{1}$) sparse recovery framework for single-measurement-vector (SMV) direction of arrival (DoA) estimation under highly-coherent overcomplete dictionaries with angular-dependent array imperfections. The proposed framework combines the square-root Least Absolute Shrinkage and Selection Operator (square-root LASSO) framework which is known to be robust against noise variance with the Transformed $L_1$-norm ($TL_1$-norm), a non-convex penalty that shows a stronger recovery performance than the classical convex $L_1$-norm under highly-coherent dictionaries. We use the Difference of Convex Algorithm (DCA) along with the Alternating Direction Method of Multipliers (ADMM) algorithm to obtain simple, closed-form update rules and provide an efficient implementation that leverages the low-rank nature of the Gram matrix of the dictionary so as to obtain a computational complexity of at most $\\mathcal{O}(MN)$ per iteration where $M$ is the array size and $N$ is the length of the dictionary. We additionally provide a convergence guarantee for the DCA iterates of $SR\\text{-}TL_{1}$. Experimental verification of the proposed framework shows a lower sensitivity of the regularization hyperparameter to the noise variance level and a competitive recovery performance compared to state-of-the-art baselines.",
+      "authors": [
+        "Youval Klioui"
+      ],
+      "primary_category": "eess.SP",
+      "categories": [
+        "eess.SP"
+      ],
+      "published": "2026-08-21T10:05:42+00:00",
+      "link": "https://arxiv.org/pdf/2608.20943v1",
+      "tags": [
+        "keyword:es",
+        "query:es"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Robust sparse recovery framework for direction-of-arrival estimation of array signals under highly coherent dictionaries",
+      "llm_evidence_cn": "提出用于阵列信号波达方向估计的稀疏恢复框架，在高相干字典下实现鲁棒估计",
+      "llm_evidence": "提出用于阵列信号波达方向估计的稀疏恢复框架，在高相干字典下实现鲁棒估计",
+      "canonical_evidence": "提出用于阵列信号波达方向估计的稀疏恢复框架，在高相干字典下实现鲁棒估计",
+      "llm_tldr_en": "The paper proposes a square-root TL1-norm sparse recovery method that combines square-root LASSO and non-convex TL1 penalty for robust single-measurement DoA estimation under highly coherent dictionaries.",
+      "llm_tldr_cn": "针对高相干过完备字典下波达方向估计不稳定的问题，本文提出平方根变换L1范数稀疏恢复框架，融合平方根LASSO对噪声方差的鲁棒性与变换L1范数在高相干字典下的强恢复能力。采用差分凸算法与交替方向乘子法进行优化求解，能够同时应对角相关的阵列误差。该方法为电磁信号的阵列处理提供了一种稳健的估计途径。",
+      "llm_tldr": "针对高相干过完备字典下波达方向估计不稳定的问题，本文提出平方根变换L1范数稀疏恢复框架，融合平方根LASSO对噪声方差的鲁棒性与变换L1范数在高相干字典下的强恢复能力。采用差分凸算法与交替方向乘子法进行优化求解，能够同时应对角相关的阵列误差。该方法为电磁信号的阵列处理提供了一种稳健的估计途径。",
+      "llm_tags": [
+        "query:es"
+      ],
+      "matched_query_tag": "query:es",
+      "matched_query_text": "electromagnetic signal processing techniques",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
     }
   ],
   "quick_skim": [
-    {
-      "id": "2608.15314v1",
-      "source": "arxiv",
-      "title": "Physics-informed VAE-EVT for Tail Aware Radio Map Prediction",
-      "abstract": "Ultra-reliable low-latency communication (URLLC) requires precise identification of spatial regions where the signal-to-noise ratio (SNR) falls below an outage threshold. In this context, an outage refers to instances in which SNR falls below a specified threshold, which, for URLLC, can be as stringent as the 0.1% quantile of the SNR distribution. Traditional generative radio map models tend to focus on reconstructing average signal levels, often overlooking the low SNR that is crucial for accurate outage prediction. To address this limitation, we introduce a physics- and tail-informed VAE-EVT (variational autoencoder-extreme value theory) framework that distinctly models both the bulk and tail distribution of SNR. Our approach begins with a physics-informed preprocessing stage that extracts deterministic features, including line-of-sight, shadowing, and distance, from the scene geometry. A dual-latent encoder then captures the bulk SNR using a Gaussian mixture and the tail using a generalized Pareto distribution (GPD). By employing a modified variational objective, the model is trained to jointly supervise both regimes, ensuring focused attention on extreme fading events. Evaluated on the RadioMapSeer dataset, our method achieves an SNR RMSE of 4.83 dB in the outage region defined by the low threshold of 0.1% SNR quantile. This significantly outperforms the state-of-the-art GAN-based model, which records an SNR RMSE of 21.90 dB, with the performance gap widening as the outage threshold becomes more stringent.",
-      "authors": [
-        "Amanda Sheron Gamage",
-        "Niloofar Mehrnia",
-        "James Gross"
-      ],
-      "primary_category": "cs.AI",
-      "categories": [
-        "cs.AI"
-      ],
-      "published": "2026-08-15T16:41:19+00:00",
-      "link": "https://arxiv.org/pdf/2608.15314v1",
-      "tags": [
-        "keyword:es",
-        "query:es"
-      ],
-      "llm_score": 8.0,
-      "llm_evidence_en": "Predicts SNR spatial distribution including outage tails, directly addressing factors affecting electromagnetic signal strength",
-      "llm_evidence_cn": "预测信噪比空间分布及低信噪比尾部，直接影响电磁信号强度的因素分析",
-      "llm_evidence": "预测信噪比空间分布及低信噪比尾部，直接影响电磁信号强度的因素分析",
-      "canonical_evidence": "预测信噪比空间分布及低信噪比尾部，直接影响电磁信号强度的因素分析",
-      "llm_tldr_en": "Introduces a physics- and tail-informed VAE-EVT framework that models both bulk and extreme tail of SNR distribution, enabling accurate outage region prediction for URLLC radio maps.",
-      "llm_tldr_cn": "面向超可靠低时延通信中的中断预测问题，提出物理信息约束的VAE-EVT框架，分别建模信噪比的常态分布与极值尾部。传统生成式无线地图模型只关注平均信号水平，忽略关键的低信噪比区域。该方法利用物理先验和极值理论捕捉衰落尾部，从而准确识别中断空间区域。实验表明其尾部感知能力显著提升中断预测精度。",
-      "llm_tldr": "面向超可靠低时延通信中的中断预测问题，提出物理信息约束的VAE-EVT框架，分别建模信噪比的常态分布与极值尾部。传统生成式无线地图模型只关注平均信号水平，忽略关键的低信噪比区域。该方法利用物理先验和极值理论捕捉衰落尾部，从而准确识别中断空间区域。实验表明其尾部感知能力显著提升中断预测精度。",
-      "llm_tags": [
-        "query:es"
-      ],
-      "matched_query_tag": "query:es",
-      "matched_query_text": "factors affecting electromagnetic signal strength",
-      "matched_requirement_id": "req-8",
-      "selection_source": "fresh_fetch",
-      "quick_tier": "8plus"
-    },
-    {
-      "id": "2608.15989v1",
-      "source": "arxiv",
-      "title": "Exact spherical-wave forward model for radio reflection from stratified media",
-      "abstract": "Radio detection of ultra-high energy particles ($\\gtrsim10^{18}$ eV) depends on how broadband radio pulses reflect from natural media boundaries. We extend the spherical-wave (Sommerfeld--Weyl) treatment of a single homogeneous interface to stratified media by replacing the Fresnel coefficient of each plane-wave component with the characteristic-matrix reflection coefficient of a layered medium, evaluated in the local tangent plane on the spherical surface. The calculation reduces to the single-boundary result at machine precision when the layer contrast is removed and agrees with the published spherical-surface calculation to better than $1.1\\%$ at ten HiCal-2 elevation angles, with a mean deviation of $0.6\\%$.   We apply the formalism to shallow firn stacks proposed as explanations for anomalous-polarity ANITA events. For realistic firn contrasts, layering changes the reflected amplitude but does not reverse the pulse polarity over $150$--$850$ MHz for the elevations studied. In a reference $s$-polarized two-layer model, a coefficient sign change requires buried refractive index $n_2\\simeq2.56$, $2.04$, and $1.79$ at local elevations of $8^\\circ$, $15^\\circ$, and $25^\\circ$, respectively. We also test the specular factorization used in fast propagation models, finding $0.2\\%$ agreement with the full angular integral for high-altitude balloon geometries, while near-boundary sources require the full integral. The calculated reflected pulses reproduce the expected polarity inversion in $101$ of $106$ HiCal-1 direct/reflected pulse pairs. Because the medium enters through its complex refractive index, the framework applies to ice, lunar regolith, and conducting media.",
-      "authors": [
-        "Paramita Dasgupta"
-      ],
-      "primary_category": "astro-ph.IM",
-      "categories": [
-        "astro-ph.IM",
-        "astro-ph.HE",
-        "hep-ex",
-        "physics.class-ph",
-        "physics.ins-det"
-      ],
-      "published": "2026-08-17T00:57:32+00:00",
-      "link": "https://arxiv.org/pdf/2608.15989v1",
-      "tags": [
-        "keyword:es",
-        "query:es"
-      ],
-      "llm_score": 7.0,
-      "llm_evidence_en": "forward modeling of radio reflection for electromagnetic wave propagation characteristics",
-      "llm_evidence_cn": "无线电反射正演建模，关联电磁波传播特性",
-      "llm_evidence": "无线电反射正演建模，关联电磁波传播特性",
-      "canonical_evidence": "无线电反射正演建模，关联电磁波传播特性",
-      "llm_tldr_en": "Extends the Sommerfeld-Weyl spherical-wave model to stratified media for radio reflection, using characteristic-matrix reflection coefficients, validated against HiCal-2 elevation data.",
-      "llm_tldr_cn": "针对分层介质中宽带无线电脉冲反射的精确建模问题，本文将球面波（Sommerfeld-Weyl）处理方法推广到分层结构，利用特征矩阵反射系数描述介质层的反射响应。模型在去除层间对比时能精确退化为单界面结果，并与已发布的球面数值计算和HiCal-2实测数据高度一致。该方法为地球物理无线电回波的正演模拟和反演提供了可靠工具。",
-      "llm_tldr": "针对分层介质中宽带无线电脉冲反射的精确建模问题，本文将球面波（Sommerfeld-Weyl）处理方法推广到分层结构，利用特征矩阵反射系数描述介质层的反射响应。模型在去除层间对比时能精确退化为单界面结果，并与已发布的球面数值计算和HiCal-2实测数据高度一致。该方法为地球物理无线电回波的正演模拟和反演提供了可靠工具。",
-      "llm_tags": [
-        "query:es"
-      ],
-      "matched_query_tag": "query:es",
-      "matched_query_text": "electromagnetic signal properties and characteristics",
-      "matched_requirement_id": "req-1",
-      "selection_source": "fresh_fetch",
-      "quick_tier": "7"
-    },
-    {
-      "id": "2608.15271v1",
-      "source": "arxiv",
-      "title": "Bringing Environmental Enhancement Back to Its Physical Essence via Specular Reflecting Surfaces",
-      "abstract": "Intelligent control of wireless propagation environments is crucial for future network capacity and reliability. Unlike circuit-controlled reconfigurable intelligent surfaces (RIS), mechanically actuated specular reflecting surfaces (SRS) offer a simpler and potentially more cost-effective alternative. In this paper, based on the tractable ray-based cascaded channel model with power-projection correction, we investigate the fundamental operational behaviors of an ideal SRS in free space. Specifically, in the angle-aligned near field, edge reflections cause non-constructive combining, resulting in a damped oscillatory convergence of the gain to an aperture-independent constant. We further obtain the far-field behavior, unbounded-aperture asymptotics, an optimal aperture size and reflection angle, and a gain-based near/far-field boundary. For misalignment, we provide accurate approximations for small and large apertures via center-point and stationary-point analyses. We also define the SRS beam pattern, derive analytical 3-dB beamwidths, and quantify the effective region where a main lobe exists. Finally, we derive a closed-form achievable-rate for an SRS-aided communication system. Numerical results validate the proposed expressions, reveal distinct near-/far-field behaviors of specular reflection, and show that SRS can outperform RIS in the far field due to continuous aperture and angular-resolution control and stronger power projection.",
-      "authors": [
-        "Qingxiao Huang",
-        "Qianyao Ren",
-        "Yiqin Deng",
-        "Jun Huang",
-        "Yang Kun",
-        "Yuguang Fang"
-      ],
-      "primary_category": "cs.IT",
-      "categories": [
-        "cs.IT"
-      ],
-      "published": "2026-08-15T15:14:51+00:00",
-      "link": "https://arxiv.org/pdf/2608.15271v1",
-      "tags": [
-        "keyword:es",
-        "query:es"
-      ],
-      "llm_score": 6.0,
-      "llm_evidence_en": "Analyzes how specular reflecting surfaces affect electromagnetic wave gain and signal strength",
-      "llm_evidence_cn": "分析了镜面反射表面对电磁波增益和信号强度的影响",
-      "llm_evidence": "分析了镜面反射表面对电磁波增益和信号强度的影响",
-      "canonical_evidence": "分析了镜面反射表面对电磁波增益和信号强度的影响",
-      "llm_tldr_en": "The paper studies ideal specular reflecting surfaces (SRS) in free space, showing near-field edge reflections cause oscillatory convergence of gain and deriving far-field behavior, revealing physical factors that influence wireless signal strength.",
-      "llm_tldr_cn": "论文针对可重构智能表面过于依赖电路的局限，提出研究机械驱动的镜面反射面(SRS)在自由空间中的电磁传播行为。基于光线级联信道模型，作者发现近场边缘反射会使增益呈振荡收敛，并获得了远场无界行为。该工作揭示了反射面配置如何影响无线信号强度与覆盖，为低成本智能无线环境控制提供了物理依据。",
-      "llm_tldr": "论文针对可重构智能表面过于依赖电路的局限，提出研究机械驱动的镜面反射面(SRS)在自由空间中的电磁传播行为。基于光线级联信道模型，作者发现近场边缘反射会使增益呈振荡收敛，并获得了远场无界行为。该工作揭示了反射面配置如何影响无线信号强度与覆盖，为低成本智能无线环境控制提供了物理依据。",
-      "llm_tags": [
-        "query:es"
-      ],
-      "matched_query_tag": "query:es",
-      "matched_query_text": "factors affecting electromagnetic signal strength",
-      "matched_requirement_id": "req-8",
-      "selection_source": "fresh_fetch",
-      "quick_tier": "6"
-    },
     {
       "id": "2608.15792v1",
       "source": "arxiv",
@@ -482,13 +453,13 @@
         "query:es"
       ],
       "llm_score": 8.0,
-      "llm_evidence_en": "MIMO-OFDM wireless sensing signal processing via tensor decomposition for target parameter estimation",
-      "llm_evidence_cn": "针对MIMO-OFDM无线感知信号的张量分解处理与目标参数估计",
-      "llm_evidence": "针对MIMO-OFDM无线感知信号的张量分解处理与目标参数估计",
-      "canonical_evidence": "针对MIMO-OFDM无线感知信号的张量分解处理与目标参数估计",
-      "llm_tldr_en": "Proposes a flexible spatial-temporal-spectral optimization framework and tensor-decomposition-based approach for MIMO-OFDM integrated sensing and communication, estimating azimuth/elevation angles and other target parameters.",
-      "llm_tldr_cn": "针对6G MIMO-OFDM集成感知与通信系统固定天线与固定时频资源限制感知自由度的问题，提出灵活的时空谱优化框架，并利用张量分解估计目标的方位角、俯仰角等参数。该方法能够从多维电磁测量中高效提取目标信息，提升无线感知能力。研究为电磁信号处理中的多维参数估计提供了新途径，对下一代通信感知一体化系统有重要意义。",
-      "llm_tldr": "针对6G MIMO-OFDM集成感知与通信系统固定天线与固定时频资源限制感知自由度的问题，提出灵活的时空谱优化框架，并利用张量分解估计目标的方位角、俯仰角等参数。该方法能够从多维电磁测量中高效提取目标信息，提升无线感知能力。研究为电磁信号处理中的多维参数估计提供了新途径，对下一代通信感知一体化系统有重要意义。",
+      "llm_evidence_en": "Tensor decomposition-based parameter estimation for MIMO-OFDM ISAC wireless sensing",
+      "llm_evidence_cn": "基于张量分解的MIMO-OFDM ISAC无线感知参数估计",
+      "llm_evidence": "基于张量分解的MIMO-OFDM ISAC无线感知参数估计",
+      "canonical_evidence": "基于张量分解的MIMO-OFDM ISAC无线感知参数估计",
+      "llm_tldr_en": "Proposes a tensor decomposition-based wireless sensing framework for MIMO-OFDM ISAC with flexible spatial-temporal-spectral optimization.",
+      "llm_tldr_cn": "现有MIMO-OFDM ISAC传感受限于固定天线位置和时频资源分配。论文提出灵活的空间-时间-频谱优化框架，用张量分解估计目标的方位角、俯仰角等参数。该方法能提高无线感知自由度，有利于6G通信感知一体化系统的目标参数估计。",
+      "llm_tldr": "现有MIMO-OFDM ISAC传感受限于固定天线位置和时频资源分配。论文提出灵活的空间-时间-频谱优化框架，用张量分解估计目标的方位角、俯仰角等参数。该方法能提高无线感知自由度，有利于6G通信感知一体化系统的目标参数估计。",
       "llm_tags": [
         "query:es"
       ],
@@ -499,36 +470,32 @@
       "quick_tier": "8plus"
     },
     {
-      "id": "2608.16454v1",
+      "id": "2608.15501v1",
       "source": "arxiv",
-      "title": "Self-Supervised Noise2Noise-Enhanced Denoising for Continuous-Scan Air-Plasma THz Spectroscopy",
-      "abstract": "Terahertz time-domain spectroscopy (THz-TDS) based on air-plasma generation and balanced air-biased coherent detection offers gap-free broadband coverage, but individual continuous-scan traces are strongly affected by pulse-to-pulse fluctuations and electronic noise. Reaching a useful signal-to-noise ratio therefore requires averaging multiple traces, which directly increases measurement time. We propose a learned denoising approach that recovers high-quality THz waveforms from as few as one complete continuous delay sweep, referred to here as a single-scan trace. A compact one-dimensional residual U-Net is trained using two complementary strategies: a reference-supervised baseline that maps individual noisy traces to long-average reference waveforms, and a Noise2Noise approach that learns from pairs of independently acquired noisy traces without requiring a clean training target. Averaging the predictions of both models reduces systematic bias and yields a trace-reduction factor of approximately $5.4\\times$ at $K=1$, meaning that one denoised trace achieves the reconstruction accuracy of averaging approximately five raw traces. The Noise2Noise model alone achieves $4.9\\times$, outperforming both the reference-supervised baseline ($4.6\\times$) and classical Wiener filtering ($3.2\\times$). These results show that self-supervised learning from repeated noisy measurements can support faster continuous-scan THz-TDS without hardware modification.",
+      "title": "Target Localization and Self-Calibration in a Multistatic Radar System",
+      "abstract": "Target localization in a multistatic radar system, where multiple receivers cooperate to improve target positioning accuracy, has many applications, including cooperative simultaneous localization and mapping (SLAM) and autonomous robot networks. A key challenge in these applications is the uncertainty in the position and orientation (pose) of the radar receivers due to platform mobility. This work investigates the achievable improvements in both target localization and receiver pose estimation by deriving the Cramer-Rao lower bound (CRLB) for a multistatic radar system performing bistatic range and bearing measurements. We propose an alternating weighted least-squares algorithm that jointly optimizes target and receiver parameters. Monte Carlo simulations demonstrate that the algorithm performance approaches the CRLB for low to moderate noise levels.",
       "authors": [
-        "Adam Umra",
-        "Oways Alsoloh",
-        "Oliver Nagy",
-        "Aydin Sezgin",
-        "Clara Saraceno"
+        "Ahmad Musallam",
+        "Husheng Li"
       ],
       "primary_category": "eess.SP",
       "categories": [
-        "eess.SP",
-        "cs.LG"
+        "eess.SP"
       ],
-      "published": "2026-08-17T11:55:51+00:00",
-      "link": "https://arxiv.org/pdf/2608.16454v1",
+      "published": "2026-08-16T03:06:31+00:00",
+      "link": "https://arxiv.org/pdf/2608.15501v1",
       "tags": [
         "keyword:es",
         "query:es"
       ],
       "llm_score": 7.0,
-      "llm_evidence_en": "learning-based denoising for THz electromagnetic signal processing",
-      "llm_evidence_cn": "基于学习的太赫兹电磁信号去噪处理",
-      "llm_evidence": "基于学习的太赫兹电磁信号去噪处理",
-      "canonical_evidence": "基于学习的太赫兹电磁信号去噪处理",
-      "llm_tldr_en": "Proposes self-supervised Noise2Noise denoising with a 1D residual U-Net to recover high-quality THz waveforms from single-scan traces, reducing measurement time.",
-      "llm_tldr_cn": "针对空气等离子体太赫兹时域光谱中连续扫描单次迹线受脉冲波动和电子噪声严重污染的问题，本文提出基于一维残差U-Net的自监督去噪方法。通过参考监督拟合长时平均和自监督Noise2Noise两种策略训练模型，仅需一次完整扫描即可恢复高信噪比波形，避免了多次平均带来的时间开销。该方法显著提升了太赫兹电磁信号采集效率和光谱测量速度。",
-      "llm_tldr": "针对空气等离子体太赫兹时域光谱中连续扫描单次迹线受脉冲波动和电子噪声严重污染的问题，本文提出基于一维残差U-Net的自监督去噪方法。通过参考监督拟合长时平均和自监督Noise2Noise两种策略训练模型，仅需一次完整扫描即可恢复高信噪比波形，避免了多次平均带来的时间开销。该方法显著提升了太赫兹电磁信号采集效率和光谱测量速度。",
+      "llm_evidence_en": "Multistatic radar signal processing for target localization and self-calibration",
+      "llm_evidence_cn": "多基地雷达信号处理用于目标定位与自校准",
+      "llm_evidence": "多基地雷达信号处理用于目标定位与自校准",
+      "canonical_evidence": "多基地雷达信号处理用于目标定位与自校准",
+      "llm_tldr_en": "This paper derives CRLB and proposes alternating weighted least-squares for joint target localization and receiver pose self-calibration in multistatic radar systems.",
+      "llm_tldr_cn": "针对多基地雷达中接收机位置姿态不确定导致目标定位困难的问题，本文推导了双基地距离和方位测量的克拉美-罗下界，并提出交替加权最小二乘算法联合优化目标和接收机参数。蒙特卡洛仿真验证了算法在提高定位精度和自校准方面的改进。",
+      "llm_tldr": "针对多基地雷达中接收机位置姿态不确定导致目标定位困难的问题，本文推导了双基地距离和方位测量的克拉美-罗下界，并提出交替加权最小二乘算法联合优化目标和接收机参数。蒙特卡洛仿真验证了算法在提高定位精度和自校准方面的改进。",
       "llm_tags": [
         "query:es"
       ],
@@ -539,38 +506,39 @@
       "quick_tier": "7"
     },
     {
-      "id": "2608.15556v1",
+      "id": "2608.15314v1",
       "source": "arxiv",
-      "title": "Robust Beamforming Design for Integrated Sensing and Communications with Mutual Coupling Effect",
-      "abstract": "Integrated sensing and communications (ISAC) is a key technology for next-generation wireless networks, enabling communication and radar sensing over shared spectral and hardware resources. In practical multi-user multiple-input multiple-output (MU-MIMO) ISAC transmitters, however, mutual coupling (MC) between antenna elements distorts the array steering vector and each communication user (CU) channel, so that the sensing beampattern deviates from the desired one and the communication link to each user degrades. To address this limitation, we propose a robust MC-compensated beamforming design that guarantees both the sensing and communication performance of MU-MIMO ISAC transmitters against the residual MC error. We introduce a residual error on the MC matrix, so that a norm-bounded residual error induces both the sensing beampattern uncertainty and the communication channel uncertainty. The transmit covariance is then optimized against the worst-case of each uncertainty, minimizing the worst-case beampattern matching mean-squared error (MSE) for sensing while guaranteeing the signal-to-interference-plus-noise ratio (SINR) for each CU. Each worst-case constraint is converted into a linear matrix inequality, and the problem becomes a convex semidefinite program (SDP). Numerical results show that the proposed robust design attains both a lower sensing beampattern matching MSE and a higher communication SINR than those of the conventional designs, with an advantage that widens as the residual error grows.",
+      "title": "Physics-informed VAE-EVT for Tail Aware Radio Map Prediction",
+      "abstract": "Ultra-reliable low-latency communication (URLLC) requires precise identification of spatial regions where the signal-to-noise ratio (SNR) falls below an outage threshold. In this context, an outage refers to instances in which SNR falls below a specified threshold, which, for URLLC, can be as stringent as the 0.1% quantile of the SNR distribution. Traditional generative radio map models tend to focus on reconstructing average signal levels, often overlooking the low SNR that is crucial for accurate outage prediction. To address this limitation, we introduce a physics- and tail-informed VAE-EVT (variational autoencoder-extreme value theory) framework that distinctly models both the bulk and tail distribution of SNR. Our approach begins with a physics-informed preprocessing stage that extracts deterministic features, including line-of-sight, shadowing, and distance, from the scene geometry. A dual-latent encoder then captures the bulk SNR using a Gaussian mixture and the tail using a generalized Pareto distribution (GPD). By employing a modified variational objective, the model is trained to jointly supervise both regimes, ensuring focused attention on extreme fading events. Evaluated on the RadioMapSeer dataset, our method achieves an SNR RMSE of 4.83 dB in the outage region defined by the low threshold of 0.1% SNR quantile. This significantly outperforms the state-of-the-art GAN-based model, which records an SNR RMSE of 21.90 dB, with the performance gap widening as the outage threshold becomes more stringent.",
       "authors": [
-        "Jieon Maeng",
-        "Kawon Han"
+        "Amanda Sheron Gamage",
+        "Niloofar Mehrnia",
+        "James Gross"
       ],
-      "primary_category": "eess.SP",
+      "primary_category": "cs.AI",
       "categories": [
-        "eess.SP"
+        "cs.AI"
       ],
-      "published": "2026-08-16T06:07:45+00:00",
-      "link": "https://arxiv.org/pdf/2608.15556v1",
+      "published": "2026-08-15T16:41:19+00:00",
+      "link": "https://arxiv.org/pdf/2608.15314v1",
       "tags": [
         "keyword:es",
         "query:es"
       ],
       "llm_score": 6.0,
-      "llm_evidence_en": "robust beamforming for EM sensing against mutual coupling",
-      "llm_evidence_cn": "针对互耦效应的电磁感知鲁棒波束成形",
-      "llm_evidence": "针对互耦效应的电磁感知鲁棒波束成形",
-      "canonical_evidence": "针对互耦效应的电磁感知鲁棒波束成形",
-      "llm_tldr_en": "Proposes a robust mutual-coupling-compensated beamforming design for MU-MIMO ISAC, ensuring sensing and communication performance under residual coupling errors.",
-      "llm_tldr_cn": "针对实际多用户MIMO ISAC发射机中天线互耦导致的感知波束畸变和通信链路退化问题，本文提出了鲁棒的互耦补偿波束成形设计。该方法在存在残余互耦误差的情况下同时保证感知波束和通信链路的性能，并通过优化算法求解。仿真结果表明其能有效提升系统鲁棒性，为集成感知与通信的电磁信号处理提供了可行方案。",
-      "llm_tldr": "针对实际多用户MIMO ISAC发射机中天线互耦导致的感知波束畸变和通信链路退化问题，本文提出了鲁棒的互耦补偿波束成形设计。该方法在存在残余互耦误差的情况下同时保证感知波束和通信链路的性能，并通过优化算法求解。仿真结果表明其能有效提升系统鲁棒性，为集成感知与通信的电磁信号处理提供了可行方案。",
+      "llm_evidence_en": "Tail-aware radio map prediction of SNR outage using physics-informed VAE-EVT",
+      "llm_evidence_cn": "利用物理信息VAE-EVT对信噪比分布尾部进行无线电台图预测，估计中断区域",
+      "llm_evidence": "利用物理信息VAE-EVT对信噪比分布尾部进行无线电台图预测，估计中断区域",
+      "canonical_evidence": "利用物理信息VAE-EVT对信噪比分布尾部进行无线电台图预测，估计中断区域",
+      "llm_tldr_en": "The paper develops a physics- and tail-informed VAE-EVT framework that models both the bulk and tail of SNR distribution for accurate outage-aware radio map prediction in URLLC.",
+      "llm_tldr_cn": "针对URLLC中通信中断预测需要精确估计信噪比低尾部的问题，本文提出物理信息与极值理论结合的VAE-EVT框架，分别对SNR的主体和尾部建模。与传统生成式电台图模型只重建平均信号水平不同，该框架能捕捉0.1%分位以下的极低信噪比。实验表明其可更准确地识别中断区域，为无线电信号覆盖与强度预测提供了新思路。",
+      "llm_tldr": "针对URLLC中通信中断预测需要精确估计信噪比低尾部的问题，本文提出物理信息与极值理论结合的VAE-EVT框架，分别对SNR的主体和尾部建模。与传统生成式电台图模型只重建平均信号水平不同，该框架能捕捉0.1%分位以下的极低信噪比。实验表明其可更准确地识别中断区域，为无线电信号覆盖与强度预测提供了新思路。",
       "llm_tags": [
         "query:es"
       ],
       "matched_query_tag": "query:es",
-      "matched_query_text": "electromagnetic signal processing techniques",
-      "matched_requirement_id": "req-2",
+      "matched_query_text": "factors affecting electromagnetic signal strength",
+      "matched_requirement_id": "req-8",
       "selection_source": "fresh_fetch",
       "quick_tier": "6"
     },
@@ -597,53 +565,49 @@
         "query:es"
       ],
       "llm_score": 8.0,
-      "llm_evidence_en": "Real-world GNSS RF interference dataset collected with receiver modules for detection, waveform classification, and impact characterization",
-      "llm_evidence_cn": "利用接收机模块采集真实GNSS射频干扰数据，用于检测、波形分类与影响表征",
-      "llm_evidence": "利用接收机模块采集真实GNSS射频干扰数据，用于检测、波形分类与影响表征",
-      "canonical_evidence": "利用接收机模块采集真实GNSS射频干扰数据，用于检测、波形分类与影响表征",
-      "llm_tldr_en": "Compiles a real-world GNSS RF interference dataset from two Norwegian test sites, supporting detection, waveform classification, direction-of-arrival inference, and receiver impact estimation under distribution shifts.",
-      "llm_tldr_cn": "针对低成本GNSS干扰机威胁卫星导航的问题，在2025年挪威Jammertest采集了涵盖两个室外测试区的真实射频干扰数据集。数据集包括单天线E1/E5接收机等并行测量，用于波形分类、到达方向推断和接收机性能影响评估，并考察设备、传感器、环境带来的分布偏移。该数据集支撑了多源干扰的稳健检测与表征，为电磁信号监测设备的使用和评估提供了实测基础。",
-      "llm_tldr": "针对低成本GNSS干扰机威胁卫星导航的问题，在2025年挪威Jammertest采集了涵盖两个室外测试区的真实射频干扰数据集。数据集包括单天线E1/E5接收机等并行测量，用于波形分类、到达方向推断和接收机性能影响评估，并考察设备、传感器、环境带来的分布偏移。该数据集支撑了多源干扰的稳健检测与表征，为电磁信号监测设备的使用和评估提供了实测基础。",
+      "llm_evidence_en": "Characterization of GNSS interference signals and their effects on receiver performance",
+      "llm_evidence_cn": "表征GNSS干扰信号特性及其对接收机性能的影响",
+      "llm_evidence": "表征GNSS干扰信号特性及其对接收机性能的影响",
+      "canonical_evidence": "表征GNSS干扰信号特性及其对接收机性能的影响",
+      "llm_tldr_en": "Compiles and analyzes a real-world multi-source GNSS jamming dataset from Jammertest 2025, covering waveform classification, direction-of-arrival, and receiver impact estimation across diverse conditions.",
+      "llm_tldr_cn": "针对低成本GNSS干扰机对卫星定位的威胁，在挪威Jammertest 2025场地采集多天线接收数据，构建真实多源干扰数据集。通过对干扰波形分类、方向到达推断和接收机性能影响估计，揭示跨设备、环境和卫星几何条件下的干扰特征与分布变化，为缓解措施提供实测依据。",
+      "llm_tldr": "针对低成本GNSS干扰机对卫星定位的威胁，在挪威Jammertest 2025场地采集多天线接收数据，构建真实多源干扰数据集。通过对干扰波形分类、方向到达推断和接收机性能影响估计，揭示跨设备、环境和卫星几何条件下的干扰特征与分布变化，为缓解措施提供实测依据。",
       "llm_tags": [
         "query:es"
       ],
       "matched_query_tag": "query:es",
-      "matched_query_text": "how to detect electromagnetic signals using equipment",
-      "matched_requirement_id": "req-7",
+      "matched_query_text": "electromagnetic signal properties and characteristics",
+      "matched_requirement_id": "req-1",
       "selection_source": "fresh_fetch",
       "quick_tier": "8plus"
     },
     {
-      "id": "2608.17122v1",
+      "id": "2608.15556v1",
       "source": "arxiv",
-      "title": "Physically Consistent Channel Modeling and Signal Processing for Reconfigurable Wireless Systems",
-      "abstract": "Reconfigurable antennas are increasingly integrated into multi-antenna communication systems to exploit large apertures while reducing the hardware complexity, energy consumption, and implementation costs of classical massive arrays. Their reconfigurable electromagnetic (EM) properties, including dynamically varying radiation patterns and state-dependent mutual coupling, challenge the fixed-antenna and decoupled-port assumptions of conventional channel models. This motivates a physically consistent framework connecting Maxwell's equations, circuit theory, and information theory. In this tutorial, we develop a unified framework spanning three coupled dimensions: (i) reconfigurable antenna and transceiver architectures, (ii) physically consistent channel modeling, and (iii) physically consistent signal processing. We first establish a taxonomy covering tunable antennas, reconfigurable transceivers, and emerging array architectures, highlighting their reconfiguration mechanisms and hardware-performance trade-offs. We then develop modeling approaches based on Maxwell's equations, wavenumber-domain representations, multiport network theory, and computational electromagnetics, and use them to construct end-to-end channel and noise models that capture near-field propagation, mutual coupling, and circuit-level impairments. Building on these models, we examine architecture-aware channel estimation, beamforming, data detection, and channel decoding, emphasizing how physical structure reshapes algorithm design and performance-complexity trade-offs. Overall, the tutorial treats physical architecture, channel and noise models, and communication algorithms as coupled components of an end-to-end design, providing a unified foundation for physically consistent reconfigurable wireless systems.",
+      "title": "Robust Beamforming Design for Integrated Sensing and Communications with Mutual Coupling Effect",
+      "abstract": "Integrated sensing and communications (ISAC) is a key technology for next-generation wireless networks, enabling communication and radar sensing over shared spectral and hardware resources. In practical multi-user multiple-input multiple-output (MU-MIMO) ISAC transmitters, however, mutual coupling (MC) between antenna elements distorts the array steering vector and each communication user (CU) channel, so that the sensing beampattern deviates from the desired one and the communication link to each user degrades. To address this limitation, we propose a robust MC-compensated beamforming design that guarantees both the sensing and communication performance of MU-MIMO ISAC transmitters against the residual MC error. We introduce a residual error on the MC matrix, so that a norm-bounded residual error induces both the sensing beampattern uncertainty and the communication channel uncertainty. The transmit covariance is then optimized against the worst-case of each uncertainty, minimizing the worst-case beampattern matching mean-squared error (MSE) for sensing while guaranteeing the signal-to-interference-plus-noise ratio (SINR) for each CU. Each worst-case constraint is converted into a linear matrix inequality, and the problem becomes a convex semidefinite program (SDP). Numerical results show that the proposed robust design attains both a lower sensing beampattern matching MSE and a higher communication SINR than those of the conventional designs, with an advantage that widens as the residual error grows.",
       "authors": [
-        "Ahmad Dkhan",
-        "Simon Tarboush",
-        "Hadi Sarieddeen",
-        "Robert W. Heath",
-        "Hakan Bagci",
-        "Tareq Y. Al-Naffouri"
+        "Jieon Maeng",
+        "Kawon Han"
       ],
       "primary_category": "eess.SP",
       "categories": [
         "eess.SP"
       ],
-      "published": "2026-08-17T21:00:31+00:00",
-      "link": "https://arxiv.org/pdf/2608.17122v1",
+      "published": "2026-08-16T06:07:45+00:00",
+      "link": "https://arxiv.org/pdf/2608.15556v1",
       "tags": [
         "keyword:es",
         "query:es"
       ],
       "llm_score": 7.0,
-      "llm_evidence_en": "Physical-consistent EM channel modeling and signal processing framework",
-      "llm_evidence_cn": "物理一致的电磁信道建模与信号处理框架",
-      "llm_evidence": "物理一致的电磁信道建模与信号处理框架",
-      "canonical_evidence": "物理一致的电磁信道建模与信号处理框架",
-      "llm_tldr_en": "Tutorial presenting a unified physically consistent framework for reconfigurable wireless systems, coupling Maxwell's equations, circuit theory, and information theory, with implications for electromagnetic signal characterization and processing.",
-      "llm_tldr_cn": "针对可重构天线带来的动态辐射方向图和状态相关互耦对传统信道模型的挑战，本文提出一个统一框架，将麦克斯韦方程、电路理论与信息理论相结合，构建物理一致的信道建模与信号处理方法。该框架系统阐述了可重构天线与收发机架构、信道建模与信号处理三维度之间的耦合关系，为理解和处理复杂电磁传播特性提供了理论基础，并可直接服务于电磁信号特性分析与处理技术。",
-      "llm_tldr": "针对可重构天线带来的动态辐射方向图和状态相关互耦对传统信道模型的挑战，本文提出一个统一框架，将麦克斯韦方程、电路理论与信息理论相结合，构建物理一致的信道建模与信号处理方法。该框架系统阐述了可重构天线与收发机架构、信道建模与信号处理三维度之间的耦合关系，为理解和处理复杂电磁传播特性提供了理论基础，并可直接服务于电磁信号特性分析与处理技术。",
+      "llm_evidence_en": "Robust beamforming design compensates mutual coupling effect in electromagnetic signal processing",
+      "llm_evidence_cn": "针对互耦效应的鲁棒波束成形设计，属于电磁信号处理技术",
+      "llm_evidence": "针对互耦效应的鲁棒波束成形设计，属于电磁信号处理技术",
+      "canonical_evidence": "针对互耦效应的鲁棒波束成形设计，属于电磁信号处理技术",
+      "llm_tldr_en": "Proposes a robust mutual-coupling-compensated beamforming design for MU-MIMO ISAC transmitters that guarantees the sensing beampattern and per-user communication link against residual mutual coupling error.",
+      "llm_tldr_cn": "针对集成感知与通信（ISAC）中多用户MIMO发射机天线互耦导致波束畸变和通信质量下降的问题，提出一种鲁棒互耦补偿波束成形设计。该方法在残余互耦误差下同时保证感知波束图与用户通信性能，弥补了实际硬件非理想带来的信号失真。该设计对电磁信号处理与阵列感知系统的稳健性提升具有参考意义。",
+      "llm_tldr": "针对集成感知与通信（ISAC）中多用户MIMO发射机天线互耦导致波束畸变和通信质量下降的问题，提出一种鲁棒互耦补偿波束成形设计。该方法在残余互耦误差下同时保证感知波束图与用户通信性能，弥补了实际硬件非理想带来的信号失真。该设计对电磁信号处理与阵列感知系统的稳健性提升具有参考意义。",
       "llm_tags": [
         "query:es"
       ],
@@ -652,6 +616,43 @@
       "matched_requirement_id": "req-2",
       "selection_source": "fresh_fetch",
       "quick_tier": "7"
+    },
+    {
+      "id": "2608.16290v1",
+      "source": "arxiv",
+      "title": "Beamforming and Filter Design for Bistatic ISAC under Known and Unknown Transmit Symbols",
+      "abstract": "This paper investigates the joint design of beamforming and radar receive filters in a multiuser bistatic integrated sensing and communications (ISAC) system, aiming to maximize the minimum radar signal-to-interference-plus-noise ratio (SINR) under communications SINR and transmit power constraints. We consider two scenarios: transmitted signals are either known or unknown at the radar receiver. We develop tractable solutions to the resulting non-convex optimization problems in both cases. For the known-signal case, we derive closed-form radar receive filters and iteratively design beamforming using fractional programming (FP) and successive convex approximation (SCA). For the unknown case, we adopt an alternating optimization (AO) approach to jointly design the beamforming and receive filters. Numerical results demonstrate that, while both approaches achieve comparable performance under per-slot optimization, knowledge of the transmitted symbols provides significant gains in multi-slot processing via coherent integration. Moreover, the proposed ISAC designs perform close to the radar-only benchmark under moderate communication requirements.",
+      "authors": [
+        "Mohammad Hatami",
+        "Nhan Thanh Nguyen",
+        "Markku Juntti"
+      ],
+      "primary_category": "eess.SP",
+      "categories": [
+        "eess.SP"
+      ],
+      "published": "2026-08-17T09:00:17+00:00",
+      "link": "https://arxiv.org/pdf/2608.16290v1",
+      "tags": [
+        "keyword:es",
+        "query:es"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Joint beamforming and receiver filter design for bistatic ISAC radar signals",
+      "llm_evidence_cn": "双基地ISAC系统中波束成形与雷达接收滤波器的联合设计",
+      "llm_evidence": "双基地ISAC系统中波束成形与雷达接收滤波器的联合设计",
+      "canonical_evidence": "双基地ISAC系统中波束成形与雷达接收滤波器的联合设计",
+      "llm_tldr_en": "Presents tractable joint design of beamforming and radar receive filters for bistatic ISAC under known/unknown transmit symbols, maximizing minimum radar SINR via FP, SCA, and alternating optimization.",
+      "llm_tldr_cn": "针对多用户双基地集成感知与通信系统中雷达接收信号处理与通信干扰协调难题，论文研究了在已知或未知发射符号两种情形下，联合优化波束成形和雷达接收滤波器的问题，目标是最大化最小雷达信干噪比。已知符号情形利用分数规划和逐次凸逼近迭代求解，并给出闭合形式接收滤波器；未知符号情形采用交替优化。所提算法在满足通信信干噪比和发射功率约束的同时，显著提升雷达信干噪比，为电磁信号处理中的收发联合设计提供了有效方法。",
+      "llm_tldr": "针对多用户双基地集成感知与通信系统中雷达接收信号处理与通信干扰协调难题，论文研究了在已知或未知发射符号两种情形下，联合优化波束成形和雷达接收滤波器的问题，目标是最大化最小雷达信干噪比。已知符号情形利用分数规划和逐次凸逼近迭代求解，并给出闭合形式接收滤波器；未知符号情形采用交替优化。所提算法在满足通信信干噪比和发射功率约束的同时，显著提升雷达信干噪比，为电磁信号处理中的收发联合设计提供了有效方法。",
+      "llm_tags": [
+        "query:es"
+      ],
+      "matched_query_tag": "query:es",
+      "matched_query_text": "electromagnetic signal processing techniques",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
     },
     {
       "id": "2608.16088v1",
@@ -675,14 +676,125 @@
         "keyword:es",
         "query:es"
       ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Sensing rainfall using sub-6-GHz mobile communication signals via CSI processing",
+      "llm_evidence_cn": "利用sub-6GHz移动通信信号和CSI处理感知降雨",
+      "llm_evidence": "利用sub-6GHz移动通信信号和CSI处理感知降雨",
+      "canonical_evidence": "利用sub-6GHz移动通信信号和CSI处理感知降雨",
+      "llm_tldr_en": "Proposes PMN-RainSense to sense rainfall using mobile CSI dynamics, overcoming attenuation limitations with a spectral-temporal compensation method.",
+      "llm_tldr_cn": "传统雨量计和雷达部署稀疏且成本高，而sub-6GHz频段雨衰不足，无法直接测雨。论文提出PMN-RainSense框架，利用移动通信信道的细粒度CSI动态信息，通过谱时域补偿消除包络定时和相位畸变，实现基于单天线的降雨感知，为环境遥感提供新思路。",
+      "llm_tldr": "传统雨量计和雷达部署稀疏且成本高，而sub-6GHz频段雨衰不足，无法直接测雨。论文提出PMN-RainSense框架，利用移动通信信道的细粒度CSI动态信息，通过谱时域补偿消除包络定时和相位畸变，实现基于单天线的降雨感知，为环境遥感提供新思路。",
+      "llm_tags": [
+        "query:es"
+      ],
+      "matched_query_tag": "query:es",
+      "matched_query_text": "how to detect electromagnetic signals using equipment",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2608.15989v1",
+      "source": "arxiv",
+      "title": "Exact spherical-wave forward model for radio reflection from stratified media",
+      "abstract": "Radio detection of ultra-high energy particles ($\\gtrsim10^{18}$ eV) depends on how broadband radio pulses reflect from natural media boundaries. We extend the spherical-wave (Sommerfeld--Weyl) treatment of a single homogeneous interface to stratified media by replacing the Fresnel coefficient of each plane-wave component with the characteristic-matrix reflection coefficient of a layered medium, evaluated in the local tangent plane on the spherical surface. The calculation reduces to the single-boundary result at machine precision when the layer contrast is removed and agrees with the published spherical-surface calculation to better than $1.1\\%$ at ten HiCal-2 elevation angles, with a mean deviation of $0.6\\%$.   We apply the formalism to shallow firn stacks proposed as explanations for anomalous-polarity ANITA events. For realistic firn contrasts, layering changes the reflected amplitude but does not reverse the pulse polarity over $150$--$850$ MHz for the elevations studied. In a reference $s$-polarized two-layer model, a coefficient sign change requires buried refractive index $n_2\\simeq2.56$, $2.04$, and $1.79$ at local elevations of $8^\\circ$, $15^\\circ$, and $25^\\circ$, respectively. We also test the specular factorization used in fast propagation models, finding $0.2\\%$ agreement with the full angular integral for high-altitude balloon geometries, while near-boundary sources require the full integral. The calculated reflected pulses reproduce the expected polarity inversion in $101$ of $106$ HiCal-1 direct/reflected pulse pairs. Because the medium enters through its complex refractive index, the framework applies to ice, lunar regolith, and conducting media.",
+      "authors": [
+        "Paramita Dasgupta"
+      ],
+      "primary_category": "astro-ph.IM",
+      "categories": [
+        "astro-ph.IM",
+        "astro-ph.HE",
+        "hep-ex",
+        "physics.class-ph",
+        "physics.ins-det"
+      ],
+      "published": "2026-08-17T00:57:32+00:00",
+      "link": "https://arxiv.org/pdf/2608.15989v1",
+      "tags": [
+        "keyword:es",
+        "query:es"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Radio wave reflection model for stratified media; electromagnetic propagation characteristics",
+      "llm_evidence_cn": "分层介质中无线电波反射模型；电磁传播特性",
+      "llm_evidence": "分层介质中无线电波反射模型；电磁传播特性",
+      "canonical_evidence": "分层介质中无线电波反射模型；电磁传播特性",
+      "llm_tldr_en": "Extends spherical-wave reflection model to stratified media for accurate radio detection, matching published results within 1.1%.",
+      "llm_tldr_cn": "超高频宇宙射线粒子探测依赖宽带射电脉冲在自然介质边界上的反射。论文将球面波模型从单一均匀界面推广到分层介质，用特征矩阵反射系数替代菲涅耳系数，并在球面局部切平面评估。数值结果在去除层间对比后可机器精度还原单界面结果，与已发表球面计算结果偏差小于1.1%。该模型为射电探测提供更精确的前向模拟工具。",
+      "llm_tldr": "超高频宇宙射线粒子探测依赖宽带射电脉冲在自然介质边界上的反射。论文将球面波模型从单一均匀界面推广到分层介质，用特征矩阵反射系数替代菲涅耳系数，并在球面局部切平面评估。数值结果在去除层间对比后可机器精度还原单界面结果，与已发表球面计算结果偏差小于1.1%。该模型为射电探测提供更精确的前向模拟工具。",
+      "llm_tags": [
+        "query:es"
+      ],
+      "matched_query_tag": "query:es",
+      "matched_query_text": "electromagnetic signal properties and characteristics",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2608.17344v1",
+      "source": "arxiv",
+      "title": "Inductively Scalable, Single-Step Neural Surrogates for Wave-Scattering Inverse Problems",
+      "abstract": "Neural network surrogates are an emerging alternative to traditional electromagnetic wave simulators like finite-difference time-domain (FDTD); their goal is to replace rigorous physical simulations with pre-trained neural networks that solve wave-scattering forward and inverse problems orders of magnitude faster. However, nonrecurrent, single-step surrogates have scaled only to a few tens of simulation variables. Here, we show that this barrier can be overcome by dynamically generating salient training examples during training, rather than randomly sampling the large space of possible examples. We introduce an algorithm that runs in parallel with surrogate training, using gradient ascent to search refractive-index and source configurations for cases where the surrogate disagrees with a full-wave ground-truth simulator. We also use source and ground-truth normalization with an evolving replay dataset to stabilize and accelerate learning. Using this approach, we train a fast, single-step surrogate for two-dimensional wave scattering with up to 41,772 controllable variables, including dense, freely configurable grids of refractive indices and complex-valued sources. The resulting neural surrogate is robustly accurate across diverse structured and unstructured examples and generalizes inductively to larger domains, reaching over 3 million controllable variables without retraining, a $73.8\\times$ increase. We demonstrate the surrogate on large-scale forward simulations and inverse design of freeform beam splitters and gradient-index (GRIN) lenses up to 98 wavelengths wide, showing comparable or better performance than FDTD-based designs, with speedups from $1.29\\times$ to $26.5\\times$. These results demonstrate a practical path toward fast, robustly accurate, inductively scalable neural simulators for photonic inverse design and other wave-scattering inverse problems.",
+      "authors": [
+        "Charles Dove",
+        "Laura Waller"
+      ],
+      "primary_category": "physics.optics",
+      "categories": [
+        "physics.optics",
+        "cs.AI"
+      ],
+      "published": "2026-08-18T04:07:53+00:00",
+      "link": "https://arxiv.org/pdf/2608.17344v1",
+      "tags": [
+        "keyword:es",
+        "query:es"
+      ],
       "llm_score": 6.0,
-      "llm_evidence_en": "exploits rain-induced dynamics in mobile communication signals to sense rainfall, linking environmental factors to EM signal variation",
-      "llm_evidence_cn": "利用移动通信信号中雨致动态特性感知降雨，关联环境因素与电磁信号变化",
-      "llm_evidence": "利用移动通信信号中雨致动态特性感知降雨，关联环境因素与电磁信号变化",
-      "canonical_evidence": "利用移动通信信号中雨致动态特性感知降雨，关联环境因素与电磁信号变化",
-      "llm_tldr_en": "PMN-RainSense uses sub-6-GHz mobile communication signal dynamics with spectral-temporal CSI compensation for single-antenna rainfall sensing, overcoming attenuation-based limitations and enabling low-cost passive environmental monitoring.",
-      "llm_tldr_cn": "传统雨量计和气象雷达部署稀疏、成本高昂，难以满足广覆盖监测需求。该文提出PMN-RainSense框架，利用sub-6GHz移动通信信号的细粒度动态进行降雨感知，并设计频谱-时间CSI补偿方法抑制分组级失真。与衰减法相比，该方法对微小信号变化更敏感且支持单天线部署，为低成本、大规模环境传感提供了新途径。其部署简便，适合在现有移动网络基础设施上使用。",
-      "llm_tldr": "传统雨量计和气象雷达部署稀疏、成本高昂，难以满足广覆盖监测需求。该文提出PMN-RainSense框架，利用sub-6GHz移动通信信号的细粒度动态进行降雨感知，并设计频谱-时间CSI补偿方法抑制分组级失真。与衰减法相比，该方法对微小信号变化更敏感且支持单天线部署，为低成本、大规模环境传感提供了新途径。其部署简便，适合在现有移动网络基础设施上使用。",
+      "llm_evidence_en": "Uses neural surrogates to solve electromagnetic wave-scattering forward and inverse problems for signal reconstruction",
+      "llm_evidence_cn": "利用神经替代模型求解电磁波散射正逆问题，用于信号重建",
+      "llm_evidence": "利用神经替代模型求解电磁波散射正逆问题，用于信号重建",
+      "canonical_evidence": "利用神经替代模型求解电磁波散射正逆问题，用于信号重建",
+      "llm_tldr_en": "Presents single-step neural surrogates for electromagnetic wave-scattering inverse problems, using dynamically generated salient training examples to scale to larger problem sizes.",
+      "llm_tldr_cn": "针对非递归单步神经替代模型在电磁波散射问题中仅能扩展到少量变量的问题，提出在训练过程中动态生成显著训练样本的算法，利用梯度上升搜索折射率和源配置以指导训练，从而突破扩展性瓶颈，大幅加快正向与逆向波散射问题的求解，为电磁信号重建提供快速替代工具。",
+      "llm_tldr": "针对非递归单步神经替代模型在电磁波散射问题中仅能扩展到少量变量的问题，提出在训练过程中动态生成显著训练样本的算法，利用梯度上升搜索折射率和源配置以指导训练，从而突破扩展性瓶颈，大幅加快正向与逆向波散射问题的求解，为电磁信号重建提供快速替代工具。",
+      "llm_tags": [
+        "query:es"
+      ],
+      "matched_query_tag": "query:es",
+      "matched_query_text": "electromagnetic signal processing techniques",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.16194v1",
+      "source": "arxiv",
+      "title": "Zero-Shot Frequency Generalization for Radio Map Prediction via Cross-Attention Physics-Residual Learning",
+      "abstract": "Deep learning models for radio map prediction are trained and tested at the same carriers and cannot serve unseen frequencies. We propose a two-stream network learning a residual over an analytic prior, fusing environment and physics streams by cross-attention. Evaluated at the query frequency, this free-space and knife-edge prior absorbs dominant frequency scaling of pathloss, leaving a residual that varies little across bands. Across 150 ray-traced scenes and four training carriers (1.8--28 GHz), the method reduces RMSE by 35.3% zero-shot at unseen carriers and scenes, and by 37.6% at extrapolated 60 GHz, outperforming interpolated 10 GHz.",
+      "authors": [
+        "Sajjad Hussain"
+      ],
+      "primary_category": "eess.SP",
+      "categories": [
+        "eess.SP"
+      ],
+      "published": "2026-08-17T07:19:07+00:00",
+      "link": "https://arxiv.org/pdf/2608.16194v1",
+      "tags": [
+        "keyword:es",
+        "query:es"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Radio map prediction models pathloss frequency scaling; cross-attention physics-residual network",
+      "llm_evidence_cn": "无线电地图预测建模路径损耗频率尺度，跨注意力物理残差网络",
+      "llm_evidence": "无线电地图预测建模路径损耗频率尺度，跨注意力物理残差网络",
+      "canonical_evidence": "无线电地图预测建模路径损耗频率尺度，跨注意力物理残差网络",
+      "llm_tldr_en": "Proposes a cross-attention physics-residual network for radio map prediction that generalizes zero-shot to unseen frequencies by learning residual over analytic pathloss prior.",
+      "llm_tldr_cn": "该论文针对深度学习无线电地图预测模型无法推广到未见频率的问题，提出了一种双流网络，在分析先验（自由空间与刃边路径损耗）之上学习残差，并通过跨注意力融合环境与物理特征。该先验吸收了主要的频率尺度效应，使得残差在不同频段变化很小。在150个光线追踪场景和四个训练载波（1.8到28 GHz）上，零样本预测精度比强基线提升35.3% RMSE，外推到60 GHz提升37.6%，超过插值10 GHz。工作揭示了电磁信号强度随频率变化的规律，为信号强度预测提供了更通用的模型。",
+      "llm_tldr": "该论文针对深度学习无线电地图预测模型无法推广到未见频率的问题，提出了一种双流网络，在分析先验（自由空间与刃边路径损耗）之上学习残差，并通过跨注意力融合环境与物理特征。该先验吸收了主要的频率尺度效应，使得残差在不同频段变化很小。在150个光线追踪场景和四个训练载波（1.8到28 GHz）上，零样本预测精度比强基线提升35.3% RMSE，外推到60 GHz提升37.6%，超过插值10 GHz。工作揭示了电磁信号强度随频率变化的规律，为信号强度预测提供了更通用的模型。",
       "llm_tags": [
         "query:es"
       ],
@@ -690,7 +802,7 @@
       "matched_query_text": "factors affecting electromagnetic signal strength",
       "matched_requirement_id": "req-8",
       "selection_source": "fresh_fetch",
-      "quick_tier": "6"
+      "quick_tier": "8plus"
     },
     {
       "id": "2608.16151v1",
@@ -717,58 +829,20 @@
         "keyword:es",
         "query:es"
       ],
-      "llm_score": 8.0,
-      "llm_evidence_en": "FPGA-based signal acquisition unit with ADC/DAC and pulse generator",
-      "llm_evidence_cn": "基于FPGA的ADC/DAC与脉冲发生器的信号采集单元",
-      "llm_evidence": "基于FPGA的ADC/DAC与脉冲发生器的信号采集单元",
-      "canonical_evidence": "基于FPGA的ADC/DAC与脉冲发生器的信号采集单元",
-      "llm_tldr_en": "Presents a single PCIe card combining a 16-bit DAC, 14-bit ADC, and 11-channel pulse generator with custom firmware and Python API for pulsed EPR spectroscopy, enabling parallel data streaming during experiments.",
-      "llm_tldr_cn": "针对脉冲电子顺磁共振实验对高集成度数据采集与脉冲控制的需求，本文提出一种基于FPGA的三合一硬件单元，在一块PCIe卡上集成了16位DAC、14位ADC和11通道脉冲发生器。自定义固件可在实验运行中并行刷新脉冲序列与DAC缓冲并流式传输数字化数据，避免输入输出等待。该单元已集成到开源Atomize软件中，并通过Python API控制，为科学实验中的电磁信号采集系统设计提供了高效范例。",
-      "llm_tldr": "针对脉冲电子顺磁共振实验对高集成度数据采集与脉冲控制的需求，本文提出一种基于FPGA的三合一硬件单元，在一块PCIe卡上集成了16位DAC、14位ADC和11通道脉冲发生器。自定义固件可在实验运行中并行刷新脉冲序列与DAC缓冲并流式传输数字化数据，避免输入输出等待。该单元已集成到开源Atomize软件中，并通过Python API控制，为科学实验中的电磁信号采集系统设计提供了高效范例。",
+      "llm_score": 7.0,
+      "llm_evidence_en": "FPGA-based unit with ADC, DAC, pulse generator for pulsed EPR spectroscopy",
+      "llm_evidence_cn": "用于脉冲EPR谱学的FPGA单元，集成ADC、DAC和脉冲发生器",
+      "llm_evidence": "用于脉冲EPR谱学的FPGA单元，集成ADC、DAC和脉冲发生器",
+      "canonical_evidence": "用于脉冲EPR谱学的FPGA单元，集成ADC、DAC和脉冲发生器",
+      "llm_tldr_en": "A PCIe card combining a 10 GS/s DAC, 2.5 GS/s ADC, and 11-channel pulse generator provides a continuous high-throughput acquisition and generation system for pulsed EPR spectroscopy, controlled by Python API.",
+      "llm_tldr_cn": "该论文针对脉冲电子顺磁共振谱学中数据采集与脉冲时序生成需同步的问题，设计了一款基于FPGA的3合1硬件单元，在一块PCIe卡上集成了16位10 GS/s DAC、14位2.5 GS/s ADC和11通道脉冲发生器。自定义固件支持在实验进行的同时并行更新脉冲与DAC缓冲并流式传输数字化数据，消除了输入输出的时间浪费。该单元集成到开源Atomize软件，可通过Python API控制。基准测试表明其能高效支撑脉冲EPR实验，为电磁微波信号的采集与发生提供了一种通用可重构的高速硬件方案。",
+      "llm_tldr": "该论文针对脉冲电子顺磁共振谱学中数据采集与脉冲时序生成需同步的问题，设计了一款基于FPGA的3合1硬件单元，在一块PCIe卡上集成了16位10 GS/s DAC、14位2.5 GS/s ADC和11通道脉冲发生器。自定义固件支持在实验进行的同时并行更新脉冲与DAC缓冲并流式传输数字化数据，消除了输入输出的时间浪费。该单元集成到开源Atomize软件，可通过Python API控制。基准测试表明其能高效支撑脉冲EPR实验，为电磁微波信号的采集与发生提供了一种通用可重构的高速硬件方案。",
       "llm_tags": [
         "query:es"
       ],
       "matched_query_tag": "query:es",
       "matched_query_text": "signal acquisition system design for electromagnetic and geomagnetic",
       "matched_requirement_id": "req-5",
-      "selection_source": "fresh_fetch",
-      "quick_tier": "8plus"
-    },
-    {
-      "id": "2608.17216v1",
-      "source": "arxiv",
-      "title": "Multi-Tag Collision Recovery in UHF-RFID Using Self-Attention Decoding",
-      "abstract": "Passive ultra high frequency (UHF) radio frequency identification (RFID) enables battery-free tags to communicate with a reader through backscatter. When multiple tags respond in the same time slot, their waveforms overlap at the reader, and a conventional reader that follows framed slotted ALOHA (FSA) discards the resulting collided slot. This limits the throughput of the overall protocol even though the received signal still contains recoverable information about the responding tags. To address this limitation, we propose Self-Attention Tag Recovery (SATR), a transformer-based decoding algorithm that operates directly on the baseband in-phase and quadrature (I/Q) samples received during a standard tag response. SATR uses self-attention to model the temporal structure of the modulated waveform and learns candidate tag representations. It jointly estimates the number of responding tags and, more importantly, decodes the bit sequence of each detected tag. We numerically evaluate the decoding and throughput performance of SATR over a range of collision sizes and recovery configurations, and validate it with measurements of commercial UHF-RFID tags. The results show that, with proper design and training, SATR can reliably decode collisions of up to four tags. It achieves a throughput of approximately $0.815$ tags per slot under single acknowledgment and $1.87$ tags per slot under full recovery, corresponding to $2.2$ and $5.1$ times the conventional FSA limit of $1/e \\approx 0.368$ tags per slot, while approaching optimal decoding performance and outperforming existing collision recovery methods.",
-      "authors": [
-        "Talha Akyildiz",
-        "Siva Aditya Gooty",
-        "Hessam Mahdavifar",
-        "Najme Ebrahimi"
-      ],
-      "primary_category": "eess.SP",
-      "categories": [
-        "eess.SP"
-      ],
-      "published": "2026-08-17T23:59:46+00:00",
-      "link": "https://arxiv.org/pdf/2608.17216v1",
-      "tags": [
-        "keyword:es",
-        "query:es"
-      ],
-      "llm_score": 7.0,
-      "llm_evidence_en": "Signal processing technique to recover overlapping backscatter waveforms from collided RFID tag signals",
-      "llm_evidence_cn": "用于恢复RFID标签碰撞叠加波形的信号处理技术",
-      "llm_evidence": "用于恢复RFID标签碰撞叠加波形的信号处理技术",
-      "canonical_evidence": "用于恢复RFID标签碰撞叠加波形的信号处理技术",
-      "llm_tldr_en": "The paper presents SATR, a transformer-based decoder that processes baseband I/Q samples of collided UHF-RFID tag responses, using self-attention to recover tag data from overlapping waveforms and increase system throughput.",
-      "llm_tldr_cn": "无源UHF RFID多标签同时响应时会产生碰撞，传统时隙ALOHA直接丢弃碰撞槽位，浪费可恢复信息。论文提出基于Transformer的自注意力标签恢复算法(SATR)，直接对标准标签响应的基带I/Q采样进行解码。通过自注意力建模标签间波形交叠关系，SATR能够从碰撞信号中恢复多个标签的数据，提高RFID系统整体吞吐率。这为电磁信号碰撞处理提供了一种深度学习方法。",
-      "llm_tldr": "无源UHF RFID多标签同时响应时会产生碰撞，传统时隙ALOHA直接丢弃碰撞槽位，浪费可恢复信息。论文提出基于Transformer的自注意力标签恢复算法(SATR)，直接对标准标签响应的基带I/Q采样进行解码。通过自注意力建模标签间波形交叠关系，SATR能够从碰撞信号中恢复多个标签的数据，提高RFID系统整体吞吐率。这为电磁信号碰撞处理提供了一种深度学习方法。",
-      "llm_tags": [
-        "query:es"
-      ],
-      "matched_query_tag": "query:es",
-      "matched_query_text": "electromagnetic signal processing techniques",
-      "matched_requirement_id": "req-2",
       "selection_source": "fresh_fetch",
       "quick_tier": "7"
     }
